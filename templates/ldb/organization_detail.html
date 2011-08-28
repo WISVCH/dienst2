@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load ldb_tags %}
+
+{% block content %}
+<div id="entity_detail">
+<h2>{{ organization }}</h2>
+<div id="links">
+<a href="./edit/">Edit</a>
+<a href="./delete/">Delete</a>
+<a href="/admin/ldb/organization/{{ organization.id }}/">Admin</a>
+</div>
+
+<div id="col1">
+<h3>Algemeen</h3>
+<p>
+{{ organization.name_prefix }}<br/>
+{{ organization.name }}
+({{ organization.name_short }})
+</p>
+<p>
+Aanhef: {{ organization.salutation }}
+</p>
+
+<p>{% include "ldb/entity_address.html" with entity=organization %}</p>
+
+{% if organization.email %}
+    <p><a href="mailto:{{ organization.email }}">{{ organization.email }}</a></p>
+{% endif %}
+
+<table>
+    {% trow organization 'phone_fixed' %}
+</table>
+
+
+<h3>Opmerkingen</h3>
+{{ organization.comment|linebreaksbr }}
+</div>
+
+<div id="col2">
+<h3>Aanmeldingen</h3>
+<table>
+    {% trow_janee organization 'machazine' %}
+    {% trow_janee organization 'constitution_card' %}
+    {% trow_janee organization 'christmas_card' %}
+    {% trow_janee organization 'board_invites' %}
+    {% trow_janee organization 'yearbook' %}
+</table>
+</div>
+<br style="clear: both">
+</div>
+{% endblock %}

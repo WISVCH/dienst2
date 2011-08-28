@@ -1,0 +1,29 @@
+Generic class-based views with forms:
+http://haineault.com/blog/155/
+https://code.djangoproject.com/ticket/16215
+https://code.djangoproject.com/ticket/16256
+
+Nested inlines:
+https://code.djangoproject.com/ticket/9025
+
+Forms:
+https://bitbucket.org/carljm/django-form-utils/
+https://github.com/pydanny/django-uni-form3
+https://code.djangoproject.com/wiki/ImprovementsForDjangoForms
+https://code.djangoproject.com/wiki/TemplatedForm
+https://code.djangoproject.com/ticket/6630
+
+Inline formsets:
+https://code.djangoproject.com/ticket/15574
+https://code.djangoproject.com/ticket/14642
+https://code.djangoproject.com/ticket/11313
+
+Other:
+https://code.djangoproject.com/wiki/BetterErrorMessages
+
+Workaround for importing:
+(AttributeError: 'module' object has no attribute 'Person')
+Temporarily rename/move away ldb/search_indexes.py
+
+Known issues:
+- No realtime indexing

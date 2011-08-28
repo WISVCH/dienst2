@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load ldb_tags %}
+
+{% block content %}
+
+    <p>Are you sure that you would like to delete this person?</p>
+    <div id="person_preview">{{ person }}</div>
+    <ul>
+    <form method="POST" action=".">
+	    {% csrf_token %}
+        <li><input type="submit" value="Yes" /></li>
+    </form>
+    <li><a href="{{ person.get_absolute_url }}">No</a></li>
+    </ul>
+{% endblock %}

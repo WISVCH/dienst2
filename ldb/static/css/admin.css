@@ -1,0 +1,11 @@
+#header {
+    background: #FF9900;
+}
+
+td.original p {
+  display: none;
+}
+
+.inline-group .tabular tr.has_original td {
+    padding-top: 0 !important;
+}

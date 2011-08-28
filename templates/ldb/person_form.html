@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% load ldb_tags %}
+
+{% block content %}
+<div id="entity_form">
+{% if person %}
+<h2>Bewerk {{ person }}</h2>
+{% else %}
+<h2>Persoon aanmaken</h2>
+{% endif %}
+
+{% if form.errors %}
+    <p style="color: red;">
+        Please correct the error{{ form.errors|pluralize }} below.
+    </p>
+{% endif %}
+
+<form action="" method="post">
+    {% csrf_token %}
+    {% if form.non_field_errors %}{{ form.non_field_errors }}{% endif %}
+
+    <div id="col1">
+        <h3>Algemeen</h3>
+        <h4>Naam</h4>
+        <table>
+            {% get_fieldset titles,initials,firstname,preposition,surname,postfix_titles as name_fields from form %}
+            {{ name_fields.as_table }}
+        </table>
+        <h4>Adres</h4>
+        <table>
+            {% get_fieldset street_name,house_number,postcode,address_2,address_3,city,country,email,living_with as address_fields from form %}
+            {{ address_fields.as_table }}
+        </table>
+        <h4>Telefoon</h4>
+        <table>
+            {% get_fieldset phone_fixed,phone_mobile as phone_fields from form %}
+            {{ phone_fields.as_table }}
+        </table>
+        <h4>Overige</h4>
+        <table>
+            {% get_fieldset gender,birthdate,deceased,ldap_username,comment as other_fields from form %}
+            {{ other_fields.as_table }}
+        </table>
+
+        <h3>Commissies</h3>
+        <table>
+            {{ committeemembership_formset.management_form }}
+            {% for form in committeemembership_formset.forms %}
+              {% if forloop.first %}
+              <thead><tr>
+                <th>Commissie</th>
+                <th style="width: 2em">Jaar</th>
+                <th>Functie</th>
+                <th style="width: 2em">RAS</th>
+                <th style="width: 1em">╳</th>
+              </tr></thead>
+              {% endif %}
+              <tr>
+              {% for field in form.visible_fields %}
+                <td>
+                {# Include the hidden fields in the form #}
+                {% if forloop.first %}
+                  {% for hidden in form.hidden_fields %}
+                  {{ hidden }}
+                  {% endfor %}
+                {% endif %}
+                  {{ field.errors.as_ul }}
+                  {{ field }}
+                </td>
+              {% endfor %}
+              </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <div id="col2">
+        <h3>Aanmeldingen</h3>
+        <table>
+            {% get_fieldset machazine,board_invites,constitution_card,christmas_card,yearbook,mail_announcements,mail_company as subscription_fields from form %}
+            {{ subscription_fields.as_table }}
+        </table>
+        <h3>Lidmaatschap</h3>
+        <table>
+            {{ member_formset.as_table }}
+        </table>
+        <h3>Student</h3>
+        <table>
+            {{ student_formset.as_table }}
+        </table>
+        <h3>Alumnus</h3>
+        <table>
+            {{ alumnus_formset.as_table }}
+        </table>
+        <h3>Medewerker</h3>
+        <table>
+            {{ employee_formset.as_table }}
+        </table>
+    </div>
+    <br style="clear: both"/>
+    <input type="submit" value="Submit">
+</form>
+</div>
+
+{% endblock %}

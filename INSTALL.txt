@@ -1,0 +1,8 @@
+apt-get install python-pip
+apt-get install python-mysqldb python-psycopg2 python-ldap
+pip install django django-reversion django-form-utils django-auth-ldap
+
+git clone https://github.com/tomchristie/django-rest-framework.git
+cd django-rest-framework
+vim djangorestframework/__init__.py
+python setup.py easy_install .

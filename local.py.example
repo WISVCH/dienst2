@@ -1,0 +1,29 @@
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'dienst2',
+        'USER': 'mark',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '',
+    }
+}
+
+# Make this unique, and don't share it with anybody.
+SECRET_KEY = '^(h^15l!5nyk+(-r1dgxfj%l=jz#!6=_j35lc(-6eo_*vvok6h'
+
+TEMPLATE_DEBUG = DEBUG = True
+
+# Absolute path to the directory static files should be collected to.
+# Don't put anything in this directory yourself; store your static files
+# in apps' "static/" subdirectories and in STATICFILES_DIRS.
+# Example: "/home/media/media.lawrence.com/static/"
+STATIC_ROOT = '/…/static/'
+
+HAYSTACK_WHOOSH_PATH = '/tmp/ldb/whoosh'
+
+import logging
+
+logger = logging.getLogger('django_auth_ldap')
+logger.addHandler(logging.StreamHandler())
+logger.setLevel(logging.DEBUG)

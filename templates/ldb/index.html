@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block extra_js %}
+<script type="text/javascript">
+$( document ).ready( function() {
+	$('#q').keyup( function() {
+		q = $('#q').val();
+		if (q)
+			$('#results').html('&nbsp;').load('{% url ldb_people_search %}?q=' + encodeURIComponent(q));
+		else
+			$('#results').html('&nbsp;');
+	});
+	$('#q').focus()
+	$('#q').keyup()
+});
+
+$( document ).ajaxStart( function() {
+	$('#spinner').show();
+}).ajaxStop( function() {
+	$('#spinner').hide();
+});
+</script>
+{% endblock %}
+
+{% block content %}
+<div>
+	<input id="q" type="text" style="width: 100%" autocomplete="off" />
+	<br/>
+	<span class="hint">Type in a query string to search.</span>
+	<div class="margin">
+		<span id="spinner"><img src="{{ STATIC_URL }}images/spinner.gif"/></span>
+		<div id="results"></div>
+	</div>
+</div>
+{% endblock %}

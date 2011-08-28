@@ -1,0 +1,45 @@
+{% if count %}
+    <table class="collection">
+    <tr class='even'>
+        <td colspan="2" class="right">
+        <strong>{{ count }} results</strong>
+        </td>
+    </tr>
+    {% for result in results %}
+        {% if result.object %}
+        <tr class="{% cycle 'odd' 'even' %}">
+            <td>
+                <a href="{{ result.object.get_absolute_url }}">
+                {{ result.object }}
+                {% if result.content_type == "ldb.organization" %}
+                    <em style="color: #888">Organization</em>
+                {% endif %}
+                <br/>
+                <span class="hint">
+                    {% if result.object.entity_ptr.country %}
+                        {{ result.object.entity_ptr }}
+                    {% else %}
+                        <em>No address available</em>
+                    {% endif %}
+                </span>
+                </a>
+            </td>
+            <td class="right">
+                <span class="hint">
+                {{ result.object.ldap_username }}
+                </span>
+            </td>
+        </tr>
+        {% else %}
+        <tr class="{% cycle 'odd' 'even' %}">
+            <td colspan="2">&lt; Deleted object &gt;</td>
+        </tr>
+        {% endif %}
+    {% endfor %}
+    </table>
+{% else %}
+    <div class="note">
+    Your search yielded no results<br/>
+    Suggestion: {{ suggestion }}
+    </div>
+{% endif %}

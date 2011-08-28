@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Ledenadministratie</title>
+		<link href="{% get_static_prefix %}css/style.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="{% get_static_prefix %}js/jquery.min.js"></script>
+		{% block extra_js %}{% endblock %}
+	</head>
+	
+	<body>
+		<div id="centered">
+			<div id="menu">
+				<ul>
+					<li>
+						<a href="/">Personen</a>
+						<ul>
+							<li><a href="/">Zoeken</a></li>
+							<li><a href="/people/create/">Toevoegen</a></li>
+							<li><a href="#">Mailinglijst</a></li>
+						</ul>
+					</li>
+					<li>
+						<a href="/dienst/dagoverzicht.php">Kas</a>
+						<ul>
+							<li><a href="/dienst/transacties.php">Transacties</a></li>
+							<li><a href="/dienst/dagafsluiting.php">Dagafsluiting</a></li>
+						</ul>
+					</li>
+					<li><a href="/admin">Admin</a></li>
+				</ul>
+			</div>
+	        <h1 id="site-name">Ledenadministratie</h1>
+			{% block content %}{% endblock %}
+		</div>
+	</body>
+</html>
