@@ -7,7 +7,7 @@
 <div id="links">
 <a href="./edit/">Edit</a>
 <a href="./delete/">Delete</a>
-<a href="/admin/ldb/person/{{ person.id }}/">Admin</a>
+<a href="{% url admin:ldb_person_change person.id %}">Admin</a>
 </div>
 
 <div id="col1">
