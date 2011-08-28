@@ -41,16 +41,6 @@ MEDIA_ROOT = ''
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
 MEDIA_URL = ''
 
-# URL prefix for static files.
-# Example: "http://media.lawrence.com/static/"
-STATIC_URL = '/static/'
-
-# URL prefix for admin static files -- CSS, JavaScript and images.
-# Make sure to use a trailing slash.
-# Examples: "http://foo.com/static/admin/", "/static/admin/".
-#ADMIN_MEDIA_PREFIX = STATIC_URL + "grappelli/"
-ADMIN_MEDIA_PREFIX = STATIC_URL + "admin/"
-
 # Additional locations of static files
 STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
@@ -122,7 +112,7 @@ AUTH_LDAP_REQUIRE_GROUP = "cn=dienst2,ou=Overig,ou=Group,dc=ank,dc=chnet"
 
 AUTH_LDAP_USER_FLAGS_BY_GROUP = {
     "is_active": "cn=bestuur,ou=Besturen,ou=Group,dc=ank,dc=chnet",
-    "is_staff": "cn=secretaris,ou=Besturen,ou=Group,dc=ank,dc=chnet",
+    "is_staff": "cn=secretaris,ou=Group,dc=ank,dc=chnet",
     "is_superuser": "cn=secretaris,ou=Group,dc=ank,dc=chnet"
 }
 

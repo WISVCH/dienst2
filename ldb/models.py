@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.db import models
-from dienst2.ldb import country_field
+from country_field import CountryField
 from datetime import date
 from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import ValidationError
@@ -23,7 +23,7 @@ class Entity(models.Model):
     address_3         = models.CharField(_('address row 3'), max_length=75, blank=True)
     postcode          = models.CharField(_('postcode'), max_length=10, blank=True)
     city              = models.CharField(_('city'), max_length=50, blank=True)
-    country           = country_field.CountryField(_('country'), default='NL', blank=True)
+    country           = CountryField(_('country'), default='NL', blank=True)
     email             = models.EmailField(_('e-mail'), blank=True)
     
     # Telephone
