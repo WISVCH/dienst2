@@ -19,9 +19,9 @@ import datetime
 
 import MySQLdb, MySQLdb.cursors
 
-conn = MySQLdb.connect(host   = "localhost",
-                       user   = "mark",
-                       passwd = "trololo",
+conn = MySQLdb.connect(host   = LEDEN48_HOST,
+                       user   = LEDEN48_USER,
+                       passwd = LEDEN48_PASSWORD,
                        db     = "leden48",
                        cursorclass=MySQLdb.cursors.DictCursor,
                        use_unicode=True)
