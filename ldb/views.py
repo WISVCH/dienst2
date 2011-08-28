@@ -1,5 +1,5 @@
 from django.http import Http404, HttpResponse, HttpResponseRedirect
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.core.urlresolvers import reverse
 from django.views.generic import DetailView, UpdateView, DeleteView
 from django.template.context import RequestContext
@@ -139,3 +139,5 @@ def ajax_people_search(request):
             data       = {'results': results[:10], 'count': len(results)}
             return render_to_response( template, data,
                                        context_instance = RequestContext(request))
+    else:
+        return redirect('index')

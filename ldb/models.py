@@ -75,8 +75,9 @@ class Organization(Entity):
     name_short  = models.CharField(_('name short'), max_length=100, blank=True)
     salutation  = models.CharField(_('salutation'), max_length=100)
     
+    @models.permalink
     def get_absolute_url(self):
-        return "/organizations/%i/" % self.id
+        return ('ldb_organizations_detail', [str(self.id)])
     def __unicode__(self):
         return unicode(self.name)
 
@@ -180,8 +181,11 @@ class Person(Entity):
                     other.country      = self.country
                     other.save()
         self.__original_living_with = self.living_with
+
+
+    @models.permalink
     def get_absolute_url(self):
-        return "/people/%i/" % self.id
+            return ('ldb_people_detail', [str(self.id)])
 
     def __unicode__(self):
         return u'%s, %s %s%s' % (self.surname, self.firstname, self.preposition, u' ✝' if self.deceased else '')
