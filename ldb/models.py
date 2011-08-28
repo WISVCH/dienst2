@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.db import models
-from ledendb.ldb import country_field
+from dienst2.ldb import country_field
 from datetime import date
 from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import ValidationError
