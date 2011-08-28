@@ -11,7 +11,7 @@ class RequireLoginMiddleware(object):
     http://stackoverflow.com/questions/2164069/best-way-to-make-djangos-login-required-the-default
     """
     def __init__(self):
-        self.require_login_path = getattr(settings, 'REQUIRE_LOGIN_PATH', '/accounts/login/')
+        self.require_login_path = getattr(settings, 'LOGIN_URL', '/accounts/login/')
     
     def process_request(self, request):
         if request.path != self.require_login_path and request.user.is_anonymous():
