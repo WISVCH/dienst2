@@ -13,21 +13,21 @@
 			<div id="menu">
 				<ul>
 					<li>
-						<a href="/">Personen</a>
+						<a href="{% url index %}">Personen</a>
 						<ul>
-							<li><a href="/">Zoeken</a></li>
-							<li><a href="/people/create/">Toevoegen</a></li>
+							<li><a href="{% url index %}">Zoeken</a></li>
+							<li><a href="{% url ldb_people_create %}">Toevoegen</a></li>
 							<li><a href="#">Mailinglijst</a></li>
 						</ul>
 					</li>
 					<li>
-						<a href="/dienst/dagoverzicht.php">Kas</a>
+						<a href="https://frans.chnet/dienst/dagoverzicht.php">Kas</a>
 						<ul>
-							<li><a href="/dienst/transacties.php">Transacties</a></li>
-							<li><a href="/dienst/dagafsluiting.php">Dagafsluiting</a></li>
+							<li><a href="https://frans.chnet/dienst/transacties.php">Transacties</a></li>
+							<li><a href="https://frans.chnet/dienst/dagafsluiting.php">Dagafsluiting</a></li>
 						</ul>
 					</li>
-					<li><a href="/admin">Admin</a></li>
+					<li><a href="{% url admin:index %}">Admin</a></li>
 				</ul>
 			</div>
 	        <h1 id="site-name">Ledenadministratie</h1>

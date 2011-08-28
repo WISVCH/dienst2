@@ -23,7 +23,7 @@ https://code.djangoproject.com/wiki/BetterErrorMessages
 
 Workaround for importing:
 (AttributeError: 'module' object has no attribute 'Person')
-Temporarily rename/move away ldb/search_indexes.py
+Temporarily move away ldb/search_indexes.py
 
 Known issues:
 - No realtime indexing

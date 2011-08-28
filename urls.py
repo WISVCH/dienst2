@@ -10,7 +10,7 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    url( r'^$', index, name='ldb_index' ),
+    url( r'^$', index, name='index'),
     
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
@@ -22,7 +22,7 @@ urlpatterns = patterns('',
     url(r'^people/(?P<pk>\d+)/$', PersonDetailView.as_view(), name='ldb_people_detail'),
     url(r'^people/(?P<pk>\d+)/delete/$', PersonDeleteView.as_view(), name='ldb_people_delete'),
     url(r'^people/(?P<pk>\d+)/edit/$', person_edit),
-    url(r'^people/create/$', person_edit),
+    url(r'^people/create/$', person_edit, name='ldb_people_create'),
 
     url(r'^organizations/(?P<pk>\d+)/$', OrganizationDetailView.as_view(), name='ldb_organizations_detail'),
     url(r'^organizations/(?P<pk>\d+)/delete/$', OrganizationDeleteView.as_view(), name='ldb_organizations_delete'),
