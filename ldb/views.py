@@ -135,7 +135,7 @@ def ajax_people_search(request):
         if q is not None:
             results    = SearchQuerySet().auto_query(q)
             # suggestion = results.spelling_suggestion()
-            template   = 'results.html'
+            template   = 'ldb/results.html'
             data       = {'results': results[:10], 'count': len(results)}
             return render_to_response( template, data,
                                        context_instance = RequestContext(request))

@@ -15,11 +15,11 @@ def janee(value):
     else:
     	return 'Nee'
 
-@register.inclusion_tag('trow.html')
+@register.inclusion_tag('ldb/trow.html')
 def trow(o, k):
     return {'key': _(capfirst(o._meta.get_field(k).verbose_name)), 'value': getattr(o, k)}
 
-@register.inclusion_tag('trow.html')
+@register.inclusion_tag('ldb/trow.html')
 def trow_janee(o, k):
     return {'key': _(capfirst(o._meta.get_field(k).verbose_name)), 'value': janee(getattr(o, k))}
 
