@@ -22,13 +22,19 @@ STATIC_ROOT = '/…/static/'
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
-STATIC_URL = '/static/'
+STATIC_URL = '/dienst2/static/'
 ADMIN_MEDIA_PREFIX = STATIC_URL + "admin/"
 
-HAYSTACK_WHOOSH_PATH = '/tmp/ldb/whoosh'
+LOGIN_URL = '/dienst2/accounts/login/'
+
+HAYSTACK_WHOOSH_PATH = '/home/markj/dienst2/search_index'
 
 import logging
 
 logger = logging.getLogger('django_auth_ldap')
 logger.addHandler(logging.StreamHandler())
 logger.setLevel(logging.DEBUG)
+
+LEDEN48_HOST = ''
+LEDEN48_USER = ''
+LEDEN48_PASSWORD = ''
