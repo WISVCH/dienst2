@@ -2,14 +2,14 @@
 
 {% block extra_js %}
 <script type="text/javascript">
-var selected = 0;
+var selected = -1;
 var q;
 var xhr;
 
 $(document).ready( function() {
     $('#q').keyup( function() {
         if (q != $('#q').val()) {
-            selected = 0;
+            selected = -1;
             q = $('#q').val();
             if (q) {
                 location.hash = q;
@@ -31,9 +31,9 @@ $(document).ready( function() {
 });
 
 $(document).keyup(function(e){
-    var table = $('#results table tr');
+    var table = $('#results table tr.resultrow');
     
-    if (table.size() > 1) {
+    if (table.size() > 0) {
         if (e.which == 40) {
             $(table[selected]).removeClass('selected');
             selected = wraparound(selected, 1, table.size());
@@ -52,11 +52,11 @@ $(document).keyup(function(e){
 
 function wraparound(i, delta, max) {
     i += delta;
-    if (i > max) {
-        i = 1;
+    if (i >= max) {
+        i = 0;
     }
-    else if (i < 1) {
-        i = max;
+    else if (i < 0) {
+        i = max-1;
     }
     return i;
 }
@@ -66,7 +66,7 @@ $( document ).ajaxStart( function() {
 }).ajaxStop( function() {
     $('#spinner').hide();
     
-    var table = $('#results table tr');
+    var table = $('#results table tr.resultrow');
     table.mouseover( function() {
         $(table[selected]).removeClass('selected');
         selected = table.index(this);

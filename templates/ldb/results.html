@@ -7,7 +7,7 @@
     </tr>
     {% for result in results %}
         {% if result.object %}
-        <tr class="{% cycle 'odd' 'even' %}">
+        <tr class="{% cycle 'odd' 'even' %} resultrow">
             <td>
                 <a href="{{ result.object.get_absolute_url }}">
                 {{ result.object }}
@@ -36,10 +36,15 @@
         </tr>
         {% endif %}
     {% endfor %}
+        {% if remainder > 0 %}
+        
+        <tr class="{% cycle 'odd' 'even' %} remainder">
+            <td colspan="2">{{ remainder }} more results</td>
+        </tr>
+        {% endif %}
     </table>
 {% else %}
     <div class="note">
     Your search yielded no results<br/>
-    Suggestion: {{ suggestion }}
     </div>
 {% endif %}
