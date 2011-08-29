@@ -2,34 +2,81 @@
 
 {% block extra_js %}
 <script type="text/javascript">
-$( document ).ready( function() {
-	$('#q').keyup( function() {
-		q = $('#q').val();
-		if (q)
-			$('#results').html('&nbsp;').load('{% url ldb_people_search %}?q=' + encodeURIComponent(q));
-		else
-			$('#results').html('&nbsp;');
-	});
-	$('#q').focus()
-	$('#q').keyup()
+var selected = 0;
+var q;
+
+$(document).ready( function() {
+    $('#q').keyup( function() {
+        if (q != $('#q').val()) {
+            selected = 0;
+            q = $('#q').val();
+            if (q) {
+                location.hash = q
+                $('#results').html('&nbsp;').load('{% url ldb_people_search %}?q=' + encodeURIComponent(q));
+            }
+            else
+                $('#results').html('&nbsp;');
+        }
+    });
+    $('#q').focus()
+    $('#q').val(location.hash.substring(1));
+    $('#q').keyup()
 });
 
+$(document).keyup(function(e){
+    var table = $('#results table tr');
+    
+    if (table.size() > 1) {
+        if (e.which == 40) {
+            $(table[selected]).removeClass('selected');
+            selected = wraparound(selected, 1, table.size());
+            $(table[selected]).addClass('selected');
+        }
+        else if(e.which == 38) {
+            $(table[selected]).removeClass('selected');
+            selected = wraparound(selected, -1, table.size());
+            $(table[selected]).addClass('selected');
+        }
+        else if(e.which == 13 && $("td a", table[selected]).length) {
+            window.location.href = $("td a", table[selected]).attr('href');
+        }
+    }
+});
+
+function wraparound(i, delta, max) {
+    i += delta;
+    if (i > max) {
+        i = 1;
+    }
+    else if (i < 1) {
+        i = max;
+    }
+    return i;
+}
+
 $( document ).ajaxStart( function() {
-	$('#spinner').show();
+    $('#spinner').show();
 }).ajaxStop( function() {
-	$('#spinner').hide();
+    $('#spinner').hide();
+    
+    var table = $('#results table tr');
+    table.mouseover( function() {
+        $(table[selected]).removeClass('selected');
+        selected = table.index(this);
+        $(this).addClass('selected');
+    });
 });
 </script>
 {% endblock %}
 
 {% block content %}
 <div>
-	<input id="q" type="text" style="width: 100%" autocomplete="off" />
-	<br/>
-	<span class="hint">Type in a query string to search.</span>
-	<div class="margin">
-		<span id="spinner"><img src="{{ STATIC_URL }}images/spinner.gif"/></span>
-		<div id="results"></div>
-	</div>
+    <input id="q" type="text" style="width: 100%" autocomplete="off" />
+    <br/>
+    <span class="hint">Type in a query string to search.</span>
+    <div class="margin">
+        <span id="spinner"><img src="{{ STATIC_URL }}images/spinner.gif"/></span>
+        <div id="results"></div>
+    </div>
 </div>
 {% endblock %}
