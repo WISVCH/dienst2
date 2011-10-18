@@ -111,7 +111,8 @@ AUTH_LDAP_GROUP_TYPE = PosixGroupType()
 AUTH_LDAP_REQUIRE_GROUP = "cn=dienst2,ou=Overig,ou=Group,dc=ank,dc=chnet"
 
 AUTH_LDAP_USER_FLAGS_BY_GROUP = {
-    "is_active": "cn=bestuur,ou=Besturen,ou=Group,dc=ank,dc=chnet",
+    "is_active": "cn=dienst2,ou=Overig,ou=Group,dc=ank,dc=chnet",
+    # "is_active": "cn=bestuur,ou=Besturen,ou=Group,dc=ank,dc=chnet",
     "is_staff": "cn=secretaris,ou=Group,dc=ank,dc=chnet",
     "is_superuser": "cn=secretaris,ou=Group,dc=ank,dc=chnet"
 }
