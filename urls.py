@@ -27,7 +27,7 @@ urlpatterns = patterns('',
     url(r'^organizations/(?P<pk>\d+)/$', OrganizationDetailView.as_view(), name='ldb_organizations_detail'),
     url(r'^organizations/(?P<pk>\d+)/delete/$', OrganizationDeleteView.as_view(), name='ldb_organizations_delete'),
     url(r'^organizations/(?P<pk>\d+)/edit/$', organization_edit),
-    url(r'^organizations/create/$', organization_edit),
+    url(r'^organizations/create/$', organization_edit, name='ldb_organizations_create'),
     
     url(r'^search/', include('haystack.urls')),
 

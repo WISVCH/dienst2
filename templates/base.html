@@ -13,11 +13,12 @@
 			<div id="menu">
 				<ul>
 					<li>
-						<a href="{% url index %}">Personen</a>
+						<a href="{% url index %}">Ledenadministratie</a>
 						<ul>
 							<li><a href="{% url index %}">Zoeken</a></li>
-							<li><a href="{% url ldb_people_create %}">Toevoegen</a></li>
-							<li><a href="#">Mailinglijst</a></li>
+							<li><a href="{% url ldb_people_create %}">Persoon toevoegen</a></li>
+							<li><a href="{% url ldb_organizations_create %}">Organisatie toevoegen</a></li>
+							<!-- <li><a href="#">Mailinglijst</a></li> -->
 						</ul>
 					</li>
 					<li>
