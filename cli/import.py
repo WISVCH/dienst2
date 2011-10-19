@@ -8,6 +8,7 @@ sys.path.insert(0, os.path.normpath(sys.path[0]+"/.."))
 
 from django.core.management import setup_environ 
 import settings
+from settings import *
 setup_environ(settings)
 
 from django.core.exceptions import ObjectDoesNotExist
@@ -65,7 +66,8 @@ countries = {
     'Suriname': 'SR',
     'Luxemburg': 'LU',
     'Great Britain ': 'GB',
-    'Nieuw-Zeeland': 'NZ'
+    'Nieuw-Zeeland': 'NZ',
+    'New Zealand': 'NZ'
 }
 id_migration = {}
 id_committee = {}
