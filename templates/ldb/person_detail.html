@@ -52,6 +52,15 @@
             </td>
         </tr>
     {% endif %}
+    {% if person.legacy_ID %}
+        <tr>
+            <th>Oude dienstensysteem:</th>
+            <td>
+            <a href="https://frans.chnet/dienst/persoon_2.php?id={{ person.legacy_ID }}/">
+            Klik</a>
+            </td>
+        </tr>
+    {% endif %}
     {% if person.living_with %}
         <tr>
             <td>Woont samen met:</td>
@@ -147,6 +156,7 @@
     {% trow person.alumnus 'study_research_group' %}
     {% trow person.alumnus 'study_paper' %}
     {% trow person.alumnus 'study_professor' %}
+    {% trow person.alumnus 'contact_method' %}
 </table>
 <br/>
 <table>

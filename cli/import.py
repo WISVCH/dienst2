@@ -3,6 +3,8 @@
 import os
 import sys
 
+import csv
+
 # This will insert the parent directory to the path so we can import the settings.
 sys.path.insert(0, os.path.normpath(sys.path[0]+"/.."))
 
@@ -30,6 +32,7 @@ cursor = conn.cursor()
 
 countries = {
     'Nederland': 'NL',
+    'Nederlands': 'NL',
     'Belgi': 'BE',
     u'Belgi\xeb': 'BE',
     'Zwitserland': 'CH',
@@ -52,6 +55,7 @@ countries = {
     'Oostenrijk': 'AT',
     'United Kingdom': 'GB',
     'England': 'GB',
+    'UK': 'GB',
     'Belgie': 'BE',
     'Duitsland': 'DE',
     'Maleisie': 'MY',
@@ -80,6 +84,9 @@ for k in cursor:
         p = Person()
 
         reversion.revision.comment = 'Migration: initial'
+
+        # Legacy
+        p.legacy_ID      = k['ID']
 
         # Name
         p.titles         = k['Titels']
@@ -153,7 +160,7 @@ for k in cursor:
                 q.student_number  = l['Studienummer']
             q.first_year          = l['TUinschrijfjaar']
             q.study               = l['Studierichting']
-            q.telephone_parents   = l['TelefoonOuders']
+            q.phone_parents       = l['TelefoonOuders']
             q.yearbook_permission = l['JaarboekToestemming'] != 0
             q.graduated           = l['Afgestudeerd'] != 0
             q.save()
@@ -231,6 +238,12 @@ for k in cursor:
 
             if q['Interests']:
                 p.comment += '\nLegacy alumnus interests: ' + q['Interests']
+            
+            alumni_data = csv.reader(open('cli/alumni.csv'), delimiter=';')
+            for row in alumni_data: 
+                if str(q['ID_persoon']) == row[20]:
+                    if row[28] != 'E-mail':
+                        t.contact_method = 'm'
 
             t.save()
 

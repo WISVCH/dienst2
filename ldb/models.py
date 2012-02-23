@@ -90,6 +90,8 @@ class Person(Entity):
         ('M', _('Male')),
         ('F', _('Female')),
     )
+
+    legacy_ID          = models.IntegerField(_('Legacy ID'), blank=True, null=True)
     
     # Name
     titles             = models.CharField(_('titles'), max_length=20, blank=True)
@@ -236,6 +238,11 @@ class Student(models.Model):
     def __unicode__(self):
         return "%s %s" % (self.student_number, unicode(self.person))
 
+CONTACT_METHOD_CHOICES = (
+    ('m', 'Mail'),
+    ('e', 'Email'),
+)
+
 class Alumnus(models.Model):
     class Meta:
         verbose_name = _('alumnus')
@@ -252,6 +259,8 @@ class Alumnus(models.Model):
     work_company          = models.CharField(_('company'), max_length=100, blank=True)
     work_position         = models.CharField(_('position'), max_length=100, blank=True)
     work_sector           = models.CharField(_('sector'), max_length=100, blank=True)
+
+    contact_method        = models.CharField(_('contact method'), max_length=1, choices=CONTACT_METHOD_CHOICES, default='e')
     
     def __unicode__(self):
         return unicode(self.person)
