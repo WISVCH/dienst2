@@ -94,6 +94,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'reversion',
     'haystack',
+    'south',
     'djangorestframework',
     'django.contrib.admin',
     'django.contrib.admindocs',
