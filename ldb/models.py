@@ -184,6 +184,11 @@ class Person(Entity):
                     other.save()
         self.__original_living_with = self.living_with
 
+    def if_student_number(self):
+        if hasattr(self, 'student'):
+            return self.student.student_number
+        else:
+            return None
 
     @models.permalink
     def get_absolute_url(self):
