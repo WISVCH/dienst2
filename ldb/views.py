@@ -175,15 +175,17 @@ def export_lists(request, type=None, list=None):
         else:
             items = []
 
+        reencode = lambda x: x.encode("utf8")
+
         if type == 'mailing':
             for item in items:
-                writer.writerow(mailingitem(item))
+                writer.writerow(map(reencode, mailingitem(item)))
         elif type == 'address':
             for item in items:
-                writer.writerow(addressitem(item))
+                writer.writerow(map(reencode, addressitem(item)))
         elif type == 'full':
             for item in items:
-                writer.writerow(fullitem(item))
+                writer.writerow(map(reencode, fullitem(item)))
 
         return response
 
