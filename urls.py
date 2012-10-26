@@ -31,6 +31,9 @@ urlpatterns = patterns('',
     
     url(r'^search/', include('haystack.urls')),
 
+    url(r'^ldb/export/$', export_lists, name='ldb_export_lists'),
+    url(r'^ldb/export/(?P<type>\w+)/(?P<list>\w+)/$', export_lists, name="ldb_export_list"),
+
     url(r'^api/people/$', ListOrCreateModelView.as_view(resource=PersonResource), name='person-resource-root'),
     url(r'^api/people/(?P<pk>\d+)/$', InstanceModelView.as_view(resource=PersonFullResource)),
 

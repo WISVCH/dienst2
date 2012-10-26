@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Ledenadministratie | Dienst2</title>
+		<title>{{ title }}</title>
 		<link href="{% get_static_prefix %}css/style.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript" src="{% get_static_prefix %}js/jquery.min.js"></script>
 		{% block extra_js %}{% endblock %}
@@ -13,16 +13,16 @@
 			<div id="menu">
 				<ul>
 					<li>
-						<a href="{% url index %}">Ledenadministratie</a>
+						<a href="{% url index %}">{{ title }}</a>
 						<ul>
 							<li><a href="{% url index %}">Zoeken</a></li>
 							<li><a href="{% url ldb_people_create %}">Persoon toevoegen</a></li>
 							<li><a href="{% url ldb_organizations_create %}">Organisatie toevoegen</a></li>
-							<!-- <li><a href="#">Mailinglijst</a></li> -->
+							<li><a href="{% url ldb_export_lists %}">Lijsten exporteren</a></li>
 						</ul>
 					</li>
 					<li>
-						<a href="https://frans.chnet/dienst/dagoverzicht.php">Kas</a>
+						<a href="https://frans.chnet/dienst/dagoverzicht.php">Kasbeheer</a>
 						<ul>
 							<li><a href="https://frans.chnet/dienst/transacties.php">Transacties</a></li>
 							<li><a href="https://frans.chnet/dienst/dagafsluiting.php">Dagafsluiting</a></li>
@@ -31,7 +31,7 @@
 					<li><a href="{% url admin:index %}">Admin</a></li>
 				</ul>
 			</div>
-	        <h1 id="site-name">Ledenadministratie</h1>
+	        <h1 id="site-name">{{ title }}</h1>
 			{% block content %}{% endblock %}
 		</div>
 	</body>

@@ -6,11 +6,13 @@ from django.template.context import RequestContext
 from haystack.query import SearchQuerySet
 from ldb.models import Person, Member
 from ldb.forms import *
+from ldb.export import *
 from form_utils.forms import BetterModelForm
 from djangorestframework.views import View
 from djangorestframework.response import Response
 from djangorestframework import status
 import time
+import csv
 
 class OrganizationDetailView(DetailView):
     context_object_name = 'organization'
@@ -22,7 +24,9 @@ class OrganizationDeleteView(DeleteView):
     success_url = '/'
 
 def organization_edit(request, pk=None):
-    data = {}
+    data = {
+        'title' : 'Ledenadministratie'
+    }
     if pk:
         organization = Organization.objects.get(pk=pk)
     else:
@@ -58,7 +62,9 @@ class PersonDeleteView(DeleteView):
     success_url = '/'
 
 def person_edit(request, pk=None):
-    data = {}
+    data = {
+        'title' : 'Ledenadministratie'
+    }
     if pk:
         person = Person.objects.get(pk=pk)
     else:
@@ -125,7 +131,9 @@ def person_edit(request, pk=None):
                               context_instance = RequestContext(request))
 
 def index(request):
-    data = {}
+    data = {
+        'title' : 'Ledenadministratie'
+    }
     return render_to_response( 'ldb/index.html', data,
                                context_instance = RequestContext(request))
 
@@ -141,3 +149,44 @@ def ajax_people_search(request):
                                        context_instance = RequestContext(request))
     else:
         return redirect('index')
+
+def export_lists(request, type=None, list=None):
+    data = {
+        'title' : 'Ledenadministratie'
+    }
+
+    if type is not None and list is not None:
+        response = HttpResponse(mimetype='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="%s-%s.csv"' % (list, type)
+        writer = csv.writer(response)
+
+        if list == 'machazine':
+            items = all_machazine()
+        elif list == 'christmas':
+            items = all_christmas()
+        elif list == 'constitution':
+            items = all_constitution()
+        elif list == 'announcements':
+            items = persons_announcements()
+        elif list == 'company':
+            items = persons_company()
+        elif list == 'lvv':
+            items = lvvers()
+        else:
+            items = []
+
+        if type == 'mailing':
+            for item in items:
+                writer.writerow(mailingitem(item))
+        elif type == 'address':
+            for item in items:
+                writer.writerow(addressitem(item))
+        elif type == 'full':
+            for item in items:
+                writer.writerow(fullitem(item))
+
+        return response
+
+    return render_to_response( 'ldb/export_lists.html', data, context_instance = RequestContext(request))
+
+
