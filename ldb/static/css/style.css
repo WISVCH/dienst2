@@ -199,6 +199,17 @@ th label {
     border-bottom: 1px solid #888;
 }
 
+#entity_detail img.facebook {
+    width: auto;
+    height: 100px;
+    float: right;
+    margin-bottom: 15px;
+}
+
+#entity_detail div.clear {
+    clear: both;
+}
+
 /** Edit view **/
 
 ul.errorlist {

@@ -12,6 +12,9 @@
 
 <div id="col1">
 <h3>Algemeen</h3>
+{% if person.facebook_id %}
+    <img class="facebook" src="https://graph.facebook.com/{{person.facebook_id}}/picture?type=large" />
+{% endif %}
 <p>
 {{ person.titles }}
 {{ person.initials }}
@@ -36,6 +39,8 @@
 {% if person.email %}
     <p><a href="mailto:{{ person.email }}">{{ person.email }}</a></p>
 {% endif %}
+
+<div class="clear"></div>
 
 <table>
 
