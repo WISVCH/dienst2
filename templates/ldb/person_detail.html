@@ -38,6 +38,7 @@
 {% endif %}
 
 <table>
+
     {% trow person 'phone_fixed' %}
     {% trow person 'phone_mobile' %}
     {% if person.student %}
@@ -70,6 +71,27 @@
             </td>
         </tr>
     {% endif %}
+    {% trow person 'netid' %}
+    {% if person.facebook_id %}
+        <tr>
+            <th>Facebook:</th>
+            <td>
+            <a target="_blank" href="https://www.facebook.com/{{ person.facebook_id }}">
+            link</a>
+            </td>
+        </tr>
+    {% endif %}
+    {% if person.linkedin_id %}
+        <tr>
+            <th>LinkedIn:</th>
+            <td>
+            <a target="_blank" href="http://www.linkedin.com/profile/view?id={{ person.linkedin_id }}">
+            link</a>
+            </td>
+        </tr>
+    {% endif %}
+    
+    
 </table>
 
 <h3>
@@ -144,6 +166,7 @@
     {% trow person.student 'student_number' %}
     {% trow_janee person.student 'graduated' %}
     {% trow_janee person.student 'yearbook_permission' %}
+    {% trow person.student 'date_verified' %}
 </table>
 {% endif %}
 

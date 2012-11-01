@@ -38,7 +38,7 @@
         </table>
         <h4>Overige</h4>
         <table>
-            {% get_fieldset gender,birthdate,deceased,ldap_username,legacy_ID,comment as other_fields from form %}
+            {% get_fieldset gender,birthdate,deceased,ldap_username,legacy_ID,comment,netid,facebook_id,linkedin_id as other_fields from form %}
             {{ other_fields.as_table }}
         </table>
 

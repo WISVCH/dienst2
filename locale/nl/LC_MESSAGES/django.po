@@ -2,35 +2,28 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Mark Janssen <mark@praseodym.net>, 2011.
+# Hylke Visser <hylkev@ch.tudelft.nl>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: 2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-08-25 20:03+0200\n"
-"PO-Revision-Date: 2011-08-25 20:05+0100\n"
-"Last-Translator: Mark Janssen <mark@praseodym.net>\n"
+"POT-Creation-Date: 2012-11-01 12:44+0100\n"
+"PO-Revision-Date: 2012-11-01 12:54+0200\n"
+"Last-Translator: Hylke Visser <hylkev@ch.tudelft.nl>\n"
 "Language-Team: Secretarissen b'vo\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Virtaal 0.7.0-mac-beta-1\n"
-"X-Poedit-Language: Dutch\n"
-"X-Poedit-Country: NETHERLANDS\n"
+"X-Generator: Virtaal 0.7.1\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
-#: ldb/admin.py:14
-#: ldb/admin.py:22
-#: ldb/admin.py:39
-#: ldb/admin.py:70
+#: ldb/admin.py:14 ldb/admin.py:23 ldb/admin.py:40 ldb/admin.py:71
 msgid "Base"
 msgstr "Basis"
 
-#: ldb/admin.py:15
-#: ldb/admin.py:40
-#: ldb/admin.py:59
-#: ldb/admin.py:74
+#: ldb/admin.py:15 ldb/admin.py:41 ldb/admin.py:60 ldb/admin.py:75
 msgid "Phone"
 msgstr "Telefoon"
 
@@ -38,39 +31,35 @@ msgstr "Telefoon"
 msgid "Permissions"
 msgstr "Toestemmingen"
 
-#: ldb/admin.py:23
-#: ldb/admin.py:60
-#: ldb/admin.py:77
+#: ldb/admin.py:17 ldb/admin.py:24 ldb/admin.py:61 ldb/admin.py:78
 msgid "Other"
 msgstr "Overig"
 
-#: ldb/admin.py:24
+#: ldb/admin.py:25
 msgid "Merit"
 msgstr "LvV"
 
-#: ldb/admin.py:25
+#: ldb/admin.py:26
 msgid "Honorary"
 msgstr "Erelid"
 
-#: ldb/admin.py:31
+#: ldb/admin.py:32
 msgid "Study"
 msgstr "Studie"
 
-#: ldb/admin.py:33
+#: ldb/admin.py:34
 msgid "Work"
 msgstr "Werk"
 
-#: ldb/admin.py:54
+#: ldb/admin.py:55
 msgid "Name"
 msgstr "Naam"
 
-#: ldb/admin.py:56
-#: ldb/admin.py:71
+#: ldb/admin.py:57 ldb/admin.py:72
 msgid "Address"
 msgstr "Adres"
 
-#: ldb/admin.py:61
-#: ldb/admin.py:75
+#: ldb/admin.py:62 ldb/admin.py:76
 msgid "Subscriptions"
 msgstr "Aanmeldingen"
 
@@ -1066,339 +1055,359 @@ msgstr "Zambia"
 msgid "Zimbabwe"
 msgstr "Zimbabwe"
 
-#: ldb/models.py:15
+#: ldb/models.py:16
 msgid "entity"
 msgstr "entiteit"
 
-#: ldb/models.py:16
+#: ldb/models.py:17
 msgid "entities"
 msgstr "entiteiten"
 
-#: ldb/models.py:19
+#: ldb/models.py:20
 msgid "street name"
 msgstr "straatnaam"
 
-#: ldb/models.py:20
+#: ldb/models.py:21
 msgid "house number"
 msgstr "huisnummer"
 
-#: ldb/models.py:21
+#: ldb/models.py:22
 msgid "address row 2"
 msgstr "adresregel 2"
 
-#: ldb/models.py:22
+#: ldb/models.py:23
 msgid "address row 3"
 msgstr "adresregel 3"
 
-#: ldb/models.py:23
+#: ldb/models.py:24
 msgid "postcode"
 msgstr "postcode"
 
-#: ldb/models.py:24
+#: ldb/models.py:25
 msgid "city"
 msgstr "plaats"
 
-#: ldb/models.py:25
+#: ldb/models.py:26
 msgid "country"
 msgstr "land"
 
-#: ldb/models.py:26
+#: ldb/models.py:27
 msgid "e-mail"
 msgstr "e-mail"
 
-#: ldb/models.py:29
+#: ldb/models.py:30
 msgid "phone fixed"
 msgstr "telefoon vast"
 
-#: ldb/models.py:32
+#: ldb/models.py:33
 msgid "MaCHazine"
 msgstr "MaCHazine"
 
-#: ldb/models.py:33
+#: ldb/models.py:34
 msgid "board invites"
 msgstr "uitnodigingen bestuur"
 
-#: ldb/models.py:34
+#: ldb/models.py:35
 msgid "constitution card"
 msgstr "constitutiekaartje"
 
-#: ldb/models.py:35
+#: ldb/models.py:36
 msgid "Christmas card"
 msgstr "Kerstkaartje"
 
-#: ldb/models.py:36
+#: ldb/models.py:37
 msgid "yearbook"
 msgstr "jaarboek"
 
-#: ldb/models.py:61
+#: ldb/models.py:71
 msgid "organization"
 msgstr "organisatie"
 
-#: ldb/models.py:62
+#: ldb/models.py:72
 msgid "organizations"
 msgstr "organisaties"
 
-#: ldb/models.py:63
+#: ldb/models.py:73
 msgid "name prefix"
 msgstr "naam voorvoegsel"
 
-#: ldb/models.py:64
-#: ldb/models.py:258
+#: ldb/models.py:74 ldb/models.py:298
 msgid "name"
 msgstr "naam"
 
-#: ldb/models.py:65
+#: ldb/models.py:75
 msgid "name short"
 msgstr "naam kort"
 
-#: ldb/models.py:66
+#: ldb/models.py:76
 msgid "salutation"
 msgstr "aanhef"
 
-#: ldb/models.py:75
+#: ldb/models.py:86
 msgid "person"
 msgstr "persoon"
 
-#: ldb/models.py:76
+#: ldb/models.py:87
 msgid "people"
 msgstr "personen"
 
-#: ldb/models.py:79
+#: ldb/models.py:90
 msgid "Male"
 msgstr "Man"
 
-#: ldb/models.py:80
+#: ldb/models.py:91
 msgid "Female"
 msgstr "Vrouw"
 
-#: ldb/models.py:84
+#: ldb/models.py:94
+msgid "Legacy ID"
+msgstr ""
+
+#: ldb/models.py:97
 msgid "titles"
 msgstr "titels"
 
-#: ldb/models.py:85
+#: ldb/models.py:98
 msgid "initials"
 msgstr "initialen"
 
-#: ldb/models.py:86
+#: ldb/models.py:99
 msgid "first name"
 msgstr "voornaam"
 
-#: ldb/models.py:87
+#: ldb/models.py:100
 msgid "preposition"
 msgstr "tussenvoegsel"
 
-#: ldb/models.py:88
+#: ldb/models.py:101
 msgid "surname"
 msgstr "achternaam"
 
-#: ldb/models.py:89
+#: ldb/models.py:102
 msgid "postfix titles"
 msgstr "postfixtitels"
 
-#: ldb/models.py:92
+#: ldb/models.py:105
 msgid "phone mobile"
 msgstr "telefoon mobiel"
 
-#: ldb/models.py:95
+#: ldb/models.py:108
 msgid "gender"
 msgstr "geslacht"
 
-#: ldb/models.py:96
+#: ldb/models.py:109
 msgid "birthdate"
 msgstr "geboortedatum"
 
-#: ldb/models.py:98
+#: ldb/models.py:111
 msgid "deceased"
 msgstr "overleden"
 
-#: ldb/models.py:104
+#: ldb/models.py:117
 msgid "announcements mailing"
 msgstr "algemene mailing"
 
-#: ldb/models.py:105
+#: ldb/models.py:118
 msgid "company mailing"
 msgstr "bedrijvenmailing"
 
-#: ldb/models.py:107
+#: ldb/models.py:120
 msgid "LDAP username"
 msgstr "LDAP-gebruikersnaam"
 
-#: ldb/models.py:181
+#: ldb/models.py:123
+msgid "netid"
+msgstr "netid"
+
+#: ldb/models.py:124
+msgid "LinkedIn ID"
+msgstr "LinkedIn ID"
+
+#: ldb/models.py:125
+msgid "Facebook ID"
+msgstr "Facebook ID"
+
+#: ldb/models.py:207
 msgid "member"
 msgstr "lid"
 
-#: ldb/models.py:182
+#: ldb/models.py:208
 msgid "members"
 msgstr "leden"
 
-#: ldb/models.py:185
+#: ldb/models.py:211
 msgid "date from"
 msgstr "lid sinds"
 
-#: ldb/models.py:186
+#: ldb/models.py:212
 msgid "date to"
 msgstr "lid tot"
 
-#: ldb/models.py:187
+#: ldb/models.py:213
 msgid "date paid"
 msgstr "datum betaald"
 
-#: ldb/models.py:188
+#: ldb/models.py:214
 msgid "amount paid"
 msgstr "bedrag betaald"
 
-#: ldb/models.py:190
+#: ldb/models.py:216
 msgid "associate member"
 msgstr "buitengewoon lid"
 
-#: ldb/models.py:191
+#: ldb/models.py:217
 msgid "donating member"
 msgstr "donateur"
 
-#: ldb/models.py:193
+#: ldb/models.py:219
 msgid "merit member date from"
 msgstr "LvV sinds"
 
-#: ldb/models.py:194
+#: ldb/models.py:220
 msgid "merit member invitations"
 msgstr "LvV-uitnodigingen"
 
-#: ldb/models.py:195
+#: ldb/models.py:221
 msgid "merit member history"
 msgstr "LvV-geschiedenis"
 
-#: ldb/models.py:197
+#: ldb/models.py:223
 msgid "honorary member from date"
 msgstr "erelid sinds"
 
-#: ldb/models.py:204
+#: ldb/models.py:235
 msgid "student"
 msgstr "student"
 
-#: ldb/models.py:205
+#: ldb/models.py:236
 msgid "students"
 msgstr "studenten"
 
-#: ldb/models.py:208
-#: ldb/models.py:226
+#: ldb/models.py:239 ldb/models.py:264
 msgid "study"
 msgstr "studie"
 
-#: ldb/models.py:209
+#: ldb/models.py:240
 msgid "first year"
 msgstr "eerste jaar"
 
-#: ldb/models.py:210
+#: ldb/models.py:241
 msgid "student number"
 msgstr "studienummer"
 
-#: ldb/models.py:211
+#: ldb/models.py:242
 msgid "graduated"
 msgstr "afgestudeerd"
 
-#: ldb/models.py:213
+#: ldb/models.py:244
 msgid "phone parents"
 msgstr "telefoon ouders"
 
-#: ldb/models.py:215
+#: ldb/models.py:246
 msgid "yearbook permission"
 msgstr "toestemming jaarboek"
 
-#: ldb/models.py:222
+#: ldb/models.py:248
+msgid "date verified"
+msgstr "datum bevestigd"
+
+#: ldb/models.py:260
 msgid "alumnus"
 msgstr "alumnus"
 
-#: ldb/models.py:223
+#: ldb/models.py:261
 msgid "alumni"
 msgstr "alumni"
 
-#: ldb/models.py:227
+#: ldb/models.py:265
 msgid "study first year"
 msgstr "eerste jaar studie"
 
-#: ldb/models.py:228
+#: ldb/models.py:266
 msgid "study last year"
 msgstr "laatste jaar studie"
 
-#: ldb/models.py:229
+#: ldb/models.py:267
 msgid "research group"
 msgstr "onderzoeksgroep"
 
-#: ldb/models.py:230
+#: ldb/models.py:268
 msgid "paper"
 msgstr "paper"
 
-#: ldb/models.py:231
+#: ldb/models.py:269
 msgid "professor"
 msgstr "professor"
 
-#: ldb/models.py:233
+#: ldb/models.py:271
 msgid "company"
-msgstr "bedrijvenmailing"
+msgstr "bedrijf"
 
-#: ldb/models.py:234
-#: ldb/models.py:274
+#: ldb/models.py:272 ldb/models.py:314
 msgid "position"
 msgstr "functie"
 
-#: ldb/models.py:235
+#: ldb/models.py:273
 msgid "sector"
 msgstr "sector"
 
-#: ldb/models.py:242
+#: ldb/models.py:275
+msgid "contact method"
+msgstr "contact methode"
+
+#: ldb/models.py:282
 msgid "employee"
 msgstr "medewerker"
 
-#: ldb/models.py:243
+#: ldb/models.py:283
 msgid "employees"
 msgstr "medewerkers"
 
-#: ldb/models.py:246
+#: ldb/models.py:286
 msgid "faculty"
 msgstr "faculteit"
 
-#: ldb/models.py:247
+#: ldb/models.py:287
 msgid "department"
 msgstr "afdeling"
 
-#: ldb/models.py:248
+#: ldb/models.py:288
 msgid "function"
 msgstr "functie"
 
-#: ldb/models.py:249
+#: ldb/models.py:289
 msgid "phone internal"
 msgstr "telefoon intern"
 
-#: ldb/models.py:256
+#: ldb/models.py:296
 msgid "committee"
 msgstr "commissie"
 
-#: ldb/models.py:257
+#: ldb/models.py:297
 msgid "committees"
 msgstr "commissies"
 
-#: ldb/models.py:259
+#: ldb/models.py:299
 msgid "description"
 msgstr "beschrijving"
 
-#: ldb/models.py:267
+#: ldb/models.py:307
 msgid "committee membership"
 msgstr "commissielidmaatschap"
 
-#: ldb/models.py:268
+#: ldb/models.py:308
 msgid "committee memberships"
 msgstr "commissielidmaatschappen"
 
-#: ldb/models.py:273
+#: ldb/models.py:313
 msgid "board"
 msgstr "bestuur"
 
-#: ldb/models.py:275
+#: ldb/models.py:315
 msgid "RAS months"
 msgstr "RAS-maanden"
 
-#: templates/admin/base_site.html:4
-#: templates/admin/base_site.html.py:12
+#: templates/admin/base_site.html:4 templates/admin/base_site.html.py:11
 msgid "Member administration"
 msgstr "Ledenadministratie"
 

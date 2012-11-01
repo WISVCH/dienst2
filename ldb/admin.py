@@ -13,7 +13,8 @@ class StudentInline(admin.StackedInline):
     fieldsets = [
         (_('Base'),        {'fields': ['study', 'first_year', 'student_number', 'graduated']}),
         (_('Phone'),       {'fields': ['phone_parents']}),
-        (_('Permissions'), {'fields': ['yearbook_permission']})
+        (_('Permissions'), {'fields': ['yearbook_permission']}),
+        (_('Other'),       {'fields': ['date_verified']})
     ]
     
 class MemberInline(admin.StackedInline):
@@ -57,7 +58,7 @@ class PersonAdmin(VersionAdmin):
                                          'address_2', 'address_3',
                                          'city', 'country', 'email', 'living_with']}),
         (_('Phone'),         {'fields': ['phone_fixed', 'phone_mobile']}),
-        (_('Other'),         {'fields': ['gender', 'birthdate', 'deceased', 'ldap_username', 'comment']}),
+        (_('Other'),         {'fields': ['gender', 'birthdate', 'deceased', 'ldap_username', 'comment', 'netid', 'linkedin_id', 'facebook_id']}),
         (_('Subscriptions'), {'fields': ['machazine', 'board_invites', 'constitution_card',
                                          'christmas_card', 'yearbook',
                                          'mail_announcements', 'mail_company']}),
