@@ -1,0 +1,4 @@
+/dienst2/local.py
+*.pyc
+/search_index/
+/static/

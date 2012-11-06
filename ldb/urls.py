@@ -11,11 +11,6 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^$', index, name='index'),
-    
-    url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-    url(r'^admin/', include(admin.site.urls)),
-    
-    url(r'^accounts/login/$', 'django.contrib.auth.views.login'),
 
     url(r'^people/search/$', ajax_people_search, name='ldb_people_search' ),
 

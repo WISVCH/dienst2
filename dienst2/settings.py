@@ -1,7 +1,11 @@
-# Django settings for dienst2 project.
 import os
 import ldap
 from django_auth_ldap.config import LDAPSearch, PosixGroupType
+
+# Django settings for dienst2 project.
+
+DEBUG = True
+TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -12,10 +16,7 @@ MANAGERS = ADMINS
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
-# On Unix systems, a value of None will cause Django to use the same
-# timezone as the operating system.
-# If running in a Windows environment this must be set to the same as your
-# system time zone.
+# In a Windows environment this must be set to your system time zone.
 TIME_ZONE = 'Europe/Amsterdam'
 
 # Language code for this installation. All choices can be found here:
@@ -29,8 +30,11 @@ SITE_ID = 1
 USE_I18N = True
 
 # If you set this to False, Django will not format dates, numbers and
-# calendars according to the current locale
+# calendars according to the current locale.
 USE_L10N = True
+
+# If you set this to False, Django will not use timezone-aware datetimes.
+USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
@@ -68,8 +72,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'ldb.middleware.RequireLoginMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'dienst2.middleware.RequireLoginMiddleware',
     'django.middleware.transaction.TransactionMiddleware',
     'reversion.middleware.RevisionMiddleware',
 )
@@ -77,6 +81,9 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'dienst2.urls'
 
 LOGIN_REDIRECT_URL = '/'
+
+# Python dotted path to the WSGI application used by Django's runserver.
+WSGI_APPLICATION = 'dienst2.wsgi.application'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
@@ -89,7 +96,7 @@ INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    # 'django.contrib.sites',
+    #'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'reversion',
@@ -98,7 +105,9 @@ INSTALLED_APPS = (
     'djangorestframework',
     'django.contrib.admin',
     'django.contrib.admindocs',
-    'ldb'
+    'dienst2',
+    'ldb',
+    'kas',
 )
 
 AUTH_LDAP_SERVER_URI = "ldaps://frans.chnet/"
@@ -136,7 +145,7 @@ AUTHENTICATION_BACKENDS = (
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
-# the site admins on every HTTP 500 error.
+# the site admins on every HTTP 500 error when DEBUG=False.
 # See http://docs.djangoproject.com/en/dev/topics/logging for
 # more details on how to customize your logging configuration.
 LOGGING = {
@@ -157,7 +166,7 @@ LOGGING = {
     }
 }
 
-HAYSTACK_SITECONF = 'ldb.search_sites'
+HAYSTACK_SITECONF = 'dienst2.search_sites'
 HAYSTACK_SEARCH_ENGINE = 'whoosh'
 # HAYSTACK_INCLUDE_SPELLING = True
 

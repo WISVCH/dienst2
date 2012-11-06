@@ -1,5 +1,9 @@
 #header {
-    background: #FF9900;
+    background: #333;
+}
+
+#header h1 {
+	color: #FFF;
 }
 
 td.original p {
