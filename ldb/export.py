@@ -75,6 +75,9 @@ def oudbestuurdersvanaf(year):
 def lvvers():
 	return persons_all().filter(~Q(member__merit_date_from__isnull=True) | ~Q(member__honorary_date_from__isnull=True))
 
+def alumni():
+	return persons_all().filter(~Q(alumnus__isnull=True))
+
 def persons_constitutioncard():
 	return Person.objects.all().filter(
 		Q(deceased=False),

@@ -172,6 +172,8 @@ def export_lists(request, type=None, list=None):
             items = persons_company()
         elif list == 'lvv':
             items = lvvers()
+        elif list == 'alumni':
+            items = alumni()
         else:
             items = []
 
