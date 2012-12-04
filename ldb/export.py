@@ -10,7 +10,9 @@ import datetime
 def persons_announcements():
 	return Person.objects.all().filter(
 		Q(deceased=False),
-		Q(Q(member__date_from__isnull=False), Q(member__date_to__isnull=True)),
+		Q(Q(member__date_from__isnull=False), Q(member__date_to__isnull=True))| 
+		~Q(member__merit_date_from__isnull=True) | 
+		~Q(member__honorary_date_from__isnull=True),
 		Q(mail_announcements=True)
 	)
 
