@@ -50,7 +50,7 @@ def merge_persons_organizations(persons, organizations):
     return items
 
 def all_machazine():
-	return merge_persons_organizations(persons_all().filter(Q(machazine=True)), organizations_all().filter(Q(machazine=True)))
+	return merge_persons_organizations(persons_all().filter(Q(machazine=True),~Q(postcode__isnull=True),~Q(postcode="")), organizations_all().filter(Q(machazine=True)))
 
 def all_christmas():
 	return merge_persons_organizations(persons_all().filter(Q(christmas_card=True)), organizations_all().filter(Q(christmas_card=True)))
