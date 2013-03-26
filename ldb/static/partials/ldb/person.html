@@ -1,0 +1,215 @@
+<div class="row">
+  <div class="span12">
+    <div class="page-header">
+      <h1>
+        {{person.firstname}} {{person.preposition}} {{person.surname}}<span ng-show="person.deceased"> &dagger;</span>
+      </h1>
+      <a href="">edit</a>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span6">
+    <section class="well">
+      <h2>Algemeen</h2>
+
+      <div>
+        <div>{{person.initials}} ({{person.firstname}}) {{person.preposition}} {{person.surname}}
+          <span ng-show="person.gender=='M'">&#9794;</span>
+          <span ng-show="person.gender=='F'">&#9792;</span>
+          <span ng-show="person.deceased"> &dagger;</span></div>
+        <div ng-show="person.birthdate">{{person.birthdate | date:"dd-MM-yyyy"}} ({{person.age}})</div>
+      </div>
+
+      <div>
+        <h3>Adres</h3>
+        <div ng-show="person.country">
+          <div>{{person.street_name}} {{person.house_number}}</div>
+          <div ng-show="person.address_2">{{person.address_2}}</div>
+          <div ng-show="person.address_3">{{person.address_3}}</div>
+          <div>{{person.postcode}} {{person.city}} <span ng-hide="person.country=='NL'">({{person.country}})</span></div>
+          <a ng-show="person.living_with" ng-href="//facebook.com/{{person.living_with}}" target="_blank">{{person.living_with}}</a>
+        </div>
+        <div ng-hide="person.country">
+          <em class="muted">Geen adres beschikbaar</em>
+        </div>
+      </div>
+
+      <div>
+        <h3>Contact</h3>
+        <div><a ng-href="mailto:{{person.email}}">{{person.email}}</a></div>
+
+        <div ng-show="person.phone_fixed">
+          <strong>Vast:</strong> 
+          {{person.phone_fixed}}
+        </div>
+        <div ng-show="person.phone_mobile">
+          <strong>Mobiel:</strong> 
+          {{person.phone_mobile}}
+        </div>
+        <div ng-show="student.phone_parents">
+          <strong>Ouders:</strong> 
+          {{student.phone_parents}}
+        </div>
+      </div>
+
+      <div ng-show="person.comment">
+        <h3>Opmerkingen</h3>
+        <pre>{{person.comment}}</pre>
+      </div>
+
+      <div>
+        <h3>Accounts</h3>
+        <a ng-show="person.facebook_id" ng-href="//facebook.com/{{person.facebook_id}}" target="_blank">Facebook</a>
+        <span ng-hide="person.facebook_id" class="muted">Facebook</span>
+        |
+        <a ng-show="person.linkedin_id" ng-href="//www.linkedin.com/profile/view?id={{person.linkedin_id}}" target="_blank">LinkedIn</a>
+        <span ng-hide="person.linkedin_id" class="muted">LinedIn</span>
+        |
+        <a ng-show="person.ldap_username" ng-href="//frans.chnet/userman2/users/{{person.ldap_username}}" target="_blank">CH</a>
+        <span ng-hide="person.ldap_username" class="muted">CH</span>
+        | NetID: 
+        <span ng-show="person.netid">{{person.netid}}</span>
+        <span ng-hide="person.netid" class="muted">onbekend</span>
+      </div>
+
+    </section>
+
+    <section ng-hide="member==false" class="well">
+      <h2>Lidmaatschap</h2>
+
+      <div ng-hide="member.date_to || !member.date_from">
+        <strong>Lid sinds</strong>
+        {{member.date_from | date:"dd-MM-yyyy"}} <br />
+        <strong>Betaald</strong>
+        {{member.amount_paid | currency:'&euro;'}} {{member.date_paid | date:"dd-MM-yyyy"}}
+      </div>
+
+      <div ng-show="member.date_to && !member.associate_member && !member.merit_date_from && !member.honorary_date_from">
+        <strong>Lid tot</strong>
+        {{member.date_to | date:"dd-MM-yyyy"}}
+      </div>
+
+      <div ng-show="member.associate_member">
+        <strong>Buitengewoon lid</strong>
+      </div>
+
+      <div ng-show="member.donating_member">
+        <strong>Donateur</strong>
+      </div>
+
+      <div ng-show="member.merit_date_from">
+        <strong>LvV'er sinds</strong>
+        {{member.merit_date_from | date:"dd-MM-yyyy"}}
+        <pre ng-show="member.merit_history">{{member.merit_history}}</pre>
+      </div>
+
+      <div ng-show="member.honorary_date_from">
+        <strong>Erelid sinds</strong>
+        {{member.honorary_date_from | date:"dd-MM-yyyy"}}
+      </div>
+    </section>
+
+    <section ng-hide="member==false" class="well">
+      <h2>Commissies ({{committees.length}})</h2>
+
+      <div ng-repeat="committee in committees | orderBy:'board':true">
+
+        {{committee.board}} : <strong>{{committee.committeename}}</strong>
+        <span ng-show="committee.position">{{committee.position}}</span>
+        <span ng-show="committee.ras_months">({{committee.ras_months}} RAS)</span>
+      </div>
+
+    </section>
+  </div>
+
+  <div class="span6">
+    <section class="well">
+      <h2>Aanmeldingen</h2>
+
+      <i ng-show="person.machazine" class="icon-ok"></i><i ng-hide="person.machazine" class="icon-remove"></i> MaCHazine<br />
+      <i ng-show="person.yearbook" class="icon-ok"></i><i ng-hide="person.yearbook" class="icon-remove"></i> Jaarboek<br />
+      <i ng-show="person.constitution_card" class="icon-ok"></i><i ng-hide="person.constitution_card" class="icon-remove"></i> Constitutiekaartje<br />
+      <i ng-show="person.christmas_card" class="icon-ok"></i><i ng-hide="person.christmas_card" class="icon-remove"></i> Kerstkaartje<br />
+
+      <br />
+
+      <i ng-show="person.board_invites" class="icon-ok"></i><i ng-hide="person.board_invites" class="icon-remove"></i> Uitnodigingen Bestuur<br />
+      <i ng-show="person.merit_invitations" class="icon-ok"></i><i ng-hide="person.merit_invitations" class="icon-remove"></i> Uitnodigingen LvV<br />
+
+      <br />
+
+      <i ng-show="person.mail_announcements" class="icon-ok"></i><i ng-hide="person.mail_announcements" class="icon-remove"></i> Algemene mailing<br />
+      <i ng-show="person.mail_company" class="icon-ok"></i><i ng-hide="person.mail_company" class="icon-remove"></i> Bedrijvenmailing<br />
+        
+    </section>
+
+    <section ng-hide="student==false" class="well">
+      <h2>Student <small>{{student.study}} ({{student.first_year}})</small></h2>
+
+      <div ng-show="student.date_verified">
+        <strong>Bevestigd:</strong> {{student.date_verified | date:"dd-MM-yyyy"}}
+      </div>
+
+      <div ng-show="student.graduated"><strong>Afgestudeerd</strong></div>
+
+      <div></div>
+
+      <div>
+        <strong>Studienummer</strong>
+        <span ng-show="student.student_number">{{student.student_number}}</span><span ng-hide="student.student_number" class="muted">onbekend</span>
+      </div>
+
+      <div><i ng-show="student.yearbook_permission" class="icon-ok"></i><i ng-hide="student.yearbook_permission" class="icon-remove"></i> Toestemming Jaarboek</div>
+    </section>
+
+    <section ng-hide="alumnus==false" class="well">
+      <h2>Alumnus
+        <small ng-show="alumnus.study">
+          {{alumnus.study}}
+          <span ng-show="alumnus.study_first_year && alumnus.study_first_year != 0"> van {{alumnus.study_first_year}}</span>
+          <span ng-show="alumnus.study_last_year && alumnus.study_last_year != 0"> tot {{alumnus.study_last_year}}</span>
+        </small>
+      </h2>
+
+      <div ng-show="alumnus.study_research_group">
+        <strong>Onderzoeksgroep: </strong>
+        {{alumnus.study_research_group}}
+      </div>
+
+      <div ng-show="alumnus.study_paper">
+        <strong>Paper: </strong>
+        {{alumnus.study_paper}}
+      </div>
+
+      <div ng-show="alumnus.study_professor">
+        <strong>Professor: </strong>
+        {{alumnus.study_professor}}
+      </div>
+
+      <div ng-show="alumnus.work_company">
+        <strong>Werk: </strong>
+        <span ng-show="alumnus.work_position">{{alumnus.work_position}} bij</span>
+        {{alumnus.work_company}}
+        <span ng-show="alumnus.work_sector">(sector: {{alumnus.work_sector}})</span>
+      </div>
+
+      <div ng-show="alumnus.contact_method">
+        <strong>Contactmethode: </strong>
+        <span ng-show="alumnus.contact_method=='e'">Email</span><span ng-show="alumnus.contact_method=='m'">Mail</span>
+      </div>
+
+    </section>
+
+    <section ng-hide="employee==false" class="well">
+      <h2>Medewerker</h2>
+
+      <div>
+        <strong>{{employee.function}}</strong> bij {{employee.faculty}} <span ng-show="employee.department">({{employee.department}})</span>
+      </div>
+
+      <div><strong>Tel. </strong> {{employee.phone_internal}}</div>
+    </section>
+  </div>
+</div>

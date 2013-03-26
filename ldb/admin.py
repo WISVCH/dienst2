@@ -80,3 +80,8 @@ class OrganizationAdmin(VersionAdmin):
 admin.site.register(Organization, OrganizationAdmin)
 
 admin.site.register(Committee, VersionAdmin)
+
+class ItemAdmin(VersionAdmin):
+  """ItemAdmin"""
+
+admin.site.register(Modification, VersionAdmin)

@@ -1,0 +1,157 @@
+// Swatch 2.2.2
+// Bootswatch
+// -----------------------------------------------------
+body {
+	background-image: url("../img/linen.png");
+  background-size: 128px 128px;
+}
+
+// TYPOGRAPHY
+// -----------------------------------------------------
+
+.page-header h1 {
+  color: @grayLighter;
+}
+
+// SCAFFOLDING
+// -----------------------------------------------------
+
+// NAVBAR
+// -----------------------------------------------------
+
+// NAV
+// -----------------------------------------------------
+
+// BUTTONS
+// -----------------------------------------------------
+
+// TABLES
+// -----------------------------------------------------
+
+// FORMS
+// -----------------------------------------------------
+
+// DROPDOWNS
+// -----------------------------------------------------
+
+// ALERTS, LABELS, BADGES
+// -----------------------------------------------------
+
+// MISC
+// -----------------------------------------------------
+
+// MEDIA QUERIES
+// -----------------------------------------------------
+.print {
+  display: none;
+}
+
+@media print
+{
+  body {
+    padding-top: 0;
+  }
+
+  .print {
+    display: block;
+  }
+
+  div.navbar-fixed-top, div#post-av div#date {
+    display: none;
+  }
+
+  div.container {
+    width: 100%;
+  }
+
+  .well {
+    border: none;
+    padding: 5px;
+  }
+
+  div#post-av {
+    font-size: small;
+  }
+}
+
+// PAGES
+// -----------------------------------------------------
+div#dashboard {
+  text-align: center;
+
+  #logo {
+    margin-top: 40px;
+    width: 542px;
+    height: 180px;
+  }
+
+  table {
+    margin: 0 auto;
+
+    td {
+      padding: 0 20px;
+      text-align: center;
+      width: 25%;
+      min-width: 150px;
+
+      img {
+        width: 100px;
+        height: 100px;
+        margin: 25px;
+
+        -webkit-transition: all 0.2s ease; 
+        -moz-transition: all 0.2s ease; 
+        -o-transition: all 0.2s ease;
+
+        &:hover {
+          width: 150px;
+          height: 150px;
+          margin: 0;
+        }
+      }
+
+      h1 {
+        color: white;
+      }
+    }
+  }
+}
+
+form#login {
+  table {
+    width: 542px; 
+    margin: 40px auto;
+    
+    td {
+      padding: 5px;
+      color: white;
+    }
+    ul {
+      margin: 0;
+      li {
+        list-style-type: none;
+      }
+    }
+  }
+}
+
+// SPRITES
+// -----------------------------------------------------
+i.kas-icon-cash, i.kas-icon-pin {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  background-size: 14px 14px;
+  .ie7-restore-right-whitespace();
+  line-height: 14px;
+  vertical-align: text-top;
+  background-repeat: no-repeat;
+  margin-top: 1px;
+}
+
+i.kas-icon-cash {
+  background-image: url("../img/kas/cash.svg");
+}
+i.kas-icon-pin {
+  background-image: url("../img/kas/pin.svg");
+}
