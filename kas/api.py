@@ -14,7 +14,7 @@ class TransactionResource(ModelResource):
   closure = fields.CharField(readonly=True)
 
   def dehydrate_closure(self, bundle):
-    return ClosureResource().get_resource_uri(bundle.obj.closure())
+    return ClosureResource().get_resource_uri(bundle.obj.closure)
 
   def hydrate_user(self, bundle):
     bundle.data['user'] = bundle.request.user.username
@@ -27,15 +27,15 @@ class ClosureResource(ModelResource):
   cashdifference = fields.DecimalField(readonly=True)
 
   def dehydrate_cashdifference(self, bundle):
-    return bundle.obj.cashdifference()
+    return bundle.obj.cashdifference
 
   pindifference = fields.DecimalField(readonly=True)
 
   def dehydrate_pindifference(self, bundle):
-    return bundle.obj.pindifference()
+    return bundle.obj.pindifference
 
   class Meta(api_helper.BaseMeta):
     queryset = Closure.objects.all()
     resource_name = 'closure'
 
-  transactions = fields.ToManyField('kas.api.TransactionResource', attribute=lambda bundle: bundle.obj.transactions(), readonly=True)
+  transactions = fields.ToManyField('kas.api.TransactionResource', attribute=lambda bundle: bundle.obj.transactions, readonly=True)

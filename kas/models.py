@@ -2,10 +2,8 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import ValidationError
 from django.utils.text import capfirst
-import datetime
 from django.utils import timezone
 
-# Create your models here.
 class Transaction(models.Model):
     class Meta:
         verbose_name = _('transaction')
@@ -29,25 +27,31 @@ class Transaction(models.Model):
 
     method = models.CharField(_('method'), max_length=1, choices=METHODS, default=CASH)
 
+    @property
     def closure(self):
-        try:
-            closure = Closure.objects.filter(date__gte=self.date)[0]
-        except IndexError:
-            closure = None
-
+        closure = getattr(self, '_closure', None)
+        if not closure:
+            try:
+                if self.date:
+                    # Existing transaction, try to get the first closure after this transaction
+                    closure = Closure.objects.filter(date__gte=self.date).order_by('id')[0]
+                else:
+                    # New transaction, try to get a non-finished closure
+                    closure = Closure.objects.filter(finished=False)[0]
+                setattr(self, '_closure', closure)
+            except IndexError:
+                pass
         return closure
 
+    @property
     def editable(self):
-        if self.closure() and self.closure().finished:
-            return False
-        return True
+        return not (self.closure and self.closure.finished)
 
     def clean(self):
         super(Transaction, self).clean()
-        from django.core.exceptions import ValidationError
 
-        if self.pk and self.closure() and self.closure().finished:
-            raise ValidationError(_('Closure already finished.'))
+        if not self.editable:
+            raise ValidationError(_('Transaction not editable.'))
 
     def __unicode__(self):
         return capfirst(_("transaction")) + " " + timezone.localtime(self.date).strftime("%Y-%m-%d %H:%M")
@@ -60,7 +64,7 @@ class Closure(models.Model):
 
     user            = models.CharField(_('user'), max_length=32, blank=False)
 
-    date            = models.DateTimeField(_('date'), auto_now_add=True)
+    date            = models.DateTimeField(_('date'), auto_now=True)
 
     num_e500        = models.IntegerField(_('500 euro'), default=0)
     num_e200        = models.IntegerField(_('200 euro'), default=0)
@@ -87,63 +91,48 @@ class Closure(models.Model):
 
     finished        = models.BooleanField(_('finished'), default=False)
 
-    def ifdate(self):
-        date = datetime.datetime.today()
-        if self.date:
-            date = self.date
-        return date
+    ###################################################
 
-    def previousclosure(self):
+    @property
+    def transactions(self):
+        transactions = Transaction.objects.all()
+
+        if self.previous:
+            transactions = transactions.filter(date__gt=self.previous.date)
+
+        if self.finished:
+            transactions = transactions.filter(date__lte=self.date)
+
+        return transactions
+
+    @property
+    def previous(self):
         previous = None;
         try:
-            if self.pk is None:
-                previous = Closure.objects.latest('pk')
-            else:
+            if self.pk:
                 previous = Closure.objects.get(pk=self.pk-1)
+            else:
+                previous = Closure.objects.latest('pk') 
         except Closure.DoesNotExist:
             pass
         return previous
 
-    def datefrom(self):
-        previous = self.previousclosure()
-        if previous:
-            return previous.date
-        else:
-            return None
-
-    def transactions(self):
-        previous = self.previousclosure()
-
-        if previous:
-            return Transaction.objects.filter(date__lte=self.ifdate(), date__gt=previous.date)
-        else:
-            return Transaction.objects.filter(date__lte=self.ifdate())
-
-    def previoustotal(self):
-        previous = self.previousclosure()
-        if previous:
-            return previous.total
-        else:
-            return 0
-
+    @property
     def cashdifference(self):
-        return self.total - self.previoustotal() - self.transactions_cash
+        return self.total - getattr(self.previous, 'total', 0) - self.transactions_cash
 
+    @property
     def pindifference(self):
         return self.pin - self.transactions_pin;
 
     def clean(self):
         super(Closure, self).clean()
-        from django.core.exceptions import ValidationError
 
-        previous = self.previousclosure()
+        if self.pk and Closure.objects.get(pk=self.pk).finished:
+            raise ValidationError(_('Closure already finished.'))
 
-        if self.pk is None:
-            if previous and not previous.finished:
-                raise ValidationError(_('Previous closure not finished yet'))
-        else:
-            if Closure.objects.get(pk=self.pk).finished:
-                raise ValidationError(_('Closure already finished.'))
+        if not getattr(self.previous, 'finished', True):
+            raise ValidationError(_('Previous closure not finished yet'))
 
         # Calculate the total register contents
         self.total = 500 * self.num_e500 + \
@@ -160,18 +149,13 @@ class Closure(models.Model):
             0.1 * self.num_e010 + \
             0.05 * self.num_e005
 
-        # Set the current date
-        date = datetime.datetime.today()
-        if self.date:
-            date = self.date
-
         # Calculate the total cash transactions
-        transactions_cash = self.transactions().filter(valid=True, method=Transaction.CASH)
+        transactions_cash = self.transactions.filter(valid=True, method=Transaction.CASH)
         amounts = map(lambda transaction: transaction.amount, transactions_cash)
         self.transactions_cash = reduce(lambda x, y: x+y, amounts, 0)
 
         # Calculate the total cash transactions
-        transactions_pin = self.transactions().filter(valid=True, method=Transaction.PIN)
+        transactions_pin = self.transactions.filter(valid=True, method=Transaction.PIN)
         amounts = map(lambda transaction: transaction.amount, transactions_pin)
         self.transactions_pin = reduce(lambda x, y: x+y, amounts, 0)
 

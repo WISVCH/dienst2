@@ -12,7 +12,7 @@ class TransactionAdmin(admin.ModelAdmin):
         obj.save()
 
     def has_delete_permission(self, request, obj=None):
-        if obj is not None and obj.closure() is not None and obj.closure().finished:
+        if obj is not None and obj.closure is not None and obj.closure.finished:
             return False
         else:
             return True
