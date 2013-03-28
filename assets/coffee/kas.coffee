@@ -62,8 +62,6 @@ angular
 
         transaction.valid = true
 
-        console.log transaction
-
         transaction.create((obj) -> 
           $scope.inout = "OUT"
           $scope.method = "CASH"
@@ -74,11 +72,92 @@ angular
         )
   ])
   .controller('ClosureController', ['$scope', 'Transaction', 'Closure', ($scope, Transaction, Closure) -> 
+    $scope.unfinished = false;
+    Closure.unfinished((closure) -> 
+      if closure.total_count == 1
+        $scope.unfinished = closure[0]
+    )
 
     $scope.closures = []
-    Closure.all((closures, meta) ->
+    Closure.all((closures) ->
       $scope.closures = closures
     )
+
+    $('.extrainfo').popover({trigger:"focus", placement:"bottom", title:"Informatie"})
+  ])
+  .controller('ClosureFormController', ['$scope', '$location', 'Transaction', 'Closure', ($scope, $location, Transaction, Closure) -> 
+    $scope.newclosure = () ->
+      if $scope.in_cash
+        transaction_cash = new Transaction()
+        transaction_cash.amount = parseFloat($scope.in_cash.replace(',','.'))
+        transaction_cash.method = "C"
+        transaction_cash.description = "Kasinkomsten"
+        transaction_cash.valid = true
+
+        transaction_cash.create((obj) ->)
+
+      if $scope.in_pin
+        transaction_pin = new Transaction()
+        transaction_pin.amount = parseFloat($scope.in_pin.replace(',','.'))
+        transaction_pin.method = "P"
+        transaction_pin.description = "Pininkomsten"
+        transaction_pin.valid = true
+
+        transaction_pin.create((obj) ->)
+
+      closure = new Closure()
+      closure.create((obj) ->
+        $location.path('/closures/' + obj.id)
+      )
+  ])
+  .controller('ClosureDetailController', ['$routeParams', '$scope', 'Transaction', 'Closure', ($routeParams, $scope, Transaction, Closure) -> 
+    $scope.closure = false
+
+    $scope.transactions = []
+
+    Closure.get($routeParams.closureID, (closure) -> 
+      $scope.closure = closure
+
+      if not $scope.closure.finished
+        # to make sure the latest transactions are processed
+        $scope.closure.update((closure) ->
+          $scope.closure = closure
+        )
+
+      $scope.loadTransactions()
+    )
+
+    $scope.loadTransactions = () ->
+      Transaction.inClosure($scope.closure, (transactions) ->
+        $scope.transactions = transactions
+      )
+
+    $scope.save = () ->
+      $scope.closure.update((closure) ->
+        $scope.loadTransactions() # Reload transactions
+        $scope.closure = closure
+        if ($scope.closure.cashdifference == 0 and $scope.closure.pindifference == 0) or $scope.confirmed
+
+          $scope.closure.finished = true
+          $scope.closure.update((closure) -> 
+            $scope.confirmed = $scope.problem = false
+            alert("Dagafsluiting voltooid.")
+          )
+        else
+          $scope.problem = true
+      )
+
+    $scope.confirm = () ->
+      $scope.confirmed = true
+      $scope.save()
+
+    $scope.$watch(
+      "closure.num_e500 + closure.num_e200 + closure.num_e100 + closure.num_e50 + closure.num_e20 + closure.num_e10 + closure.num_e5 + closure.num_e2 + closure.num_e1 + closure.num_e050 + closure.num_e020 + closure.num_e010 + closure.num_e005"
+      () ->
+        $scope.closure.total = 500 * $scope.closure.num_e500 + 200 * $scope.closure.num_e200 + 100 * $scope.closure.num_e100 + 50 * $scope.closure.num_e50 + 20 * $scope.closure.num_e20 + 10 * $scope.closure.num_e10 + 5 * $scope.closure.num_e5 + 2 * $scope.closure.num_e2 + 1 * $scope.closure.num_e1 + 0.5 * $scope.closure.num_e050 + 0.2 * $scope.closure.num_e020 + 0.1 * $scope.closure.num_e010 + 0.05 * $scope.closure.num_e005
+    )
+
+    $(document).delegate('input.input-mini', 'keyup', () -> $scope.$digest())
 
   ])
 
@@ -91,13 +170,25 @@ angular
   .factory('Transaction', ['Tastypie', (Tastypie) ->
     Transaction = Tastypie('api/v2/transaction/')
     Transaction.prototype.toString = () -> this.description
+
     Transaction.prototype.toggleValid = () -> 
-      this.valid = if this.valid then false else true
-      this.update()
+      if this.editable
+        this.valid = if this.valid then false else true
+        this.update()
+    
+    Transaction.inClosure = (closure, success) -> 
+      params = {'limit': 0, 'date__lte':closure.date}
+
+      if closure.previousdate
+        params.date__gt = closure.previousdate
+
+      Transaction._more({ method: 'GET', url: Transaction.api_root , params: params }, success)
+
     Transaction
   ])
   .factory('Closure', ['Tastypie', (Tastypie) ->
     Closure = Tastypie('api/v2/closure/')
     Closure.prototype.toString = () -> this.date
+    Closure.unfinished = (success) -> Closure._more({ method: 'GET', url: Closure.api_root , params: {'finished': false} }, success)
     Closure
   ])

@@ -35,8 +35,17 @@
 
 <div class="row">
   <div class="span12">
-    <form class="form-inline well" ng-controller="NewClosureFormController" ng-submit="submit()">
-      <button class="btn">Verder</button>
-    </form>
+    <div class="well">
+      <div ng-show="unfinished">
+        <a class="btn" href="#/closures/{{unfinished.id}}">Ga verder met dagafsluiting</a>
+      </div>
+      <div ng-hide="unfinished">
+        <form class="form-inline" ng-controller="ClosureFormController" ng-submit="newclosure()">
+          <input type="text" class="input-large extrainfo" placeholder="Kasinkomsten" ng-model="in_cash" data-content="'GELD IN LADE' onder het kopje 'FINANCIEEL' op de Z-bon" >
+          <input type="text" class="input-large extrainfo" placeholder="Pininkomsten" ng-model="in_pin" data-content="'OP REKENING' onder het kopje 'FINANCIEEL' op de Z-bon">
+          <button class="btn input-large">Start nieuwe dagafsluiting</button>
+        </form>
+      </div>
+    </div>
   </div>
 </div>

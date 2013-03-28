@@ -80,7 +80,7 @@ class Closure(models.Model):
     num_e010        = models.IntegerField(_('10 eurocent'), default=0)
     num_e005        = models.IntegerField(_('5 eurocent'), default=0)
 
-    total           = models.FloatField(_('total register content'), blank=True, editable=False)
+    total           = models.FloatField(_('total register content'), blank=True, default=0, editable=False)
 
     pin             = models.FloatField(_('pin receipt'), default=0)
     
@@ -110,7 +110,7 @@ class Closure(models.Model):
         previous = None;
         try:
             if self.pk:
-                previous = Closure.objects.get(pk=self.pk-1)
+                previous = Closure.objects.filter(date__lt=self.date)[0:1].get()
             else:
                 previous = Closure.objects.latest('pk') 
         except Closure.DoesNotExist:
@@ -131,7 +131,7 @@ class Closure(models.Model):
         if self.pk and Closure.objects.get(pk=self.pk).finished:
             raise ValidationError(_('Closure already finished.'))
 
-        if not getattr(self.previous, 'finished', True):
+        if self.previous and not self.previous.finished:
             raise ValidationError(_('Previous closure not finished yet'))
 
         # Calculate the total register contents
