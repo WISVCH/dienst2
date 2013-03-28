@@ -75,9 +75,6 @@ angular
       name += this.surname
       name
 
-    Person.prototype.getSubresource = (url, success) ->
-      Person._one({method: 'GET', url: url}, success)
-
     Person
   ])
   

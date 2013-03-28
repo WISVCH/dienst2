@@ -55,6 +55,9 @@ angular.module('dienst2', [])
 
       Model.search = (query, success) -> Model._more({ method: 'GET', url: Model.api_root + 'search/', params: {'q': query} }, success)
 
+      Model.getSubresource = (url, success) ->
+        Model._one({method: 'GET', url: url}, success)
+
       # Instance methods
 
       Model.prototype.create = (success) ->
