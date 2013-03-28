@@ -45,16 +45,16 @@ angular
 
       $scope.person = person
       if person.member
-        person.getSubresource(person.member, (member) -> $scope.member = member)
+        Person.getSubresource(person.member, (member) -> $scope.member = member)
       if person.student
-        person.getSubresource(person.student, (student) -> $scope.student = student)
+        Person.getSubresource(person.student, (student) -> $scope.student = student)
       if person.alumnus
-        person.getSubresource(person.alumnus, (alumnus) -> $scope.alumnus = alumnus)
+        Person.getSubresource(person.alumnus, (alumnus) -> $scope.alumnus = alumnus)
       if person.employee
-        person.getSubresource(person.employee, (employee) -> $scope.employee = employee)
+        Person.getSubresource(person.employee, (employee) -> $scope.employee = employee)
       if person.committees
         angular.forEach(person.committees, (committee) -> 
-          person.getSubresource(committee, (committee) -> $scope.committees.push(committee))
+          Person.getSubresource(committee, (committee) -> $scope.committees.push(committee))
         )
       
     )

@@ -27,10 +27,10 @@ angular
     addItem = (transaction) -> $scope.transactions.push(transaction)
 
     $scope.next = () ->
-      $scope.transactions.next((items) -> $scope.items = items)
+      $scope.transactions.next((transactions) -> $scope.transactions = transactions)
 
     $scope.previous = () ->
-      $scope.transactions.previous((items) -> $scope.items = items)
+      $scope.transactions.previous((transactions) -> $scope.transactions = transactions)
 
   ])
   .controller('TransactionFormController', ['$scope', 'Transaction', ($scope, Transaction) -> 
