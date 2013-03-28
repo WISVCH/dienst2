@@ -66,12 +66,13 @@ angular.module('dienst2', [])
           .success((data, status, headers, config) -> success(process(data)))
 
       Model.prototype.update = (success) ->
+        model = this
         $http({ method: 'PUT', url: Model.api_root + this.id + '/' , data: this })
           .error(report)
           .success((data, status, headers, config) -> 
-            angular.extend(this, process(data))
+            angular.extend(model, process(data))
             if success
-              success(this)
+              success(model)
           )
 
       return Model
