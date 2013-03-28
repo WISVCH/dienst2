@@ -34,13 +34,13 @@
         return $scope.transactions.push(transaction);
       };
       $scope.next = function() {
-        return $scope.transactions.next(function(items) {
-          return $scope.items = items;
+        return $scope.transactions.next(function(transactions) {
+          return $scope.transactions = transactions;
         });
       };
       return $scope.previous = function() {
-        return $scope.transactions.previous(function(items) {
-          return $scope.items = items;
+        return $scope.transactions.previous(function(transactions) {
+          return $scope.transactions = transactions;
         });
       };
     }
@@ -72,7 +72,6 @@
           transaction.method = $scope.method === "CASH" ? "C" : "P";
           transaction.description = $scope.description;
           transaction.valid = true;
-          console.log(transaction);
           return transaction.create(function(obj) {
             $scope.inout = "OUT";
             $scope.method = "CASH";
@@ -86,9 +85,90 @@
     }
   ]).controller('ClosureController', [
     '$scope', 'Transaction', 'Closure', function($scope, Transaction, Closure) {
+      $scope.unfinished = false;
+      Closure.unfinished(function(closure) {
+        if (closure.total_count === 1) {
+          return $scope.unfinished = closure[0];
+        }
+      });
       $scope.closures = [];
-      return Closure.all(function(closures, meta) {
+      Closure.all(function(closures) {
         return $scope.closures = closures;
+      });
+      return $('.extrainfo').popover({
+        trigger: "focus",
+        placement: "bottom",
+        title: "Informatie"
+      });
+    }
+  ]).controller('ClosureFormController', [
+    '$scope', '$location', 'Transaction', 'Closure', function($scope, $location, Transaction, Closure) {
+      return $scope.newclosure = function() {
+        var closure, transaction_cash, transaction_pin;
+        if ($scope.in_cash) {
+          transaction_cash = new Transaction();
+          transaction_cash.amount = parseFloat($scope.in_cash.replace(',', '.'));
+          transaction_cash.method = "C";
+          transaction_cash.description = "Kasinkomsten";
+          transaction_cash.valid = true;
+          transaction_cash.create(function(obj) {});
+        }
+        if ($scope.in_pin) {
+          transaction_pin = new Transaction();
+          transaction_pin.amount = parseFloat($scope.in_pin.replace(',', '.'));
+          transaction_pin.method = "P";
+          transaction_pin.description = "Pininkomsten";
+          transaction_pin.valid = true;
+          transaction_pin.create(function(obj) {});
+        }
+        closure = new Closure();
+        return closure.create(function(obj) {
+          return $location.path('/closures/' + obj.id);
+        });
+      };
+    }
+  ]).controller('ClosureDetailController', [
+    '$routeParams', '$scope', 'Transaction', 'Closure', function($routeParams, $scope, Transaction, Closure) {
+      $scope.closure = false;
+      $scope.transactions = [];
+      Closure.get($routeParams.closureID, function(closure) {
+        $scope.closure = closure;
+        if (!$scope.closure.finished) {
+          $scope.closure.update(function(closure) {
+            return $scope.closure = closure;
+          });
+        }
+        return $scope.loadTransactions();
+      });
+      $scope.loadTransactions = function() {
+        return Transaction.inClosure($scope.closure, function(transactions) {
+          return $scope.transactions = transactions;
+        });
+      };
+      $scope.save = function() {
+        return $scope.closure.update(function(closure) {
+          $scope.loadTransactions();
+          $scope.closure = closure;
+          if (($scope.closure.cashdifference === 0 && $scope.closure.pindifference === 0) || $scope.confirmed) {
+            $scope.closure.finished = true;
+            return $scope.closure.update(function(closure) {
+              $scope.confirmed = $scope.problem = false;
+              return alert("Dagafsluiting voltooid.");
+            });
+          } else {
+            return $scope.problem = true;
+          }
+        });
+      };
+      $scope.confirm = function() {
+        $scope.confirmed = true;
+        return $scope.save();
+      };
+      $scope.$watch("closure.num_e500 + closure.num_e200 + closure.num_e100 + closure.num_e50 + closure.num_e20 + closure.num_e10 + closure.num_e5 + closure.num_e2 + closure.num_e1 + closure.num_e050 + closure.num_e020 + closure.num_e010 + closure.num_e005", function() {
+        return $scope.closure.total = 500 * $scope.closure.num_e500 + 200 * $scope.closure.num_e200 + 100 * $scope.closure.num_e100 + 50 * $scope.closure.num_e50 + 20 * $scope.closure.num_e20 + 10 * $scope.closure.num_e10 + 5 * $scope.closure.num_e5 + 2 * $scope.closure.num_e2 + 1 * $scope.closure.num_e1 + 0.5 * $scope.closure.num_e050 + 0.2 * $scope.closure.num_e020 + 0.1 * $scope.closure.num_e010 + 0.05 * $scope.closure.num_e005;
+      });
+      return $(document).delegate('input.input-mini', 'keyup', function() {
+        return $scope.$digest();
       });
     }
   ]);
@@ -101,8 +181,25 @@
         return this.description;
       };
       Transaction.prototype.toggleValid = function() {
-        this.valid = this.valid ? false : true;
-        return this.update();
+        if (this.editable) {
+          this.valid = this.valid ? false : true;
+          return this.update();
+        }
+      };
+      Transaction.inClosure = function(closure, success) {
+        var params;
+        params = {
+          'limit': 0,
+          'date__lte': closure.date
+        };
+        if (closure.previousdate) {
+          params.date__gt = closure.previousdate;
+        }
+        return Transaction._more({
+          method: 'GET',
+          url: Transaction.api_root,
+          params: params
+        }, success);
       };
       return Transaction;
     }
@@ -112,6 +209,15 @@
       Closure = Tastypie('api/v2/closure/');
       Closure.prototype.toString = function() {
         return this.date;
+      };
+      Closure.unfinished = function(success) {
+        return Closure._more({
+          method: 'GET',
+          url: Closure.api_root,
+          params: {
+            'finished': false
+          }
+        }, success);
       };
       return Closure;
     }

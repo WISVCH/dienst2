@@ -87,6 +87,12 @@
             }
           }, success);
         };
+        Model.getSubresource = function(url, success) {
+          return Model._one({
+            method: 'GET',
+            url: url
+          }, success);
+        };
         Model.prototype.create = function(success) {
           return $http({
             method: 'POST',
@@ -97,14 +103,16 @@
           });
         };
         Model.prototype.update = function(success) {
+          var model;
+          model = this;
           return $http({
             method: 'PUT',
             url: Model.api_root + this.id + '/',
             data: this
           }).error(report).success(function(data, status, headers, config) {
-            angular.extend(this, process(data));
+            angular.extend(model, process(data));
             if (success) {
-              return success(this);
+              return success(model);
             }
           });
         };

@@ -43,28 +43,28 @@
         console.log(person);
         $scope.person = person;
         if (person.member) {
-          person.getSubresource(person.member, function(member) {
+          Person.getSubresource(person.member, function(member) {
             return $scope.member = member;
           });
         }
         if (person.student) {
-          person.getSubresource(person.student, function(student) {
+          Person.getSubresource(person.student, function(student) {
             return $scope.student = student;
           });
         }
         if (person.alumnus) {
-          person.getSubresource(person.alumnus, function(alumnus) {
+          Person.getSubresource(person.alumnus, function(alumnus) {
             return $scope.alumnus = alumnus;
           });
         }
         if (person.employee) {
-          person.getSubresource(person.employee, function(employee) {
+          Person.getSubresource(person.employee, function(employee) {
             return $scope.employee = employee;
           });
         }
         if (person.committees) {
           return angular.forEach(person.committees, function(committee) {
-            return person.getSubresource(committee, function(committee) {
+            return Person.getSubresource(committee, function(committee) {
               return $scope.committees.push(committee);
             });
           });
@@ -85,12 +85,6 @@
         }
         name += this.surname;
         return name;
-      };
-      Person.prototype.getSubresource = function(url, success) {
-        return Person._one({
-          method: 'GET',
-          url: url
-        }, success);
       };
       return Person;
     }
