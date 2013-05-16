@@ -1,5 +1,6 @@
 DATE=$(shell date +%I:%M%p)
-CHECK=\033[32m✔\033[39m
+#CHECK=\033[32m✔\033[39m
+CHECK=✔
 HR=\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#
 DIENST2=../dienst2/static
 LDB=../ldb/static
@@ -24,7 +25,7 @@ app: dienst2 ldb kas post
 	@echo "${CHECK} Compiled assets"
 
 dienst2:
-	@coffee --join ${DIENST2}/js/dienst2.js --compile coffee/dienst2.coffee coffee/spin.coffee
+	@coffee --join ${DIENST2}/js/dienst2.js --compile coffee/dienst2.coffee coffee/spin.coffee coffee/forms.coffee
 	@uglifyjs ${DIENST2}/js/dienst2.js -nc > ${DIENST2}/js/dienst2.min.js 2> /dev/null
 	@echo "${CHECK} Compiled and Minified Dienst2 assets"
 
