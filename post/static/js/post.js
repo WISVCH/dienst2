@@ -32,6 +32,7 @@
   angular.module('post.controllers', ['post.apiv2']).controller('DashboardController', [
     '$scope', 'Item', function($scope, Item) {
       var allItems;
+      $scope.search = "";
       $scope.items = [];
       allItems = [];
       Item.all(function(items, meta) {
