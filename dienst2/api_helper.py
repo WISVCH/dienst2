@@ -7,6 +7,17 @@ from tastypie.resources import ModelResource
 from tastypie.authorization import DjangoAuthorization
 from tastypie.utils import trailing_slash
 from tastypie.cache import SimpleCache
+from tastypie.validation import Validation
+from django.core.exceptions import ValidationError
+
+class CHValidation(Validation):
+  def is_valid(self, bundle, request=None):
+    try:
+      bundle.obj.full_clean()
+    except ValidationError as e:
+      return e
+
+    return {}
 
 def prepend_urls():
   def prepend_urls(self):
@@ -25,8 +36,17 @@ def get_search(Model):
     sqs = SearchQuerySet().models(Model)
     
     words = request.GET.get('q', '').split(' ')
+    mod = request.GET.get('mod', 'default')
     for word in words:
-      sqs = sqs.filter(text=Raw(word + '*'))
+      
+      if mod == 'default':
+        word = '*' + word + '*'
+      elif mod == 'start':
+        word = word + '*'
+      elif mod == 'exact':
+        word = word
+
+      sqs = sqs.filter(text=Raw(word))
     sqs = sqs.load_all()
 
     paginator = Paginator(sqs, 20)
@@ -56,3 +76,4 @@ class BaseMeta:
   authorization= DjangoAuthorization()
   always_return_data = True
   cache = SimpleCache(timeout=10)
+  validation = CHValidation()
