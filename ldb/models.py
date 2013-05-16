@@ -23,7 +23,7 @@ class Entity(models.Model):
     address_3         = models.CharField(_('address row 3'), max_length=75, blank=True)
     postcode          = models.CharField(_('postcode'), max_length=10, blank=True)
     city              = models.CharField(_('city'), max_length=50, blank=True)
-    country           = CountryField(_('country'), default='NL', blank=True)
+    country           = CountryField(_('country'), blank=True)
     email             = models.EmailField(_('e-mail'), blank=True)
     
     # Telephone

@@ -24,10 +24,10 @@ class PersonResource(ModelResource):
       "ldap_username": ('exact')
     }
 
-  member = fields.ToOneField('ldb.api.MemberResource', 'member', null=True)
-  student = fields.ToOneField('ldb.api.StudentResource', 'student', null=True)
-  alumnus = fields.ToOneField('ldb.api.AlumnusResource', 'alumnus', null=True)
-  employee = fields.ToOneField('ldb.api.EmployeeResource', 'employee', null=True)
+  member = fields.ToOneField('ldb.api.MemberResource', 'member', null=True, readonly=True)
+  student = fields.ToOneField('ldb.api.StudentResource', 'student', null=True, readonly=True)
+  alumnus = fields.ToOneField('ldb.api.AlumnusResource', 'alumnus', null=True, readonly=True)
+  employee = fields.ToOneField('ldb.api.EmployeeResource', 'employee', null=True, readonly=True)
   living_with = fields.ToOneField('self', 'living_with', null=True)
 
   age = fields.IntegerField(readonly=True)
@@ -38,7 +38,7 @@ class PersonResource(ModelResource):
     except:
       return None
 
-  committees = fields.ToManyField('ldb.api.CommitteeMembershipResource', attribute=lambda bundle: CommitteeMembership.objects.filter(person=bundle.obj), null=True)
+  committees = fields.ToManyField('ldb.api.CommitteeMembershipResource', attribute=lambda bundle: CommitteeMembership.objects.filter(person=bundle.obj), null=True, readonly=True)
 
 class MemberResource(ModelResource):
   get_search = api_helper.get_search(Member)
@@ -87,6 +87,7 @@ class CommitteeResource(ModelResource):
   class Meta(api_helper.BaseMeta):
     queryset = Committee.objects.all()
     resource_name = 'committee'
+    excludes = ['description']
 
 class CommitteeMembershipResource(ModelResource):
   get_search = api_helper.get_search(CommitteeMembership)
@@ -95,10 +96,13 @@ class CommitteeMembershipResource(ModelResource):
   class Meta(api_helper.BaseMeta):
     queryset = CommitteeMembership.objects.all()
     resource_name = 'committeeMembership'
+    filtering = {
+      'person': ('exact')
+    }
 
   person = fields.ToOneField('ldb.api.PersonResource', 'person')
   committee = fields.ToOneField('ldb.api.CommitteeResource', 'committee')
-  committeename = fields.CharField(attribute='committee__name')
+  committeename = fields.CharField(attribute='committee__name', readonly=True)
 
 class ModificationResource(ModelResource):
   class Meta(api_helper.BaseMeta):

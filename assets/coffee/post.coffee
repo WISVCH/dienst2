@@ -29,6 +29,7 @@ addItem = {};
 angular
   .module('post.controllers', ['post.apiv2'])
   .controller('DashboardController', ['$scope', 'Item', ($scope, Item) -> 
+    $scope.search = ""
     $scope.items = []
     allItems = []
     Item.all((items, meta) -> $scope.items = allItems = items)
