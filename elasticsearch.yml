@@ -1,8 +1,0 @@
-cluster.name: elasticsearch_dienst2
-
-path.data: /usr/local/var/elasticsearch/
-path.logs: /usr/local/var/log/elasticsearch/
-
-path.plugins: /usr/local/var/lib/elasticsearch/plugins
-
-network.host: 127.0.0.1
