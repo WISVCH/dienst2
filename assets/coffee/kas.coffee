@@ -161,7 +161,7 @@ angular
     $(document).delegate('input.input-mini', 'keyup', () -> $scope.$digest())
   ])
   .controller('BarcodeController', ['$scope', 'Barcode', ($scope, Barcode) -> 
-    $scope.image = false
+    $scope.images = []
 
     canvas = $('#canvas')[0]
     context = canvas.getContext('2d')
@@ -184,7 +184,7 @@ angular
     )
 
     $scope.getImage = () ->
-      $scope.image = ocanvas.canvasElement.toDataURL("image/png")
+      $scope.images.push(ocanvas.canvasElement.toDataURL("image/png"))
 
   ])
 

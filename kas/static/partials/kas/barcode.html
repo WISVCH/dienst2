@@ -9,17 +9,17 @@
 </div>
 
 <div class="row">
-  <div ng-class="{span6: image, span12: !image}" style="text-align:center">
+  <div ng-class="{span6: images.length > 0, span12: !images.length > 0}" style="text-align:center">
     <div class="well">
       <canvas style="margin: 10px;" id="canvas" width="320" height="200"></canvas>
     </div>
   </div>
-  <div class="span6" ng-show="image">
+  <div class="span6" ng-show="images.length > 0">
     <div class="well" style="text-align:center">
       <div class="alert alert-info">
-        De barcode hieronder kan je opslaan. Succes ermee!
+        De barcodes hieronder kan je opslaan. Succes ermee!
       </div>
-      <img ng-src="{{image}}" width="320" height="200"/>
+      <img ng-repeat="image in images" ng-src="{{image}}" width="320" height="200"/>
     </div>
   </div>
 </div>

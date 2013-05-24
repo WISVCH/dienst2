@@ -287,7 +287,7 @@
   ]).controller('BarcodeController', [
     '$scope', 'Barcode', function($scope, Barcode) {
       var canvas, context, height, ocanvas, width;
-      $scope.image = false;
+      $scope.images = [];
       canvas = $('#canvas')[0];
       context = canvas.getContext('2d');
       width = $(canvas).attr('width');
@@ -308,7 +308,7 @@
         }
       });
       return $scope.getImage = function() {
-        return $scope.image = ocanvas.canvasElement.toDataURL("image/png");
+        return $scope.images.push(ocanvas.canvasElement.toDataURL("image/png"));
       };
     }
   ]);
