@@ -264,7 +264,7 @@
         <strong>Bevestigd:</strong>
         <span ng-hide="editmode">{{person.student_model.date_verified | date:"dd-MM-yyyy"}}</span>
         <span ng-show="editmode"><input type="text" placeholder="dd-mm-yyyy" ng-model="person.student_model.date_verified" class="input-medium" ch-date></span>
-        <a href class="icon-refresh" ng-click="person.student_model.confirm()"></a>
+        <a href class="icon-refresh" ng-hide="editmode" ng-click="person.student_model.confirm()"></a>
       </div>
 
       <div ng-show="person.student_model.graduated && !editmode"><strong>Afgestudeerd</strong></div>
