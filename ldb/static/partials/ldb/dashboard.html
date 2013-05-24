@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="span12">
+    <form class="form-inline well">
+      <select class="input-large" ng-model="searchtype" ng-options="key as value for (key , value) in {p:'Personen',o:'Organisaties'}">
+      </select>
+      <input id="zoekbalk" type="text" class="input-xxlarge" placeholder="Search" ng-model="search">
+    </form>
+  </div>
+</div>
+
+<div class="row" ng-show="search.length>1">
+  <div class="span12">
+    <div class="well">
+      <h1>
+        <ng-pluralize 
+          count="results.total_count"
+          when="{'0': 'No results',
+                 'one': 'One result',
+                 'other': '{} results'}">
+        </ng-pluralize>
+        for "{{search}}"</h1>
+
+      <ul class="nav nav-pills nav-stacked" ng-show="searchtype=='p'">
+        <li ng-repeat="person in results | orderBy:'surname'"><a href="#/person/{{person.id}}">{{person.firstname}} {{person.preposition}} {{person.surname}}</a></li>
+      </ul>
+
+      <ul class="nav nav-pills nav-stacked" ng-show="searchtype=='o'">
+        <li ng-repeat="organization in results | orderBy:'surname'"><a href="#/organization/{{organization.id}}">{{organization.name}}</a></li>
+      </ul>
+
+    </div>
+  </div>
+</div>

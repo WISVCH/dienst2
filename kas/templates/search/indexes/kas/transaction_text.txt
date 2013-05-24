@@ -1,0 +1,3 @@
+{{ object.amount }}
+{{ object.date }}
+{{ object.description }}

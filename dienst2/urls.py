@@ -6,16 +6,24 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    # Examples:
-    url(r'^$', 'ldb.views.index'),
+    # The LDB index:
+    url(r'^$', 'dienst2.views.index'),
 
-    # Uncomment the admin/doc line below to enable admin documentation:
+    # The Admin docs:
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
-    # Uncomment the next line to enable the admin:
+    # The Admin site:
     url(r'^admin/', include(admin.site.urls)),
 
+    # The signin page
     url(r'^accounts/login/$', 'django.contrib.auth.views.login'),
 
-    url(r'^ldb/', include('ldb.urls'))
+    # LDB URLs
+    url(r'^ldb/', include('ldb.urls')),
+
+    # Post URLs
+    url(r'^post/', include('post.urls')),
+
+    # Post URLs
+    url(r'^kas/', include('kas.urls')),
 )
