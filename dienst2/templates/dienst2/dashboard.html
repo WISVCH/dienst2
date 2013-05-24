@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div id="dashboard">
+  <img id="logo" src="{% get_static_prefix %}img/logo.png">
+
+  <table>
+    <tr>
+      <td>
+        <a href="{% url ldb_index %}"><img src="{% get_static_prefix %}img/ldb.svg"></a>
+      </td>
+      <td>
+        <a href="{% url post_index %}"><img src="{% get_static_prefix %}img/post.svg"></a>
+      </td>
+      <td>
+        <a href="{% url kas_index %}"><img src="{% get_static_prefix %}img/kas.svg"></a>
+      </td>
+      <td>
+        <a href="https://frans.chnet/userman2"><img src="{% get_static_prefix %}img/userman.svg"></a>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <h1>Leden</h1>
+      </td>
+      <td>
+        <h1>Post</h1>
+      </td>
+      <td>
+        <h1>Kas</h1>
+      </td>
+      <td>
+        <h1>Gebruikers</h1>
+      </td>
+    </tr>
+  </table>
+</div>
+{% endblock %}

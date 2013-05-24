@@ -23,7 +23,7 @@ class Entity(models.Model):
     address_3         = models.CharField(_('address row 3'), max_length=75, blank=True)
     postcode          = models.CharField(_('postcode'), max_length=10, blank=True)
     city              = models.CharField(_('city'), max_length=50, blank=True)
-    country           = CountryField(_('country'), default='NL', blank=True)
+    country           = CountryField(_('country'), blank=True)
     email             = models.EmailField(_('e-mail'), blank=True)
     
     # Telephone
@@ -316,3 +316,16 @@ class CommitteeMembership(models.Model):
     
     def __unicode__(self):
         return u'[%s] %s - %s' % (self.board, self.committee, self.person)
+
+class Modification(models.Model):
+    class Meta:
+        verbose_name = _('modification')
+        verbose_name_plural = _('modifications')
+
+    person       = models.ForeignKey(Person)
+    date         = models.DateTimeField(_('date'), auto_now_add=True)
+    ip           = models.CharField(_('ip address'), max_length=40)
+    modification = models.TextField(_('modification'), blank=True)
+
+    def __unicode__(self):
+        return u'Edit [%s] %s' % (self.date, self.person.__unicode__())
