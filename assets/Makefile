@@ -35,7 +35,7 @@ ldb:
 	@echo "${CHECK} Compiled and Minified ldb assets"
 
 kas:
-	@coffee --join ${KAS}/js/kas.js --compile coffee/kas.coffee
+	@coffee --join ${KAS}/js/kas.js --compile coffee/barcode.coffee coffee/kas.coffee
 	@uglifyjs ${KAS}/js/kas.js -nc > ${KAS}/js/kas.min.js 2> /dev/null
 	@echo "${CHECK} Compiled and Minified kas assets"
 

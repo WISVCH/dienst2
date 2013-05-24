@@ -8,6 +8,7 @@ post_data = {
     'items': [
       ('#/transactions', 'Transacties'),
       ('#/closures', 'Dagafsluitingen'),
+      ('#/barcode', 'Barcode Tool'),
     ]
   }
 }

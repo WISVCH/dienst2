@@ -2,6 +2,115 @@
 (function() {
   var addItem;
 
+  angular.module('kas.barcode', []).factory('Barcode', function() {
+    var Barcode, encode, encodings, groups, withChecksum;
+    groups = ['OOOOOO', 'OOEOEE', 'OOEEOE', 'OOEEEO', 'OEOOEE', 'OEEOOE', 'OEEEOO', 'OEOEOE', 'OEOEEO', 'OEEOEO'];
+    encodings = {
+      'O': ['0001101', '0011001', '0010011', '0111101', '0100011', '0110001', '0101111', '0111011', '0110111', '0001011'],
+      'E': ['0100111', '0110011', '0011011', '0100001', '0011101', '0111001', '0000101', '0010001', '0001001', '0010111'],
+      'R': ['1110010', '1100110', '1101100', '1000010', '1011100', '1001110', '1010000', '1000100', '1001000', '1110100']
+    };
+    withChecksum = function(num) {
+      var array, checksum, i, mul, _i, _j, _ref;
+      array = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+      for (i = _i = 0, _ref = Math.min(num.length, array.length) - 1; 0 <= _ref ? _i <= _ref : _i >= _ref; i = 0 <= _ref ? ++_i : --_i) {
+        array[i] = parseInt(num.charAt(i));
+      }
+      checksum = 0;
+      for (i = _j = 0; _j <= 11; i = ++_j) {
+        mul = i % 2 === 0 ? 1 : 3;
+        checksum += array[i] * mul;
+      }
+      array[12] = (Math.ceil(checksum / 10) * 10) - checksum;
+      return array;
+    };
+    encode = function(array) {
+      var barcode, group, i, _i, _j;
+      group = groups[array[0]];
+      barcode = 'L0L';
+      for (i = _i = 1; _i <= 6; i = ++_i) {
+        barcode += encodings[group.charAt(i - 1)][array[i]];
+      }
+      barcode += '0L0L0';
+      for (i = _j = 7; _j <= 12; i = ++_j) {
+        barcode += encodings['R'][array[i]];
+      }
+      barcode += 'L0L';
+      return barcode;
+    };
+    Barcode = function(num, description) {
+      this.num = num;
+      this.description = description;
+      this.withChecksum = withChecksum(num);
+      console.log(this.withChecksum);
+      return this.encoded = encode(this.withChecksum);
+    };
+    Barcode.create = function(num, text) {
+      return new Barcode(num, text);
+    };
+    Barcode.prototype.draw = function(canvas) {
+      var barcodeHeight, basetext, bit, bitHeight, bitWidth, canvas_height, canvas_width, desc, i, margin_bottom, margin_left, margin_top, num1, num2, num3, rectangle, _i, _ref;
+      canvas.reset();
+      margin_left = 25;
+      margin_top = 22;
+      margin_bottom = 40;
+      canvas_width = canvas.width;
+      canvas_height = canvas.height;
+      if (window.devicePixelRatio) {
+        canvas_width = canvas.width / window.devicePixelRatio;
+        canvas_height = canvas.height / window.devicePixelRatio;
+      }
+      canvas_width -= margin_left;
+      bitWidth = Math.floor(canvas_width / this.encoded.length);
+      console.log(this.encoded.length);
+      barcodeHeight = canvas_height - margin_top;
+      for (i = _i = 0, _ref = this.encoded.length - 1; 0 <= _ref ? _i <= _ref : _i >= _ref; i = 0 <= _ref ? ++_i : --_i) {
+        bit = this.encoded.charAt(i);
+        bitHeight = barcodeHeight - margin_bottom;
+        if (bit === "L") {
+          bitHeight = barcodeHeight;
+        }
+        if (bit !== "0") {
+          rectangle = canvas.display.rectangle({
+            x: i * bitWidth + margin_left,
+            y: margin_top,
+            width: bitWidth,
+            height: bitHeight,
+            fill: "#000"
+          });
+          canvas.addChild(rectangle);
+        }
+      }
+      basetext = {
+        x: 0,
+        y: canvas_height - margin_bottom,
+        font: "33px monospace",
+        fill: "#000"
+      };
+      desc = angular.extend({}, basetext, {
+        text: this.description,
+        y: 0,
+        font: "20px bold Arial"
+      });
+      canvas.addChild(canvas.display.text(desc));
+      num1 = angular.extend({}, basetext, {
+        text: this.withChecksum.join('').substring(0, 1)
+      });
+      canvas.addChild(canvas.display.text(num1));
+      num2 = angular.extend({}, basetext, {
+        text: this.withChecksum.join('').substring(1, 7),
+        x: 5 * bitWidth + margin_left
+      });
+      canvas.addChild(canvas.display.text(num2));
+      num3 = angular.extend({}, basetext, {
+        text: this.withChecksum.join('').substring(7, 13),
+        x: 50 * bitWidth + margin_left
+      });
+      return canvas.addChild(canvas.display.text(num3));
+    };
+    return Barcode;
+  });
+
   window.App = angular.module('kas', ['kas.controllers', 'typeahead']).config([
     '$routeProvider', function($routeProvider) {
       $routeProvider.when('/transactions', {
@@ -16,6 +125,10 @@
         templateUrl: window.prefix + 'partials/kas/closure.html',
         controller: 'ClosureDetailController'
       });
+      $routeProvider.when('/barcode', {
+        templateUrl: window.prefix + 'partials/kas/barcode.html',
+        controller: 'BarcodeController'
+      });
       $routeProvider.otherwise({
         redirectTo: '/transactions'
       });
@@ -24,7 +137,7 @@
 
   addItem = {};
 
-  angular.module('kas.controllers', ['kas.apiv2']).controller('TransactionController', [
+  angular.module('kas.controllers', ['kas.apiv2', 'kas.barcode']).controller('TransactionController', [
     '$scope', 'Transaction', function($scope, Transaction) {
       $scope.transactions = [];
       Transaction.all(function(transactions, meta) {
@@ -170,6 +283,33 @@
       return $(document).delegate('input.input-mini', 'keyup', function() {
         return $scope.$digest();
       });
+    }
+  ]).controller('BarcodeController', [
+    '$scope', 'Barcode', function($scope, Barcode) {
+      var canvas, context, height, ocanvas, width;
+      $scope.image = false;
+      canvas = $('#canvas')[0];
+      context = canvas.getContext('2d');
+      width = $(canvas).attr('width');
+      height = $(canvas).attr('height');
+      if (window.devicePixelRatio) {
+        $(canvas).attr('width', width * window.devicePixelRatio);
+        $(canvas).attr('height', height * window.devicePixelRatio);
+        $(canvas).css('width', width);
+        $(canvas).css('height', height);
+        context.scale(window.devicePixelRatio, window.devicePixelRatio);
+      }
+      ocanvas = oCanvas.create({
+        canvas: "#canvas"
+      });
+      $scope.$watch('barcode + description', function() {
+        if ($scope.barcode && $scope.barcode % 1 === 0) {
+          return Barcode.create($scope.barcode, $scope.description).draw(ocanvas);
+        }
+      });
+      return $scope.getImage = function() {
+        return $scope.image = ocanvas.canvasElement.toDataURL("image/png");
+      };
     }
   ]);
 

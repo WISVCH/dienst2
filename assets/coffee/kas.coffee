@@ -8,6 +8,7 @@ window.App = angular
     $routeProvider.when('/transactions', {templateUrl: window.prefix + 'partials/kas/transactions.html', controller: 'TransactionController'})
     $routeProvider.when('/closures', {templateUrl: window.prefix + 'partials/kas/closures.html', controller: 'ClosureController'})
     $routeProvider.when('/closures/:closureID', {templateUrl: window.prefix + 'partials/kas/closure.html', controller: 'ClosureDetailController'})
+    $routeProvider.when('/barcode', {templateUrl: window.prefix + 'partials/kas/barcode.html', controller: 'BarcodeController'})
     $routeProvider.otherwise({redirectTo: '/transactions'})
     return
   ])
@@ -18,7 +19,7 @@ window.App = angular
 addItem = {}
 
 angular
-  .module('kas.controllers', ['kas.apiv2'])
+  .module('kas.controllers', ['kas.apiv2', 'kas.barcode'])
   .controller('TransactionController', ['$scope', 'Transaction', ($scope, Transaction) -> 
 
     $scope.transactions = []
@@ -158,6 +159,32 @@ angular
     )
 
     $(document).delegate('input.input-mini', 'keyup', () -> $scope.$digest())
+  ])
+  .controller('BarcodeController', ['$scope', 'Barcode', ($scope, Barcode) -> 
+    $scope.image = false
+
+    canvas = $('#canvas')[0]
+    context = canvas.getContext('2d')
+
+    width = $(canvas).attr('width')
+    height = $(canvas).attr('height')
+
+    if window.devicePixelRatio
+      $(canvas).attr('width', width * window.devicePixelRatio)
+      $(canvas).attr('height', height * window.devicePixelRatio)
+      $(canvas).css('width', width)
+      $(canvas).css('height', height)
+      context.scale(window.devicePixelRatio, window.devicePixelRatio)
+
+    ocanvas = oCanvas.create({canvas: "#canvas"})
+
+    $scope.$watch('barcode + description', () ->
+      if $scope.barcode && $scope.barcode % 1 == 0
+        Barcode.create($scope.barcode, $scope.description).draw(ocanvas)
+    )
+
+    $scope.getImage = () ->
+      $scope.image = ocanvas.canvasElement.toDataURL("image/png")
 
   ])
 
