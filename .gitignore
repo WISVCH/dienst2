@@ -3,3 +3,5 @@
 /search_index/
 /static/
 .dienst2-env
+.idea
+*.iml
