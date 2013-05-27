@@ -1,0 +1,25 @@
+<div class="row">
+  <div class="span12">
+    <div class="well form-inline">
+      <input type="text" class="input-large" ng-model="description" placeholder="Omschrijving">
+      <input type="text" class="input-large" ng-model="barcode" placeholder="Barcode" maxlength="12">
+      <a class="btn" ng-click="getImage()">Image</a>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div ng-class="{span6: images.length > 0, span12: !images.length > 0}" style="text-align:center">
+    <div class="well">
+      <canvas style="margin: 10px;" id="canvas" width="320" height="200"></canvas>
+    </div>
+  </div>
+  <div class="span6" ng-show="images.length > 0">
+    <div class="well" style="text-align:center">
+      <div class="alert alert-info">
+        De barcodes hieronder kan je opslaan. Succes ermee!
+      </div>
+      <img ng-repeat="image in images" ng-src="{{image}}" width="320" height="200"/>
+    </div>
+  </div>
+</div>

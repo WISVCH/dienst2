@@ -1,14 +1,15 @@
 import datetime
-from haystack.indexes import *
-from haystack import site
-from ldb.models import *
+from haystack import indexes
+from ldb.models import Person, Organization
 
-class PersonIndex(SearchIndex):
-    text = CharField(document=True, use_template=True)
-    username = CharField(model_attr='ldap_username')
-    # pub_date = DateTimeField(model_attr='pub_date')
-site.register(Person, PersonIndex)
+class PersonIndex(indexes.SearchIndex, indexes.Indexable):
+  text = indexes.CharField(document=True, use_template=True)
 
-class OrganizationIndex(SearchIndex):
-    text = CharField(document=True, use_template=True)
-site.register(Organization, OrganizationIndex)
+  def get_model(self):
+    return Person
+
+class OrganizationIndex(indexes.SearchIndex, indexes.Indexable):
+  text = indexes.CharField(document=True, use_template=True)
+
+  def get_model(self):
+    return Organization

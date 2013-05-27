@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load static %}
+{% load angular %}
+
+{% block styles %}
+<style type="text/css">
+  body {
+    padding-top: 60px;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+{% include "dienst2/navbar.html" %}
+{% angular %}
+<div class="container" ng-view></div>
+{% endangular %}
+{% endblock %}
+

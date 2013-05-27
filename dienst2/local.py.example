@@ -1,16 +1,18 @@
+import ldap
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'dienst2',
-        'USER': 'mark',
-        'PASSWORD': '',
-        'HOST': 'localhost',
+        'USER': 'dienst2',
+        'PASSWORD': '',       # AANPASSEN
+        'HOST': '127.0.0.1',
         'PORT': '',
     }
 }
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = '^(h^15l!5nyk+(-r1dgxfj%l=jz#!6=_j35lc(-6eo_*vvok6h'
+SECRET_KEY = '^(h^15l!5nyk+(-r1dgxfj%l=jz#!6=_j35lc(-6eo_*vvok6h'       # AANPASSEN
 
 TEMPLATE_DEBUG = DEBUG = True
 
@@ -18,7 +20,7 @@ TEMPLATE_DEBUG = DEBUG = True
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = '/…/static/'
+STATIC_ROOT = '/tmp/dienst2-static/'       # AANPASSEN
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
@@ -27,14 +29,16 @@ ADMIN_MEDIA_PREFIX = STATIC_URL + "admin/"
 
 LOGIN_URL = '/dienst2/accounts/login/'
 
-HAYSTACK_WHOOSH_PATH = '/home/markj/dienst2/search_index'
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+        'URL': 'http://joost.chnet:9200/',
+        'INDEX_NAME': '',        # AANPASSEN
+    },
+}
 
 import logging
 
 logger = logging.getLogger('django_auth_ldap')
 logger.addHandler(logging.StreamHandler())
 logger.setLevel(logging.DEBUG)
-
-LEDEN48_HOST = ''
-LEDEN48_USER = ''
-LEDEN48_PASSWORD = ''

@@ -102,12 +102,13 @@ INSTALLED_APPS = (
     'reversion',
     'haystack',
     'south',
-    'djangorestframework',
+    'tastypie',
     'django.contrib.admin',
     'django.contrib.admindocs',
     'dienst2',
     'ldb',
     'kas',
+    'post',
 )
 
 AUTH_LDAP_SERVER_URI = "ldaps://frans.chnet/"
@@ -127,10 +128,6 @@ AUTH_LDAP_USER_FLAGS_BY_GROUP = {
     # "is_active": "cn=bestuur,ou=Besturen,ou=Group,dc=ank,dc=chnet",
     "is_staff": "cn=secretaris,ou=Group,dc=ank,dc=chnet",
     "is_superuser": "cn=secretaris,ou=Group,dc=ank,dc=chnet"
-}
-
-AUTH_LDAP_PROFILE_FLAGS_BY_GROUP = {
-    "is_awesome": "cn=bestuur54,ou=Besturen,ou=Group,dc=ank,dc=chnet",
 }
 
 AUTH_LDAP_MIRROR_GROUPS = True
@@ -165,9 +162,5 @@ LOGGING = {
         },
     }
 }
-
-HAYSTACK_SITECONF = 'dienst2.search_sites'
-HAYSTACK_SEARCH_ENGINE = 'whoosh'
-# HAYSTACK_INCLUDE_SPELLING = True
 
 from local import *

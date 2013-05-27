@@ -1,0 +1,18 @@
+<table class="table table-striped table-hover">
+  <thead>
+    <th width="25%">Datum</th>
+    <th width="10%">Gebruiker</th>
+    <th width="10%">Bedrag</th>
+    <th width="35%">Beschrijving</th>
+    <th width="10%">Geldig</th>
+  </thead>
+  <tbody>
+    <tr ng-repeat="transaction in transactions | orderBy:'date':true" ng-class="{error: transaction.valid==false}">
+    <td>{{transaction.date | date:"medium"}}</td>
+    <td>{{transaction.user}}</td>
+    <td><i ng-show="transaction.method=='P'" class="kas-icon-pin"></i><i ng-show="transaction.method=='C'"  class="kas-icon-cash"></i> {{transaction.amount | currency:"&euro;"}}</td>
+    <td>{{transaction.description}}</td>
+    <td><a class="btn" ng-class="{btn:true, disabled:!transaction.editable}" ng-click="transaction.toggleValid()"><i ng-show="transaction.valid" class="icon-ok"></i><i ng-hide="transaction.valid" class="icon-remove"></i></a></td>
+    </tr>
+  </tbody>
+</table>
