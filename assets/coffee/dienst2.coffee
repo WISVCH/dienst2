@@ -57,21 +57,21 @@ angular.module('dienst2', [])
       Model._more = (data, success) ->
         $http(data)
           .error(report)
-          .success((data, status, headers, config) -> success(processAll(data)))
+          .success((data, status, headers, config) -> success(processAll(data), status, headers, config))
 
       Model._one = (data, success) ->
         $http(data)
           .error(report)
-          .success((data, status, headers, config) -> success(process(data)))
+          .success((data, status, headers, config) -> success(process(data), status, headers, config))
       
       Model.get = (id, success) -> Model._one({method: 'GET', url: Model.api_root + id + '/'}, success)
 
       Model.all = (success) -> Model._more({ method: 'GET', url: Model.api_root , params: {'limit': 10} }, success)
 
-      Model.search = (query, success, mod) -> 
+      Model.search = (query, success, mod, id) -> 
         if !mod
           mod = 'default'
-        Model._more({ method: 'GET', url: Model.api_root + 'search/', params: {'q': query, 'mod': mod} }, success)
+        Model._more({ method: 'GET', url: Model.api_root + 'search/', params: {'q': query, 'mod': mod, 'searchID': id} }, success)
 
       Model.getSubresource = (url, success) ->
         if url

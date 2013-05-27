@@ -76,12 +76,12 @@
         Model.api_root = api_root;
         Model._more = function(data, success) {
           return $http(data).error(report).success(function(data, status, headers, config) {
-            return success(processAll(data));
+            return success(processAll(data), status, headers, config);
           });
         };
         Model._one = function(data, success) {
           return $http(data).error(report).success(function(data, status, headers, config) {
-            return success(process(data));
+            return success(process(data), status, headers, config);
           });
         };
         Model.get = function(id, success) {
@@ -99,7 +99,7 @@
             }
           }, success);
         };
-        Model.search = function(query, success, mod) {
+        Model.search = function(query, success, mod, id) {
           if (!mod) {
             mod = 'default';
           }
@@ -108,7 +108,8 @@
             url: Model.api_root + 'search/',
             params: {
               'q': query,
-              'mod': mod
+              'mod': mod,
+              'searchID': id
             }
           }, success);
         };

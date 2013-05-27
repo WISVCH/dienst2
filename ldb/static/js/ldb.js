@@ -36,7 +36,7 @@
 
   angular.module('ldb.controllers', ['ldb.apiv2']).controller('DashboardController', [
     '$scope', 'Person', 'Organization', function($scope, Person, Organization) {
-      var classes;
+      var classes, searchID;
       $scope.search = "";
       $scope.searchtype = "p";
       $scope.results = [];
@@ -44,11 +44,15 @@
         o: Organization,
         p: Person
       };
+      searchID = 0;
       $scope.$watch('searchtype + search', function() {
         if ($scope.search.length > 1) {
-          return classes[$scope.searchtype].search($scope.search, function(results) {
-            return $scope.results = results;
-          }, 'start');
+          searchID++;
+          return classes[$scope.searchtype].search($scope.search, function(results, status, headers, config) {
+            if (config.params.searchID === searchID) {
+              return $scope.results = results;
+            }
+          }, 'start', searchID);
         } else {
           return $scope.results = [];
         }

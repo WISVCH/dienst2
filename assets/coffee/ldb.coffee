@@ -29,13 +29,17 @@ angular
 
     classes = {o: Organization, p: Person}
 
+    searchID = 0
     $scope.$watch('searchtype + search', () ->
       if $scope.search.length > 1
+        searchID++
         classes[$scope.searchtype].search(
           $scope.search
-          (results) -> 
-            $scope.results = results
+          (results, status, headers, config) -> 
+            if config.params.searchID == searchID
+              $scope.results = results
           'start'
+          searchID
         )
       else
         $scope.results = []
