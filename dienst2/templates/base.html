@@ -9,6 +9,13 @@
   {% block styles %}{% endblock %}
 </head>
 <body{% if ng_app %} ng-app="{{ng_app}}"{% endif %}>
+  <div class="row-fluid">
+    <div class="span4 offset4">
+      <div class="alert">
+        <strong>Werkt het niet?</strong> Maak een <a href="https://github.com/WISVCH/dienst2/issues">issue</a> aan.
+      </div>
+    </div>
+  </div>
   {% block content %}{% endblock %}
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
