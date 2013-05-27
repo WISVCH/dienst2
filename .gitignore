@@ -1,6 +1,5 @@
 /dienst2/local.py
 *.pyc
-/search_index/
 /static/
 .dienst2-env
 .idea
