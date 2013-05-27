@@ -1,2 +1,0 @@
-apt-get install python-pip python-mysqldb python-psycopg2 python-ldap libapache2-mod-wsgi
-pip install --upgrade django django-reversion django-form-utils django-auth-ldap django-haystack whoosh djangorestframework

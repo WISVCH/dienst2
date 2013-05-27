@@ -1,16 +1,10 @@
-"""
-This file demonstrates writing tests using the unittest module. These will pass
-when you run "manage.py test".
+from django.utils import unittest
+from kas.models import *
 
-Replace this with more appropriate tests for your application.
-"""
+class TransactionsTestCase(unittest.TestCase):
+  def setUp(self):
+    print "Setup "
 
-from django.test import TestCase
-
-
-class SimpleTest(TestCase):
-    def test_basic_addition(self):
-        """
-        Tests that 1 + 1 always equals 2.
-        """
-        self.assertEqual(1 + 1, 2)
+  def test_transaction_1(self):
+    """Create a transaction"""
+    

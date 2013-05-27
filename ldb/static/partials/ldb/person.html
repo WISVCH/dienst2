@@ -1,0 +1,353 @@
+<div class="row">
+  <div class="span12">
+    <div class="page-header">
+      <h1>
+        {{person.firstname}} {{person.preposition}} {{person.surname}}<span ng-show="person.deceased"> &dagger;</span>
+
+        <small>
+          <a ng-hide="editmode" class="btn btn-inverse" href ng-click="editmode=true">Bewerken</a>
+          <a ng-show="editmode" class="btn btn-primary" href ng-click="save()">Opslaan</a>
+
+          <a ng-show="editmode && person.id" class="btn btn-danger" href ng-click="removePerson()">Verwijderen</a>
+
+          <a class="btn btn-inverse" href="/admin/ldb/person/{{person.id}}">Beheer</a>
+        </small>
+      </h1>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span6">
+    <section class="well">
+      <h2>Algemeen</h2>
+
+      <div>
+        <div>
+          <span ch-editable ch-model="person.titles" ch-template="text" ch-placeholder="Titels" ch-class="input-mini"></span>
+          <span ch-editable ch-model="person.firstname" ch-template="text" ch-placeholder="Voornaam" ch-class="input-small"></span>
+          <span ch-editable ch-model="person.initials" ch-template="text" ch-placeholder="Initialen" ch-class="input-mini"></span>
+          <span ch-editable ch-model="person.preposition" ch-template="text" ch-placeholder="Tussenv." ch-class="input-mini"></span>
+          <span ch-editable ch-model="person.surname" ch-template="text" ch-placeholder="Achternaam" ch-class="input-medium"></span>
+          <span ch-editable ch-model="person.postfix_titles" ch-template="text" ch-placeholder="Achtervoegsel" ch-class="input-mini"></span>
+
+          <span ng-hide="editmode">
+            <span ng-show="person.gender=='M'">&#9794;</span>
+            <span ng-show="person.gender=='F'">&#9792;</span>
+            <span ng-show="person.deceased"> &dagger;</span>
+          </span>
+
+          <div ng-show="editmode">
+            <label class="checkbox">
+              <input type="checkbox" ng-model="person.deceased"> Overleden
+            </label> 
+            <label class="radio inline">
+              <input name="gender" type="radio" ng-model="person.gender" value="M"> Man
+            </label>
+            <label class="radio inline">
+              <input name="gender" type="radio" ng-model="person.gender" value="F"> Vrouw
+            </label>
+          </div>
+        </div>
+
+        <div ng-show="person.birthdate && !editmode">{{person.birthdate | date:"dd-MM-yyyy"}}<span ng-show="person.age"> ({{person.age}})</span></div>
+        <div ng-show="editmode"><input type="text" ng-model="person.birthdate" class="input-medium" placeholder="Geboortedatum" ch-date></div>
+
+      </div>
+
+      <div>
+        <h3>Adres <small ng-show="editmode"><a class="icon-remove" ng-click="person.emptyAddr()"></a></small></h3>
+        <div ng-show="person.country || editmode">
+          <div>
+            <span ch-editable ch-model="person.street_name" ch-template="text" ch-placeholder="Straatnaam" ch-class="input-large"></span>
+            <span ch-editable ch-model="person.house_number" ch-template="text" ch-placeholder="Nummer" ch-class="input-small"></span>
+          </div>
+          <div ng-show="person.address_2 || editmode">
+            <span ch-editable ch-model="person.address_2" ch-template="text" ch-placeholder="Adresregel 2" ch-class="input-xlarge"></span>
+          </div>
+          <div ng-show="person.address_3 || editmode">
+            <span ch-editable ch-model="person.address_3" ch-template="text" ch-placeholder="Adresregel 3" ch-class="input-xlarge"></span>
+          </div>
+          <div>
+            <span ch-editable ch-model="person.postcode" ch-template="text" ch-placeholder="Postcode" ch-class="input-small"></span>
+            <span ch-editable ch-model="person.city" ch-template="text" ch-placeholder="Stad" ch-class="input-large"></span>
+            <span ng-hide="person.country=='NL' || editmode">({{person.country}})</span>
+            <select ng-show="editmode" class="input-medium" ng-model="person.country" ng-options="code as name for (code , name) in country_list">
+              <option value="">-- geen land --</option>
+            </select>
+          </div>
+          <div ng-show="person.living_with || editmode">
+            <strong>Woont samen met:</strong>
+
+            <input ng-show="editmode" type="text" class="input-large" placeholder="Living With" ng-model="living_with" ch-selector="otherpersons">
+            <a ng-show="person.living_with" ng-href="#/person/{{person.living_with_model.id}}">{{person.living_with_model.firstname}} {{person.living_with_model.preposition}} {{person.living_with_model.surname}}</a>
+            <a href ng-show="editmode" ng-click="notLivingWith()"><i class="icon-remove"></i></a>
+          </div>
+        </div>
+        <div ng-hide="person.country || editmode">
+          <em class="muted">Geen adres beschikbaar</em>
+        </div>
+      </div>
+
+      <div>
+        <h3>Contact</h3>
+        <div>
+          <span ch-editable ch-model="person.email" ch-template="text" ch-placeholder="Email adres" ch-class="input-large"></span>
+          <a ng-href="mailto:{{person.email}}"><i class="icon-envelope"></i></a>
+        </div>
+
+        <div ng-show="person.phone_fixed || editmode">
+          <strong>Vast:</strong> 
+          <span ch-editable ch-model="person.phone_fixed" ch-template="text" ch-placeholder="Telefoon vast" ch-class="input-medium"></span>
+        </div>
+        <div ng-show="person.phone_mobile || editmode">
+          <strong>Mobiel:</strong> 
+          <span ch-editable ch-model="person.phone_mobile" ch-template="text" ch-placeholder="Telefoon mobiel" ch-class="input-medium"></span>
+        </div>
+        <div ng-show="person.student_model.phone_parents || editmode">
+          <strong>Ouders:</strong> 
+          <span ch-editable ch-model="person.student_model.phone_parents" ch-template="text" ch-placeholder="Telefoon ouders" ch-class="input-medium"></span>
+        </div>
+      </div>
+
+      <div ng-show="person.comment || editmode">
+        <h3>Opmerkingen</h3>
+        <div ch-editable ch-model="person.comment" ch-template="multiline" ch-class=""></div>
+      </div>
+
+      <div>
+        <h3>Accounts</h3>
+        <div ng-show="person.facebook_id || editmode">
+          <strong>Facebook:</strong> 
+          <span ch-editable ch-model="person.facebook_id" ch-template="text" ch-placeholder="Facebook ID" ch-class="input-medium"></span>
+          <a ng-href="//facebook.com/{{person.facebook_id}}" target="_blank"><i class="icon-share-alt"></i></a>
+        </div>
+
+        <div ng-show="person.linkedin_id || editmode">
+          <strong>LinkedIn:</strong> 
+          <span ch-editable ch-model="person.linkedin_id" ch-template="text" ch-placeholder="LinkedIn ID" ch-class="input-medium"></span>
+          <a ng-href="//www.linkedin.com/profile/view?id={{person.linkedin_id}}" target="_blank"><i class="icon-share-alt"></i></a>
+        </div>
+
+        <div ng-show="person.ldap_username || editmode">
+          <strong>CH:</strong> 
+          <span ch-editable ch-model="person.ldap_username" ch-template="text" ch-placeholder="LDAP Gebruikersnaam" ch-class="input-medium"></span>
+          <a ng-href="//frans.chnet/userman2/users/{{person.ldap_username}}" target="_blank"><i class="icon-share-alt"></i></a>
+        </div>
+
+        <div ng-show="person.netid || editmode">
+          <strong>NetID:</strong> 
+          <span ch-editable ch-model="person.netid" ch-template="text" ch-placeholder="NetID" ch-class="input-medium"></span>
+        </div>
+      </div>
+
+    </section>
+
+    <section ng-show="person.member || editmode" class="well">
+      <h2>Lidmaatschap</h2>
+
+      <div ng-show="person.member_model.date_from && !person.member_model.date_to || editmode">
+        <div>
+          <strong>Lid sinds</strong>
+          <span ng-hide="editmode">{{person.member_model.date_from | date:"dd-MM-yyyy"}}</span>
+          <span ng-show="editmode"><input type="text" placeholder="dd-mm-yyyy" ng-model="person.member_model.date_from" class="input-medium" ch-date></span>
+        </div>
+
+        <div>
+          <strong>Betaald</strong>
+          <span ng-hide="editmode">
+            {{person.member_model.amount_paid | currency:'&euro;'}}
+            {{person.member_model.date_paid | date:"dd-MM-yyyy"}}
+          </span>
+          <span ng-show="editmode">
+            <input type="text" placeholder="dd-mm-yyyy" ng-model="person.member_model.date_paid" class="input-medium" ch-date>
+
+            <span class="input-prepend">
+              <span class="add-on">&euro;</span>
+              <input type="text" placeholder="Bedrag" ng-model="person.member_model.amount_paid" class="input-mini">
+            </span>
+            
+          </span>
+        </div>
+      </div>
+
+      <div ng-show="editmode || (person.member_model.date_to && !person.member_model.associate_member && !person.member_model.merit_date_from && !person.member_model.honorary_date_from)">
+        <strong>Lid tot</strong>
+        <span ng-hide="editmode">{{person.member_model.date_to | date:"dd-MM-yyyy"}}</span>
+        <span ng-show="editmode"><input type="text" placeholder="dd-mm-yyyy" ng-model="person.member_model.date_to" class="input-medium" ch-date></span>
+      </div>
+
+      <div ng-show="editmode || person.member_model.associate_member">
+        <strong ng-hide="editmode">Buitengewoon lid</strong>
+        <label ng-show="editmode" class="checkbox"><input type="checkbox" ng-model="person.member_model.associate_member"> <strong>Buitengewoon lid</strong></label>
+      </div>
+
+      <div ng-show="editmode || person.member_model.donating_member">
+        <strong ng-hide="editmode">Donateur</strong>
+        <label ng-show="editmode" class="checkbox"><input type="checkbox" ng-model="person.member_model.donating_member"> <strong>Donateur</strong></label>
+      </div>
+
+      <div ng-show="editmode || person.member_model.merit_date_from">
+        <strong>LvV'er sinds</strong>
+        <span ng-hide="editmode">{{person.member_model.merit_date_from | date:"dd-MM-yyyy"}}</span>
+        <span ng-show="editmode"><input type="text" placeholder="dd-mm-yyyy" ng-model="person.member_model.merit_date_from" class="input-medium" ch-date></span>
+
+        <div ng-show="editmode || person.member_model.merit_history" >
+          <strong>LvV geschiedenis</strong>
+          <div ch-editable ch-model="person.member_model.merit_history" ch-template="multiline" ch-class=""></div>
+        </div>
+      </div>
+
+      <div ng-show="editmode || person.member_model.honorary_date_from">
+        <strong>Erelid sinds</strong>
+        <span ng-hide="editmode">{{person.member_model.honorary_date_from | date:"dd-MM-yyyy"}}</span>
+        <span ng-show="editmode"><input type="text" placeholder="dd-mm-yyyy" ng-model="person.member_model.honorary_date_from" class="input-medium" ch-date></span>
+      </div>
+    </section>
+
+    <section ng-show="person.member || editmode" class="well">
+      <h2>Commissies ({{person.committeememberships.length}})</h2>
+
+      <div ng-repeat="committeemembership in person.committeememberships | orderBy:'board':true | filter: committeeFilter">
+
+        <span ch-editable ch-model="committeemembership.board" ch-template="text" ch-placeholder="Board" ch-class="input-mini"></span> : 
+
+        <strong ng-hide="editmode">{{committeemembership.committeename}}</strong>
+
+        <select ng-show="editmode" class="input-medium" ng-model="committeemembership.committee" ng-options="c.resource_uri as c.name for c in committeelist | orderBy:'name'"></select>
+
+        <span ch-editable ch-template="text" ch-placeholder="Functie" ch-class="input-small" ch-model="committeemembership.position"></span>
+
+        <span ng-show="committeemembership.ras_months && !editmode">({{committeemembership.ras_months}} RAS)</span>
+        <span ng-show="editmode" ch-editable ch-template="text" ch-placeholder="RAS" ch-class="input-small" ch-model="committeemembership.ras_months"></span>
+
+        <a ng-show="editmode" href ng-click="committeemembership._delete=true"><i class="icon-remove"></i></a>
+
+      </div>
+
+      <a ng-show="editmode" class="btn" href="" ng-click="person.newCommittee()">Nieuwe commissie</a>
+
+    </section>
+  </div>
+
+  <div class="span6">
+    <section class="well">
+      <h2>Aanmeldingen</h2>
+
+      <span ch-editable ch-model="person.machazine" ch-template="check"></span> MaCHazine<br />
+      <span ch-editable ch-model="person.yearbook" ch-template="check"></span> Jaarboek<br />
+      <span ch-editable ch-model="person.constitution_card" ch-template="check"></span> Constitutiekaartje<br />
+      <span ch-editable ch-model="person.christmas_card" ch-template="check"></span> Kerstkaartje<br />
+
+      <br />
+
+      <span ch-editable ch-model="person.board_invites" ch-template="check"></span> Uitnodigingen Bestuur<br />
+      <span ch-editable ch-model="person.merit_invitations" ch-template="check"></span> Uitnodigingen LvV<br />
+
+      <br />
+
+      <span ch-editable ch-model="person.mail_announcements" ch-template="check"></span> Algemene mailing<br />
+      <span ch-editable ch-model="person.mail_company" ch-template="check"></span> Bedrijvenmailing<br />
+        
+    </section>
+
+    <section ng-show="person.student || editmode" class="well">
+      <h2>Student <small>{{person.student_model.study}} ({{person.student_model.first_year}})</small></h2>
+
+      <div ng-show="editmode">
+        <span ch-editable ch-model="person.student_model.study" ch-template="text" ch-placeholder="Studie" ch-class="input-medium"></span>
+        <span ch-editable ch-model="person.student_model.first_year" ch-template="text" ch-placeholder="Eerste Jaar" ch-class="input-small"></span>
+      </div>
+
+
+      <div ng-show="person.student_model.date_verified || editmode">
+        <strong>Bevestigd:</strong>
+        <span ng-hide="editmode">{{person.student_model.date_verified | date:"dd-MM-yyyy"}}</span>
+        <span ng-show="editmode"><input type="text" placeholder="dd-mm-yyyy" ng-model="person.student_model.date_verified" class="input-medium" ch-date></span>
+        <a href class="icon-refresh" ng-hide="editmode" ng-click="person.student_model.confirm()"></a>
+      </div>
+
+      <div ng-show="person.student_model.graduated && !editmode"><strong>Afgestudeerd</strong></div>
+      <div ng-show="editmode">
+        <span ch-editable ch-model="person.student_model.graduated" ch-template="check"></span> Afgestudeerd<br />
+      </div>
+
+      <div>
+        <strong>Studienummer</strong>
+        <span ch-editable ch-model="person.student_model.student_number" ch-template="text" ch-placeholder="Studienummer" ch-class="input-medium"></span>
+        <span ng-hide="person.student_model.student_number || editmode" class="muted">onbekend</span>
+      </div>
+
+      <span ch-editable ch-model="person.student_model.yearbook_permission" ch-template="check"></span> Toestemming Jaarboek<br />
+
+    </section>
+
+    <section ng-show="person.alumnus || editmode" class="well">
+      <h2>Alumnus
+        <small ng-show="person.alumnus_model.study">
+          {{person.alumnus_model.study}}
+          <span ng-show="person.alumnus_model.study_first_year && person.alumnus_model.study_first_year != 0"> van {{person.alumnus_model.study_first_year}}</span>
+          <span ng-show="person.alumnus_model.study_last_year && person.alumnus_model.study_last_year != 0"> tot {{person.alumnus_model.study_last_year}}</span>
+        </small>
+      </h2>
+
+      <div ng-show="editmode">
+        <span ch-editable ch-model="person.alumnus_model.study" ch-template="text" ch-placeholder="Studie" ch-class="input-medium"></span>
+        <span ch-editable ch-model="person.alumnus_model.study_first_year" ch-template="text" ch-placeholder="Eerste Jaar" ch-class="input-small"></span>
+        <span ch-editable ch-model="person.alumnus_model.study_last_year" ch-template="text" ch-placeholder="Laatste Jaar" ch-class="input-small"></span>
+      </div>
+
+      <div ng-show="person.alumnus_model.study_research_group || editmode">
+        <strong>Onderzoeksgroep: </strong>
+        <span ch-editable ch-model="person.alumnus_model.study_research_group" ch-template="text" ch-placeholder="Onderzoeksgroep" ch-class="input-medium"></span>
+      </div>
+
+      <div ng-show="person.alumnus_model.study_paper || editmode">
+        <strong>Paper: </strong>
+        <span ch-editable ch-model="person.alumnus_model.study_paper" ch-template="text" ch-placeholder="Paper" ch-class="input-medium"></span>
+      </div>
+
+      <div ng-show="person.alumnus_model.study_professor || editmode">
+        <strong>Professor: </strong>
+        <span ch-editable ch-model="person.alumnus_model.study_professor" ch-template="text" ch-placeholder="Professor" ch-class="input-medium"></span>
+      </div>
+
+      <div ng-show="person.alumnus_model.work_company || editmode">
+        <strong>Werk: </strong>
+        <span ng-show="person.alumnus_model.work_position"><span ch-editable ch-model="person.alumnus_model.work_position" ch-template="text" ch-placeholder="Functie" ch-class="input-medium"></span> bij</span>
+        
+        
+        <span ch-editable ch-model="person.alumnus_model.work_company" ch-template="text" ch-placeholder="Bedrijf" ch-class="input-medium"></span>
+        <span ng-show="person.alumnus_model.work_sector">(sector: <span ch-editable ch-model="person.alumnus_model.work_sector" ch-template="text" ch-placeholder="Sector" ch-class="input-medium"></span>
+)</span>
+      </div>
+
+      <div ng-show="person.alumnus_model.contact_method || editmode">
+        <strong>Contactmethode: </strong>
+        <span ng-hide="editmode">
+          <span ng-show="person.alumnus_model.contact_method=='e'">Email</span><span ng-show="person.alumnus_model.contact_method=='m'">Post</span>
+        </span>
+        <div ng-show="editmode">
+          <input type="radio" name="contact" ng-model="person.alumnus_model.contact_method" value="e"> Email <br/>
+          <input type="radio" name="contact" ng-model="person.alumnus_model.contact_method" value="m"> Post <br/>
+        </div>
+      </div>
+
+    </section>
+
+    <section ng-show="person.employee || editmode" class="well">
+      <h2>Medewerker</h2>
+
+      <div ng-show="editmode">
+        <span ch-editable ch-model="person.employee_model.function" ch-template="text" ch-placeholder="Functie" ch-class="input-medium"></span>
+        <span ch-editable ch-model="person.employee_model.faculty" ch-template="text" ch-placeholder="Faculteit" ch-class="input-medium"></span>
+        <span ch-editable ch-model="person.employee_model.department" ch-template="text" ch-placeholder="Afdeling" ch-class="input-medium"></span>
+      </div>
+      <div ng-hide="editmode">
+        <strong>{{person.employee_model.function}}</strong> bij {{person.employee_model.faculty}} <span ng-show="person.employee_model.department">({{person.employee_model.department}})</span>
+      </div>
+
+      <div><strong>Tel. </strong> <span ch-editable ch-model="person.employee_model.phone_internal" ch-template="text" ch-placeholder="Telefoon" ch-class="input-medium"></span></div>
+    </section>
+  </div>
+</div>
