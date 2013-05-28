@@ -240,12 +240,12 @@ angular
     handleError = () ->
 
     process = (obj, success, handleError) ->
-      if obj.changed()
+      if obj._delete
         if obj.resource_uri
-          if obj._delete
-            obj.remove(success, handleError)
-          else
-            obj.update(success, handleError)
+          obj.remove(success, handleError)
+      else if obj.changed()
+        if obj.resource_uri
+          obj.update(success, handleError)
         else
           obj.create(success, handleError)
     

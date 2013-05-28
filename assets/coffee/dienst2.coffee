@@ -40,8 +40,21 @@ angular.module('dienst2', [])
       # Public methods
 
       Model = (data) -> 
-        data = data || {}
+        if !data
+          data = {}
+          Model._loadFromSchema(this)
         angular.extend(this, {_saved:data}, data)
+
+      Model._loadFromSchema = (model) ->
+        $http({method: 'GET', url: Model.api_root + 'schema/'})
+          .error(report)
+          .success((data, status, headers, config) -> 
+            model._saved = {}
+            angular.forEach(data.fields, (info, field) ->
+              # Let op! resource_uri is nu ook undefined!
+              model._saved[field] = undefined
+            )
+          )
 
       Model.prototype.changed = () ->
         obj = this

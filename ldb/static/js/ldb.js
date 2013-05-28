@@ -257,13 +257,13 @@
       };
       handleError = function() {};
       process = function(obj, success, handleError) {
-        if (obj.changed()) {
+        if (obj._delete) {
           if (obj.resource_uri) {
-            if (obj._delete) {
-              return obj.remove(success, handleError);
-            } else {
-              return obj.update(success, handleError);
-            }
+            return obj.remove(success, handleError);
+          }
+        } else if (obj.changed()) {
+          if (obj.resource_uri) {
+            return obj.update(success, handleError);
           } else {
             return obj.create(success, handleError);
           }

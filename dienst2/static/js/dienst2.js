@@ -57,10 +57,24 @@
           return models;
         };
         Model = function(data) {
-          data = data || {};
+          if (!data) {
+            data = {};
+            Model._loadFromSchema(this);
+          }
           return angular.extend(this, {
             _saved: data
           }, data);
+        };
+        Model._loadFromSchema = function(model) {
+          return $http({
+            method: 'GET',
+            url: Model.api_root + 'schema/'
+          }).error(report).success(function(data, status, headers, config) {
+            model._saved = {};
+            return angular.forEach(data.fields, function(info, field) {
+              return model._saved[field] = void 0;
+            });
+          });
         };
         Model.prototype.changed = function() {
           var changed, obj;
