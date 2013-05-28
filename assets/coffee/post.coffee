@@ -59,6 +59,8 @@ angular
       )
     $scope.sources = (query, callback) -> 
       Source.search(query, (sources) -> 
+        compare = (a, b) -> b.usage - a.usage
+        sources.sort(compare)
         callback(sources)
       )
     $scope.submit = () ->

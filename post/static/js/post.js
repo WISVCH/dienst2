@@ -71,6 +71,11 @@
       };
       $scope.sources = function(query, callback) {
         return Source.search(query, function(sources) {
+          var compare;
+          compare = function(a, b) {
+            return b.usage - a.usage;
+          };
+          sources.sort(compare);
           return callback(sources);
         });
       };

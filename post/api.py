@@ -4,6 +4,8 @@ from tastypie import fields
 from post.models import *
 from dienst2 import api_helper
 
+from django.db.models import Q
+
 class CategoryResource(ModelResource):
   get_search = api_helper.get_search(Category)
   prepend_urls = api_helper.prepend_urls()
@@ -19,6 +21,17 @@ class SourceResource(ModelResource):
   class Meta(api_helper.BaseMeta):
     queryset = Source.objects.all()
     resource_name = 'source'
+
+  usage = fields.IntegerField(readonly=True)
+
+  def dehydrate_usage(self, bundle):
+    try:
+      return Item.objects.filter(
+        Q(receiver=bundle.obj) |
+        Q(sender=bundle.obj)
+      ).count()
+    except:
+      return 0
 
 class ItemResource(ModelResource):
   get_search = api_helper.get_search(Item)
