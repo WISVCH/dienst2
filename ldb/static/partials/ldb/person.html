@@ -94,7 +94,7 @@
         <h3>Contact</h3>
         <div>
           <span ch-editable ch-model="person.email" ch-template="text" ch-placeholder="Email adres" ch-class="input-large"></span>
-          <a ng-href="mailto:{{person.email}}"><i class="icon-envelope"></i></a>
+          <a ng-show="person.email" ng-href="mailto:{{person.email}}"><i class="icon-envelope"></i></a>
         </div>
 
         <div ng-show="person.phone_fixed || editmode">
