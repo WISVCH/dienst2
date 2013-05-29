@@ -181,6 +181,19 @@
             }
           });
         };
+        Model.prototype.save = function(success, error) {
+          if (this._delete) {
+            if (this.resource_uri) {
+              return this.remove(success, error);
+            }
+          } else if (this.changed()) {
+            if (this.resource_uri) {
+              return this.update(success, error);
+            } else {
+              return this.create(success, error);
+            }
+          }
+        };
         return Model;
       };
       return Tastypie;

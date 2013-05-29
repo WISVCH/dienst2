@@ -93,16 +93,14 @@ angular
 
     $scope.save = () ->
       $scope.person.saveAll(
-        (success) -> $location.path('/person/' + $scope.person.id)
-        (data, status, headers, config) ->
-          if status == 400
-            alert "Het formulier is niet geldig. \n \n" + angular.toJson(data)
-            $scope.editmode = true
-        )
+        (success) -> 
+          $location.path('/person/' + $scope.person.id)
+      )
       $scope.editmode = false
 
     $scope.removePerson = () ->
       $scope.person.remove(() ->
+        alert "Removed person."
         $location.path('/dashboard')
       )
 
@@ -129,15 +127,12 @@ angular
     $scope.save = () ->
       $scope.organization.save(
         (success) -> $location.path('/organization/' + $scope.organization.id)
-        (data, status, headers, config) ->
-          if status == 400
-            alert "Het formulier is niet geldig. \n \n" + angular.toJson(data)
-            $scope.editmode = true
-        )
+      )
       $scope.editmode = false
 
     $scope.removeOrganization = () ->
       $scope.organization.remove(() ->
+        alert "Removed organization"
         $location.path('/dashboard')
       )
 
@@ -237,7 +232,6 @@ angular
           update()
         )
 
-    handleError = () ->
 
     process = (obj, success, handleError) ->
       if obj._delete
@@ -260,31 +254,22 @@ angular
       if this.living_with_model
         this.living_with = this.living_with_model.resource_uri
 
-      process(this.student_model)
-      process(this.member_model)
-      process(this.alumnus_model)
-      process(this.employee_model)
+      this.student_model.save()
+      this.member_model.save()
+      this.alumnus_model.save()
+      this.employee_model.save()
 
       angular.forEach(this.committeememberships, (obj) ->
-        process(obj)
+        obj.save()
       )
 
-      process(this, ()-> success)
+      this.save(success)
 
     Person
   ])
   .factory('Organization', ['Tastypie', (Tastypie) -> 
     Organization = Tastypie('api/v2/organization/')
     Organization.prototype.emptyAddr = emptyAddr
-    Organization.prototype.save = (success, error) ->
-      if this.changed()
-        if this.resource_uri
-          if this._delete
-            this.remove(success, error)
-          else
-            this.update(success, error)
-        else
-          this.create(success, error)
     Organization
   ])
   .factory('Committee', ['Tastypie', (Tastypie) ->

@@ -127,6 +127,16 @@ angular.module('dienst2', [])
               success()
           )
 
+      Model.prototype.save = (success, error) ->
+        if this._delete
+          if this.resource_uri
+            this.remove(success, error)
+        else if this.changed()
+          if this.resource_uri
+            this.update(success, error)
+          else
+            this.create(success, error)
+
       return Model
     return Tastypie
   ])

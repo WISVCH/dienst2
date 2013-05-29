@@ -91,17 +91,15 @@
       });
       $scope.save = function() {
         $scope.person.saveAll(function(success) {
-          return $location.path('/person/' + $scope.person.id);
-        }, function(data, status, headers, config) {
-          if (status === 400) {
-            alert("Het formulier is niet geldig. \n \n" + angular.toJson(data));
-            return $scope.editmode = true;
-          }
+          console.log(success);
+          $location.path('/person/' + $scope.person.id);
+          return console.log("Saved person", '/person/' + $scope.person.id);
         });
         return $scope.editmode = false;
       };
       $scope.removePerson = function() {
         return $scope.person.remove(function() {
+          alert("Removed person.");
           return $location.path('/dashboard');
         });
       };
@@ -123,16 +121,12 @@
       $scope.save = function() {
         $scope.organization.save(function(success) {
           return $location.path('/organization/' + $scope.organization.id);
-        }, function(data, status, headers, config) {
-          if (status === 400) {
-            alert("Het formulier is niet geldig. \n \n" + angular.toJson(data));
-            return $scope.editmode = true;
-          }
         });
         return $scope.editmode = false;
       };
       $scope.removeOrganization = function() {
         return $scope.organization.remove(function() {
+          alert("Removed organization");
           return $location.path('/dashboard');
         });
       };
@@ -188,7 +182,7 @@
     }
   ]).factory('Person', [
     'Tastypie', 'Member', 'Student', 'Alumnus', 'Employee', 'CommitteeMembership', function(Tastypie, Member, Student, Alumnus, Employee, CommitteeMembership) {
-      var Person, handleError, process;
+      var Person, process;
       Person = Tastypie('api/v2/person/');
       Person.prototype.emptyAddr = emptyAddr;
       Person.prototype.toString = function() {
@@ -255,7 +249,6 @@
           });
         }
       };
-      handleError = function() {};
       process = function(obj, success, handleError) {
         if (obj._delete) {
           if (obj.resource_uri) {
@@ -276,20 +269,19 @@
         return this.committeememberships.push(committeemembership);
       };
       Person.prototype.saveAll = function(success, error) {
+        var handleError;
         handleError = error;
         if (this.living_with_model) {
           this.living_with = this.living_with_model.resource_uri;
         }
-        process(this.student_model);
-        process(this.member_model);
-        process(this.alumnus_model);
-        process(this.employee_model);
+        this.student_model.save();
+        this.member_model.save();
+        this.alumnus_model.save();
+        this.employee_model.save();
         angular.forEach(this.committeememberships, function(obj) {
-          return process(obj);
+          return obj.save();
         });
-        return process(this, function() {
-          return success;
-        });
+        return this.save(success);
       };
       return Person;
     }
@@ -298,19 +290,6 @@
       var Organization;
       Organization = Tastypie('api/v2/organization/');
       Organization.prototype.emptyAddr = emptyAddr;
-      Organization.prototype.save = function(success, error) {
-        if (this.changed()) {
-          if (this.resource_uri) {
-            if (this._delete) {
-              return this.remove(success, error);
-            } else {
-              return this.update(success, error);
-            }
-          } else {
-            return this.create(success, error);
-          }
-        }
-      };
       return Organization;
     }
   ]).factory('Committee', [
