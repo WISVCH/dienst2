@@ -157,7 +157,7 @@ angular
 # API Helpers
 #
 emptyAddr = () -> 
-  this.street_name = this.house_number = this.address_2 = this.address_3 = this.postcode = this.city = this.country = null
+  this.street_name = this.house_number = this.address_2 = this.address_3 = this.postcode = this.city = this.country = ""
 
 #
 # API Functions

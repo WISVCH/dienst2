@@ -148,7 +148,7 @@
   ]).controller('ExportController', ['$scope', function($scope) {}]);
 
   emptyAddr = function() {
-    return this.street_name = this.house_number = this.address_2 = this.address_3 = this.postcode = this.city = this.country = null;
+    return this.street_name = this.house_number = this.address_2 = this.address_3 = this.postcode = this.city = this.country = "";
   };
 
   angular.module('ldb.apiv2', ['dienst2']).factory('Member', [
