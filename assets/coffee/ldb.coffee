@@ -52,7 +52,15 @@ angular
     # Setup
 
     $scope.country_list = country_list
-    $scope.editmode = false
+    $scope.editmode = $routeParams.editmode == 'on'
+
+    $scope.$watch('editmode', () ->
+      if $scope.editmode
+        $location.search('editmode', 'on')
+      else if $routeParams.editmode
+        $location.search('editmode', 'off')
+      
+    )
 
     # All committees
 

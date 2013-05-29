@@ -62,7 +62,14 @@
   ]).controller('PersonDetailController', [
     '$routeParams', '$location', '$scope', 'Person', 'Committee', 'CommitteeMembership', 'country_list', function($routeParams, $location, $scope, Person, Committee, CommitteeMembership, country_list) {
       $scope.country_list = country_list;
-      $scope.editmode = false;
+      $scope.editmode = $routeParams.editmode === 'on';
+      $scope.$watch('editmode', function() {
+        if ($scope.editmode) {
+          return $location.search('editmode', 'on');
+        } else if ($routeParams.editmode) {
+          return $location.search('editmode', 'off');
+        }
+      });
       $scope.committeelist = [];
       Committee.all(function(committeelist) {
         return $scope.committeelist = committeelist;
@@ -91,9 +98,7 @@
       });
       $scope.save = function() {
         $scope.person.saveAll(function(success) {
-          console.log(success);
-          $location.path('/person/' + $scope.person.id);
-          return console.log("Saved person", '/person/' + $scope.person.id);
+          return $location.path('/person/' + $scope.person.id);
         });
         return $scope.editmode = false;
       };

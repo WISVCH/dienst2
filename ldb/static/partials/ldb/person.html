@@ -6,6 +6,7 @@
 
         <small>
           <a ng-hide="editmode" class="btn btn-inverse" href ng-click="editmode=true">Bewerken</a>
+          <a ng-show="editmode && person.id" class="btn btn-inverse" ng-href="#/person/{{person.id}}">Annuleren</a>
           <a ng-show="editmode" class="btn btn-primary" href ng-click="save()">Opslaan</a>
 
           <a ng-show="editmode && person.id" class="btn btn-danger" href ng-click="removePerson()">Verwijderen</a>
