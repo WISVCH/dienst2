@@ -1,6 +1,10 @@
+{% load staticfiles %}
 <div class="navbar navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container">
+      <div class="uil-fixed">
+        <a href="{% url dienst2.views.index %}"><img src="{% static "img/uil.png" %}"></a>
+      </div>
       <a class="brand" href="#">{{navbar.title}}</a>
       <ul class="nav">
         {% for item in navbar.items %}

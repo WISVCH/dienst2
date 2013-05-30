@@ -7095,6 +7095,18 @@ a:hover {
   color: #eeeeee;
 }
 
+div.uil-fixed {
+  position: absolute;
+  top: 5.6pt;
+  left: -30px;
+  width: 100px;
+}
+
+div.uil-fixed img {
+  width: 100%;
+  height: auto;
+}
+
 .print {
   display: none;
 }
