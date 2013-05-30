@@ -20,7 +20,7 @@
         <tbody>
           <tr ng-repeat="closure in closures | orderBy:'date':true" ng-class="{warning: closure.finished==false}">
           <td><a class="btn" href="#/closures/{{closure.id}}"><i class="icon-hand-right"></i></a></td>
-          <td>{{closure.date | date:"medium"}}</td>
+          <td>{{closure.date | tastypiedate | date:"medium"}}</td>
           <td>{{closure.user}}</td>
           <td>{{closure.total | currency:"&euro;"}}</td>
           <td>{{closure.cashdifference | currency:"&euro;"}}</td>

@@ -1,7 +1,7 @@
 <div class="row">
   <div class="span12">
     <div class="well">
-      <h1>Dagafsluiting <small>{{closure.date|date:'d-M-yyyy HH:mm'}} door {{closure.user}}</small></h1>
+      <h1>Dagafsluiting <small>{{closure.date | tastypiedate |date:'d-M-yyyy HH:mm'}} door {{closure.user}}</small></h1>
     </div>
   </div>
 </div>
@@ -16,7 +16,7 @@
     </div>
 
     <div class="well">
-      <h2>Kastelling <small>{{closure.total|currency:'&euro;'}}</small></h2>
+      <h2>Kastelling <small>{{closure.total | currency}}</small></h2>
       <table class="table">
         <thead>
           <th>100 euro</th>
@@ -48,7 +48,7 @@
 
       <div class="alert alert-error" ng-show="closure.total - closure.previoustotal - closure.transactions_cash != 0">
         <strong>Er is een kasverschil!</strong><br />
-        Je hebt een kasverschil van {{closure.total - closure.previoustotal - closure.transactions_cash | currency:'&euro;'}}
+        Je hebt een kasverschil van {{closure.total - closure.previoustotal - closure.transactions_cash | currency}}
       </div>
 
       <h2>Pintransacties</h2>
@@ -57,7 +57,7 @@
 
       <div class="alert alert-error" ng-show="closure.pin - closure.transactions_pin != 0">
         <strong>Er is een pinverschil!</strong><br />
-        Je hebt een pinverschil van {{closure.pin - closure.transactions_pin | currency:'&euro;'}}
+        Je hebt een pinverschil van {{closure.pin - closure.transactions_pin | currency}}
       </div>
 
     </div>
@@ -74,8 +74,8 @@
       <div class="alert alert-error" ng-show="problem">
         <p><strong>Let op!</strong></p>
         <p>De dagafsluiting is opgeslagen, maar kon nog niet voltooid worden.</p>
-        <p ng-show="closure.pindifference != 0">Je hebt nog steeds een pinverschil van {{closure.pindifference|currency:'&euro;'}}</p>
-        <p ng-show="closure.cashdifference != 0">Je hebt nog steeds een kasverschil van {{closure.cashdifference|currency:'&euro;'}}</p>
+        <p ng-show="closure.pindifference != 0">Je hebt nog steeds een pinverschil van {{closure.pindifference|currency}}</p>
+        <p ng-show="closure.cashdifference != 0">Je hebt nog steeds een kasverschil van {{closure.cashdifference|currency}}</p>
 
         <p><a class="btn" ng-click="save()">Opnieuw proberen</a> <a class="btn btn-danger" ng-click="confirm()">Toch voltooien</a></p>
       </div>
@@ -87,7 +87,7 @@
 <div ng-show="closure.finished" class="row">
   <div class="span12">
     <div class="well">
-        <h2>PIN Transacties <small>{{closure.transactions_pin|currency:'&euro;'}}</small></h2>
+        <h2>PIN Transacties <small>{{closure.transactions_pin|currency}}</small></h2>
 
         <table class="table table-striped">
           <thead>
@@ -98,15 +98,15 @@
           </thead>
           <tbody>
             <tr ng-repeat="transaction in transactions | filter:{valid:true, method:'P'} | orderBy:'date'">
-              <td>{{transaction.date | date:"medium"}}</td>
+              <td>{{transaction.date | tastypiedate | date:"medium"}}</td>
               <td>{{transaction.user}}</td>
-              <td>{{transaction.amount | currency:"&euro;"}}</td>
+              <td>{{transaction.amount | currency}}</td>
               <td>{{transaction.description}}</td>
             </tr>
           </tbody>
         </table>
 
-        <h2>Cash Transacties <small>{{closure.transactions_cash|currency:'&euro;'}}</small></h2>
+        <h2>Cash Transacties <small>{{closure.transactions_cash|currency}}</small></h2>
 
         <table class="table table-striped">
           <thead>
@@ -117,9 +117,9 @@
           </thead>
           <tbody>
             <tr ng-repeat="transaction in transactions | filter:{valid:true, method:'C'} | orderBy:'date'">
-              <td>{{transaction.date | date:"medium"}}</td>
+              <td>{{transaction.date | tastypiedate | date:"medium"}}</td>
               <td>{{transaction.user}}</td>
-              <td>{{transaction.amount | currency:"&euro;"}}</td>
+              <td>{{transaction.amount | currency}}</td>
               <td>{{transaction.description}}</td>
             </tr>
           </tbody>
@@ -127,7 +127,7 @@
 
         <hr />
 
-        <h2>Kastelling <small>{{closure.total | currency:'&euro;'}}</small></h2>
+        <h2>Kastelling <small>{{closure.total | currency}}</small></h2>
         <table class="table table-striped">
             <tr><th>Eenheid:</th>
                 <th>&euro;500</th><th>&euro;200</th><th>&euro;100</th>
@@ -148,8 +148,8 @@
         <h2>Verschillen</h2>
 
         <table class="table table-striped" style="width:20%">
-            <tr><th>Kasverschil:</th><td>{{closure.cashdifference | currency:'&euro;'}}</td></tr>
-            <tr><th>PINverschil:</th><td>{{closure.pindifference | currency:'&euro;'}}</td></tr>
+            <tr><th>Kasverschil:</th><td>{{closure.cashdifference | currency}}</td></tr>
+            <tr><th>PINverschil:</th><td>{{closure.pindifference | currency}}</td></tr>
         </table>
 
         <div ng-show="closure.notes">
