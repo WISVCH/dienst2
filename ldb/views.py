@@ -1,6 +1,6 @@
 from django.shortcuts import render_to_response
 from django.core.urlresolvers import reverse
-import urls
+from django.template import RequestContext
 
 def index(request):
 
@@ -13,10 +13,12 @@ def index(request):
         ('#/dashboard', 'Zoeken'),
         ('#/person/new', 'Nieuw Persoon'),
         ('#/organization/new', 'Nieuwe Organisatie'),
-        ('#/export', 'Exporteren'),
-        (reverse('admin:ldb_person_changelist'), "Beheer")
+        ('#/export', 'Exporteren')
       ]
     }
   }
 
-  return render_to_response('ldb/dashboard.html', post_data)
+  if request.user.has_module_perms('admin'):
+    post_data['navbar']['items'].append((reverse('admin:ldb_person_changelist'), "Beheer"))
+
+  return render_to_response('ldb/dashboard.html', post_data, context_instance=RequestContext(request))

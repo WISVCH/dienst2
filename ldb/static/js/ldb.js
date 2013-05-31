@@ -63,6 +63,7 @@
     '$routeParams', '$location', '$scope', 'Person', 'Committee', 'CommitteeMembership', 'country_list', function($routeParams, $location, $scope, Person, Committee, CommitteeMembership, country_list) {
       $scope.country_list = country_list;
       $scope.editmode = $routeParams.editmode === 'on';
+      $scope.admin = window.admin;
       $scope.$watch('editmode', function() {
         if ($scope.editmode) {
           return $location.search('editmode', 'on');
@@ -122,7 +123,15 @@
   ]).controller('OrganizationDetailController', [
     '$routeParams', '$location', '$scope', 'Organization', 'country_list', function($routeParams, $location, $scope, Organization, country_list) {
       $scope.country_list = country_list;
-      $scope.editmode = false;
+      $scope.editmode = $routeParams.editmode === 'on';
+      $scope.admin = window.admin;
+      $scope.$watch('editmode', function() {
+        if ($scope.editmode) {
+          return $location.search('editmode', 'on');
+        } else if ($routeParams.editmode) {
+          return $location.search('editmode', 'off');
+        }
+      });
       $scope.save = function() {
         $scope.organization.save(function(success) {
           return $location.path('/organization/' + $scope.organization.id);

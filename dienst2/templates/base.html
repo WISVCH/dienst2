@@ -28,6 +28,7 @@
   {% block javascript_libraries %}{% endblock %}
   <script type="text/javascript">
     window.prefix = '{% get_static_prefix %}';
+    window.admin = {{ perms.admin|yesno:'true,false' }};
   </script>
   <script src="{% get_static_prefix %}js/dienst2.js"></script>
   {% if ng_app %}<script src="{% get_static_prefix %}js/{{ng_app}}.js"></script>{% endif %}

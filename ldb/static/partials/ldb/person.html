@@ -11,7 +11,7 @@
 
           <a ng-show="editmode && person.id" class="btn btn-danger" href ng-click="removePerson()">Verwijderen</a>
 
-          <a class="btn btn-inverse" href="../admin/ldb/person/{{person.id}}">Beheer</a>
+          <a ng-show="admin" class="btn btn-inverse" href="../admin/ldb/person/{{person.id}}">Beheer</a>
         </small>
       </h1>
     </div>

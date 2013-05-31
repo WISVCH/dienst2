@@ -53,13 +53,13 @@ angular
 
     $scope.country_list = country_list
     $scope.editmode = $routeParams.editmode == 'on'
+    $scope.admin = window.admin
 
     $scope.$watch('editmode', () ->
       if $scope.editmode
         $location.search('editmode', 'on')
       else if $routeParams.editmode
         $location.search('editmode', 'off')
-      
     )
 
     # All committees
@@ -128,7 +128,15 @@ angular
     # Setup
 
     $scope.country_list = country_list
-    $scope.editmode = false
+    $scope.editmode = $routeParams.editmode == 'on'
+    $scope.admin = window.admin
+
+    $scope.$watch('editmode', () ->
+      if $scope.editmode
+        $location.search('editmode', 'on')
+      else if $routeParams.editmode
+        $location.search('editmode', 'off')
+    )
 
     # Save function
 
