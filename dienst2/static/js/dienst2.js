@@ -235,8 +235,12 @@
   }).filter('tastypiedate', function() {
     return function(input) {
       var parts;
-      parts = input.match(/\d+/g);
-      return new Date(parts[0], parts[1] - 1, parts[2], parts[3], parts[4], parts[5]);
+      if (input) {
+        parts = input.match(/\d+/g);
+        return new Date(parts[0], parts[1] - 1, parts[2], parts[3], parts[4], parts[5]);
+      } else {
+        return input;
+      }
     };
   });
 
