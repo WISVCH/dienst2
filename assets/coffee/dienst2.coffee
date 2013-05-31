@@ -50,9 +50,16 @@ angular.module('dienst2', [])
           .error(report)
           .success((data, status, headers, config) -> 
             model._saved = {}
+            model._required = []
             angular.forEach(data.fields, (info, field) ->
               # Let op! resource_uri is nu ook undefined!
               model._saved[field] = undefined
+              if !info.readonly
+                if info.default != "No default provided."
+                  model[field] = model._saved[field] = info.default
+              
+                if info.nullable == info.blank == false
+                  model._required.push(field)
             )
           )
 
@@ -127,15 +134,28 @@ angular.module('dienst2', [])
         )
         return changed
 
+      Model.prototype.verify = () ->
+        errors = []
+        angular.forEach(this._required, (field)->
+          if !this[field]
+            errors.push(field)
+        )
+        errors
+
       Model.prototype.save = (success, error) ->
         if this._delete
           if this.resource_uri
             this.remove(success, error)
         else if this.changed()
-          if this.resource_uri
-            this.update(success, error)
+          errors = this.verify()
+          if errors.length > 0
+            if error
+              error("REQUIRED_FIELDS_EMPTY: " + errors.join(", "), error)
           else
-            this.create(success, error)
+            if this.resource_uri
+              this.update(success, error)
+            else
+              this.create(success, error)
 
       return Model
     return Tastypie

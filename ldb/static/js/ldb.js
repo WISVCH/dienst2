@@ -288,14 +288,14 @@
         if (this.living_with_model) {
           this.living_with = this.living_with_model.resource_uri;
         }
-        this.student_model.save();
-        this.member_model.save();
-        this.alumnus_model.save();
-        this.employee_model.save();
+        this.student_model.save(void 0, alert);
+        this.member_model.save(void 0, alert);
+        this.alumnus_model.save(void 0, alert);
+        this.employee_model.save(void 0, alert);
         angular.forEach(this.committeememberships, function(obj) {
-          return obj.save();
+          return obj.save(void 0, alert);
         });
-        return this.save(success);
+        return this.save(success, alert);
       };
       return Person;
     }

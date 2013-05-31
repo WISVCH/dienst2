@@ -72,8 +72,18 @@
             cache: true
           }).error(report).success(function(data, status, headers, config) {
             model._saved = {};
+            model._required = [];
             return angular.forEach(data.fields, function(info, field) {
-              return model._saved[field] = void 0;
+              var _ref;
+              model._saved[field] = void 0;
+              if (!info.readonly) {
+                if (info["default"] !== "No default provided.") {
+                  model[field] = model._saved[field] = info["default"];
+                }
+                if ((info.nullable === (_ref = info.blank) && _ref === false)) {
+                  return model._required.push(field);
+                }
+              }
             });
           });
         };
@@ -182,16 +192,34 @@
           });
           return changed;
         };
+        Model.prototype.verify = function() {
+          var errors;
+          errors = [];
+          angular.forEach(this._required, function(field) {
+            if (!this[field]) {
+              return errors.push(field);
+            }
+          });
+          return errors;
+        };
         Model.prototype.save = function(success, error) {
+          var errors;
           if (this._delete) {
             if (this.resource_uri) {
               return this.remove(success, error);
             }
           } else if (this.changed()) {
-            if (this.resource_uri) {
-              return this.update(success, error);
+            errors = this.verify();
+            if (errors.length > 0) {
+              if (error) {
+                return error("REQUIRED_FIELDS_EMPTY: " + errors.join(", "), error);
+              }
             } else {
-              return this.create(success, error);
+              if (this.resource_uri) {
+                return this.update(success, error);
+              } else {
+                return this.create(success, error);
+              }
             }
           }
         };

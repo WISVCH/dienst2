@@ -270,16 +270,16 @@ angular
       if this.living_with_model
         this.living_with = this.living_with_model.resource_uri
 
-      this.student_model.save()
-      this.member_model.save()
-      this.alumnus_model.save()
-      this.employee_model.save()
+      this.student_model.save(undefined, alert)
+      this.member_model.save(undefined, alert)
+      this.alumnus_model.save(undefined, alert)
+      this.employee_model.save(undefined, alert)
 
       angular.forEach(this.committeememberships, (obj) ->
-        obj.save()
+        obj.save(undefined, alert)
       )
 
-      this.save(success)
+      this.save(success, alert)
 
     Person
   ])
