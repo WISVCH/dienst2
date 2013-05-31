@@ -25,7 +25,6 @@ STATIC_ROOT = '/tmp/dienst2-static/'       # AANPASSEN
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
 STATIC_URL = '/dienst2/static/'
-ADMIN_MEDIA_PREFIX = STATIC_URL + "admin/"
 
 LOGIN_URL = '/dienst2/accounts/login/'
 
