@@ -211,9 +211,9 @@
     </section>
 
     <section ng-show="person.member_model.person" class="well">
-      <h2>Commissies ({{person.committeememberships.length}})</h2>
+      <h2>Commissies ({{person.committeememberships.length}}) <small><a ng-show="editmode" class="btn icon-plus" href="" ng-click="person.newCommittee()"></a></small></h2>
 
-      <div ng-repeat="committeemembership in person.committeememberships | orderBy:'board':true | filter: committeeFilter">
+      <div ng-repeat="committeemembership in person.committeememberships | orderBy:'_saved.board':true | filter: committeeFilter">
 
         <span ch-editable ch-model="committeemembership.board" ch-template="text" ch-placeholder="Board" ch-class="input-mini"></span> : 
 
@@ -229,8 +229,6 @@
         <a ng-show="editmode" href ng-click="committeemembership._delete=true"><i class="icon-remove"></i></a>
 
       </div>
-
-      <a ng-show="editmode" class="btn" href="" ng-click="person.newCommittee()">Nieuwe commissie</a>
 
     </section>
   </div>
