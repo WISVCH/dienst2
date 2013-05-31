@@ -158,13 +158,13 @@
           }, function(items, meta) {
             var counted;
             category.items = [];
-            if (true) {
+            if (category.counting) {
               counted = [];
               items.forEach(function(item) {
                 var found;
                 found = false;
                 counted.forEach(function(citem) {
-                  if (citem.description.toUpperCase() === item.description.toUpperCase() && citem.sendername === item.sendername) {
+                  if (citem.description.toUpperCase() === item.description.toUpperCase() && citem.sendername === item.sendername && citem.receivername === item.receivername) {
                     citem.count++;
                     return found = true;
                   }

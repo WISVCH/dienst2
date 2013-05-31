@@ -126,12 +126,12 @@ angular
       $scope.categories.forEach((category) ->
         Item._more({ method: 'GET', url: Item.api_root , params: {'category': category.id,'limit': 0, 'date__gte':format($scope.datefrom)}}, (items, meta) ->
           category.items = []
-          if true
+          if category.counting
             counted = []
             items.forEach((item) ->
               found = false
               counted.forEach((citem) ->
-                if citem.description.toUpperCase() == item.description.toUpperCase() and citem.sendername == item.sendername
+                if citem.description.toUpperCase() == item.description.toUpperCase() and citem.sendername == item.sendername and citem.receivername == item.receivername
                   citem.count++
                   found = true
               )
