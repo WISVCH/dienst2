@@ -77,17 +77,6 @@
             });
           });
         };
-        Model.prototype.changed = function() {
-          var changed, obj;
-          obj = this;
-          changed = false;
-          angular.forEach(Object.keys(obj._saved), function(key) {
-            if (obj[key] !== obj._saved[key]) {
-              return changed = true;
-            }
-          });
-          return changed;
-        };
         Model.api_root = api_root;
         Model._more = function(data, success) {
           return $http(data).error(report).success(function(data, status, headers, config) {
@@ -181,6 +170,17 @@
               return success();
             }
           });
+        };
+        Model.prototype.changed = function() {
+          var changed, obj;
+          obj = this;
+          changed = false;
+          angular.forEach(Object.keys(obj._saved), function(key) {
+            if (obj[key] !== obj._saved[key]) {
+              return changed = true;
+            }
+          });
+          return changed;
         };
         Model.prototype.save = function(success, error) {
           if (this._delete) {

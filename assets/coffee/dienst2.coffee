@@ -56,15 +56,6 @@ angular.module('dienst2', [])
             )
           )
 
-      Model.prototype.changed = () ->
-        obj = this
-        changed = false
-        angular.forEach(Object.keys(obj._saved), (key) ->
-          if obj[key] != obj._saved[key]
-            changed = true
-        )
-        return changed
-
       Model.api_root = api_root
 
       Model._more = (data, success) ->
@@ -126,6 +117,15 @@ angular.module('dienst2', [])
             if success
               success()
           )
+
+      Model.prototype.changed = () ->
+        obj = this
+        changed = false
+        angular.forEach(Object.keys(obj._saved), (key) ->
+          if obj[key] != obj._saved[key]
+            changed = true
+        )
+        return changed
 
       Model.prototype.save = (success, error) ->
         if this._delete
