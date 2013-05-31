@@ -14,19 +14,34 @@
       <h1>
         <ng-pluralize 
           count="results.total_count"
-          when="{'0': 'No results',
-                 'one': 'One result',
-                 'other': '{} results'}">
+          when="{'0': 'Niks gevonden',
+                 'one': 'Een resultaat',
+                 'other': '{} resultaten'}">
         </ng-pluralize>
-        for "{{search}}"</h1>
+        voor "{{search}}"</h1>
 
       <ul class="nav nav-pills nav-stacked" ng-show="searchtype=='p'">
-        <li ng-repeat="person in results | orderBy:'surname'"><a href="#/person/{{person.id}}">{{person.firstname}} {{person.preposition}} {{person.surname}}</a></li>
+        <li ng-repeat="person in results | orderBy:'id':true">
+          <a href="#/person/{{person.id}}">
+            <strong>{{person.firstname}} {{person.preposition}} {{person.surname}}</strong>
+            <span ng-show="person.deceased" class="muted"> (&dagger;)</span>
+            <span ng-show="person.age && !person.deceased" class="muted"> ({{person.age}})</span>
+            <span ng-show="person.ldap_username" class=""> <i class="icon-user"></i> {{person.ldap_username}}</span>
+          </a>
+        </li>
       </ul>
 
       <ul class="nav nav-pills nav-stacked" ng-show="searchtype=='o'">
-        <li ng-repeat="organization in results | orderBy:'surname'"><a href="#/organization/{{organization.id}}">{{organization.name}}</a></li>
+        <li ng-repeat="organization in results | orderBy:'surname'">
+          <a href="#/organization/{{organization.id}}">
+            <strong>{{organization.name}}</strong>
+          </a>
+        </li>
       </ul>
+
+      <div class="alert" ng-show="results.total_count > results.length">
+        <strong>Er is meer dan dit!</strong> Verfijn je zoekopdracht om te vinden wat je zoekt.
+      </div>
 
     </div>
   </div>
