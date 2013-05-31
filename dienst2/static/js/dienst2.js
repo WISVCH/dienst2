@@ -104,14 +104,15 @@
             url: Model.api_root + id + '/'
           }, success);
         };
-        Model.all = function(success) {
-          return Model._more({
+        Model.all = function(success, data) {
+          data = angular.extend({
             method: 'GET',
             url: Model.api_root,
             params: {
               'limit': 10
             }
-          }, success);
+          }, data);
+          return Model._more(data, success);
         };
         Model.search = function(query, success, mod, id) {
           if (!mod) {

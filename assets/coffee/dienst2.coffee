@@ -77,7 +77,9 @@ angular.module('dienst2', [])
       
       Model.get = (id, success) -> Model._one({method: 'GET', url: Model.api_root + id + '/'}, success)
 
-      Model.all = (success) -> Model._more({ method: 'GET', url: Model.api_root , params: {'limit': 10} }, success)
+      Model.all = (success, data) -> 
+        data = angular.extend({ method: 'GET', url: Model.api_root , params: {'limit': 10} }, data)
+        Model._more(data, success)
 
       Model.search = (query, success, mod, id) -> 
         if !mod

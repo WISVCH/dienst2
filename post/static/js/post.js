@@ -133,6 +133,10 @@
         return $scope.categories.forEach(function(category) {
           return category.items = [];
         });
+      }, {
+        params: {
+          limit: 0
+        }
       });
       $scope.$watch('avdate', function() {
         var matches;
@@ -170,11 +174,10 @@
                   return counted.push(item);
                 }
               });
-              category.items = counted;
+              return category.items = counted;
             } else {
-              category.items = items;
+              return category.items = items;
             }
-            return console.log(category.items);
           });
         });
       };

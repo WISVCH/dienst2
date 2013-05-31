@@ -109,9 +109,11 @@ angular
 
     $scope.datefrom = new Date()
 
-    Category.all((categories, meta) -> 
-      $scope.categories = categories
-      $scope.categories.forEach((category) -> category.items = [])
+    Category.all(
+      (categories, meta) -> 
+        $scope.categories = categories
+        $scope.categories.forEach((category) -> category.items = [])
+      {params: {limit: 0}}
     )
 
     $scope.$watch('avdate', () ->
@@ -141,8 +143,6 @@ angular
             category.items = counted
           else
             category.items = items
-
-          console.log category.items
         )
       )
   ])
