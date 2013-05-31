@@ -291,7 +291,7 @@ angular
   .factory('Committee', ['Tastypie', (Tastypie) ->
     Committee = Tastypie('api/v2/committee/')
     Committee.prototype.toString = () -> this.committeename
-    Committee.all = (success) -> Committee._more({ method: 'GET', url: Committee.api_root , params: {'limit': 0} }, success)
+    Committee.all = (success) -> Committee._more({ method: 'GET', url: Committee.api_root , params: {'limit': 0}, cache: true }, success)
     Committee
   ])
   

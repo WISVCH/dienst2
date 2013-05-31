@@ -46,7 +46,7 @@ angular.module('dienst2', [])
         angular.extend(this, {_saved:data}, data)
 
       Model._loadFromSchema = (model) ->
-        $http({method: 'GET', url: Model.api_root + 'schema/'})
+        $http({method: 'GET', url: Model.api_root + 'schema/', cache: true})
           .error(report)
           .success((data, status, headers, config) -> 
             model._saved = {}

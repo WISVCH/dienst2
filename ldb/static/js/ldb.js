@@ -319,7 +319,8 @@
           url: Committee.api_root,
           params: {
             'limit': 0
-          }
+          },
+          cache: true
         }, success);
       };
       return Committee;

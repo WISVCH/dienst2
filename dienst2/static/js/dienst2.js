@@ -68,7 +68,8 @@
         Model._loadFromSchema = function(model) {
           return $http({
             method: 'GET',
-            url: Model.api_root + 'schema/'
+            url: Model.api_root + 'schema/',
+            cache: true
           }).error(report).success(function(data, status, headers, config) {
             model._saved = {};
             return angular.forEach(data.fields, function(info, field) {
