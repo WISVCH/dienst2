@@ -280,6 +280,11 @@
       $scope.$watch("closure.num_e500 + closure.num_e200 + closure.num_e100 + closure.num_e50 + closure.num_e20 + closure.num_e10 + closure.num_e5 + closure.num_e2 + closure.num_e1 + closure.num_e050 + closure.num_e020 + closure.num_e010 + closure.num_e005", function() {
         return $scope.closure.total = 500 * $scope.closure.num_e500 + 200 * $scope.closure.num_e200 + 100 * $scope.closure.num_e100 + 50 * $scope.closure.num_e50 + 20 * $scope.closure.num_e20 + 10 * $scope.closure.num_e10 + 5 * $scope.closure.num_e5 + 2 * $scope.closure.num_e2 + 1 * $scope.closure.num_e1 + 0.5 * $scope.closure.num_e050 + 0.2 * $scope.closure.num_e020 + 0.1 * $scope.closure.num_e010 + 0.05 * $scope.closure.num_e005;
       });
+      $scope.$watch('closure.total - closure.previoustotal - closure.transactions_cash', function() {
+        var cashdifference;
+        cashdifference = $scope.closure.total - $scope.closure.previoustotal - $scope.closure.transactions_cash;
+        return $scope.closure.cashdifference = Math.round(cashdifference * 100) / 100;
+      });
       return $(document).delegate('input.input-mini', 'keyup', function() {
         return $scope.$digest();
       });

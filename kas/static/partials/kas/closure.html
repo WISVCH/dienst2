@@ -46,9 +46,9 @@
         </tbody>
       </table>
 
-      <div class="alert alert-error" ng-show="closure.total - closure.previoustotal - closure.transactions_cash != 0">
+      <div class="alert alert-error" ng-show="closure.cashdifference != 0">
         <strong>Er is een kasverschil!</strong><br />
-        Je hebt een kasverschil van {{closure.total - closure.previoustotal - closure.transactions_cash | currency}}
+        Je hebt een kasverschil van {{closure.cashdifference | currency}}
       </div>
 
       <h2>Pintransacties</h2>

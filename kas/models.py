@@ -119,11 +119,11 @@ class Closure(models.Model):
 
     @property
     def cashdifference(self):
-        return self.total - getattr(self.previous, 'total', 0) - self.transactions_cash
+        return round(self.total - getattr(self.previous, 'total', 0) - self.transactions_cash, 2)
 
     @property
     def pindifference(self):
-        return self.pin - self.transactions_pin;
+        return round(self.pin - self.transactions_pin)
 
     def clean(self):
         super(Closure, self).clean()
