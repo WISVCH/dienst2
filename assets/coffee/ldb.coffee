@@ -1,4 +1,14 @@
 #
+# Helpers
+#
+
+getid = (uri) -> 
+  try
+    parts = uri.split( '/' )
+    return parts[parts.length-2]
+  catch e
+    return undefined
+#
 # Main Application
 #
 
@@ -10,6 +20,7 @@ window.App = angular
     $routeProvider.when('/person/:personID', {templateUrl: window.prefix + 'partials/ldb/person.html', controller: 'PersonDetailController'})
     $routeProvider.when('/organization/new', {templateUrl: window.prefix + 'partials/ldb/organization.html', controller: 'OrganizationDetailController'})
     $routeProvider.when('/organization/:organizationID', {templateUrl: window.prefix + 'partials/ldb/organization.html', controller: 'OrganizationDetailController'})
+    $routeProvider.when('/committees', {templateUrl: window.prefix + 'partials/ldb/committees.html', controller: 'CommitteeController'})
     $routeProvider.when('/export', {templateUrl: window.prefix + 'partials/ldb/export.html', controller: 'ExportController'})
     $routeProvider.otherwise({redirectTo: '/dashboard'})
     return
@@ -163,6 +174,52 @@ angular
   ])
   .controller('ExportController', ['$scope', ($scope) ->
   ])
+  .controller('CommitteeController', ['$scope', 'Committee', 'CommitteeMembership', ($scope, Committee, CommitteeMembership) ->
+    # All committees
+
+    $scope.committeelist = []
+    Committee.all((committeelist) ->
+      $scope.committeelist = committeelist
+    )
+
+    # Search
+
+    $scope.search = {
+      board: undefined
+      committee: undefined
+    }
+
+    search = {}
+    $scope.$watch(
+      'search'
+      ()->
+        search = {'limit': 0}
+        if $scope.search.board
+          search['board'] = $scope.search.board
+        if $scope.search.committee
+          search['committee'] = getid($scope.search.committee)
+      true
+    )
+
+    $scope.withCommittee = (committee) ->
+      $scope.search['committee'] = committee
+      search['committee'] = getid(committee)
+      $scope.load()
+
+    $scope.getid = getid
+
+    $scope.loading = false;
+    $scope.load = () ->
+      if !$scope.loading && (search.board || search.committee)
+        $scope.loading = true
+        CommitteeMembership._more(
+          { method: 'GET', url: CommitteeMembership.api_root , params: search, cache: true }
+          (committeememberships) ->
+            $scope.loading = false
+            $scope.committeememberships = committeememberships
+        )
+
+  ])
 
 #
 # API Helpers
@@ -294,5 +351,3 @@ angular
     Committee.all = (success) -> Committee._more({ method: 'GET', url: Committee.api_root , params: {'limit': 0}, cache: true }, success)
     Committee
   ])
-  
-  

@@ -97,12 +97,21 @@ class CommitteeMembershipResource(ModelResource):
     queryset = CommitteeMembership.objects.all()
     resource_name = 'committeeMembership'
     filtering = {
-      'person': ('exact')
+      'person': ('exact'),
+      'board': ('exact'),
+      'committee': ('exact')
     }
 
   person = fields.ToOneField('ldb.api.PersonResource', 'person')
   committee = fields.ToOneField('ldb.api.CommitteeResource', 'committee')
   committeename = fields.CharField(attribute='committee__name', readonly=True)
+  personname = fields.CharField(readonly=True)
+
+  def dehydrate_personname(self, bundle):
+    try:
+      return bundle.obj.person.__unicode__()
+    except:
+      return None
 
 class ModificationResource(ModelResource):
   class Meta(api_helper.BaseMeta):

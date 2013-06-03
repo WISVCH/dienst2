@@ -13,6 +13,7 @@ def index(request):
         ('#/dashboard', 'Zoeken'),
         ('#/person/new', 'Nieuw Persoon'),
         ('#/organization/new', 'Nieuwe Organisatie'),
+        ('#/committees', 'Commissies'),
         ('#/export', 'Exporteren')
       ]
     }
