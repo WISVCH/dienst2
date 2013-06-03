@@ -55,7 +55,7 @@ angular.module('dienst2', [])
               # Let op! resource_uri is nu ook undefined!
               model._saved[field] = undefined
               if !info.readonly
-                if info.default != "No default provided."
+                if info.default != "No default provided." && info.default != ""
                   model[field] = model._saved[field] = info.default
               
                 if info.nullable == info.blank == false
@@ -137,9 +137,10 @@ angular.module('dienst2', [])
         return changed
 
       Model.prototype.verify = () ->
+        obj = this
         errors = []
         angular.forEach(this._required, (field)->
-          if !this[field]
+          if !obj[field]
             errors.push(field)
         )
         errors

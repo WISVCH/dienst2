@@ -77,7 +77,7 @@
               var _ref;
               model._saved[field] = void 0;
               if (!info.readonly) {
-                if (info["default"] !== "No default provided.") {
+                if (info["default"] !== "No default provided." && info["default"] !== "") {
                   model[field] = model._saved[field] = info["default"];
                 }
                 if ((info.nullable === (_ref = info.blank) && _ref === false)) {
@@ -194,10 +194,11 @@
           return changed;
         };
         Model.prototype.verify = function() {
-          var errors;
+          var errors, obj;
+          obj = this;
           errors = [];
           angular.forEach(this._required, function(field) {
-            if (!this[field]) {
+            if (!obj[field]) {
               return errors.push(field);
             }
           });
