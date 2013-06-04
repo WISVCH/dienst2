@@ -459,11 +459,12 @@
           datefilter = $filter('date');
           fromUser = function(text) {
             var match, out, regex;
-            out = void 0;
+            out = null;
             regex = /^(0?[1-9]|[12][0-9]|3[01])[\-](0?[1-9]|1[012])[\-](\d{4})$/;
             if (text && (match = text.match(regex))) {
               out = match[3] + "-" + match[2] + "-" + match[1];
             }
+            console.log(out);
             return out;
           };
           toUser = function(text) {

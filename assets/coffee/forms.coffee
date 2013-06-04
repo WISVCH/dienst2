@@ -41,10 +41,11 @@ angular
       link: (scope, element, attr, ngModel) ->
         datefilter = $filter('date')
         fromUser = (text) -> 
-          out = undefined
+          out = null
           regex = /^(0?[1-9]|[12][0-9]|3[01])[\-](0?[1-9]|1[012])[\-](\d{4})$/
           if text && match = text.match(regex)
             out = match[3] + "-" + match[2] + "-" + match[1]
+          console.log out
           out
         toUser = (text) -> 
           datefilter(text, 'dd-MM-yyyy')
