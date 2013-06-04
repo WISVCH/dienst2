@@ -58,15 +58,15 @@
 
       <div>
         <h3>Adres <small ng-show="editmode"><a class="icon-remove" ng-click="person.emptyAddr()"></a></small></h3>
-        <div ng-show="person.country || editmode">
+        <div ng-hide="!person.country && !editmode">
           <div>
             <span ch-editable ch-model="person.street_name" ch-template="text" ch-placeholder="Straatnaam" ch-class="input-large"></span>
             <span ch-editable ch-model="person.house_number" ch-template="text" ch-placeholder="Nummer" ch-class="input-small"></span>
           </div>
-          <div ng-show="person.address_2 || editmode">
+          <div ng-hide="!person.address_2 && !editmode">
             <span ch-editable ch-model="person.address_2" ch-template="text" ch-placeholder="Adresregel 2" ch-class="input-xlarge"></span>
           </div>
-          <div ng-show="person.address_3 || editmode">
+          <div ng-hide="!person.address_3 && !editmode">
             <span ch-editable ch-model="person.address_3" ch-template="text" ch-placeholder="Adresregel 3" ch-class="input-xlarge"></span>
           </div>
           <div>
@@ -77,7 +77,7 @@
               <option value="">-- geen land --</option>
             </select>
           </div>
-          <div ng-show="person.living_with || editmode">
+          <div ng-hide="!person.living_with && !editmode">
             <strong>Woont samen met:</strong>
 
             <input ng-show="editmode" type="text" class="input-large" placeholder="Living With" ng-model="living_with" ch-selector="otherpersons">
@@ -97,46 +97,46 @@
           <a ng-show="person.email" ng-href="mailto:{{person.email}}"><i class="icon-envelope"></i></a>
         </div>
 
-        <div ng-show="person.phone_fixed || editmode">
+        <div ng-hide="!person.phone_fixed && !editmode">
           <strong>Vast:</strong> 
           <span ch-editable ch-model="person.phone_fixed" ch-template="text" ch-placeholder="Telefoon vast" ch-class="input-medium"></span>
         </div>
-        <div ng-show="person.phone_mobile || editmode">
+        <div ng-hide="!person.phone_mobile && !editmode">
           <strong>Mobiel:</strong> 
           <span ch-editable ch-model="person.phone_mobile" ch-template="text" ch-placeholder="Telefoon mobiel" ch-class="input-medium"></span>
         </div>
-        <div ng-show="person.student_model.phone_parents || editmode">
+        <div ng-hide="!person.student_model.phone_parents && !editmode">
           <strong>Ouders:</strong> 
           <span ch-editable ch-model="person.student_model.phone_parents" ch-template="text" ch-placeholder="Telefoon ouders" ch-class="input-medium"></span>
         </div>
       </div>
 
-      <div ng-show="person.comment || editmode">
+      <div ng-hide="!person.comment && !editmode">
         <h3>Opmerkingen</h3>
         <div ch-editable ch-model="person.comment" ch-template="multiline" ch-class=""></div>
       </div>
 
       <div>
         <h3>Accounts</h3>
-        <div ng-show="person.facebook_id || editmode">
+        <div ng-hide="!person.facebook_id && !editmode">
           <strong>Facebook:</strong> 
           <span ch-editable ch-model="person.facebook_id" ch-template="text" ch-placeholder="Facebook ID" ch-class="input-medium"></span>
           <a ng-href="//facebook.com/{{person.facebook_id}}" target="_blank"><i class="icon-share-alt"></i></a>
         </div>
 
-        <div ng-show="person.linkedin_id || editmode">
+        <div ng-hide="!person.linkedin_id && !editmode">
           <strong>LinkedIn:</strong> 
           <span ch-editable ch-model="person.linkedin_id" ch-template="text" ch-placeholder="LinkedIn ID" ch-class="input-medium"></span>
           <a ng-href="//www.linkedin.com/profile/view?id={{person.linkedin_id}}" target="_blank"><i class="icon-share-alt"></i></a>
         </div>
 
-        <div ng-show="person.ldap_username || editmode">
+        <div ng-hide="!person.ldap_username && !editmode">
           <strong>CH:</strong> 
           <span ch-editable ch-model="person.ldap_username" ch-template="text" ch-placeholder="LDAP Gebruikersnaam" ch-class="input-medium"></span>
           <a ng-href="//frans.chnet/userman2/users/{{person.ldap_username}}" target="_blank"><i class="icon-share-alt"></i></a>
         </div>
 
-        <div ng-show="person.netid || editmode">
+        <div ng-hide="!person.netid && !editmode">
           <strong>NetID:</strong> 
           <span ch-editable ch-model="person.netid" ch-template="text" ch-placeholder="NetID" ch-class="input-medium"></span>
         </div>
