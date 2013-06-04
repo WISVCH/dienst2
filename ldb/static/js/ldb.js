@@ -255,7 +255,7 @@
     }
   ]).factory('Person', [
     'Tastypie', 'Member', 'Student', 'Alumnus', 'Employee', 'CommitteeMembership', function(Tastypie, Member, Student, Alumnus, Employee, CommitteeMembership) {
-      var Person, process;
+      var Person;
       Person = Tastypie('api/v2/person/');
       Person.prototype.emptyAddr = emptyAddr;
       Person.prototype.toString = function() {
@@ -320,19 +320,6 @@
             self.committeememberships = committeememberships;
             return update();
           });
-        }
-      };
-      process = function(obj, success, handleError) {
-        if (obj._delete) {
-          if (obj.resource_uri) {
-            return obj.remove(success, handleError);
-          }
-        } else if (obj.changed()) {
-          if (obj.resource_uri) {
-            return obj.update(success, handleError);
-          } else {
-            return obj.create(success, handleError);
-          }
         }
       };
       Person.prototype.newCommittee = function() {

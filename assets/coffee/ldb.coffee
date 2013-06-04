@@ -304,17 +304,6 @@ angular
           self.committeememberships = committeememberships
           update()
         )
-
-
-    process = (obj, success, handleError) ->
-      if obj._delete
-        if obj.resource_uri
-          obj.remove(success, handleError)
-      else if obj.changed()
-        if obj.resource_uri
-          obj.update(success, handleError)
-        else
-          obj.create(success, handleError)
     
     Person.prototype.newCommittee = () ->
       committeemembership = new CommitteeMembership()
