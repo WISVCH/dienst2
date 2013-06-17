@@ -1,6 +1,7 @@
 from django.conf.urls.defaults import *
 from tastypie.api import Api
 from ldb.api import *
+from ldb.export import ExportResource
 
 api = Api(api_name='v2')
 
@@ -13,6 +14,7 @@ api.register(EmployeeResource())
 api.register(CommitteeResource())
 api.register(CommitteeMembershipResource())
 api.register(ModificationResource())
+api.register(ExportResource())
 
 urlpatterns = patterns('',
     (r'^api/', include(api.urls)),

@@ -167,7 +167,32 @@
         return $scope.editmode = true;
       }
     }
-  ]).controller('ExportController', ['$scope', function($scope) {}]).controller('CommitteeController', [
+  ]).controller('ExportController', [
+    '$scope', '$http', '$filter', function($scope, $http, $filter) {
+      $scope["export"] = {
+        'queryset': {},
+        'filters': {},
+        'fields': {},
+        'limit': 5000,
+        'format': 'csv'
+      };
+      $scope.loading = false;
+      return $scope.loadExport = function() {
+        $scope.loading = true;
+        return $http({
+          method: 'GET',
+          url: 'api/v2/export/',
+          params: $scope["export"]
+        }).success(function(data, status, headers, config) {
+          $scope.loading = false;
+          return $scope.data = data;
+        }).error(function() {
+          $scope.loading = false;
+          return $scope.data = "FOUT";
+        });
+      };
+    }
+  ]).controller('CommitteeController', [
     '$scope', 'Committee', 'CommitteeMembership', function($scope, Committee, CommitteeMembership) {
       var search;
       $scope.committeelist = [];

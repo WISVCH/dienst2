@@ -172,7 +172,29 @@ angular
       $scope.organization = new Organization()
       $scope.editmode = true
   ])
-  .controller('ExportController', ['$scope', ($scope) ->
+  .controller('ExportController', ['$scope', '$http', '$filter', ($scope, $http, $filter) ->
+
+    $scope.export = {
+      'queryset': {},
+      'filters': {},
+      'fields': {},
+      'limit': 5000,
+      'format': 'csv'
+    }
+
+    $scope.loading = false
+
+    $scope.loadExport = () ->
+      $scope.loading = true
+      $http({ method: 'GET', url: 'api/v2/export/', params: $scope.export })
+        .success((data, status, headers, config) ->
+          $scope.loading = false
+          $scope.data = data
+        )
+        .error(() -> 
+          $scope.loading = false
+          $scope.data = "FOUT"
+        )
   ])
   .controller('CommitteeController', ['$scope', 'Committee', 'CommitteeMembership', ($scope, Committee, CommitteeMembership) ->
     # All committees
