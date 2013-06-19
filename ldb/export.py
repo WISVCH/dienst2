@@ -120,7 +120,13 @@ class ExportResource(Resource):
     allowed_fields = flatten(self.allowed_fields)
     requested_fields = query.get("fields", "[]")
     requested_fields = simplejson.loads(str(requested_fields))
-    requested_fields = {k: v for k, v in requested_fields.iteritems() if v == True}
+
+    fields = {}
+    for k,v in requested_fields.iteritems():
+      if v == True:
+        fields[k] = v
+    requested_fields = fields
+
     export_fields = list(set(allowed_fields) & set(requested_fields))
     if len(export_fields) == 0:
       export_fields = ['id']
@@ -143,7 +149,13 @@ class ExportResource(Resource):
   def set_querysets(self, query):
     requested_querysets = query.get('queryset', '[]')
     requested_querysets = simplejson.loads(str(requested_querysets))
-    requested_querysets = {k: v for k, v in requested_querysets.iteritems() if v == True}
+
+    querysets = {}
+    for k,v in requested_querysets.iteritems():
+      if v == True:
+        querysets[k] = v
+    requested_querysets = querysets
+
     export_querysets = list(set(self.allowed_querysets) & set(requested_querysets))
     return export_querysets
 
