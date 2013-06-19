@@ -37,9 +37,12 @@ class CSVSerializer(Serializer):
 
       fields = data['objects'][0].data['data'].keys()
       fields.sort(key=lambda p: order.index(p))
+      header = {}
+      for field in fields:
+        header[field] = field
 
       writer = csv.DictWriter(raw_data, fieldnames=fields, quoting=csv.QUOTE_MINIMAL)
-      writer.writeheader()
+      writer.writerow(header)
 
       for obj in data.get('objects', []):
         try:
@@ -55,8 +58,7 @@ class CSVSerializer(Serializer):
           writer.writerow(utf)
       return raw_data.getvalue()
     except:
-      print "Unexpected error:", sys.exc_info()[0]
-      return "FOUT"
+      return "Unexpected error:", sys.exc_info()[0], '\n', traceback.format_exc()
 
   def from_csv(self, content):
     pass
