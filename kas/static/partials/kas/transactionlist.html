@@ -22,7 +22,7 @@
       {{transaction.amount | currency}}
     </td>
     <td>{{transaction.description}}</td>
-    <td><a class="btn" ng-class="{btn:true, disabled:!transaction.editable}" ng-click="transaction.toggleValid()"><i ng-show="transaction.valid" class="icon-ok"></i><i ng-hide="transaction.valid" class="icon-remove"></i></a></td>
+    <td><a class="btn" ng-class="{btn:true, disabled:!transaction.editable}" ng-click="transaction.toggleValid()"><i ng-show="transaction.valid" class="icon-remove"></i><i ng-hide="transaction.valid" class="icon-ok"></i></a></td>
     </tr>
   </tbody>
 </table>
