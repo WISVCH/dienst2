@@ -111,7 +111,7 @@ INSTALLED_APPS = (
     'post',
 )
 
-AUTH_LDAP_SERVER_URI = "ldaps://frans.chnet/"
+AUTH_LDAP_SERVER_URI = "ldaps://joost.chnet/"
 AUTH_LDAP_BIND_DN = ""
 AUTH_LDAP_BIND_PASSWORD = ""
 AUTH_LDAP_USER_SEARCH = LDAPSearch("dc=ank,dc=chnet", ldap.SCOPE_SUBTREE, "(uid=%(user)s)")
