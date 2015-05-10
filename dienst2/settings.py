@@ -132,9 +132,6 @@ AUTH_LDAP_USER_FLAGS_BY_GROUP = {
 
 AUTH_LDAP_MIRROR_GROUPS = True
 
-# FIXME: Do not use for deployment!
-#AUTH_LDAP_GLOBAL_OPTIONS = { ldap.OPT_X_TLS_REQUIRE_CERT: ldap.OPT_X_TLS_NEVER }
-
 AUTHENTICATION_BACKENDS = (
     'django_auth_ldap.backend.LDAPBackend',
     'django.contrib.auth.backends.ModelBackend',
