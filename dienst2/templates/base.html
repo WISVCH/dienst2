@@ -9,13 +9,6 @@
   {% block styles %}{% endblock %}
 </head>
 <body{% if ng_app %} ng-app="{{ng_app}}"{% endif %}>
-  <div class="row-fluid">
-    <div class="span4 offset4">
-      <div class="alert">
-        <strong>Werkt het niet?</strong> Maak een <a href="https://github.com/WISVCH/dienst2/issues">issue</a> aan.
-      </div>
-    </div>
-  </div>
   {% block content %}{% endblock %}
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
@@ -33,5 +26,12 @@
   <script src="{% get_static_prefix %}js/dienst2.js"></script>
   {% if ng_app %}<script src="{% get_static_prefix %}js/{{ng_app}}.js"></script>{% endif %}
   {% block javascript %}{% endblock %}
+  <div class="row-fluid">
+    <div class="span4 offset4">
+      <div class="alert alert-info" style="opacity: 0.7; margin-top: 2em">
+        <strong>Werkt het niet?</strong> Maak een <a href="https://github.com/WISVCH/dienst2/issues">issue</a> aan.
+      </div>
+    </div>
+  </div>
 </body>
 </html>
