@@ -4,7 +4,7 @@ Dienstensysteem v2
 
 # Compiling
 
-Run the Makefile after changing any CofeeScript or Less files.
+Run the Makefile after changing any CoffeeScript or Less files.
 
 # Development installation
 
@@ -23,3 +23,11 @@ Run the Makefile after changing any CofeeScript or Less files.
 **Note: please do not use (a copy of) the production database for local development.**
 
 [PyCharm also supports CoffeeScript](https://www.jetbrains.com/pycharm/help/transpiling-coffeescript-to-javascript.html): install NodeJS plugin, then `npm install -g coffee-script`. Unfortunately, the file structure will need to be changed if you want to set up a compiler watcher.
+
+# API
+
+To create an API key:
+
+1. Create a new user through the Django admin interface, please prefix username with `api_`
+2. Set password field to `!` in database (e.g. through phpPgAdmin)
+3. Assign new API key to new user in Django admin interface
