@@ -120,7 +120,7 @@ class Person(Entity):
     ldap_username      = models.CharField(_('LDAP username'), max_length=50, blank=True)
 
     # External Accounts
-    netid              = models.CharField(_('netid'), max_length=32, blank=True)
+    netid              = models.CharField(_('NetID'), max_length=32, blank=True)
     linkedin_id        = models.CharField(_('LinkedIn ID'), max_length=32, blank=True)
     facebook_id        = models.CharField(_('Facebook ID'), max_length=32, blank=True)
 
