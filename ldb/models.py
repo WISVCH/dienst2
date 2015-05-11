@@ -91,8 +91,6 @@ class Person(Entity):
         ('F', _('Female')),
     )
 
-    legacy_ID          = models.IntegerField(_('Legacy ID'), blank=True, null=True)
-    
     # Name
     titles             = models.CharField(_('titles'), max_length=20, blank=True)
     initials           = models.CharField(_('initials'), max_length=15)
