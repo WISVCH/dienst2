@@ -2,11 +2,11 @@
 W.I.S.V. 'Christiaan Huygens'
 Dienstensysteem v2
 
-# Compiling
+## Compiling
 
 Run the Makefile after changing any CoffeeScript or Less files.
 
-# Development installation
+## Development installation
 
 1. Install PostgreSQL (e.g. [Postgres.app for OS X](http://postgresapp.com), make sure to add it to `$PATH`
 2. Install [PyCharm Professional](https://www.jetbrains.com/pycharm/) ([free for students](https://www.jetbrains.com/student/))
@@ -24,7 +24,7 @@ Run the Makefile after changing any CoffeeScript or Less files.
 
 [PyCharm also supports CoffeeScript](https://www.jetbrains.com/pycharm/help/transpiling-coffeescript-to-javascript.html): install NodeJS plugin, then `npm install -g coffee-script`. Unfortunately, the file structure will need to be changed if you want to set up a compiler watcher.
 
-# API
+## API
 
 To create an API key:
 
