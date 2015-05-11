@@ -2,6 +2,10 @@
 W.I.S.V. 'Christiaan Huygens'
 Dienstensysteem v2
 
+# Compiling
+
+Run the Makefile after changing any CofeeScript or Less files.
+
 # Development installation
 
 1. Install PostgreSQL (e.g. [Postgres.app for OS X](http://postgresapp.com), make sure to add it to `$PATH`
@@ -16,4 +20,6 @@ Dienstensysteem v2
 9. Start server
 10. You should be good to go!
 
-Note: please do not use (a copy of) the production database for local development.
+**Note: please do not use (a copy of) the production database for local development.**
+
+[PyCharm also supports CoffeeScript](https://www.jetbrains.com/pycharm/help/transpiling-coffeescript-to-javascript.html): install NodeJS plugin, then `npm install -g coffee-script`. Unfortunately, the file structure will need to be changed if you want to set up a compiler watcher.
