@@ -22,7 +22,6 @@ class PersonResource(ModelResource):
     filtering = {
       'netid': 'exact',
       'ldap_username': 'exact',
-      'student_number': 'exact'
     }
 
   member = fields.ToOneField('ldb.api.MemberResource', 'member', null=True, readonly=True)
@@ -58,6 +57,9 @@ class StudentResource(ModelResource):
   class Meta(api_helper.BaseMeta):
     queryset = Student.objects.all()
     resource_name = 'student'
+    filtering = {
+      'student_number': 'exact'
+    }
 
   person = fields.ToOneField('ldb.api.PersonResource', 'person')
 
