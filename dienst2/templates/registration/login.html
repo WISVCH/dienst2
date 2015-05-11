@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load url from future %}
 {% load get_static_prefix from static %}
-
+{% block title %}Login{% endblock %}
 {% block content %}
 <form id="login" method="post" action="{% url 'django.contrib.auth.views.login' %}">
   {% csrf_token %}
