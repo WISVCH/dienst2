@@ -24,7 +24,7 @@ class RequireLoginMiddleware(object):
             return
 
         # resolve() will raise an Http404 error if url not found
-        view_name = resolve(request.path).view_name
+        view_name = resolve(request.path_info).view_name
         if view_name.startswith('api_'):
             auth = ApiKeyAuthentication()
             auth_result = auth.is_authenticated(request)
