@@ -1,7 +1,7 @@
 from django.conf import settings
+from django.contrib.auth.views import redirect_to_login
 from django.core.urlresolvers import resolve
 from django.http import HttpResponse
-from django.shortcuts import redirect
 from tastypie import http
 from tastypie.authentication import ApiKeyAuthentication
 
@@ -36,4 +36,4 @@ class RequireLoginMiddleware(object):
                 return http.HttpUnauthorized()
 
         elif request.path != self.require_login_path:
-            return redirect('%s?next=%s' % (self.require_login_path, request.path))
+            return redirect_to_login(request.path)
