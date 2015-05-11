@@ -20,8 +20,9 @@ class PersonResource(ModelResource):
     queryset = Person.objects.all()
     resource_name = 'person'
     filtering = {
-      "netid": ('exact'),
-      "ldap_username": ('exact')
+      'netid': 'exact',
+      'ldap_username': 'exact',
+      'student_number': 'exact'
     }
 
   member = fields.ToOneField('ldb.api.MemberResource', 'member', null=True, readonly=True)
