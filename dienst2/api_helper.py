@@ -1,4 +1,4 @@
-from django.conf.urls.defaults import *
+from django.conf.urls import url
 from django.core.paginator import Paginator, InvalidPage
 from django.http import Http404
 from haystack.query import SearchQuerySet

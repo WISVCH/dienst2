@@ -8,10 +8,12 @@ from tastypie.validation import FormValidation
 class TransactionForm(ModelForm):
   class Meta:
     model = Transaction
+    fields = '__all__'
 
 class ClosureForm(ModelForm):
   class Meta:
     model = Closure
+    fields = '__all__'
 
 class TransactionResource(ModelResource):
   get_search = api_helper.get_search(Transaction)
