@@ -76,6 +76,8 @@ MIDDLEWARE_CLASSES = (
     'reversion.middleware.RevisionMiddleware',
 )
 
+EMAIL_BACKEND = 'django_sendmail_backend.backends.EmailBackend'
+
 ROOT_URLCONF = 'dienst2.urls'
 
 LOGIN_REDIRECT_URL = '/'
