@@ -31,3 +31,16 @@ To create an API key:
 1. Create a new user through the Django admin interface, please prefix username with `api_`
 2. Set password field to `!` in database (e.g. through phpPgAdmin)
 3. Assign new API key to new user in Django admin interface
+
+
+## Update to Django 1.8
+
+To update to Django 1.8
+
+1. `pip install --upgrade south`
+2. `pip install django-reversion==1.8`
+3. `python manage.py migrate`
+4. Make sure you have latest version of dienst2
+5. `pip install -r requirements.txt`
+6. `python manage.py migrate --fake-initial`
+

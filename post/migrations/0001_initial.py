@@ -1,75 +1,62 @@
 # -*- coding: utf-8 -*-
-import datetime
-from south.db import db
-from south.v2 import SchemaMigration
-from django.db import models
+from __future__ import unicode_literals
 
-class Migration(SchemaMigration):
-
-    def forwards(self, orm):
-        # Adding model 'Category'
-        db.create_table('post_category', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=128)),
-            ('grouping', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('counting', self.gf('django.db.models.fields.BooleanField')(default=False)),
-        ))
-        db.send_create_signal('post', ['Category'])
-
-        # Adding model 'Source'
-        db.create_table('post_source', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=128)),
-            ('location', self.gf('django.db.models.fields.CharField')(max_length=1)),
-        ))
-        db.send_create_signal('post', ['Source'])
-
-        # Adding model 'Item'
-        db.create_table('post_item', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('date', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
-            ('description', self.gf('django.db.models.fields.CharField')(max_length=128)),
-            ('sender', self.gf('django.db.models.fields.related.ForeignKey')(related_name='sender', to=orm['post.Source'])),
-            ('receiver', self.gf('django.db.models.fields.related.ForeignKey')(related_name='receiver', to=orm['post.Source'])),
-            ('category', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['post.Category'])),
-        ))
-        db.send_create_signal('post', ['Item'])
+from django.db import models, migrations
 
 
-    def backwards(self, orm):
-        # Deleting model 'Category'
-        db.delete_table('post_category')
+class Migration(migrations.Migration):
 
-        # Deleting model 'Source'
-        db.delete_table('post_source')
+    dependencies = [
+    ]
 
-        # Deleting model 'Item'
-        db.delete_table('post_item')
-
-
-    models = {
-        'post.category': {
-            'Meta': {'object_name': 'Category'},
-            'counting': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'grouping': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '128'})
-        },
-        'post.item': {
-            'Meta': {'object_name': 'Item'},
-            'category': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['post.Category']"}),
-            'date': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            'description': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'receiver': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'receiver'", 'to': "orm['post.Source']"}),
-            'sender': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'sender'", 'to': "orm['post.Source']"})
-        },
-        'post.source': {
-            'Meta': {'object_name': 'Source'},
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'location': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '128'})
-        }
-    }
-
-    complete_apps = ['post']
+    operations = [
+        migrations.CreateModel(
+            name='Category',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('name', models.CharField(max_length=128, verbose_name='name')),
+                ('grouping', models.BooleanField(default=False, verbose_name='grouping')),
+                ('counting', models.BooleanField(default=False, verbose_name='counting')),
+            ],
+            options={
+                'verbose_name': 'category',
+                'verbose_name_plural': 'categories',
+            },
+        ),
+        migrations.CreateModel(
+            name='Item',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('date', models.DateTimeField(auto_now_add=True, verbose_name='date')),
+                ('description', models.CharField(max_length=128, verbose_name='description')),
+                ('category', models.ForeignKey(to='post.Category')),
+            ],
+            options={
+                'ordering': ['-date'],
+                'verbose_name': 'item',
+                'verbose_name_plural': 'items',
+            },
+        ),
+        migrations.CreateModel(
+            name='Source',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('name', models.CharField(max_length=128, verbose_name='name')),
+                ('location', models.CharField(max_length=1, verbose_name='location', choices=[(b'I', 'internal'), (b'E', 'external')])),
+            ],
+            options={
+                'verbose_name': 'source',
+                'verbose_name_plural': 'sources',
+            },
+        ),
+        migrations.AddField(
+            model_name='item',
+            name='receiver',
+            field=models.ForeignKey(related_name='receiver', to='post.Source'),
+        ),
+        migrations.AddField(
+            model_name='item',
+            name='sender',
+            field=models.ForeignKey(related_name='sender', to='post.Source'),
+        ),
+    ]

@@ -1,97 +1,62 @@
 # -*- coding: utf-8 -*-
-import datetime
-from south.db import db
-from south.v2 import SchemaMigration
-from django.db import models
+from __future__ import unicode_literals
+
+from django.db import models, migrations
 
 
-class Migration(SchemaMigration):
+class Migration(migrations.Migration):
 
-    def forwards(self, orm):
-        # Adding model 'Transaction'
-        db.create_table('kas_transaction', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.CharField')(max_length=32)),
-            ('date', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
-            ('amount', self.gf('django.db.models.fields.FloatField')()),
-            ('description', self.gf('django.db.models.fields.TextField')()),
-            ('valid', self.gf('django.db.models.fields.BooleanField')(default=True)),
-            ('method', self.gf('django.db.models.fields.CharField')(default='C', max_length=1)),
-        ))
-        db.send_create_signal('kas', ['Transaction'])
+    dependencies = [
+    ]
 
-        # Adding model 'Closure'
-        db.create_table('kas_closure', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.CharField')(max_length=32)),
-            ('date', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
-            ('num_e500', self.gf('django.db.models.fields.IntegerField')(default=0)),
-            ('num_e200', self.gf('django.db.models.fields.IntegerField')(default=0)),
-            ('num_e100', self.gf('django.db.models.fields.IntegerField')(default=0)),
-            ('num_e50', self.gf('django.db.models.fields.IntegerField')(default=0)),
-            ('num_e20', self.gf('django.db.models.fields.IntegerField')(default=0)),
-            ('num_e10', self.gf('django.db.models.fields.IntegerField')(default=0)),
-            ('num_e5', self.gf('django.db.models.fields.IntegerField')(default=0)),
-            ('num_e2', self.gf('django.db.models.fields.IntegerField')(default=0)),
-            ('num_e1', self.gf('django.db.models.fields.IntegerField')(default=0)),
-            ('num_e050', self.gf('django.db.models.fields.IntegerField')(default=0)),
-            ('num_e020', self.gf('django.db.models.fields.IntegerField')(default=0)),
-            ('num_e010', self.gf('django.db.models.fields.IntegerField')(default=0)),
-            ('num_e005', self.gf('django.db.models.fields.IntegerField')(default=0)),
-            ('total', self.gf('django.db.models.fields.FloatField')(blank=True)),
-            ('pin', self.gf('django.db.models.fields.FloatField')(default=0)),
-            ('transactions_pin', self.gf('django.db.models.fields.FloatField')(default=0, blank=True)),
-            ('transactions_cash', self.gf('django.db.models.fields.FloatField')(default=0, blank=True)),
-            ('notes', self.gf('django.db.models.fields.TextField')(blank=True)),
-            ('finished', self.gf('django.db.models.fields.BooleanField')(default=False)),
-        ))
-        db.send_create_signal('kas', ['Closure'])
-
-
-    def backwards(self, orm):
-        # Deleting model 'Transaction'
-        db.delete_table('kas_transaction')
-
-        # Deleting model 'Closure'
-        db.delete_table('kas_closure')
-
-
-    models = {
-        'kas.closure': {
-            'Meta': {'ordering': "['date']", 'object_name': 'Closure'},
-            'date': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            'finished': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'notes': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
-            'num_e005': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
-            'num_e010': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
-            'num_e020': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
-            'num_e050': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
-            'num_e1': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
-            'num_e10': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
-            'num_e100': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
-            'num_e2': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
-            'num_e20': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
-            'num_e200': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
-            'num_e5': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
-            'num_e50': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
-            'num_e500': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
-            'pin': ('django.db.models.fields.FloatField', [], {'default': '0'}),
-            'total': ('django.db.models.fields.FloatField', [], {'blank': 'True'}),
-            'transactions_cash': ('django.db.models.fields.FloatField', [], {'default': '0', 'blank': 'True'}),
-            'transactions_pin': ('django.db.models.fields.FloatField', [], {'default': '0', 'blank': 'True'}),
-            'user': ('django.db.models.fields.CharField', [], {'max_length': '32'})
-        },
-        'kas.transaction': {
-            'Meta': {'ordering': "['-date']", 'object_name': 'Transaction'},
-            'amount': ('django.db.models.fields.FloatField', [], {}),
-            'date': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            'description': ('django.db.models.fields.TextField', [], {}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'method': ('django.db.models.fields.CharField', [], {'default': "'C'", 'max_length': '1'}),
-            'user': ('django.db.models.fields.CharField', [], {'max_length': '32'}),
-            'valid': ('django.db.models.fields.BooleanField', [], {'default': 'True'})
-        }
-    }
-
-    complete_apps = ['kas']
+    operations = [
+        migrations.CreateModel(
+            name='Closure',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('user', models.CharField(max_length=32, verbose_name='user')),
+                ('date', models.DateTimeField(auto_now=True, verbose_name='date')),
+                ('num_e500', models.IntegerField(default=0, verbose_name='500 euro')),
+                ('num_e200', models.IntegerField(default=0, verbose_name='200 euro')),
+                ('num_e100', models.IntegerField(default=0, verbose_name='100 euro')),
+                ('num_e50', models.IntegerField(default=0, verbose_name='50 euro')),
+                ('num_e20', models.IntegerField(default=0, verbose_name='20 euro')),
+                ('num_e10', models.IntegerField(default=0, verbose_name='10 euro')),
+                ('num_e5', models.IntegerField(default=0, verbose_name='5 euro')),
+                ('num_e2', models.IntegerField(default=0, verbose_name='2 euro')),
+                ('num_e1', models.IntegerField(default=0, verbose_name='1 euro')),
+                ('num_e050', models.IntegerField(default=0, verbose_name='50 eurocent')),
+                ('num_e020', models.IntegerField(default=0, verbose_name='20 eurocent')),
+                ('num_e010', models.IntegerField(default=0, verbose_name='10 eurocent')),
+                ('num_e005', models.IntegerField(default=0, verbose_name='5 eurocent')),
+                ('total', models.FloatField(default=0, verbose_name='total register content', editable=False, blank=True)),
+                ('pin', models.FloatField(default=0, verbose_name='pin receipt')),
+                ('transactions_pin', models.FloatField(default=0, verbose_name='pin transactions', editable=False, blank=True)),
+                ('transactions_cash', models.FloatField(default=0, verbose_name='cash transactions', editable=False, blank=True)),
+                ('notes', models.TextField(verbose_name='notes', blank=True)),
+                ('finished', models.BooleanField(default=False, verbose_name='finished')),
+            ],
+            options={
+                'ordering': ['-date'],
+                'verbose_name': 'closure',
+                'verbose_name_plural': 'closures',
+            },
+        ),
+        migrations.CreateModel(
+            name='Transaction',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('user', models.CharField(max_length=32, verbose_name='user')),
+                ('date', models.DateTimeField(auto_now_add=True, verbose_name='date')),
+                ('amount', models.FloatField(verbose_name='amount')),
+                ('description', models.TextField(verbose_name='description')),
+                ('valid', models.BooleanField(default=True, verbose_name='valid')),
+                ('method', models.CharField(default=b'C', max_length=1, verbose_name='method', choices=[(b'P', 'PIN'), (b'C', 'Cash')])),
+            ],
+            options={
+                'ordering': ['-date'],
+                'verbose_name': 'transaction',
+                'verbose_name_plural': 'transactions',
+            },
+        ),
+    ]

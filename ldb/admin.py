@@ -44,6 +44,7 @@ class EmployeeInline(admin.StackedInline):
 class PersonAdminForm(forms.ModelForm):
     class Meta:
         model = Person
+        fields = '__all__'
 
     def __init__(self, *args, **kwds):
         super(PersonAdminForm, self).__init__(*args, **kwds)
