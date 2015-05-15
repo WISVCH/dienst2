@@ -5,7 +5,6 @@ from django.db import models, migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
     ]
 
@@ -42,7 +41,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('name', models.CharField(max_length=128, verbose_name='name')),
-                ('location', models.CharField(max_length=1, verbose_name='location', choices=[(b'I', 'internal'), (b'E', 'external')])),
+                ('location', models.CharField(max_length=1, verbose_name='location',
+                                              choices=[(b'I', 'internal'), (b'E', 'external')])),
             ],
             options={
                 'verbose_name': 'source',

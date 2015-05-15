@@ -1,7 +1,9 @@
 from django.conf.urls import patterns, include, url
 from tastypie.api import Api
+
 from ldb.api import *
 from ldb.export import ExportResource
+
 
 api = Api(api_name='v2')
 
@@ -17,7 +19,7 @@ api.register(ModificationResource())
 api.register(ExportResource())
 
 urlpatterns = patterns('',
-    (r'^api/', include(api.urls)),
+                       (r'^api/', include(api.urls)),
 
-    url(r'^$', 'ldb.views.index', name="ldb_index"),
+                       url(r'^$', 'ldb.views.index', name="ldb_index"),
 )
