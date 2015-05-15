@@ -5,7 +5,6 @@ from django.db import models, migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
     ]
 
@@ -29,10 +28,13 @@ class Migration(migrations.Migration):
                 ('num_e020', models.IntegerField(default=0, verbose_name='20 eurocent')),
                 ('num_e010', models.IntegerField(default=0, verbose_name='10 eurocent')),
                 ('num_e005', models.IntegerField(default=0, verbose_name='5 eurocent')),
-                ('total', models.FloatField(default=0, verbose_name='total register content', editable=False, blank=True)),
+                ('total',
+                 models.FloatField(default=0, verbose_name='total register content', editable=False, blank=True)),
                 ('pin', models.FloatField(default=0, verbose_name='pin receipt')),
-                ('transactions_pin', models.FloatField(default=0, verbose_name='pin transactions', editable=False, blank=True)),
-                ('transactions_cash', models.FloatField(default=0, verbose_name='cash transactions', editable=False, blank=True)),
+                ('transactions_pin',
+                 models.FloatField(default=0, verbose_name='pin transactions', editable=False, blank=True)),
+                ('transactions_cash',
+                 models.FloatField(default=0, verbose_name='cash transactions', editable=False, blank=True)),
                 ('notes', models.TextField(verbose_name='notes', blank=True)),
                 ('finished', models.BooleanField(default=False, verbose_name='finished')),
             ],
@@ -51,7 +53,8 @@ class Migration(migrations.Migration):
                 ('amount', models.FloatField(verbose_name='amount')),
                 ('description', models.TextField(verbose_name='description')),
                 ('valid', models.BooleanField(default=True, verbose_name='valid')),
-                ('method', models.CharField(default=b'C', max_length=1, verbose_name='method', choices=[(b'P', 'PIN'), (b'C', 'Cash')])),
+                ('method', models.CharField(default=b'C', max_length=1, verbose_name='method',
+                                            choices=[(b'P', 'PIN'), (b'C', 'Cash')])),
             ],
             options={
                 'ordering': ['-date'],

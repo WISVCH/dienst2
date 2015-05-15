@@ -6,7 +6,7 @@ from django.db import models
 # ISO 3166-1 country names and codes from http://opencountrycodes.appspot.com/python
 # Regex:
 # \("(.*?)", "(.*?)"\),
-#     ('$1', _('$2')),\n
+# ('$1', _('$2')),\n
 COUNTRIES = (
     ('AF', _('Afghanistan')),
     ('AX', _('Aland Islands')),
@@ -257,6 +257,7 @@ COUNTRIES = (
     ('ZM', _('Zambia')),
     ('ZW', _('Zimbabwe')),
 )
+
 
 class CountryField(models.CharField):
     def __init__(self, *args, **kwargs):

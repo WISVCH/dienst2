@@ -1,4 +1,5 @@
 import os
+
 import ldap
 from django_auth_ldap.config import LDAPSearch, PosixGroupType
 
@@ -112,7 +113,7 @@ AUTH_LDAP_BIND_PASSWORD = ""
 AUTH_LDAP_USER_SEARCH = LDAPSearch("dc=ank,dc=chnet", ldap.SCOPE_SUBTREE, "(uid=%(user)s)")
 
 AUTH_LDAP_GROUP_SEARCH = LDAPSearch("ou=Group,dc=ank,dc=chnet",
-    ldap.SCOPE_SUBTREE, "(objectClass=posixGroup)"
+                                    ldap.SCOPE_SUBTREE, "(objectClass=posixGroup)"
 )
 AUTH_LDAP_GROUP_TYPE = PosixGroupType()
 
