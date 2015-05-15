@@ -38,22 +38,8 @@ def get_search(Model):
         self.throttle_check(request)
 
         # Do the query.
-        sqs = SearchQuerySet().models(Model)
-
-        words = request.GET.get('q', '').split(' ')
-        mod = request.GET.get('mod', 'default')
-        for word in words:
-
-            if mod == 'default':
-                word = '*' + word + '*'
-            elif mod == 'start':
-                word = word + '*'
-            elif mod == 'exact':
-                word = word
-
-            sqs = sqs.filter(text=Raw(word))
-        sqs = sqs.load_all()
-
+        sqs = SearchQuerySet().models(Model).load_all().auto_query(request.GET.get('q', ''))
+        sqs = filter(None, sqs)
         paginator = Paginator(sqs, 20)
 
         try:
