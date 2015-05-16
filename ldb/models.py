@@ -207,7 +207,8 @@ class Person(Entity):
         return ('ldb_people_detail', [str(self.id)])
 
     def __unicode__(self):
-        return u'%s, %s %s%s' % (self.surname, self.firstname, self.preposition, u' ✝' if self.deceased else '')
+        return (u'%s, %s %s%s' % \
+                (self.surname, self.firstname, self.preposition, u' ✝' if self.deceased else '')).strip()
 
 
 class Member(models.Model):
@@ -328,7 +329,7 @@ class CommitteeMembership(models.Model):
 
     # Django admin doesn't support nested inlines,
     # so we'll just link to Person instead.
-    person = models.ForeignKey(Person)
+    person = models.ForeignKey(Person, related_name="committees")
     committee = models.ForeignKey(Committee)
     board = models.IntegerField(_('board'))
     position = models.CharField(_('position'), max_length=50, blank=True)
