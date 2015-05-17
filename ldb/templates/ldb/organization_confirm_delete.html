@@ -1,0 +1,15 @@
+{% extends 'base_old.html' %}
+{% load ldb_tags %}
+
+{% block content %}
+
+    <p>Are you sure that you would like to delete this organization?</p>
+    <div id="organization_preview">{{ organization }}</div>
+    <ul>
+    <form method="POST" action=".">
+	    {% csrf_token %}
+        <li><input type="submit" value="Yes" /></li>
+    </form>
+    <li><a href="{{ organization.get_absolute_url }}">No</a></li>
+    </ul>
+{% endblock %}

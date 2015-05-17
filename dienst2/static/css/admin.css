@@ -1,0 +1,15 @@
+#header {
+    background: #FF9900;
+}
+
+#header h1 {
+	color: #FFF;
+}
+
+td.original p {
+  display: none;
+}
+
+.inline-group .tabular tr.has_original td {
+    padding-top: 0 !important;
+}

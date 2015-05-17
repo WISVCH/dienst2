@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ title }}</title>
+    <link href="{% get_static_prefix %}css/style.css" rel="stylesheet" type="text/css"/>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    {% block extra_js %}{% endblock %}
+</head>
+
+<body>
+<div id="centered">
+    <div id="menu">
+        <ul>
+            <li>
+                <a href="{% url 'ldb_index' %}">Ledenadministratie</a>
+                <ul>
+                    <li><a href="{% url 'ldb_index' %}">Zoeken</a></li>
+                    <li><a href="{% url 'ldb_people_create' %}">Persoon toevoegen</a></li>
+                    <li><a href="{% url 'ldb_organizations_create' %}">Organisatie toevoegen</a></li>
+                    {#<li><a href="{% url 'ldb_export_lists' %}">Lijsten exporteren</a></li>#}
+                </ul>
+            </li>
+            <li>
+                <a href="https://frans.chnet/dienst/dagoverzicht.php">Kasbeheer</a>
+                <ul>
+                    <li><a href="https://frans.chnet/dienst/transacties.php">Transacties</a></li>
+                    <li><a href="https://frans.chnet/dienst/dagafsluiting.php">Dagafsluiting</a></li>
+                </ul>
+            </li>
+            <li><a href="{% url 'admin:index' %}">Admin</a></li>
+        </ul>
+    </div>
+    <h1 id="site-name">{{ title }}</h1>
+    {% block content %}{% endblock %}
+</div>
+</body>
+</html>
