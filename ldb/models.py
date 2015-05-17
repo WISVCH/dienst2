@@ -6,6 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import ValidationError
 
 from country_field import CountryField
+from dienst2.extras import CharNullField
 
 
 def get_attributes(self, attrs):
@@ -123,12 +124,12 @@ class Person(Entity):
     mail_announcements = models.BooleanField(_('announcements mailing'), default=True)
     mail_company = models.BooleanField(_('company mailing'), default=True)
 
-    ldap_username = models.CharField(_('LDAP username'), max_length=50, blank=True)
+    ldap_username = CharNullField(_('LDAP username'), max_length=64, blank=True, null=True, unique=True)
 
     # External Accounts
-    netid = models.CharField(_('NetID'), max_length=32, blank=True)
-    linkedin_id = models.CharField(_('LinkedIn ID'), max_length=32, blank=True)
-    facebook_id = models.CharField(_('Facebook ID'), max_length=32, blank=True)
+    netid = CharNullField(_('NetID'), max_length=64, blank=True, null=True, unique=True)
+    linkedin_id = CharNullField(_('LinkedIn ID'), max_length=64, blank=True, null=True, unique=True)
+    facebook_id = CharNullField(_('Facebook ID'), max_length=64, blank=True, null=True, unique=True)
 
     __original_living_with_id = None
 
@@ -248,7 +249,7 @@ class Student(models.Model):
 
     study = models.CharField(_('study'), max_length=50)
     first_year = models.IntegerField(_('first year'), blank=True, null=True)
-    student_number = models.CharField(_('student number'), max_length=7, blank=True)
+    student_number = CharNullField(_('student number'), max_length=7, blank=True, null=True, unique=True)
     graduated = models.BooleanField(_('graduated'), default=False)
 
     phone_parents = models.CharField(_('phone parents'), max_length=16, blank=True)
