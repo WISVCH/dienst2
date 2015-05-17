@@ -234,15 +234,15 @@ class Member(models.Model):
 
     @property
     def current_member(self):
-        return (self.date_from != None and self.date_to == None) or \
-               self.merit_date_from != None or self.honorary_date_from != None
+        return (self.date_from is not None and self.date_to == None) or \
+               self.merit_date_from is not None or self.honorary_date_from is not None
 
     def __unicode__(self):
         return unicode(self.person)
 
     def clean(self):
-        if (self.date_from != None and self.date_to != None and self.date_from > self.date_to) or \
-                (self.date_to != None and self.date_to == None):
+        if (self.date_from is not None and self.date_to is not None and self.date_from > self.date_to) or \
+                (self.date_to is not None and self.date_to == None):
             raise ValidationError("'Date to' cannot be before 'date from'")
 
 
