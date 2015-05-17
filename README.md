@@ -26,12 +26,13 @@ Run the Makefile after changing any CoffeeScript or Less files.
 
 ## API
 
-To create an API key:
+The API is available at `/ldb/api/v3/`. Authentication is done using a valid session (for in-browser testing) or a token (send an `Authorization: Token <token>` header).
+
+To create an API token:
 
 1. Create a new user through the Django admin interface, please prefix username with `api_`
 2. Set password field to `!` in database (e.g. through phpPgAdmin)
-3. Assign new API key to new user in Django admin interface
-
+3. Assign new API token to new user in Django admin interface
 
 ## Update to Django 1.8
 

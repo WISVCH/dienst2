@@ -24,8 +24,14 @@ class RequireLoginMiddleware(object):
             return
 
         # resolve() will raise an Http404 error if url not found
-        view_name = resolve(request.path_info).view_name
-        if view_name.startswith('api_'):
+        r = resolve(request.path_info)
+
+        # django-rest-framework (DEFAULT_PERMISSION_CLASSES in settings.py)
+        if r._func_path.startswith("rest_framework.") or r._func_path.startswith("ldb.views_api."):
+            return
+
+        # tastypie (we do this ourselves:
+        if r.view_name.startswith('api_'):
             auth = ApiKeyAuthentication()
             auth_result = auth.is_authenticated(request)
 
@@ -35,5 +41,6 @@ class RequireLoginMiddleware(object):
             if auth_result is not True:
                 return http.HttpUnauthorized()
 
+        # other pages except login page
         elif request.path != self.require_login_path:
             return redirect_to_login(request.path)
