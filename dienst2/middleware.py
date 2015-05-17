@@ -1,9 +1,6 @@
 from django.conf import settings
 from django.contrib.auth.views import redirect_to_login
 from django.core.urlresolvers import resolve
-from django.http import HttpResponse
-from tastypie import http
-from tastypie.authentication import ApiKeyAuthentication
 
 
 class RequireLoginMiddleware(object):
@@ -29,17 +26,6 @@ class RequireLoginMiddleware(object):
         # django-rest-framework (DEFAULT_PERMISSION_CLASSES in settings.py)
         if r._func_path.startswith("rest_framework.") or r._func_path.startswith("ldb.views_api."):
             return
-
-        # tastypie (we do this ourselves:
-        if r.view_name.startswith('api_'):
-            auth = ApiKeyAuthentication()
-            auth_result = auth.is_authenticated(request)
-
-            if isinstance(auth_result, HttpResponse):
-                return auth_result
-
-            if auth_result is not True:
-                return http.HttpUnauthorized()
 
         # other pages except login page
         elif request.path != self.require_login_path:
