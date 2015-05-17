@@ -1,10 +1,12 @@
 from rest_framework import serializers
-from rest_framework.fields import IntegerField, ReadOnlyField
+from rest_framework.fields import ReadOnlyField
 
 from ldb.models import Person, Member, Student, Employee, Alumnus, CommitteeMembership, Organization
 
 
 class MemberSerializer(serializers.ModelSerializer):
+    current_member = ReadOnlyField()
+
     class Meta:
         model = Member
         exclude = ('merit_history',)

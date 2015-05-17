@@ -232,6 +232,11 @@ class Member(models.Model):
 
     honorary_date_from = models.DateField(_('honorary member from date'), blank=True, null=True)
 
+    @property
+    def current_member(self):
+        return (self.date_from != None and self.date_to == None) or \
+               self.merit_date_from != None or self.honorary_date_from != None
+
     def __unicode__(self):
         return unicode(self.person)
 
