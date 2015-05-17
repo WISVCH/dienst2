@@ -21,7 +21,7 @@ class Entity(models.Model):
         verbose_name = _('entity')
         verbose_name_plural = _('entities')
 
-    # Address
+    # Adress
     street_name = models.CharField(_('street name'), max_length=75, blank=True)
     house_number = models.CharField(_('house number'), max_length=7, blank=True)
     address_2 = models.CharField(_('address row 2'), max_length=75, blank=True)
@@ -50,12 +50,12 @@ class Entity(models.Model):
                                      'christmas_card', 'yearbook'])
 
     def clean(self):
-        if (self.street_name is not '' or
-                    self.house_number is not '' or
-                    self.address_2 is not '' or
-                    self.address_3 is not '' or
-                    self.postcode is not '' or
-                    self.city is not '') and self.country is '':
+        if (self.street_name != '' or
+                    self.house_number != '' or
+                    self.address_2 != '' or
+                    self.address_3 != '' or
+                    self.postcode != '' or
+                    self.city != '') and self.country == '':
             raise ValidationError('Country is required if address is entered.')
 
     def __unicode__(self):
@@ -84,7 +84,7 @@ class Organization(Entity):
 
     @models.permalink
     def get_absolute_url(self):
-        return 'ldb_organizations_detail', [str(self.id)]
+        return ('ldb_organizations_detail', [str(self.id)])
 
     def __unicode__(self):
         return unicode(self.name)
@@ -145,9 +145,9 @@ class Person(Entity):
 
     @property
     def gender_symbol(self):
-        if self.gender is 'M':
+        if self.gender == 'M':
             return u'♂'
-        elif self.gender is 'F':
+        elif self.gender == 'F':
             return u'♀'
         else:
             return
@@ -169,22 +169,22 @@ class Person(Entity):
         super(Person, self).save()
         if self.pk is not None:
             old = self.__original_living_with_id
-            if old is not self.living_with_id and old:
+            if old != self.living_with_id and old:
                 other = Person.objects.get(pk=old)
-                if other.living_with is self:
+                if other.living_with == self:
                     other.living_with = None
                     other.save()
             if self.living_with:
                 other = self.living_with
                 # Avoid save loops
-                if other.living_with is not self or \
-                                other.street_name is not self.street_name or \
-                                other.house_number is not self.house_number or \
-                                other.address_2 is not self.address_2 or \
-                                other.address_3 is not self.address_3 or \
-                                other.postcode is not self.postcode or \
-                                other.city is not self.city or \
-                                other.country is not self.country:
+                if other.living_with != self or \
+                                other.street_name != self.street_name or \
+                                other.house_number != self.house_number or \
+                                other.address_2 != self.address_2 or \
+                                other.address_3 != self.address_3 or \
+                                other.postcode != self.postcode or \
+                                other.city != self.city or \
+                                other.country != self.country:
                     other.living_with = self
                     other.street_name = self.street_name
                     other.house_number = self.house_number
@@ -204,10 +204,10 @@ class Person(Entity):
 
     @models.permalink
     def get_absolute_url(self):
-        return 'ldb_people_detail', [str(self.id)]
+        return ('ldb_people_detail', [str(self.id)])
 
     def __unicode__(self):
-        return (u'%s, %s %s%s' %
+        return (u'%s, %s %s%s' % \
                 (self.surname, self.firstname, self.preposition, u' ✝' if self.deceased else '')).strip()
 
 
@@ -234,15 +234,15 @@ class Member(models.Model):
 
     @property
     def current_member(self):
-        return (self.date_from is not None and self.date_to is None) or \
-               self.merit_date_from is not None or self.honorary_date_from is not None
+        return (self.date_from != None and self.date_to == None) or \
+               self.merit_date_from != None or self.honorary_date_from != None
 
     def __unicode__(self):
         return unicode(self.person)
 
     def clean(self):
-        if (self.date_from is not None and self.date_to is not None and self.date_from > self.date_to) or \
-                (self.date_to is not None and self.date_to is None):
+        if (self.date_from != None and self.date_to != None and self.date_from > self.date_to) or \
+                (self.date_to != None and self.date_to == None):
             raise ValidationError("'Date to' cannot be before 'date from'")
 
 
