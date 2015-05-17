@@ -31,6 +31,7 @@ class CommitteeMembershipSerializer(serializers.ModelSerializer):
         model = CommitteeMembership
 
 class PersonSerializer(serializers.HyperlinkedModelSerializer):
+    id = ReadOnlyField()
     member = MemberSerializer()
     student = StudentSerializer()
     alumnus = AlumnusSerializer()
@@ -44,5 +45,7 @@ class PersonSerializer(serializers.HyperlinkedModelSerializer):
         exclude = ('comment',)
 
 class OrganizationSerializer(serializers.HyperlinkedModelSerializer):
+    id = ReadOnlyField()
+
     class Meta:
         model = Organization
