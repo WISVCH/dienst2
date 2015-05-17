@@ -6,20 +6,25 @@ from post.models import *
 
 class CategoryAdmin(VersionAdmin):
     """CategoryAdmin"""
-
-
-admin.site.register(Category, CategoryAdmin)
+    search_fields = ('name',)
+    list_display = ('name', 'grouping', 'counting')
 
 
 class SourceAdmin(VersionAdmin):
     """SourceAdmin"""
-
-
-admin.site.register(Source, SourceAdmin)
+    search_fields = ('name',)
+    list_filter = ('location',)
+    list_display = ('name', 'location')
 
 
 class ItemAdmin(VersionAdmin):
     """ItemAdmin"""
+    date_hierarchy = 'date'
+    search_fields = ('description',)
+    list_filter = ('sender', 'receiver', 'category')
+    list_display = ('description', 'sender', 'receiver', 'category')
 
 
+admin.site.register(Category, CategoryAdmin)
+admin.site.register(Source, SourceAdmin)
 admin.site.register(Item, ItemAdmin)
