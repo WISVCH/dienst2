@@ -234,7 +234,7 @@ class Member(models.Model):
 
     @property
     def current_member(self):
-        return (self.date_from is not None and self.date_to == None) or \
+        return (self.date_from is not None and self.date_to is None) or \
                self.merit_date_from is not None or self.honorary_date_from is not None
 
     def __unicode__(self):
@@ -242,7 +242,7 @@ class Member(models.Model):
 
     def clean(self):
         if (self.date_from is not None and self.date_to is not None and self.date_from > self.date_to) or \
-                (self.date_to is not None and self.date_to == None):
+                (self.date_to is not None and self.date_to is None):
             raise ValidationError("'Date to' cannot be before 'date from'")
 
 
@@ -334,7 +334,7 @@ class CommitteeMembership(models.Model):
 
     # Django admin doesn't support nested inlines,
     # so we'll just link to Person instead.
-    person = models.ForeignKey(Person, related_name="committees")
+    person = models.ForeignKey(Person, related_name="committee_memberships")
     committee = models.ForeignKey(Committee)
     board = models.IntegerField(_('board'))
     position = models.CharField(_('position'), max_length=50, blank=True)

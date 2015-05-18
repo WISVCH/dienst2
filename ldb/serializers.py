@@ -31,6 +31,7 @@ class CommitteeMembershipSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CommitteeMembership
+        exclude = ('ras_months',)
 
 class PersonSerializer(serializers.HyperlinkedModelSerializer):
     id = ReadOnlyField()
@@ -39,7 +40,7 @@ class PersonSerializer(serializers.HyperlinkedModelSerializer):
     alumnus = AlumnusSerializer()
     employee = EmployeeSerializer()
     living_with = serializers.HyperlinkedRelatedField(view_name='person-detail', read_only=True)
-    committees = CommitteeMembershipSerializer(many=True, read_only=True)
+    committee_memberships = CommitteeMembershipSerializer(many=True, read_only=True)
     age = ReadOnlyField()
 
     class Meta:
