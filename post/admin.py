@@ -22,7 +22,7 @@ class ItemAdmin(VersionAdmin):
     date_hierarchy = 'date'
     search_fields = ('description',)
     list_filter = ('sender', 'receiver', 'category')
-    list_display = ('description', 'sender', 'receiver', 'category')
+    list_display = ('description', 'date', 'sender', 'receiver', 'category')
 
 
 admin.site.register(Category, CategoryAdmin)
