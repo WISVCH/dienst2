@@ -46,6 +46,8 @@ MEDIA_ROOT = ''
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
 MEDIA_URL = ''
 
+STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
+
 # Additional locations of static files
 STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
@@ -58,6 +60,7 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'pipeline.finders.PipelineFinder',
 )
 
 # List of callables that know how to import templates from various sources.
@@ -91,6 +94,8 @@ TEMPLATE_DIRS = (
 )
 
 INSTALLED_APPS = (
+    'pipeline',
+
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -170,6 +175,56 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': True,
         },
+    }
+}
+
+PIPELINE_COMPILERS = (
+    'pipeline.compilers.coffee.CoffeeScriptCompiler',
+    'pipeline.compilers.less.LessCompiler',
+)
+
+PIPELINE_JS = {
+    'dienst2': {
+        'source_filenames': (
+            'coffee/spin.coffee',
+            'coffee/forms.coffee',
+            'coffee/dienst2.coffee',
+        ),
+        'output_filename': 'js/dienst2.js',
+    },
+    'ldb': {
+        'source_filenames': (
+            'coffee/ldb.coffee',
+        ),
+        'output_filename': 'js/ldb.js',
+    },
+    'kas': {
+        'source_filenames': (
+            'coffee/barcode.coffee',
+            'coffee/kas.coffee',
+        ),
+        'output_filename': 'js/kas.js',
+    },
+    'post': {
+        'source_filenames': (
+            'coffee/post.coffee',
+        ),
+        'output_filename': 'js/post.js',
+    },
+}
+
+PIPELINE_CSS = {
+    'bootstrap': {
+        'source_filenames': (
+            'less/bootstrap.less',
+        ),
+        'output_filename': 'css/bootstrap.css'
+    },
+    'bootstrap-responsive': {
+        'source_filenames': (
+            'less/bootstrap-responsive.less',
+        ),
+        'output_filename': 'css/bootstrap-responsive.css',
     }
 }
 

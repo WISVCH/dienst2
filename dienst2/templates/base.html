@@ -1,11 +1,11 @@
-{% load static %}
+{% load static pipeline %}
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <title>{{ title }} - Dienst2</title>
-  <link rel="stylesheet" href="{% get_static_prefix %}css/bootstrap.min.css"/>
-  <link rel="stylesheet" href="{% get_static_prefix %}css/bootstrap-responsive.min.css"/>
+  {% stylesheet 'bootstrap' %}
+  {% stylesheet 'bootstrap-responsive' %}
   {% block styles %}{% endblock %}
 </head>
 <body{% if ng_app %} ng-app="{{ng_app}}"{% endif %}>
@@ -23,8 +23,8 @@
     window.prefix = '{% get_static_prefix %}';
     window.admin = {{ perms.admin|yesno:'true,false' }};
   </script>
-  <script src="{% get_static_prefix %}js/dienst2.js"></script>
-  {% if ng_app %}<script src="{% get_static_prefix %}js/{{ng_app}}.js"></script>{% endif %}
+  {% javascript 'dienst2' %}
+  {% javascript ng_app %}
   {% block javascript %}{% endblock %}
   <div class="row-fluid">
     <div class="span4 offset4">
