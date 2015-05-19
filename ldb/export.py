@@ -1,10 +1,9 @@
 # coding: utf8
 import sys
 import re
-import operator
 import csv
 import StringIO
-import codecs
+import traceback
 
 from tastypie.resources import Resource
 from tastypie.authorization import DjangoAuthorization
@@ -242,7 +241,7 @@ class ExportResource(Resource):
                      'person__titles', 'person__initials', 'person__firstname', 'person__preposition',
                      'person__surname', 'person__postfix_titles',
                      'person__living_with', 'person__gender', 'id'
-            )
+                     )
 
             def getname(obj):
                 if obj.get('organization__name'):
@@ -259,8 +258,8 @@ class ExportResource(Resource):
                         firstname = obj.get('person__firstname', obj.get('person__initials', ''))
 
                     name = "%s %s %s %s" % (
-                    firstname, obj.get('person__preposition', ''), obj.get('person__surname', ''),
-                    obj.get('person__postfix_titles', ''))
+                        firstname, obj.get('person__preposition', ''), obj.get('person__surname', ''),
+                        obj.get('person__postfix_titles', ''))
                     name = re.sub("\s+", " ", name)
                     return name.strip()
                 else:
