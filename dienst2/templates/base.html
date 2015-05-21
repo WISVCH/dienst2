@@ -24,7 +24,7 @@
     window.admin = {{ perms.admin|yesno:'true,false' }};
   </script>
   {% javascript 'dienst2' %}
-  {% javascript ng_app %}
+  {% if ng_app %}{% javascript ng_app %}{% endif %}
   {% block javascript %}{% endblock %}
   <div class="row-fluid">
     <div class="span4 offset4">
