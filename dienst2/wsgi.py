@@ -14,6 +14,8 @@ framework.
 
 """
 import os
+import newrelic.agent
+newrelic.agent.initialize('/srv/www/dienst2/newrelic.ini')
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "dienst2.settings")
 
