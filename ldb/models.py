@@ -21,7 +21,7 @@ class Entity(models.Model):
         verbose_name = _('entity')
         verbose_name_plural = _('entities')
 
-    # Adress
+    # Address
     street_name = models.CharField(_('street name'), max_length=75, blank=True)
     house_number = models.CharField(_('house number'), max_length=7, blank=True)
     address_2 = models.CharField(_('address row 2'), max_length=75, blank=True)
@@ -43,6 +43,17 @@ class Entity(models.Model):
 
     # Other
     comment = models.TextField(blank=True)
+
+    @property
+    def street_address(self):
+        strings = [self.street_name + ' ' + self.house_number, self.address_2, self.address_3]
+        return '\n'.join(filter(None, strings))
+
+    @property
+    def formatted_address(self):
+        strings = [self.street_address, self.postcode + ('  ' + self.city.upper() if self.postcode != 'INTERN' else ''),
+                   self.get_country_display() if self.country != 'NL' else '']
+        return '\n'.join(filter(None, strings))
 
     @property
     def subscriptions(self):
@@ -136,6 +147,11 @@ class Person(Entity):
     def __init__(self, *args, **kwargs):
         super(Person, self).__init__(*args, **kwargs)
         self.__original_living_with_id = self.living_with_id
+
+    @property
+    def formatted_name(self):
+        strings = [self.titles, self.initials, self.preposition, self.surname, self.postfix_titles]
+        return ' '.join(filter(None, strings))
 
     @property
     def subscriptions(self):
