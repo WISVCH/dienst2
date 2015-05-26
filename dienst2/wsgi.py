@@ -16,7 +16,7 @@ framework.
 import os
 
 try:
-    __import__("newrelic.agent")
+    import newrelic.agent
     newrelic.agent.initialize('/srv/www/dienst2/newrelic.ini')
 except ImportError:
     pass
