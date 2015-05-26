@@ -24,6 +24,10 @@ Run the Makefile after changing any CoffeeScript or Less files.
 
 [PyCharm also supports CoffeeScript](https://www.jetbrains.com/pycharm/help/transpiling-coffeescript-to-javascript.html): install NodeJS plugin, then `npm install -g coffee-script`. Unfortunately, the file structure will need to be changed if you want to set up a compiler watcher.
 
+## Production installation
+
+* Do not forget to install New Relic (`pip install newrelic`)
+
 ## API
 
 The API is available at `/ldb/api/v3/`. Authentication is done using a valid session (for in-browser testing) or a token (send an `Authorization: Token <token>` header).
