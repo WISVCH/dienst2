@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_framework.fields import ReadOnlyField
 
-from ldb.models import Person, Member, Student, Employee, Alumnus, CommitteeMembership, Organization
+from ldb.models import Person, Member, Student, Employee, Alumnus, CommitteeMembership, Organization, Entity
 
 
 class MemberSerializer(serializers.ModelSerializer):
@@ -26,6 +26,7 @@ class EmployeeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Employee
 
+
 class CommitteeMembershipSerializer(serializers.ModelSerializer):
     committee = serializers.StringRelatedField()
 
@@ -33,7 +34,17 @@ class CommitteeMembershipSerializer(serializers.ModelSerializer):
         model = CommitteeMembership
         exclude = ('ras_months',)
 
-class PersonSerializer(serializers.HyperlinkedModelSerializer):
+
+class EntitySerializer(serializers.HyperlinkedModelSerializer):
+    street_address = ReadOnlyField()
+    formatted_address = ReadOnlyField()
+    country_full = ReadOnlyField(source='get_country_display')
+
+    class Meta:
+        model = Entity
+
+
+class PersonSerializer(EntitySerializer):
     id = ReadOnlyField()
     member = MemberSerializer()
     student = StudentSerializer()
@@ -42,12 +53,14 @@ class PersonSerializer(serializers.HyperlinkedModelSerializer):
     living_with = serializers.HyperlinkedRelatedField(view_name='person-detail', read_only=True)
     committee_memberships = CommitteeMembershipSerializer(many=True, read_only=True)
     age = ReadOnlyField()
+    formatted_name = ReadOnlyField()
 
     class Meta:
         model = Person
         exclude = ('comment',)
 
-class OrganizationSerializer(serializers.HyperlinkedModelSerializer):
+
+class OrganizationSerializer(EntitySerializer):
     id = ReadOnlyField()
 
     class Meta:
