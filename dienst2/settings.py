@@ -112,11 +112,8 @@ INSTALLED_APPS = (
 AUTH_LDAP_SERVER_URI = "ldaps://ank.chnet"
 AUTH_LDAP_BIND_DN = ""
 AUTH_LDAP_BIND_PASSWORD = ""
-AUTH_LDAP_USER_SEARCH = LDAPSearch("dc=ank,dc=chnet", ldap.SCOPE_SUBTREE, "(uid=%(user)s)")
-
-AUTH_LDAP_GROUP_SEARCH = LDAPSearch("ou=Group,dc=ank,dc=chnet",
-                                    ldap.SCOPE_SUBTREE, "(objectClass=posixGroup)"
-)
+AUTH_LDAP_USER_DN_TEMPLATE = "uid=%(user)s,ou=People,dc=ank,dc=chnet"
+AUTH_LDAP_GROUP_SEARCH = LDAPSearch("ou=Group,dc=ank,dc=chnet", ldap.SCOPE_SUBTREE, "(objectClass=posixGroup)")
 AUTH_LDAP_GROUP_TYPE = PosixGroupType()
 
 AUTH_LDAP_REQUIRE_GROUP = "cn=dienst2,ou=Overig,ou=Group,dc=ank,dc=chnet"
