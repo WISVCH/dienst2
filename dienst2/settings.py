@@ -58,7 +58,20 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
 )
+
+COMPRESS_CSS_FILTERS = [
+    'compressor.filters.css_default.CssAbsoluteFilter',
+]
+
+COMPRESS_PRECOMPILERS = (
+    ('text/coffeescript', 'coffee --compile --stdio'),
+    ('text/less', 'lessc {infile} {outfile}'),
+)
+
+# Needed to use the CssAbsoluteFilter
+COMPRESS_ENABLED = True
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -103,6 +116,9 @@ INSTALLED_APPS = (
     'rest_framework.authtoken',
     'django.contrib.admin',
     'django.contrib.admindocs',
+
+    'compressor',
+
     'dienst2',
     'ldb',
     'kas',
