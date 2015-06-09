@@ -2,27 +2,22 @@
 W.I.S.V. 'Christiaan Huygens'
 Dienstensysteem v2
 
-## Compiling
-
-Run the Makefile after changing any CoffeeScript or Less files.
-
 ## Development installation
 
 1. Install PostgreSQL (e.g. [Postgres.app for OS X](http://postgresapp.com), make sure to add it to `$PATH`
-2. Install [PyCharm Professional](https://www.jetbrains.com/pycharm/) ([free for students](https://www.jetbrains.com/student/))
-3. Open project
-4. [Create virtual environment](https://www.jetbrains.com/pycharm/help/creating-virtual-environment.html)
-5. Create your own `dienst2/local.py` file (use `local.py.example`)
-6. [Install dependencies in virtual environment](https://www.jetbrains.com/pycharm/help/resolving-unsatisfied-dependencies.html)
+2. Install less and coffee script (`npm install -g coffee-script less`) for the compiling of the assets
+3. Install [PyCharm Professional](https://www.jetbrains.com/pycharm/) ([free for students](https://www.jetbrains.com/student/))
+4. Open project
+5. [Create virtual environment](https://www.jetbrains.com/pycharm/help/creating-virtual-environment.html)
+6. Create your own `dienst2/local.py` file (use `local.py.example`)
+7. [Install dependencies in virtual environment](https://www.jetbrains.com/pycharm/help/resolving-unsatisfied-dependencies.html)
    * If e.g. psycopg2 won't install, activate virtualenv (`source bin/activate`) and then manually install dependencies (`pip install -r requirements.txt`)
-7. Create database (`createdb dienst2`, `createuser dienst2`)
-8. Initialise database [using manage.py](https://www.jetbrains.com/pycharm/help/running-tasks-of-manage-py-utility.html) (`manage.py syncdb`, `manage.py migrate`)
-9. Start server
-10. You should be good to go!
+8. Create database (`createdb dienst2`, `createuser dienst2`)
+9. Initialise database [using manage.py](https://www.jetbrains.com/pycharm/help/running-tasks-of-manage-py-utility.html) (`manage.py syncdb`, `manage.py migrate`)
+10. Start server
+11. You should be good to go!
 
 **Note: please do not use (a copy of) the production database for local development.**
-
-[PyCharm also supports CoffeeScript](https://www.jetbrains.com/pycharm/help/transpiling-coffeescript-to-javascript.html): install NodeJS plugin, then `npm install -g coffee-script`. Unfortunately, the file structure will need to be changed if you want to set up a compiler watcher.
 
 ## Production installation
 
