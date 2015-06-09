@@ -1,12 +1,15 @@
-{% load static %}
+{% load static compress static %}
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <title>{{ title }} - Dienst2</title>
-  <link rel="stylesheet" href="{% get_static_prefix %}css/bootstrap.min.css"/>
-  <link rel="stylesheet" href="{% get_static_prefix %}css/bootstrap-responsive.min.css"/>
+
+  {% compress css %}
+  <link rel="stylesheet" type="text/less" href="{% static 'less/bootstrap.less' %}"/>
+  <link rel="stylesheet" type="text/less" href="{% static 'less/bootstrap-responsive.less' %}"/>
   {% block styles %}{% endblock %}
+  {% endcompress %}
 </head>
 <body{% if ng_app %} ng-app="{{ng_app}}"{% endif %}>
   {% block content %}{% endblock %}
@@ -18,14 +21,20 @@
   <script src="//cdnjs.cloudflare.com/ajax/libs/angular-strap/0.7.1/angular-strap.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/spin.js/1.2.7/spin.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/ocanvas/2.4.0/ocanvas.min.js"></script>
+
+  {% compress js %}
   {% block javascript_libraries %}{% endblock %}
   <script type="text/javascript">
     window.prefix = '{% get_static_prefix %}';
     window.admin = {{ perms.admin|yesno:'true,false' }};
   </script>
-  <script src="{% get_static_prefix %}js/dienst2.js"></script>
-  {% if ng_app %}<script src="{% get_static_prefix %}js/{{ng_app}}.js"></script>{% endif %}
+  <script type="text/coffeescript" src="{% static 'coffee/dienst2.coffee'%}"></script>
+  <script type="text/coffeescript" src="{% static 'coffee/spin.coffee'%}"></script>
+  <script type="text/coffeescript" src="{% static 'coffee/forms.coffee'%}"></script>
+  {% if ng_app %}<script type="text/coffeescript" src="{% static 'coffee/'|add:ng_app|add:'.coffee' %}"></script>{% endif %}
+  {% if ng_app == 'kas' %}<script type="text/coffeescript" src="{% static 'coffee/barcode.coffee'%}"></script>{% endif %}
   {% block javascript %}{% endblock %}
+  {% endcompress %}
   <div class="row-fluid">
     <div class="span4 offset4">
       <div class="alert alert-info" style="opacity: 0.7; margin-top: 2em">
