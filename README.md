@@ -12,8 +12,9 @@ Dienstensysteem v2
 6. Create your own `dienst2/local.py` file (use `local.py.example`)
 7. [Install dependencies in virtual environment](https://www.jetbrains.com/pycharm/help/resolving-unsatisfied-dependencies.html)
    * If e.g. psycopg2 won't install, activate virtualenv (`source bin/activate`) and then manually install dependencies (`pip install -r requirements.txt`)
+   * If psycopg2 fails during server start, maybe [this](http://stackoverflow.com/questions/28515972/problems-using-psycopg2-on-mac-os-yosemite) solution will work for you.
 8. Create database (`createdb dienst2`, `createuser dienst2`)
-9. Initialise database [using manage.py](https://www.jetbrains.com/pycharm/help/running-tasks-of-manage-py-utility.html) (`manage.py syncdb`, `manage.py migrate`)
+9. Initialise database [using manage.py](https://www.jetbrains.com/pycharm/help/running-tasks-of-manage-py-utility.html) (`manage.py syncdb`, `manage.py makemigrations`, `manage.py migrate`)
 10. Start server
 11. You should be good to go!
 
