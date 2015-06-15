@@ -1,0 +1,8 @@
+{% extends "base_bootstrap3.html" %}
+
+{% block menu %}
+<li><a href="{% url 'ldb_index' %}">Zoeken</a></li>
+<li><a href="{% url 'ldb_people_create' %}">Persoon toevoegen</a></li>
+<li><a href="{% url 'ldb_organizations_create' %}">Organisatie toevoegen</a></li>
+{#<li><a href="{% url 'ldb_export_lists' %}">Lijsten exporteren</a></li>#}
+{% endblock %}

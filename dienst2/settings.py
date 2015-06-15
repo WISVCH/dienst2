@@ -119,6 +119,7 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'debug_toolbar',
 
+    'bootstrap3',
     'compressor',
 
     'dienst2',
