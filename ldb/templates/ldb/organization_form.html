@@ -1,5 +1,5 @@
 {% extends 'ldb/base.html' %}
-{% load ldb_tags %}
+{% load ldb_tags bootstrap3 %}
 
 {% block content %}
 <div id="entity_form">
@@ -15,43 +15,47 @@
     </p>
 {% endif %}
 
-<form action="" method="post">
+<form action="" method="post" class="form-horizontal">
     {% csrf_token %}
     {% if form.non_field_errors %}{{ form.non_field_errors }}{% endif %}
 
-    <div id="col1">
-        <h3>Algemeen</h3>
-        <h4>Naam</h4>
-        <table>
-            {% get_fieldset name_prefix,name,name_short,salutation as name_fields from form %}
-            {{ name_fields.as_table }}
-        </table>
-        <h4>Adres</h4>
-        <table>
-            {% get_fieldset street_name,house_number,postcode,address_2,address_3,city,country,email as address_fields from form %}
-            {{ address_fields.as_table }}
-        </table>
-        <h4>Telefoon</h4>
-        <table>
-            {% get_fieldset phone_fixed as phone_fields from form %}
-            {{ phone_fields.as_table }}
-        </table>
-        <h4>Overige</h4>
-        <table>
-            {% get_fieldset comment as other_fields from form %}
-            {{ other_fields.as_table }}
-        </table>
-    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <fieldset>
+                <legend>Naam</legend>
+                {% get_fieldset name_prefix,name,name_short,salutation as name_fields from form %}
+                {% bootstrap_form name_fields layout='horizontal' %}
+            </fieldset>
+            <fieldset>
+                <legend>Adres</legend>
+                {% get_fieldset street_name,house_number,postcode,address_2,address_3,city,country,email as address_fields from form %}
+                {% bootstrap_form address_fields layout='horizontal' %}
+            </fieldset>
+            <fieldset>
+                <legend>Telefoon</legend>
+                {% get_fieldset phone_fixed as phone_fields from form %}
+                {% bootstrap_form phone_fields layout='horizontal' %}
+            </fieldset>
+            <fieldset>
+                <legend>Overige</legend>
+                {% get_fieldset comment as other_fields from form %}
+                {% bootstrap_form other_fields layout='horizontal' %}
+            </fieldset>
+        </div>
 
-    <div id="col2">
-        <h3>Aanmeldingen</h3>
-        <table>
-            {% get_fieldset machazine,board_invites,constitution_card,christmas_card,yearbook as subscription_fields from form %}
-            {{ subscription_fields.as_table }}
-        </table>
+        <div class="col-md-6">
+            <fieldset>
+                <legend>Aanmeldingen</legend>
+                {% get_fieldset machazine,board_invites,constitution_card,christmas_card,yearbook as subscription_fields from form %}
+                {% bootstrap_form subscription_fields layout='horizontal' %}
+            </fieldset>
+        </div>
     </div>
-    <br style="clear: both"/>
-    <input type="submit" value="Submit">
+    <div class="row">
+        {% buttons %}
+        <button type="submit" class="btn btn-primary">Submit</button>
+        {% endbuttons%}
+    </div>
 </form>
 </div>
 
