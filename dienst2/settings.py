@@ -116,6 +116,7 @@ INSTALLED_APPS = (
     'rest_framework.authtoken',
     'django.contrib.admin',
     'django.contrib.admindocs',
+    'debug_toolbar',
 
     'compressor',
 
