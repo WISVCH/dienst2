@@ -1,4 +1,4 @@
-# Dienst2 [![Build Status](https://travis-ci.org/WISVCH/dienst2.svg?branch=master)](https://travis-ci.org/WISVCH/dienst2)
+# Dienst2 [![Build Status](https://travis-ci.org/WISVCH/dienst2.svg?branch=master)](https://travis-ci.org/WISVCH/dienst2) [![Requirements Status](https://requires.io/github/WISVCH/dienst2/requirements.svg?branch=master)](https://requires.io/github/WISVCH/dienst2/requirements/?branch=master)
 W.I.S.V. 'Christiaan Huygens'
 Dienstensysteem v2
 
