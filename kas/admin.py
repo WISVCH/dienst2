@@ -3,6 +3,7 @@ from django.contrib import admin
 from kas.models import *
 
 
+@admin.register(Transaction)
 class TransactionAdmin(admin.ModelAdmin):
     list_display = ['date', 'user', 'amount', 'method', 'description', 'valid']
     fields = ['amount', 'description', 'valid', 'method']
@@ -20,6 +21,7 @@ class TransactionAdmin(admin.ModelAdmin):
             return True
 
 
+@admin.register(Closure)
 class ClosureAdmin(admin.ModelAdmin):
     list_display = ['date', 'user', 'total', 'cashdifference', 'pindifference', 'notes', 'finished']
     fields = ['num_e500', 'num_e200', 'num_e100', 'num_e50', 'num_e20', 'num_e10', 'num_e5', 'num_e2', 'num_e1',
@@ -36,7 +38,3 @@ class ClosureAdmin(admin.ModelAdmin):
             return False
         else:
             return True
-
-
-admin.site.register(Transaction, TransactionAdmin)
-admin.site.register(Closure, ClosureAdmin)
