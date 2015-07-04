@@ -1,8 +1,7 @@
 from django.contrib import admin
-from reversion.admin import VersionAdmin
 from django import forms
-
 from django.utils.translation import ugettext_lazy as _
+from reversion_compare.admin import CompareVersionAdmin
 
 from ldb.models import *
 
@@ -59,7 +58,8 @@ class PersonAdminForm(forms.ModelForm):
         self.fields['living_with'].queryset = Person.objects.order_by('surname', 'firstname')
 
 
-class PersonAdmin(VersionAdmin):
+@admin.register(Person)
+class PersonAdmin(CompareVersionAdmin):
     form = PersonAdminForm
     fieldsets = [
         (_('Name'), {'fields': ['titles', 'initials', 'firstname', 'preposition',
@@ -77,10 +77,8 @@ class PersonAdmin(VersionAdmin):
     inlines = [MemberInline, CommitteeMembershipInline, StudentInline, AlumnusInline, EmployeeInline]
 
 
-admin.site.register(Person, PersonAdmin)
-
-
-class OrganizationAdmin(VersionAdmin):
+@admin.register(Organization)
+class OrganizationAdmin(CompareVersionAdmin):
     fieldsets = [
         (_('Base'), {'fields': ['name_prefix', 'name', 'name_short', 'salutation']}),
         (_('Address'), {'fields': ['street_name', 'house_number', 'postcode',
@@ -93,13 +91,6 @@ class OrganizationAdmin(VersionAdmin):
     ]
 
 
-admin.site.register(Organization, OrganizationAdmin)
+admin.site.register(Committee, CompareVersionAdmin)
 
-admin.site.register(Committee, VersionAdmin)
-
-
-class ItemAdmin(VersionAdmin):
-    """ItemAdmin"""
-
-
-admin.site.register(Modification, VersionAdmin)
+admin.site.register(Modification, admin.ModelAdmin)
