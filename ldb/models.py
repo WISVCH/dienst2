@@ -250,16 +250,44 @@ class Member(models.Model):
 
     @property
     def current_member(self):
-        return (self.date_from is not None and self.date_to is None) or \
-               self.merit_date_from is not None or self.honorary_date_from is not None
+        # Note that the ExportResource class implements the same logic using queries (Q objects)
+        return ((self.date_from is not None and (self.date_to is None or self.date_to > date.today())) or
+                self.merit_date_from is not None or self.honorary_date_from is not None) and not self.person.deceased
+
+    @property
+    def current_associate_member(self):
+        return self.associate_member and not self.person.deceased and \
+               (self.date_from is not None and (self.date_to is None or self.date_to > date.today()))
+
+    @property
+    def current_donating_member(self):
+        return self.donating_member and not self.person.deceased and \
+               (self.date_from is not None and (self.date_to is None or self.date_to > date.today()))
+
+    @property
+    def current_merit_member(self):
+        return self.merit_date_from is not None and not self.person.deceased
+
+    @property
+    def current_honorary_member(self):
+        return self.honorary_date_from is not None and not self.person.deceased
 
     def __unicode__(self):
         return unicode(self.person)
 
     def clean(self):
         if (self.date_from is not None and self.date_to is not None and self.date_from > self.date_to) or \
-                (self.date_to is not None and self.date_to is None):
+                (self.date_to is not None and self.date_from is None):
             raise ValidationError("'Date to' cannot be before 'date from'")
+
+        if self.date_to is not None and (self.merit_date_from is not None or self.honorary_date_from is not None):
+            raise ValidationError("'Date to' cannot be set for merit and honorary members")
+
+        if self.date_to is None and self.associate_member:
+            raise ValidationError("'Date to' is required for associate members")
+
+        if self.date_to is None and self.donating_member:
+            raise ValidationError("'Date to' is required for donating members")
 
 
 class Student(models.Model):

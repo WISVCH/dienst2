@@ -158,7 +158,7 @@ class ExportResource(Resource):
     allowed_querysets = {
         'organizations': Q(~Q(organization__isnull=True)),
         'members': Q(living_person, Q(person__member__date_from__isnull=False),
-                     Q(person__member__date_to__isnull=True)),
+                     Q(person__member__date_to__isnull=True) | Q(person__member__date_to__gt=date.today())),
         'merit': Q(living_person, ~Q(person__member__merit_date_from__isnull=True)),
         'honorary': Q(living_person, ~Q(person__member__honorary_date_from__isnull=True)),
         'students': Q(living_person, ~Q(person__student__isnull=True)),
@@ -266,7 +266,6 @@ class ExportResource(Resource):
                     return ""
 
             if addresslist == 'living_with':
-                print 'living_with'
                 doubles = {}
                 others = []
                 for obj in objects:
