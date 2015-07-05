@@ -1,7 +1,9 @@
+from django.db.models import Prefetch
 import django_filters
+
 from rest_framework import viewsets
 
-from ldb.models import Person, Organization
+from ldb.models import Person, Organization, CommitteeMembership
 from ldb.serializers import PersonSerializer, OrganizationSerializer
 
 
@@ -16,7 +18,8 @@ class PersonFilter(django_filters.FilterSet):
 
 class PersonViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = PersonSerializer
-    queryset = Person.objects.all()
+    queryset = Person.objects.all().select_related('member', 'student', 'alumnus', 'employee').prefetch_related(
+        Prefetch('committee_memberships', queryset=CommitteeMembership.objects.select_related('committee')))
     filter_class = PersonFilter
 
 
