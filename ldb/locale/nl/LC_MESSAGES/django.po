@@ -1296,8 +1296,8 @@ msgid "student number"
 msgstr "studienummer"
 
 #: models.py:242
-msgid "graduated"
-msgstr "afgestudeerd"
+msgid "enrolled"
+msgstr "ingeschreven"
 
 #: models.py:244
 msgid "phone parents"

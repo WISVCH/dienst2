@@ -243,18 +243,19 @@
         <legend>Studenten</legend>
 
         <div class="control-group">
-          <div class="control-label">Afgestudeerd:</div>
+            <div class="control-label">Ingeschreven:</div>
           <div class="controls">
             <label class="radio inline">
-              <input type="radio" ng-model="export.filters.person__student__graduated" value="true"> Ja
+                <input type="radio" ng-model="export.filters.person__student__enrolled" value="true"> Ja
             </label>
             <label class="radio inline">
-              <input type="radio" ng-model="export.filters.person__student__graduated" value="false"> Nee
+                <input type="radio" ng-model="export.filters.person__student__enrolled" value="false"> Nee
             </label>
             <label class="radio inline">
-              <input type="radio" ng-model="export.filters.person__student__graduated" value="undefined"> Maakt niet uit
+                <input type="radio" ng-model="export.filters.person__student__enrolled" value="undefined"> Maakt niet
+                uit
             </label>
-            <span class="help-block">Is afgestudeerd.</span>
+              <span class="help-block">Is ingeschreven aan de TU.</span>
           </div>
         </div>
 
@@ -366,7 +367,8 @@
           <label class="checkbox"><input type="checkbox" ng-model="export.fields.person__student__study"> Studie</label>
           <label class="checkbox"><input type="checkbox" ng-model="export.fields.person__student__first_year"> Eerste jaar</label>
           <label class="checkbox"><input type="checkbox" ng-model="export.fields.person__student__student_number"> Studienummer</label>
-          <label class="checkbox"><input type="checkbox" ng-model="export.fields.person__student__graduated"> Afgestudeerd</label>
+            <label class="checkbox"><input type="checkbox" ng-model="export.fields.person__student__enrolled">
+                Ingeschreven</label>
           <label class="checkbox"><input type="checkbox" ng-model="export.fields.person__student__phone_parents"> Telefoon Ouders</label>
         </div>
       </div>

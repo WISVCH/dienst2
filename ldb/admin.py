@@ -14,7 +14,7 @@ class CommitteeMembershipInline(admin.TabularInline):
 class StudentInline(admin.StackedInline):
     model = Student
     fieldsets = [
-        (_('Base'), {'fields': ['study', 'first_year', 'student_number', 'graduated']}),
+        (_('Base'), {'fields': ['study', 'first_year', 'student_number', 'enrolled']}),
         (_('Phone'), {'fields': ['phone_parents']}),
         (_('Permissions'), {'fields': ['yearbook_permission']}),
         (_('Other'), {'fields': ['date_verified']})

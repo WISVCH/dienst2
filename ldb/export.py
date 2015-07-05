@@ -43,7 +43,7 @@ class CSVSerializer(Serializer):
                      'person__initials', 'person__firstname', 'person__preposition', 'person__surname',
                      'person__postfix_titles', 'person__phone_mobile', 'person__gender', 'person__birthdate',
                      'person__ldap_username', 'person__netid', 'person__student__study', 'person__student__first_year',
-                     'person__student__student_number', 'person__student__graduated', 'person__student__phone_parents',
+                     'person__student__student_number', 'person__student__enrolled', 'person__student__phone_parents',
                      'person__alumnus__study', 'person__alumnus__study_first_year', 'person__alumnus__study_last_year',
                      'person__alumnus__work_company']
 
@@ -129,7 +129,7 @@ class ExportResource(Resource):
         'person': ['titles', 'initials', 'firstname', 'preposition', 'surname', 'postfix_titles', 'phone_mobile',
                    'gender', 'birthdate', 'ldap_username', 'netid'],
         'person__member': [],
-        'person__student': ['study', 'first_year', 'student_number', 'graduated', 'phone_parents'],
+        'person__student': ['study', 'first_year', 'student_number', 'enrolled', 'phone_parents'],
         'person__alumnus': ['study', 'study_first_year', 'study_last_year', 'work_company'],
         'person__employee': [],
     }
@@ -186,7 +186,7 @@ class ExportResource(Resource):
         'organization': [],
         'person': ['mail_announcements', 'mail_company'],
         'person__member': ['associate_member', 'donating_member', 'merit_invitations'],
-        'person__student': ['first_year', 'graduated', 'yearbook_permission'],
+        'person__student': ['first_year', 'enrolled', 'yearbook_permission'],
         'person__alumnus': [],
         'person__employee': []
     }

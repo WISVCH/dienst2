@@ -297,10 +297,10 @@ class Student(models.Model):
 
     person = models.OneToOneField(Person, primary_key=True)
 
+    enrolled = models.BooleanField(_('enrolled'), default=True)
     study = models.CharField(_('study'), max_length=50)
     first_year = models.IntegerField(_('first year'), blank=True, null=True)
     student_number = CharNullField(_('student number'), max_length=7, blank=True, null=True, unique=True)
-    graduated = models.BooleanField(_('graduated'), default=False)
 
     phone_parents = models.CharField(_('phone parents'), max_length=16, blank=True)
 
