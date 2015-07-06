@@ -1,30 +1,27 @@
 from django.contrib import admin
-from reversion.admin import VersionAdmin
 
 from post.models import *
 
 
-class CategoryAdmin(VersionAdmin):
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
     """CategoryAdmin"""
     search_fields = ('name',)
     list_display = ('name', 'grouping', 'counting')
 
 
-class SourceAdmin(VersionAdmin):
+@admin.register(Source)
+class SourceAdmin(admin.ModelAdmin):
     """SourceAdmin"""
     search_fields = ('name',)
     list_filter = ('location',)
     list_display = ('name', 'location')
 
 
-class ItemAdmin(VersionAdmin):
+@admin.register(Item)
+class ItemAdmin(admin.ModelAdmin):
     """ItemAdmin"""
     date_hierarchy = 'date'
     search_fields = ('description',)
     list_filter = ('sender', 'receiver', 'category')
     list_display = ('description', 'date', 'sender', 'receiver', 'category')
-
-
-admin.site.register(Category, CategoryAdmin)
-admin.site.register(Source, SourceAdmin)
-admin.site.register(Item, ItemAdmin)

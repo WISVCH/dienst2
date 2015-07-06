@@ -110,6 +110,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'reversion',
+    'reversion_compare',
     'haystack',
     'tastypie',
     'rest_framework',
