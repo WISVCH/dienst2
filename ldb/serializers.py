@@ -57,11 +57,12 @@ class PersonSerializer(EntitySerializer):
     living_with = serializers.HyperlinkedRelatedField(view_name='person-detail', read_only=True)
     committee_memberships = CommitteeMembershipSerializer(many=True, read_only=True)
     age = ReadOnlyField()
+    membership_status = ReadOnlyField(source='_membership_status')
     formatted_name = ReadOnlyField()
 
     class Meta:
         model = Person
-        exclude = ('comment',)
+        exclude = ('comment', '_membership_status')
 
 
 class OrganizationSerializer(EntitySerializer):
