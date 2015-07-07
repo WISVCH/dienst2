@@ -275,9 +275,9 @@
         <a href class="icon-refresh" ng-hide="editmode" ng-click="person.student_model.confirm()"></a>
       </div>
 
-      <div ng-show="person.student_model.graduated && !editmode"><strong>Afgestudeerd</strong></div>
+        <div ng-show="!person.student_model.enrolled && !editmode"><strong>Uitgeschreven</strong></div>
       <div ng-show="editmode">
-        <span ch-editable ch-model="person.student_model.graduated" ch-template="check"></span> Afgestudeerd<br />
+          <span ch-editable ch-model="person.student_model.enrolled" ch-template="check"></span> Ingeschreven<br/>
       </div>
 
       <div>

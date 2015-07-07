@@ -6,10 +6,14 @@ from ldb.models import Person, Member, Student, Employee, Alumnus, CommitteeMemb
 
 class MemberSerializer(serializers.ModelSerializer):
     current_member = ReadOnlyField()
+    current_associate_member = ReadOnlyField()
+    current_donating_member = ReadOnlyField()
+    current_merit_member = ReadOnlyField()
+    current_honorary_member = ReadOnlyField()
 
     class Meta:
         model = Member
-        exclude = ('merit_history',)
+        exclude = ('merit_history', 'associate_member', 'donating_member',)
 
 
 class StudentSerializer(serializers.ModelSerializer):
@@ -53,11 +57,12 @@ class PersonSerializer(EntitySerializer):
     living_with = serializers.HyperlinkedRelatedField(view_name='person-detail', read_only=True)
     committee_memberships = CommitteeMembershipSerializer(many=True, read_only=True)
     age = ReadOnlyField()
+    membership_status = ReadOnlyField(source='_membership_status')
     formatted_name = ReadOnlyField()
 
     class Meta:
         model = Person
-        exclude = ('comment',)
+        exclude = ('comment', '_membership_status')
 
 
 class OrganizationSerializer(EntitySerializer):

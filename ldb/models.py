@@ -4,6 +4,7 @@ from datetime import date
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import ValidationError
+from django_enumfield import enum
 
 from country_field import CountryField
 from dienst2.extras import CharNullField
@@ -101,6 +102,26 @@ class Organization(Entity):
         return unicode(self.name)
 
 
+class MembershipStatus(enum.Enum):
+    NONE = 0
+    DONATING = 10
+    ALUMNUS = 20
+    REGULAR = 30
+    ASSOCIATE = 40
+    MERIT = 50
+    HONORARY = 60
+
+    labels = {
+        NONE: _('Not a member'),
+        DONATING: _('Donating member'),
+        ALUMNUS: _('Alumnus member'),
+        REGULAR: _('Regular member'),
+        ASSOCIATE: _('Associate member'),
+        MERIT: _('Merit member'),
+        HONORARY: _('Honorary member'),
+    }
+
+
 class Person(Entity):
     class Meta:
         verbose_name = _('person')
@@ -142,11 +163,46 @@ class Person(Entity):
     linkedin_id = CharNullField(_('LinkedIn ID'), max_length=64, blank=True, null=True, unique=True)
     facebook_id = CharNullField(_('Facebook ID'), max_length=64, blank=True, null=True, unique=True)
 
-    __original_living_with_id = None
+    # Membership status
+    _membership_status = enum.EnumField(MembershipStatus, db_column='membership_status', default=MembershipStatus.NONE)
+
+    _original_living_with_id = None
 
     def __init__(self, *args, **kwargs):
         super(Person, self).__init__(*args, **kwargs)
-        self.__original_living_with_id = self.living_with_id
+        self._original_living_with_id = self.living_with_id
+
+    @property
+    def membership_status(self):
+        try:
+            member = self.member
+        except Member.DoesNotExist:
+            return MembershipStatus.NONE
+        if member.current_honorary_member:
+            return MembershipStatus.HONORARY
+        if member.current_merit_member:
+            return MembershipStatus.MERIT
+        if member.current_associate_member:
+            return MembershipStatus.ASSOCIATE
+        if member.current_regular_member:
+            return MembershipStatus.REGULAR
+        if member.current_alumnus_member:
+            return MembershipStatus.ALUMNUS
+        if member.current_donating_member:
+            return MembershipStatus.DONATING
+        else:
+            return MembershipStatus.NONE
+
+    @property
+    def valid_membership_status(self):
+        # We cannot do this in clean() because children aren't saved then,
+        # and we can't do this in save() because we can't raise nice errors there.
+        try:
+            member = self.member
+            if member.current_member and self.membership_status == MembershipStatus.NONE:
+                return False
+        except Member.DoesNotExist:
+            return True
 
     @property
     def formatted_name(self):
@@ -182,9 +238,11 @@ class Person(Entity):
             return today.year - born.year
 
     def save(self):
+        self._membership_status = self.membership_status
+
         super(Person, self).save()
         if self.pk is not None:
-            old = self.__original_living_with_id
+            old = self._original_living_with_id
             if old != self.living_with_id and old:
                 other = Person.objects.get(pk=old)
                 if other.living_with == self:
@@ -250,16 +308,58 @@ class Member(models.Model):
 
     @property
     def current_member(self):
-        return (self.date_from is not None and self.date_to is None) or \
-               self.merit_date_from is not None or self.honorary_date_from is not None
+        return self.date_from is not None and (self.date_to is None or self.date_to > date.today()) \
+               and not self.person.deceased
+
+    @property
+    def current_regular_member(self):
+        try:
+            student = self.person.student
+            return student.enrolled and self.current_member
+        except Student.DoesNotExist:
+            return False
+
+    @property
+    def current_alumnus_member(self):
+        try:
+            # noinspection PyUnusedLocal
+            alumnus = self.person.alumnus
+            return self.current_member and not self.current_regular_member
+        except Alumnus.DoesNotExist:
+            return False
+
+    @property
+    def current_associate_member(self):
+        return self.associate_member and self.current_member
+
+    @property
+    def current_donating_member(self):
+        return self.donating_member and self.current_member
+
+    @property
+    def current_merit_member(self):
+        return self.merit_date_from is not None and self.current_member
+
+    @property
+    def current_honorary_member(self):
+        return self.honorary_date_from is not None and self.current_member
 
     def __unicode__(self):
         return unicode(self.person)
 
     def clean(self):
         if (self.date_from is not None and self.date_to is not None and self.date_from > self.date_to) or \
-                (self.date_to is not None and self.date_to is None):
+                (self.date_to is not None and self.date_from is None):
             raise ValidationError("'Date to' cannot be before 'date from'")
+
+        if self.date_to is not None and (self.merit_date_from is not None or self.honorary_date_from is not None):
+            raise ValidationError("'Date to' cannot be set for merit and honorary members")
+
+        if self.date_to is None and self.associate_member:
+            raise ValidationError("'Date to' is required for associate members")
+
+        if self.date_to is None and self.donating_member:
+            raise ValidationError("'Date to' is required for donating members")
 
 
 class Student(models.Model):
@@ -269,10 +369,10 @@ class Student(models.Model):
 
     person = models.OneToOneField(Person, primary_key=True)
 
+    enrolled = models.BooleanField(_('enrolled'), default=True)
     study = models.CharField(_('study'), max_length=50)
     first_year = models.IntegerField(_('first year'), blank=True, null=True)
     student_number = CharNullField(_('student number'), max_length=7, blank=True, null=True, unique=True)
-    graduated = models.BooleanField(_('graduated'), default=False)
 
     phone_parents = models.CharField(_('phone parents'), max_length=16, blank=True)
 

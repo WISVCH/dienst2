@@ -14,7 +14,7 @@ class CommitteeMembershipInline(admin.TabularInline):
 class StudentInline(admin.StackedInline):
     model = Student
     fieldsets = [
-        (_('Base'), {'fields': ['study', 'first_year', 'student_number', 'graduated']}),
+        (_('Base'), {'fields': ['study', 'first_year', 'student_number', 'enrolled']}),
         (_('Phone'), {'fields': ['phone_parents']}),
         (_('Permissions'), {'fields': ['yearbook_permission']}),
         (_('Other'), {'fields': ['date_verified']})
@@ -75,6 +75,17 @@ class PersonAdmin(CompareVersionAdmin):
                                          'mail_announcements', 'mail_company']}),
     ]
     inlines = [MemberInline, CommitteeMembershipInline, StudentInline, AlumnusInline, EmployeeInline]
+
+    # Make sure we save inlines before saving Person - http://stackoverflow.com/a/29231611/2354734
+    def save_model(self, request, obj, form, change):
+        if not obj.pk:  # call super method if object has no primary key
+            super(PersonAdmin, self).save_model(request, obj, form, change)
+        else:
+            pass  # don't actually save the parent instance
+
+    def save_formset(self, request, form, formset, change):
+        formset.save()  # this will save the children
+        form.instance.save()  # form.instance is the parent
 
 
 @admin.register(Organization)
