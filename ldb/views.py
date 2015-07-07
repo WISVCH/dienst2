@@ -89,7 +89,7 @@ class PersonDetailView(DetailView):
         context = super(PersonDetailView, self).get_context_data(**kwargs)
         # Fetch committee memberships
         try:
-            context['committee_memberships'] = self.get_object().committeemembership_set.order_by('-board').all()
+            context['committee_memberships'] = self.object.committee_memberships.order_by('-board').all()
         except:
             pass
         return context

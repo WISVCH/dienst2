@@ -4,9 +4,9 @@
 {% block content %}
 <div id="entity_form">
     {% if person %}
-    <h2>Bewerk {{ person }}</h2>
+    <h2 class="page-header">Bewerk {{ person }}</h2>
     {% else %}
-    <h2>Persoon aanmaken</h2>
+    <h2 class="page-header">Persoon aanmaken</h2>
     {% endif %}
 
     {% if form.errors %}
@@ -15,7 +15,7 @@
     </p>
     {% endif %}
 
-    <form action="" method="post" class="form form-horizontal">
+    <form action="" method="post" class="form form-horizontal form-condensed">
         {% csrf_token %}
         {% if form.non_field_errors %}{{ form.non_field_errors }}{% endif %}
 
@@ -44,15 +44,16 @@
                     {% bootstrap_form other_fields layout='horizontal' %}
                 </fieldset>
 
-                <h3>Commissies</h3>
+                <fieldset>
+                    <legend>Commissies</legend>
 
-                <div class="row">
-                    <div class="col-sm-4">Commissie</div>
-                    <div class="col-sm-2">Jaar</div>
-                    <div class="col-sm-3">Functie</div>
-                    <div class="col-sm-2">RAS</div>
-                    <div class="col-sm-1"><i class="glyphicon glyphicon-remove"></i></div>
-                </div>
+                    <div class="row">
+                        <div class="col-sm-4">Commissie</div>
+                        <div class="col-sm-2">Jaar</div>
+                        <div class="col-sm-3">Functie</div>
+                        <div class="col-sm-2">RAS</div>
+                        <div class="col-sm-1"><i class="glyphicon glyphicon-remove"></i></div>
+                    </div>
 
                 {% for form in committeemembership_formset.forms %}
                     <div class="row">
@@ -71,24 +72,16 @@
                         {% endfor %}
                     </div>
                     {% endfor %}
-                <table class="table table-striped table-condensed">
+                    </fieldset>
+
                     {{ committeemembership_formset.management_form }}
-                    <thead style="width:100%">
-                    <tr>
-
-                    </tr>
-                    </thead>
-                    <tbody>
-
-                    </tbody>
-                </table>
             </div>
 
             <div class="col-md-6">
                 <fieldset>
                     <legend>Aanmeldingen</legend>
                     {% get_fieldset machazine,board_invites,constitution_card,christmas_card,yearbook,mail_announcements,mail_company as subscription_fields from form %}
-                    {% bootstrap_form subscription_fields layout='horizontal' %}
+                    {% bootstrap_form subscription_fields layout='horizontal' horizontal_label_class='col-md-4 visible-md-block visible-lg-block' %}
                 </fieldset>
 
                 <fieldset>

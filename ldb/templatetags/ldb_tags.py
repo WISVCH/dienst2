@@ -1,5 +1,6 @@
 from django import template
 from django.template.defaultfilters import stringfilter
+from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
 from django.utils.translation import ugettext as _
 from django import forms
@@ -18,6 +19,18 @@ def janee(value):
 @register.inclusion_tag('ldb/trow.html')
 def trow(o, k):
     return {'key': _(capfirst(o._meta.get_field(k).verbose_name)), 'value': getattr(o, k)}
+
+@register.inclusion_tag('ldb/stcontrol.html')
+def stcontrol(o, k):
+    return {'key': _(capfirst(o._meta.get_field(k).verbose_name)), 'value': getattr(o, k)}
+
+@register.inclusion_tag('ldb/stcontrol.html')
+def stcontrol_janee(o, k):
+    return {'key': _(capfirst(o._meta.get_field(k).verbose_name)), 'value': janee(getattr(o, k))}
+
+@register.inclusion_tag('ldb/stcontrol.html')
+def stcontrol_format(o, k, format):
+    return {'key': _(capfirst(o._meta.get_field(k).verbose_name)), 'value': mark_safe(format.format(getattr(o, k))), 'empty':getattr(o, k)==''}
 
 @register.inclusion_tag('ldb/trow.html')
 def trow_janee(o, k):
