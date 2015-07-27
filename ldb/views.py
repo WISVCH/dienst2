@@ -1,3 +1,4 @@
+from django.db.models import Prefetch
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response, redirect
 from django.core.urlresolvers import reverse
@@ -7,7 +8,7 @@ from haystack.query import SearchQuerySet
 
 from ldb.forms import OrganizationForm, PersonForm, MemberFormSet, StudentFormSet, AlumnusFormSet, EmployeeFormSet, \
     CommitteeMembershipFormSet
-from ldb.models import Organization, Person
+from ldb.models import Organization, Person, CommitteeMembership
 
 
 def index(request):
@@ -84,15 +85,15 @@ class PersonDetailView(DetailView):
     context_object_name = 'person'
     model = Person
 
-    def get_context_data(self, **kwargs):
-        # Call the base implementation first to get a context
-        context = super(PersonDetailView, self).get_context_data(**kwargs)
-        # Fetch committee memberships
-        try:
-            context['committee_memberships'] = self.object.committee_memberships.order_by('-board').all()
-        except:
-            pass
-        return context
+    def get_queryset(self):
+        qs = super(PersonDetailView, self).get_queryset()
+        qs = qs.select_related('member', 'student', 'alumnus', 'employee')
+        qs = qs.prefetch_related(
+            Prefetch(
+                'committee_memberships',
+                queryset=CommitteeMembership.objects.order_by('-board').prefetch_related('committee')
+            ))
+        return qs
 
 class PersonDeleteView(DeleteView):
     context_object_name = 'person'

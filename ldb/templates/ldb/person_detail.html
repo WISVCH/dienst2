@@ -112,11 +112,11 @@
         {% stcontrol person.member 'honorary_date_from' %}
       </fieldset>
       <fieldset>
-        {% if committee_memberships %}
-        <legend>Commissies ({{ committee_memberships|length }})</legend>
+        {% if person.committee_memberships %}
+        <legend>Commissies ({{ person.committee_memberships.count }})</legend>
 
         <ul>
-          {% for c in committee_memberships %}
+          {% for c in person.committee_memberships.all %}
           <li>{{ c.board }}: {{ c.committee.name }}
             {% if c.position %}({{ c.position }}){% endif %}
           </li>
