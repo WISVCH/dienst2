@@ -5,7 +5,7 @@ from django.db import transaction
 from xlrd import open_workbook
 from django.core.management import BaseCommand
 
-from ldb.models import Student, Member
+from ldb.models import Student, Member, MembershipStatus
 
 
 def cell(sheet, row, col):
@@ -49,25 +49,19 @@ class Command(BaseCommand):
                 person = student.person
 
                 if not self.check_is_student(studenten, row, options['yes-value']):
-                    try:
-                        member = person.member
-                    except Member.DoesNotExist:
-                        self.stderr("Student with student number '{}' does not have a connected member model".format(student_number))
-                        continue
-
-                    # Do not change member-models if: membership already revoked, is merit member or is honorary member
-                    if member.date_to is not None or member.merit_date_from is not None or member.honorary_date_from is not None:
-                        continue
-
                     student.enrolled = False
-                    member.date_to = datetime.date.today()
+                    student.save()
 
-                    message = 'Membership revoked. Student is either unknown or no longer a student according to CSa.'
-                    reversion.set_comment(message)
+                    if person.membership_status == MembershipStatus.REGULAR:
+                        member = person.member
+                        member.date_to = datetime.date.today()
 
-                    member.save()
+                        message = 'Membership revoked. Student is either unknown or no longer a student according to CSa.'
+                        reversion.set_comment(message)
 
-                    self.stdout("Student with student number '{}' is no longer active, membership ended.".format(student_number))
+                        member.save()
+
+                        self.stdout("Student with student number '{}' is no longer active, membership ended.".format(student_number))
                 else:
                     reversion.set_comment('Student confirmed by CSa')
                     student.date_verified = datetime.date.today()
