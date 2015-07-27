@@ -59,6 +59,7 @@ class Command(BaseCommand):
                     if member.date_to is not None or member.merit_date_from is not None or member.honorary_date_from is not None:
                         continue
 
+                    student.enrolled = False
                     member.date_to = datetime.date.today()
 
                     message = 'Membership revoked. Student is either unknown or no longer a student according to CSa.'
