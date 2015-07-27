@@ -7,7 +7,7 @@ from ldb.models import *
 class PersonForm(ModelForm):
     class Meta:
         model = Person
-        fields = "__all__"
+        exclude = ('_membership_status',)
 
 
 class OrganizationForm(ModelForm):
