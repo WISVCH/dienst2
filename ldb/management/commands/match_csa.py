@@ -47,7 +47,7 @@ class Command(BaseCommand):
 
                         if person.membership_status == MembershipStatus.REGULAR:
                             member = person.member
-                            member.date_to = datetime.date.today()
+                            member.date_to = date
 
                             message = 'Membership revoked. Student is either unknown or no longer a student according to CSa.'
                             reversion.set_comment(message)
@@ -59,7 +59,7 @@ class Command(BaseCommand):
                         reversion.set_comment('Student confirmed by CSa')
                         student.date_verified = date
                         self.stdout("Student with student number '{}' is still active".format(student_number))
+                        student.save()
 
-                    student.save()
                     # Person is saved so the reversion revision is made
                     person.save()
