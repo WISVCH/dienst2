@@ -24,6 +24,10 @@ class Command(BaseCommand):
                             dest='yes-value',
                             default='ja',
                             help='Define which value is in the document when the CSa says the person is still a student')
+        parser.add_argument('--date',
+                            dest='date',
+                            default=None,
+                            help='Date on which CSa provided the document')
 
     def check_is_student(self, studenten, row, yes_value):
         value = cell(studenten, row, 1)
@@ -33,6 +37,11 @@ class Command(BaseCommand):
         return str(int(cell(studenten, row, 0)))
 
     def handle(self, *args, **options):
+        if options['date']:
+            date = datetime.datetime.strptime(options['date'], '%Y-%m-%d').date()
+        else:
+            date = datetime.date.today()
+
         book = open_workbook(options['file'])
         studenten = book.sheet_by_index(0)
 
@@ -64,7 +73,7 @@ class Command(BaseCommand):
                         self.stdout("Student with student number '{}' is no longer active, membership ended.".format(student_number))
                 else:
                     reversion.set_comment('Student confirmed by CSa')
-                    student.date_verified = datetime.date.today()
+                    student.date_verified = date
                     self.stdout("Student with student number '{}' is still active".format(student_number))
 
                 student.save()
