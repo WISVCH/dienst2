@@ -80,24 +80,9 @@
       </fieldset>
       <fieldset>
         <legend>
-          {% if person.member.honorary_date_from %}
-          Erelid
-          {% else %}{% if person.member.merit_date_from %}
-          Lid van Verdienste
-          {% else %}{% if person.member.date_to %}
-          Lid af
-          {% else %}{% if person.member.associate_member %}
-          Buitengewoon lid
-          {% else %}{% if person.member.date_from %}
-          Lid
-          {% else %}{% if person.member.donating_member %}
-          Donateur
-          {% else %}
-          Geen lid
-          {% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}
+          {{ person.get__membership_status_display }}
         </legend>
 
-        {% stcontrol person.member 'date_from' %}
         {% if person.member %}
         {% stcontrol person.member 'date_from' %}
         {% stcontrol person.member 'date_to' %}
