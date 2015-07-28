@@ -1,9 +1,11 @@
 from django.db.models import Prefetch
-from django.http import HttpResponseRedirect
+from django.forms import inlineformset_factory, ModelForm
+from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render_to_response, redirect
 from django.core.urlresolvers import reverse
 from django.template import RequestContext
-from django.views.generic import DetailView, DeleteView
+from django.views.generic import DetailView, DeleteView, View, TemplateView
+from django.views.generic.detail import SingleObjectMixin
 from haystack.query import SearchQuerySet
 
 from ldb.forms import OrganizationForm, PersonForm, MemberFormSet, StudentFormSet, AlumnusFormSet, EmployeeFormSet, \
@@ -19,8 +21,8 @@ def index(request):
             'title': 'Ledendatabase',
             'items': [
                 ('#/dashboard', 'Zoeken'),
-                ('#/person/new', 'Nieuw Persoon'),
-                ('#/organization/new', 'Nieuwe Organisatie'),
+                (reverse('ldb_people_create'), 'Nieuw Persoon'),
+                (reverse('ldb_organizations_create'), 'Nieuwe Organisatie'),
                 ('#/committees', 'Commissies'),
                 ('#/export', 'Exporteren')
             ]
@@ -100,71 +102,71 @@ class PersonDeleteView(DeleteView):
     model = Person
     success_url = '/'
 
-def person_edit(request, pk=None):
-    data = {
-        'title' : 'Ledenadministratie'
-    }
-    if pk:
-        person = Person.objects.get(pk=pk)
-    else:
-        person = Person()
-    if request.method == 'POST':
-        form = PersonForm(request.POST, instance=person)
-        member_formset = MemberFormSet(request.POST, instance=person)
-        student_formset = StudentFormSet(request.POST, instance=person)
-        alumnus_formset = AlumnusFormSet(request.POST, instance=person)
-        employee_formset = EmployeeFormSet(request.POST, instance=person)
-        committeemembership_formset = CommitteeMembershipFormSet(request.POST, instance=person)
-        if form.is_valid() and \
-           member_formset.is_valid() and \
-           student_formset.is_valid() and \
-           alumnus_formset.is_valid and \
-           employee_formset.is_valid() and \
-           committeemembership_formset.is_valid():
-            person = form.save()
 
-            member_form = member_formset.forms[0]
-            if member_form.has_changed():
-                member = member_form.save(commit=False)
-                member.person = person
-                member.save()
+class PersonEditView(SingleObjectMixin, TemplateView):
+    model = Person
+    template_name = 'ldb/person_form.html'
 
-            student_form = student_formset.forms[0]
-            if student_form.has_changed():
-                student = student_form.save(commit=False)
-                student.person = person
-                student.save()
+    def get_form_kwargs(self):
+        kwargs = {}
 
-            alumnus_form = alumnus_formset.forms[0]
-            if alumnus_form.has_changed():
-                alumnus = alumnus_form.save(commit=False)
-                alumnus.person = person
-                alumnus.save()
+        if self.request.method in ('POST', 'PUT'):
+            kwargs.update({
+                'data': self.request.POST,
+                'files': self.request.FILES,
+            })
 
-            employee_form = employee_formset.forms[0]
-            if employee_form.has_changed():
-                employee = employee_form.save(commit=False)
-                employee.person = person
-                employee.save()
+        if hasattr(self, 'object'):
+            kwargs.update({'instance': self.object})
 
-            for form in committeemembership_formset.forms:
+        return kwargs
+
+    def get_forms(self):
+        return {
+            'form': PersonForm(**self.get_form_kwargs()),
+            'member_formset': MemberFormSet(**self.get_form_kwargs()),
+            'student_formset': StudentFormSet(**self.get_form_kwargs()),
+            'alumnus_formset': AlumnusFormSet(**self.get_form_kwargs()),
+            'employee_formset': EmployeeFormSet(**self.get_form_kwargs()),
+            'committeemembership_formset': CommitteeMembershipFormSet(**self.get_form_kwargs())
+        }
+
+    def are_forms_valid(self, forms):
+        return reduce(
+            lambda form_valid, valid: valid and form_valid,
+            [form.is_valid() for form in forms.values()],
+            True
+        )
+
+    def get(self, *args, **kwargs):
+        self.object = self.get_object()
+        forms = self.get_forms()
+        return self.render_to_response(self.get_context_data(**forms))
+
+    def post(self, *args, **kwargs):
+        self.object = self.get_object()
+        forms = self.get_forms()
+
+        if self.are_forms_valid(forms):
+            return self.forms_valid(forms)
+        else:
+            return self.render_to_response(self.get_context_data(**forms))
+
+    def forms_valid(self, forms):
+        form = forms.pop('form')
+        person = form.save()
+
+        for formset in forms.values():
+            for form in formset.forms:
                 if form.has_changed():
-                    committeemembership = form.save(commit=False)
-                    committeemembership.person = person
-                    committeemembership.save()
-            return HttpResponseRedirect(reverse('ldb_people_detail', args=(person.id,)))
-    else:
-        form = PersonForm(instance=person)
-        member_formset = MemberFormSet(instance=person)
-        student_formset = StudentFormSet(instance=person)
-        alumnus_formset = AlumnusFormSet(instance=person)
-        employee_formset = EmployeeFormSet(instance=person)
-        committeemembership_formset = CommitteeMembershipFormSet(instance=person)
-    data['form'] = form
-    data['member_formset'] = member_formset
-    data['student_formset'] = student_formset
-    data['alumnus_formset'] = alumnus_formset
-    data['employee_formset'] = employee_formset
-    data['committeemembership_formset'] = committeemembership_formset
-    return render_to_response('ldb/person_form.html', data,
-                              context_instance = RequestContext(request))
+                    obj = form.save(commit=False)
+                    obj.person = person
+                    obj.save()
+
+        return HttpResponseRedirect(person.get_absolute_url())
+
+    def get_object(self, **kwargs):
+        try:
+            return super(PersonEditView, self).get_object(**kwargs)
+        except AttributeError:
+            return None
