@@ -106,12 +106,11 @@
       </fieldset>
       {% endif %}
 
+      {% if person.member %}
       <fieldset>
         <legend>
           Lidmaatschap
         </legend>
-
-        {% if person.member %}
         {% stcontrol person.member 'date_from' %}
         {% stcontrol person.member 'date_to' %}
         {% stcontrol person.member 'date_paid' %}
@@ -124,24 +123,24 @@
         {% endif %}
         {% stcontrol person.member 'honorary_date_from' %}
       </fieldset>
+      {% endif %}
+
+      {% if person.committee_memberships %}
       <fieldset>
-        {% if person.committee_memberships %}
         <legend>Commissies ({{ person.committee_memberships.count }})</legend>
 
+        <ul class="committees">
         {% for c in person.committee_memberships.all %}
-        <div class="form-group">
-          <label class="col-sm-4 control-label">{{ c.committee.name }} &ndash; {{ c.board }}</label>
-          <div class="col-sm-8">
-            <p class="form-control-static">
-              {% if c.position %}{{ c.position }}{% endif %}
-              {% if c.ras_months %}({{ c.ras_months }} RAS){% endif %}
-            </p>
-          </div>
-        </div>
+          <li>
+            {{ c.board }}:
+            <strong>{{ c.committee.name }}</strong>
+            {% if c.position %}{{ c.position }}{% endif %}
+            {% if c.ras_months %}({{ c.ras_months }} RAS){% endif %}
+          </li>
         {% endfor %}
-        {% endif %}
-        {% endif %}
+        </ul>
       </fieldset>
+      {% endif %}
     </div>
 
     <div class="col-md-6">
