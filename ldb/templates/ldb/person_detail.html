@@ -13,7 +13,7 @@
            src="https://graph.facebook.com/{{person.facebook_id}}/picture?type=square"/>
     </a>
     {% endif %}
-    {{ person }}
+    {{ person }} &mdash; {{ person.get__membership_status_display }}
     <div class="pull-right btn-group">
       <a href="./edit/" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span> Edit</a>
       <a href="./delete/" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Delete</a>
@@ -29,43 +29,44 @@
     <div class="col-md-6">
       <fieldset>
         <legend>Algemeen</legend>
-
-        <div class="col-xs-12">
-          {{ person.titles }}
-          {{ person.initials }}
-          ({{ person.firstname }})
-          {{ person.preposition }}
-          {{ person.surname }}{% if person.postfix_titles %}, {{ person.postfix_titles }}
-          {% endif %}
-          {% if person.gender %}
-          {{ person.gender_symbol }}
-          {% endif %}
-          <br>
-          {% if person.birthdate %}
-          {{ person.birthdate }}
-          {% if not person.deceased %}
-          ({{ person.age }})
-          {% endif %}
-          {% endif %}
+        <div class="form-group">
+          <label class="col-sm-4 control-label">Naam</label>
+          <div class="col-sm-8">
+            <p class="form-control-static">
+              {{ person.titles }}
+              {{ person.initials }}
+              ({{ person.firstname }})
+              {{ person.preposition }}
+              {{ person.surname }}{% if person.postfix_titles %}, {{ person.postfix_titles }}
+              {% endif %}
+              {% if person.gender %}
+              {{ person.gender_symbol }}
+              {% endif %}
+            </p>
+          </div>
         </div>
-
-        <div class="col-xs-12">{% include "ldb/entity_address.html" with entity=person %}</div>
-
-        {% if person.email %}
-        <div class="col-xs-12"><a href="mailto:{{ person.email }}">{{ person.email }}</a></div>
+        {% if person.birthdate %}
+        <div class="form-group">
+          <label class="col-sm-4 control-label">Geboortedatum</label>
+          <div class="col-sm-8">
+            <p class="form-control-static">
+              {{ person.birthdate }}
+              {% if not person.deceased %}
+              ({{ person.age }})
+              {% endif %}
+            </p>
+          </div>
+        </div>
         {% endif %}
-
-        {% stcontrol person 'phone_fixed' %}
-        {% stcontrol person 'phone_mobile' %}
-        {% if person.student %}
-        {% stcontrol person.student 'phone_parents' %}
-        {% endif %}
-        {% stcontrol_format person 'ldap_username' '<a href="https://frans.chnet/userman2/users/{0}/">{0}</a>' %}
-
+        <div class="form-group">
+          <label class="col-sm-4 control-label">Adres</label>
+          <div class="col-sm-8">
+            <p class="form-control-static">{% include "ldb/entity_address.html" with entity=person %}</p>
+          </div>
+        </div>
         {% if person.living_with %}
         <div class="form-group">
           <label class="col-sm-4 control-label">Woont samen met:</label>
-
           <div class="col-sm-8">
             <p class="form-control-static">
               <a href="{{ person.living_with.get_absolute_url }}">
@@ -74,13 +75,34 @@
           </div>
         </div>
         {% endif %}
+        {% stcontrol_format person 'email' '<a href="mailto:{0}">{0}</a>' %}
+        {% stcontrol person 'phone_fixed' %}
+        {% stcontrol person 'phone_mobile' %}
+        {% if person.student %}
+        {% stcontrol person.student 'phone_parents' %}
+        {% endif %}
+      </fieldset>
+
+      {% if person.comment %}
+      <fieldset>
+        <legend>Opmerkingen</legend>
+        <pre>{{ person.comment|linebreaksbr }}</pre>
+      </fieldset>
+      {% endif %}
+
+      {% if person.ldap_username or person.netid or person.facebook_id or person.linkedin_id %}
+      <fieldset>
+        <legend>Accounts</legend>
+        {% stcontrol_format person 'ldap_username' '<a href="https://frans.chnet/userman2/users/{0}/">{0}</a>' %}
         {% stcontrol person 'netid' %}
         {% stcontrol_format person 'facebook_id' '<a target="_blank" href="https://www.facebook.com/{0}">{0}</a>' %}
         {% stcontrol_format person 'linkedin_id' '<a target="_blank" href="http://www.linkedin.com/profile/view?id={0}">{0}</a>' %}
       </fieldset>
+      {% endif %}
+
       <fieldset>
         <legend>
-          {{ person.get__membership_status_display }}
+          Lidmaatschap
         </legend>
 
         {% if person.member %}
@@ -100,23 +122,20 @@
         {% if person.committee_memberships %}
         <legend>Commissies ({{ person.committee_memberships.count }})</legend>
 
-        <ul>
-          {% for c in person.committee_memberships.all %}
-          <li>{{ c.board }}: {{ c.committee.name }}
-            {% if c.position %}({{ c.position }}){% endif %}
-          </li>
-          {% endfor %}
-        </ul>
+        {% for c in person.committee_memberships.all %}
+        <div class="form-group">
+          <label class="col-sm-4 control-label">{{ c.committee.name }} &ndash; {{ c.board }}</label>
+          <div class="col-sm-8">
+            <p class="form-control-static">
+              {% if c.position %}{{ c.position }}{% endif %}
+              {% if c.ras_months %}({{ c.ras_months }} RAS){% endif %}
+            </p>
+          </div>
+        </div>
+        {% endfor %}
         {% endif %}
         {% endif %}
       </fieldset>
-
-      {% if person.comment %}
-      <fieldset>
-        <legend>Opmerkingen</legend>
-        <pre>{{ person.comment|linebreaksbr }}</pre>
-      </fieldset>
-      {% endif %}
     </div>
 
     <div class="col-md-6">
@@ -157,7 +176,6 @@
         {% stcontrol person.alumnus 'study_paper' %}
         {% stcontrol person.alumnus 'study_professor' %}
         {% stcontrol person.alumnus 'contact_method' %}
-        <!--<hr>-->
         {% stcontrol person.alumnus 'work_company' %}
         {% stcontrol person.alumnus 'work_position' %}
         {% stcontrol person.alumnus 'work_sector' %}
