@@ -6,7 +6,7 @@ from ldb import views_api
 from ldb.api import *
 from ldb.export import ExportResource
 from ldb.views import PersonDetailView, PersonDeleteView, OrganizationDetailView, OrganizationDeleteView, \
-    ajax_people_search, index_old, PersonEditView, OrganizationEditView
+    index_old, PersonEditView, OrganizationEditView, ResultsView
 
 api = Api(api_name='v2')
 
@@ -36,7 +36,7 @@ urlpatterns = patterns(
 
     url(r'^index/$', index_old, name='ldb_index'),
 
-    url(r'^people/search/$', ajax_people_search, name='ldb_people_search' ),
+    url(r'^people/search/$', ResultsView.as_view(), name='ldb_people_search' ),
 
     url(r'^people/(?P<pk>\d+)/$', PersonDetailView.as_view(), name='ldb_people_detail'),
     url(r'^people/(?P<pk>\d+)/delete/$', PersonDeleteView.as_view(), name='ldb_people_delete'),

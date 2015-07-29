@@ -1,14 +1,13 @@
 from django.db.models import Prefetch
-from django.forms import inlineformset_factory, ModelForm
-from django.http import HttpResponseRedirect, Http404
+from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response, redirect
 from django.core.urlresolvers import reverse
 from django.template import RequestContext
-from django.views.generic import DetailView, DeleteView, View, TemplateView, UpdateView
+from django.views.generic import DetailView, DeleteView, TemplateView, UpdateView
 from django.views.generic.detail import SingleObjectMixin
 from haystack.query import SearchQuerySet
 
-from ldb.forms import OrganizationForm, PersonForm, MemberFormSet, StudentFormSet, AlumnusFormSet, EmployeeFormSet, \
+from ldb.forms import PersonForm, MemberFormSet, StudentFormSet, AlumnusFormSet, EmployeeFormSet, \
     CommitteeMembershipFormSet
 from ldb.models import Organization, Person, CommitteeMembership
 
@@ -41,18 +40,32 @@ def index_old(request):
     return render_to_response( 'ldb/index.html', data,
                                context_instance = RequestContext(request))
 
-def ajax_people_search(request):
-    if request.is_ajax():
-        q = request.GET.get('q')
+
+class ResultsView(TemplateView):
+    template_name = 'ldb/results.html'
+
+    def get_results(self):
+        q = self.request.GET.get('q')
         if q is not None:
-            results    = SearchQuerySet().auto_query(q)
-            # suggestion = results.spelling_suggestion()
-            template   = 'ldb/results.html'
-            data       = {'results': results[:10], 'count': len(results), 'remainder': len(results)-10}
-            return render_to_response( template, data,
-                                       context_instance = RequestContext(request))
-    else:
-        return redirect('ldb_index_old')
+            return SearchQuerySet().models(Person, Organization).auto_query(q)
+        return []
+
+    def get_context_data(self, **kwargs):
+        context = super(ResultsView, self).get_context_data(**kwargs)
+        results = self.get_results()
+        context.update({
+            'results': results[:10],
+            'count': len(results),
+            'remainder': len(results) - 10,
+        })
+        return context
+
+    def get(self, request, *args, **kwargs):
+        if request.is_ajax():
+            return super(ResultsView, self).get(request, *args, **kwargs)
+        else:
+            return redirect('ldb_index')
+
 
 class OrganizationDetailView(DetailView):
     context_object_name = 'organization'
