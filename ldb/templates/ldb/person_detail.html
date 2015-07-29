@@ -1,0 +1,196 @@
+{% extends 'ldb/base.html' %}
+{% load ldb_tags %}
+
+{% block title %}{{ person }} &mdash; {% endblock %}
+
+{% block content %}
+<div id="entity_detail" class="form-horizontal form-condensed">
+
+  <h2 class="page-header">
+    {% if person.facebook_id %}
+    <a href="https://graph.facebook.com/{{person.facebook_id}}/picture?type=large">
+      <img class="pull-left img-circle"
+           src="https://graph.facebook.com/{{person.facebook_id}}/picture?type=square"/>
+    </a>
+    {% endif %}
+    {{ person }} &mdash; {{ person.get__membership_status_display }}
+    <div class="pull-right btn-group">
+      <a href="./edit/" class="btn btn-primary"><span class="fa fa-pencil"></span> Edit</a>
+      <a href="./delete/" class="btn btn-danger"><span class="fa fa-trash-o"></span> Delete</a>
+      <a href="{% url 'admin:ldb_person_change' person.id %}" class="btn btn-success">
+        <span class="fa fa-wrench"></span> Admin
+      </a>
+    </div>
+  </h2>
+
+
+
+  <div class="row">
+    <div class="col-md-6">
+      <fieldset>
+        <legend>Algemeen</legend>
+        <div class="form-group">
+          <label class="col-sm-4 control-label">Naam</label>
+          <div class="col-sm-8">
+            <p class="form-control-static">
+              {{ person.titles }}
+              {{ person.initials }}
+              ({{ person.firstname }})
+              {{ person.preposition }}
+              {{ person.surname }}{% if person.postfix_titles %}, {{ person.postfix_titles }}
+              {% endif %}
+              {% if person.gender %}
+              {{ person.gender_symbol }}
+              {% endif %}
+            </p>
+          </div>
+        </div>
+        {% if person.birthdate %}
+        <div class="form-group">
+          <label class="col-sm-4 control-label">Geboortedatum</label>
+          <div class="col-sm-8">
+            <p class="form-control-static">
+              {{ person.birthdate }}
+              {% if not person.deceased %}
+              ({{ person.age }})
+              {% endif %}
+            </p>
+          </div>
+        </div>
+        {% endif %}
+        <div class="form-group">
+          <label class="col-sm-4 control-label">Adres</label>
+          <div class="col-sm-8">
+            <p class="form-control-static">{% include "ldb/entity_address.html" with entity=person %}</p>
+          </div>
+        </div>
+        {% if person.living_with %}
+        <div class="form-group">
+          <label class="col-sm-4 control-label">Woont samen met:</label>
+          <div class="col-sm-8">
+            <p class="form-control-static">
+              <a href="{{ person.living_with.get_absolute_url }}">
+                {{ person.living_with }}</a>
+            </p>
+          </div>
+        </div>
+        {% endif %}
+        {% stcontrol_format person 'email' '<a href="mailto:{0}">{0}</a>' %}
+        {% stcontrol person 'phone_fixed' %}
+        {% stcontrol person 'phone_mobile' %}
+        {% if person.student %}
+        {% stcontrol person.student 'phone_parents' %}
+        {% endif %}
+      </fieldset>
+
+      {% if person.comment %}
+      <fieldset>
+        <legend>Opmerkingen</legend>
+        <pre>{{ person.comment|linebreaksbr }}</pre>
+      </fieldset>
+      {% endif %}
+
+      {% if person.ldap_username or person.netid or person.facebook_id or person.linkedin_id %}
+      <fieldset>
+        <legend>Accounts</legend>
+        {% stcontrol_format person 'ldap_username' '<a href="https://frans.chnet/userman2/users/{0}/">{0}</a>' %}
+        {% stcontrol person 'netid' %}
+        {% stcontrol_format person 'facebook_id' '<a target="_blank" href="https://www.facebook.com/{0}">{0}</a>' %}
+        {% stcontrol_format person 'linkedin_id' '<a target="_blank" href="http://www.linkedin.com/profile/view?id={0}">{0}</a>' %}
+      </fieldset>
+      {% endif %}
+
+      <fieldset>
+        <legend>
+          Lidmaatschap
+        </legend>
+
+        {% if person.member %}
+        {% stcontrol person.member 'date_from' %}
+        {% stcontrol person.member 'date_to' %}
+        {% stcontrol person.member 'date_paid' %}
+        {% stcontrol person.member 'amount_paid' %}
+        {% stcontrol_janee person.member 'associate_member' %}
+        {% stcontrol_janee person.member 'donating_member' %}
+        {% stcontrol person.member 'merit_date_from' %}
+        {% if person.member.merit_date_from %}
+        {% stcontrol person.member 'merit_history' %}
+        {% endif %}
+        {% stcontrol person.member 'honorary_date_from' %}
+      </fieldset>
+      <fieldset>
+        {% if person.committee_memberships %}
+        <legend>Commissies ({{ person.committee_memberships.count }})</legend>
+
+        {% for c in person.committee_memberships.all %}
+        <div class="form-group">
+          <label class="col-sm-4 control-label">{{ c.committee.name }} &ndash; {{ c.board }}</label>
+          <div class="col-sm-8">
+            <p class="form-control-static">
+              {% if c.position %}{{ c.position }}{% endif %}
+              {% if c.ras_months %}({{ c.ras_months }} RAS){% endif %}
+            </p>
+          </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endif %}
+      </fieldset>
+    </div>
+
+    <div class="col-md-6">
+      <fieldset>
+        <legend>Aanmeldingen</legend>
+        {% stcontrol_janee person 'machazine' %}
+        {% stcontrol_janee person 'constitution_card' %}
+        {% stcontrol_janee person 'christmas_card' %}
+        {% stcontrol_janee person 'board_invites' %}
+        {% stcontrol_janee person 'yearbook' %}
+        {% stcontrol_janee person 'mail_announcements' %}
+        {% stcontrol_janee person 'mail_company' %}
+        {% if person.member.merit_date_from %}
+        {% stcontrol_janee person.member 'merit_invitations' %}
+        {% endif %}
+      </fieldset>
+
+      {% if person.student %}
+      <fieldset>
+        <legend>Student</legend>
+        {% stcontrol person.student 'study' %}
+        {% stcontrol person.student 'first_year' %}
+        {% stcontrol person.student 'student_number' %}
+        {% stcontrol_janee person.student 'enrolled' %}
+        {% stcontrol_janee person.student 'yearbook_permission' %}
+        {% stcontrol person.student 'date_verified' %}
+      </fieldset>
+      {% endif %}
+
+      {% if person.alumnus %}
+      <fieldset>
+        <legend>Alumnus</legend>
+
+        {% stcontrol person.alumnus 'study' %}
+        {% stcontrol person.alumnus 'study_first_year' %}
+        {% stcontrol person.alumnus 'study_last_year' %}
+        {% stcontrol person.alumnus 'study_research_group' %}
+        {% stcontrol person.alumnus 'study_paper' %}
+        {% stcontrol person.alumnus 'study_professor' %}
+        {% stcontrol person.alumnus 'contact_method' %}
+        {% stcontrol person.alumnus 'work_company' %}
+        {% stcontrol person.alumnus 'work_position' %}
+        {% stcontrol person.alumnus 'work_sector' %}
+      </fieldset>
+      {% endif %}
+
+      {% if person.employee %}
+      <fieldset>
+        <legend>Medewerker</legend>
+        {% stcontrol person.employee 'faculty' %}
+        {% stcontrol person.employee 'department' %}
+        {% stcontrol person.employee 'function' %}
+      </fieldset>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

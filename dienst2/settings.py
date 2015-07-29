@@ -119,6 +119,7 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'debug_toolbar',
 
+    'bootstrap3',
     'compressor',
 
     'dienst2',
@@ -186,6 +187,11 @@ LOGGING = {
             'propagate': True,
         },
     }
+}
+
+BOOTSTRAP3 = {
+    'horizontal_label_class': 'col-md-4',
+    'horizontal_field_class': 'col-md-8',
 }
 
 from local import *

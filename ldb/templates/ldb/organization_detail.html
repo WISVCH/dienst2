@@ -1,0 +1,58 @@
+{% extends 'ldb/base.html' %}
+{% load ldb_tags %}
+
+{% block title %}{{ organization }} &mdash; {% endblock %}
+
+{% block content %}
+<div id="entity_detail" class="form-horizontal form-condensed">
+  <h2 class="page-header">{{ organization }}
+    <div class="pull-right btn-group">
+      <a href="./edit/" class="btn btn-primary"><span class="fa fa-pencil"></span> Edit</a>
+      <a href="./delete/" class="btn btn-danger"><span class="fa fa-trash-o"></span> Delete</a>
+      <a href="{% url 'admin:ldb_organization_change' organization.id %}" class="btn btn-success">
+        <span class="fa fa-wrench"></span> Admin
+      </a>
+    </div>
+  </h2>
+
+  <div class="row">
+    <div class="col-md-6">
+      <fieldset>
+        <legend>Algemeen</legend>
+        <div class="col-xs-12">
+          {{ organization.name_prefix }}<br/>
+          {{ organization.name }}
+          ({{ organization.name_short }})
+        </div>
+
+        <div class="col-xs-12">{% include "ldb/entity_address.html" with entity=organization %}</div>
+
+        {% if organization.email %}
+        <div class="col-xs-12"><a href="mailto:{{ organization.email }}">{{ organization.email }}</a></div>
+        {% endif %}
+
+        {% stcontrol organization 'salutation' %}
+        {% stcontrol organization 'phone_fixed' %}
+      </fieldset>
+
+      {% if organization.comment %}
+      <fieldset>
+        <legend>Opmerkingen</legend>
+        <pre>{{ organization.comment|linebreaksbr }}</pre>
+      </fieldset>
+      {% endif %}
+    </div>
+
+    <div class="col-md-6">
+      <fieldset>
+        <legend>Aanmeldingen</legend>
+        {% stcontrol_janee organization 'machazine' %}
+        {% stcontrol_janee organization 'constitution_card' %}
+        {% stcontrol_janee organization 'christmas_card' %}
+        {% stcontrol_janee organization 'board_invites' %}
+        {% stcontrol_janee organization 'yearbook' %}
+      </fieldset>
+    </div>
+  </div>
+</div>
+{% endblock %}

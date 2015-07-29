@@ -1,0 +1,35 @@
+{% load i18n %}
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">
+      {% trans 'Search results' %}
+    </h3>
+  </div>
+  <div class="list-group">
+    {% for result in results %}
+      {% if result.object %}
+        <a href="{{ result.object.get_absolute_url }}" class="list-group-item">
+          <h4 class="list-group-item-heading">
+            {{ result.object }}
+            {% if result.content_type == "ldb.organization" %}
+              <small>Organization</small>{% endif %}
+            {% if result.object.ldap_username %}
+              <small><span class="label label-default">{{ result.object.ldap_username }}</span></small>
+            {% endif %}
+          </h4>
+          {% if result.object.entity_ptr.country %}
+            <p>{{ result.object.entity_ptr }}</p>
+          {% endif %}
+        </a>
+      {% else %}
+        <div class="list-group-item list-group-item-danger">
+          {% trans 'Deleted object' %}
+        </div>
+      {% endif %}
+    {% empty %}
+      <div class="list-group-item list-group-item-warning">
+        <i class="fa fa-fw fa-warning"></i> {% trans "Your search yielded no results" %}
+      </div>
+    {% endfor %}
+  </div>
+</div>

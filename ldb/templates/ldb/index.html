@@ -1,0 +1,60 @@
+{% extends 'ldb/base.html' %}
+{% load i18n static %}
+
+{% block extra_js %}
+<script type="text/javascript">
+  var q;
+  var xhr;
+
+  $(document).ready(function () {
+    $('#spinner').hide();
+    var $q = $('#q');
+
+    $q.keyup(function () {
+      if (q != $q.val()) {
+        q = $('#q').val();
+        location.hash = q;
+        if (q) {
+          if (xhr !== undefined) {
+            xhr.abort();
+          }
+          xhr = $.ajax({
+            url: '{% url "ldb_people_search" %}?q=' + encodeURIComponent(q),
+            success: function (data) {
+              $('#results').html(data);
+            }
+          });
+        }
+        else
+          $('#results').html('&nbsp;');
+      }
+    });
+
+    $q.focus();
+    $q.val(location.hash.substring(1));
+    $q.keyup();
+  });
+
+  $(document).ajaxStart(function () {
+    $('#spinner').show();
+  }).ajaxStop(function () {
+    $('#spinner').hide();
+  });
+</script>
+{% endblock %}
+
+{% block content %}
+<h2 class="page-header">{% trans 'Search' %}</h2>
+<div class="input-group">
+  <input id="q" autocomplete="off" type="text" class="form-control" placeholder="{% trans 'Search'%}">
+  <span class="input-group-addon"><i class="fa fa-fw fa-search"></i></span>
+</div>
+<p class="help-block">
+  Begin met typen om te zoeken.
+  <i id="spinner" class="fa fa-fw fa-spinner fa-pulse"></i>
+</p>
+
+<div class="margin">
+  <div id="results"></div>
+</div>
+{% endblock %}
