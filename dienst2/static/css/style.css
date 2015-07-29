@@ -1,0 +1,16 @@
+#dashboard #logo {
+    margin-bottom: 50px;
+}
+
+#dashboard ul {
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+#dashboard li {
+    display: inline-block;
+    width: 200px;
+    font-size: 20px;
+}
