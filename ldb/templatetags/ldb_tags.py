@@ -22,7 +22,12 @@ def trow(o, k):
 
 @register.inclusion_tag('ldb/stcontrol.html')
 def stcontrol(o, k):
-    return {'key': _(capfirst(o._meta.get_field(k).verbose_name)), 'value': getattr(o, k)}
+    if hasattr(o, 'get_{}_display'.format(k)):
+        value = getattr(o, 'get_{}_display'.format(k))
+    else:
+        value = getattr(o, k)
+
+    return {'key': _(capfirst(o._meta.get_field(k).verbose_name)), 'value': value}
 
 @register.inclusion_tag('ldb/stcontrol.html')
 def stcontrol_janee(o, k):
