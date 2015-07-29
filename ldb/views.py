@@ -5,7 +5,9 @@ from django.core.urlresolvers import reverse
 from django.template import RequestContext
 from django.views.generic import DetailView, DeleteView, TemplateView, UpdateView
 from django.views.generic.detail import SingleObjectMixin
+from haystack.inputs import Raw
 from haystack.query import SearchQuerySet
+from dienst2.extras import convert_free_search
 
 from ldb.forms import PersonForm, MemberFormSet, StudentFormSet, AlumnusFormSet, EmployeeFormSet, \
     CommitteeMembershipFormSet
@@ -47,7 +49,7 @@ class ResultsView(TemplateView):
     def get_results(self):
         q = self.request.GET.get('q')
         if q is not None:
-            return SearchQuerySet().models(Person, Organization).auto_query(q)
+            return SearchQuerySet().models(Person, Organization).filter(text=Raw(convert_free_search(q)))
         return []
 
     def get_context_data(self, **kwargs):
