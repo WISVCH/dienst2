@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render_to_response, redirect
 from django.core.urlresolvers import reverse
 from django.template import RequestContext
-from django.views.generic import DetailView, DeleteView, View, TemplateView
+from django.views.generic import DetailView, DeleteView, View, TemplateView, UpdateView
 from django.views.generic.detail import SingleObjectMixin
 from haystack.query import SearchQuerySet
 
@@ -63,25 +63,17 @@ class OrganizationDeleteView(DeleteView):
     model = Organization
     success_url = '/'
 
-def organization_edit(request, pk=None):
-    data = {
-        'title' : 'Ledenadministratie'
-    }
-    if pk:
-        organization = Organization.objects.get(pk=pk)
-    else:
-        organization = Organization()
-    if request.method == 'POST':
-        form = OrganizationForm(request.POST, instance=organization)
-        if form.is_valid():
-            person = form.save()
-            # FIXME: redirect
-            return HttpResponseRedirect(reverse('ldb_organizations_detail', args=(organization.id,)))
-    else:
-        form = OrganizationForm(instance=organization)
-    data['form'] = form
-    return render_to_response('ldb/organization_form.html', data,
-                              context_instance = RequestContext(request))
+
+class OrganizationEditView(UpdateView):
+    model = Organization
+    fields = '__all__'
+
+    def get_object(self, **kwargs):
+        try:
+            return super(OrganizationEditView, self).get_object(**kwargs)
+        except AttributeError:
+            return None
+
 
 class PersonDetailView(DetailView):
     context_object_name = 'person'
