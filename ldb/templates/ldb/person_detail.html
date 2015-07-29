@@ -15,10 +15,10 @@
     {% endif %}
     {{ person }} &mdash; {{ person.get__membership_status_display }}
     <div class="pull-right btn-group">
-      <a href="./edit/" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span> Edit</a>
-      <a href="./delete/" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+      <a href="./edit/" class="btn btn-primary"><span class="fa fa-pencil"></span> Edit</a>
+      <a href="./delete/" class="btn btn-danger"><span class="fa fa-trash-o"></span> Delete</a>
       <a href="{% url 'admin:ldb_person_change' person.id %}" class="btn btn-success">
-        <span class="glyphicon glyphicon-wrench"></span> Admin
+        <span class="fa fa-wrench"></span> Admin
       </a>
     </div>
   </h2>

@@ -7,7 +7,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
                        # The LDB index:
-                       url(r'^$', 'dienst2.views.index'),
+                       url(r'^$', 'dienst2.views.index', name='index'),
 
                        # The Admin docs:
                        url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

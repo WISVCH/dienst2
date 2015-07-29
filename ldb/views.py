@@ -20,7 +20,7 @@ def index(request):
         'navbar': {
             'title': 'Ledendatabase',
             'items': [
-                ('#/dashboard', 'Zoeken'),
+                (reverse('ldb_index'), 'Zoeken'),
                 (reverse('ldb_people_create'), 'Nieuw Persoon'),
                 (reverse('ldb_organizations_create'), 'Nieuwe Organisatie'),
                 ('#/committees', 'Commissies'),

@@ -29,12 +29,12 @@ urlpatterns = patterns(
     '',
     (r'^api/', include(api.urls)),
 
-    url(r'^$', 'ldb.views.index', name="ldb_index"),
+    url(r'^$', 'ldb.views.index', name="ldb_index_angular"),
 
     url(r'^api/v3/', include(router.urls)),
     # url(r'^api/v3/api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 
-    url(r'^old/$', index_old, name='ldb_index_old'),
+    url(r'^index/$', index_old, name='ldb_index'),
 
     url(r'^people/search/$', ajax_people_search, name='ldb_people_search' ),
 

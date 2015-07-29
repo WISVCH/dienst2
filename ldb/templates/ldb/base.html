@@ -1,11 +1,11 @@
 {% extends "base_bootstrap3.html" %}
 
 {% block menu %}
-<li><a href="{% url 'ldb_index' %}#/dashboard">Zoeken</a></li>
+<li><a href="{% url 'ldb_index' %}">Zoeken</a></li>
 <li><a href="{% url 'ldb_people_create' %}">Persoon toevoegen</a></li>
 <li><a href="{% url 'ldb_organizations_create' %}">Organisatie toevoegen</a></li>
-<li><a href="{% url 'ldb_index' %}#/committees">Commissies</a></li>
-<li><a href="{% url 'ldb_index' %}#/export">Exporteren</a></li>
+<li><a href="{% url 'ldb_index_angular' %}#/committees">Commissies</a></li>
+<li><a href="{% url 'ldb_index_angular' %}#/export">Exporteren</a></li>
 {% if user.is_staff %}<li><a href="{% url 'admin:ldb_person_changelist' %}">Beheer</a></li>{% endif %}
 {#<li><a href="{% url 'ldb_export_lists' %}">Lijsten exporteren</a></li>#}
 {% endblock %}

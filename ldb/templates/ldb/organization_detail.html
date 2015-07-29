@@ -5,10 +5,10 @@
 <div id="entity_detail" class="form-horizontal form-condensed">
   <h2 class="page-header">{{ organization }}
     <div class="pull-right btn-group">
-      <a href="./edit/" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span> Edit</a>
-      <a href="./delete/" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+      <a href="./edit/" class="btn btn-primary"><span class="fa fa-pencil"></span> Edit</a>
+      <a href="./delete/" class="btn btn-danger"><span class="fa fa-trash-o"></span> Delete</a>
       <a href="{% url 'admin:ldb_organization_change' organization.id %}" class="btn btn-success">
-        <span class="glyphicon glyphicon-king"></span> Admin
+        <span class="fa fa-wrench"></span> Admin
       </a>
     </div>
   </h2>

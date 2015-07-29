@@ -1,50 +1,35 @@
-{% if count %}
-    <table class="collection">
-    <tr class='even'>
-        <td colspan="2" class="right">
-        <strong>{{ count }} results</strong>
-        </td>
-    </tr>
+{% load i18n %}
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">
+      {% trans 'Search results' %}
+    </h3>
+  </div>
+  <div class="list-group">
     {% for result in results %}
-        {% if result.object %}
-        <tr class="{% cycle 'odd' 'even' %} resultrow">
-            <td>
-                <a href="{{ result.object.get_absolute_url }}">
-                {{ result.object }}
-                {% if result.content_type == "ldb.organization" %}
-                    <em style="color: #888">Organization</em>
-                {% endif %}
-                <br/>
-                <span class="hint">
-                    {% if result.object.entity_ptr.country %}
-                        {{ result.object.entity_ptr }}
-                    {% else %}
-                        <em>No address available</em>
-                    {% endif %}
-                </span>
-                </a>
-            </td>
-            <td class="right">
-                <span class="hint">
-                {{ result.object.ldap_username }}
-                </span>
-            </td>
-        </tr>
-        {% else %}
-        <tr class="{% cycle 'odd' 'even' %}">
-            <td colspan="2">&lt; Deleted object &gt;</td>
-        </tr>
-        {% endif %}
+      {% if result.object %}
+        <a href="{{ result.object.get_absolute_url }}" class="list-group-item">
+          <h4 class="list-group-item-heading">
+            {{ result.object }}
+            {% if result.content_type == "ldb.organization" %}
+              <small>Organization</small>{% endif %}
+            {% if result.object.ldap_username %}
+              <small><span class="label label-default">{{ result.object.ldap_username }}</span></small>
+            {% endif %}
+          </h4>
+          {% if result.object.entity_ptr.country %}
+            <p>{{ result.object.entity_ptr }}</p>
+          {% endif %}
+        </a>
+      {% else %}
+        <div class="list-group-item list-group-item-danger">
+          {% trans 'Deleted object' %}
+        </div>
+      {% endif %}
+    {% empty %}
+      <div class="list-group-item list-group-item-warning">
+        <i class="fa fa-fw fa-warning"></i> {% trans "Your search yielded no results" %}
+      </div>
     {% endfor %}
-        {% if remainder > 0 %}
-        
-        <tr class="{% cycle 'odd' 'even' %} remainder">
-            <td colspan="2">{{ remainder }} more results</td>
-        </tr>
-        {% endif %}
-    </table>
-{% else %}
-    <div class="note">
-    Your search yielded no results<br/>
-    </div>
-{% endif %}
+  </div>
+</div>
