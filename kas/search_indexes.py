@@ -10,7 +10,7 @@ class TransactionIndex(indexes.SearchIndex, indexes.Indexable):
         return Transaction
 
 
-class OClosureIndex(indexes.SearchIndex, indexes.Indexable):
+class ClosureIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
 
     def get_model(self):

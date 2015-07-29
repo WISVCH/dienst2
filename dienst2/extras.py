@@ -22,3 +22,14 @@ class CharNullField(models.CharField):  # subclass the CharField
         else:
             # otherwise, just pass the value
             return value
+
+
+SEARCH_FORMATS = {
+    'default': '*{}*',
+    'start': '{}*',
+    'exact': '{}',
+}
+
+def convert_free_search(string, mod='default'):
+    search_format = SEARCH_FORMATS[mod]
+    return ' '.join([search_format.format(word) for word in string.split(' ')])

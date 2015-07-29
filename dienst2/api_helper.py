@@ -9,6 +9,7 @@ from tastypie.utils import trailing_slash
 from tastypie.cache import SimpleCache
 from tastypie.validation import Validation
 from django.core.exceptions import ValidationError
+from dienst2.extras import convert_free_search
 
 
 class CHValidation(Validation):
@@ -38,7 +39,9 @@ def get_search(Model):
         self.throttle_check(request)
 
         # Do the query.
-        sqs = SearchQuerySet().models(Model).load_all().auto_query(request.GET.get('q', ''))
+        q = request.GET.get('q', '')
+        mod = request.GET.get('mod', 'default')
+        sqs = SearchQuerySet().models(Model).load_all().filter(text=convert_free_search(q, mod))
         sqs = filter(None, sqs)
         paginator = Paginator(sqs, 20)
 
