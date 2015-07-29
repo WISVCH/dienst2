@@ -5,7 +5,6 @@
 
 {% block content %}
 <div id="entity_detail" class="form-horizontal form-condensed">
-
   <h2 class="page-header">
     {% if person.facebook_id %}
     <a href="https://graph.facebook.com/{{person.facebook_id}}/picture?type=large">
@@ -13,12 +12,19 @@
            src="https://graph.facebook.com/{{person.facebook_id}}/picture?type=square"/>
     </a>
     {% endif %}
-    {{ person }} &mdash; {{ person.get__membership_status_display }}
+
+    {{ person }} <br class="visible-xs-block visible-sm-block" />
+    <small>{{ person.get__membership_status_display }}</small>
+
     <div class="pull-right btn-group">
-      <a href="./edit/" class="btn btn-primary"><span class="fa fa-pencil"></span> Edit</a>
-      <a href="./delete/" class="btn btn-danger"><span class="fa fa-trash-o"></span> Delete</a>
+      <a href="./edit/" class="btn btn-primary">
+        <i class="fa fa-pencil"></i><span class="visible-lg-inline visible-md-inline"> Edit</span>
+      </a>
+      <a href="./delete/" class="btn btn-danger">
+        <i class="fa fa-trash-o"></i><span class="visible-lg-inline visible-md-inline"> Delete</span>
+      </a>
       <a href="{% url 'admin:ldb_person_change' person.id %}" class="btn btn-success">
-        <span class="fa fa-wrench"></span> Admin
+        <i class="fa fa-wrench"></i><span class="visible-lg-inline visible-md-inline"> Admin</span>
       </a>
     </div>
   </h2>
@@ -100,12 +106,11 @@
       </fieldset>
       {% endif %}
 
+      {% if person.member %}
       <fieldset>
         <legend>
           Lidmaatschap
         </legend>
-
-        {% if person.member %}
         {% stcontrol person.member 'date_from' %}
         {% stcontrol person.member 'date_to' %}
         {% stcontrol person.member 'date_paid' %}
@@ -118,24 +123,24 @@
         {% endif %}
         {% stcontrol person.member 'honorary_date_from' %}
       </fieldset>
+      {% endif %}
+
+      {% if person.committee_memberships %}
       <fieldset>
-        {% if person.committee_memberships %}
         <legend>Commissies ({{ person.committee_memberships.count }})</legend>
 
+        <ul class="committees">
         {% for c in person.committee_memberships.all %}
-        <div class="form-group">
-          <label class="col-sm-4 control-label">{{ c.committee.name }} &ndash; {{ c.board }}</label>
-          <div class="col-sm-8">
-            <p class="form-control-static">
-              {% if c.position %}{{ c.position }}{% endif %}
-              {% if c.ras_months %}({{ c.ras_months }} RAS){% endif %}
-            </p>
-          </div>
-        </div>
+          <li>
+            {{ c.board }}:
+            <strong>{{ c.committee.name }}</strong>
+            {% if c.position %}{{ c.position }}{% endif %}
+            {% if c.ras_months %}({{ c.ras_months }} RAS){% endif %}
+          </li>
         {% endfor %}
-        {% endif %}
-        {% endif %}
+        </ul>
       </fieldset>
+      {% endif %}
     </div>
 
     <div class="col-md-6">
