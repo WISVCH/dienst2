@@ -7,10 +7,14 @@
 <div id="entity_detail" class="form-horizontal form-condensed">
   <h2 class="page-header">{{ organization }}
     <div class="pull-right btn-group">
-      <a href="./edit/" class="btn btn-primary"><span class="fa fa-pencil"></span> Edit</a>
-      <a href="./delete/" class="btn btn-danger"><span class="fa fa-trash-o"></span> Delete</a>
+      <a href="./edit/" class="btn btn-primary">
+        <i class="fa fa-pencil"></i><span class="visible-lg-inline visible-md-inline"> Edit</span>
+      </a>
+      <a href="./delete/" class="btn btn-danger">
+        <i class="fa fa-trash-o"></i><span class="visible-lg-inline visible-md-inline"> Delete</span>
+      </a>
       <a href="{% url 'admin:ldb_organization_change' organization.id %}" class="btn btn-success">
-        <span class="fa fa-wrench"></span> Admin
+        <i class="fa fa-wrench"></i><span class="visible-lg-inline visible-md-inline"> Admin</span>
       </a>
     </div>
   </h2>
