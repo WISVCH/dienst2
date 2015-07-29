@@ -20,9 +20,9 @@ Dienstensysteem v2
 
 **Note: please do not use (a copy of) the production database for local development.**
 
-## Production installation
+## Production deployment
 
-* Do not forget to install New Relic (`pip install newrelic`)
+Run `./deploy.sh` from your local checkout.
 
 ## API
 
