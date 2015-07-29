@@ -1,34 +1,31 @@
-{% extends "base.html" %}
-{% load url from future %}
-{% load get_static_prefix from static %}
+{% extends "base_bootstrap3.html" %}
+{% load static bootstrap3 %}
+
 {% block title %}Login{% endblock %}
+
 {% block content %}
-<form id="login" method="post" action="{% url 'django.contrib.auth.views.login' %}">
-  {% csrf_token %}
-  <table>
-    <tr>
-      <td colspan="2">
-        <img width="542" height="180" src="{% get_static_prefix %}img/logo.png">
-        {% if form.non_field_errors %}
-        <div class="alert alert-error">
-        {{ form.non_field_errors }}
-        </div>
+    <img id="logo" src="{% static 'img/logo.svg' %}" width="600" height="188" class="img-responsive center-block"/>
+
+    <div class="col-md-4 col-md-offset-4">
+        {% if next %}
+            {% if user.is_authenticated %}
+                <p class="alert alert-warning">Jouw account heeft geen toegang tot deze pagina. Log in met een account
+                    dat toegang heeft om door te gaan.</p>
+            {% else %}
+                <p class="alert alert-info">Log in om deze pagina te bekijken.</p>
+            {% endif %}
         {% endif %}
-      </td>
-    </tr>
-    <tr>
-      <td align="right" width="45%">{{ form.username.label_tag }}</td>
-      <td>{{ form.username }}</td>
-    </tr>
-    <tr>
-      <td align="right">{{ form.password.label_tag }}</td>
-      <td>{{ form.password }}</td>
-    </tr>
-    <tr>
-      <td></td>
-      <td><input class="btn" type="submit" value="Login" /><input type="hidden" name="next" value="{{ next }}" /></td>
-    </tr>
-  </table>
-</form>
+
+        <form method="post" action="{% url 'django.contrib.auth.views.login' %}">
+            {% csrf_token %}
+            {% bootstrap_form form layout='inline' %}
+
+            {% buttons %}
+                <button type="submit" class="btn btn-primary btn-lg btn-block">Login</button>
+            {% endbuttons %}
+
+            <input type="hidden" name="next" value="{{ next }}"/>
+        </form>
+    </div>
 
 {% endblock %}
