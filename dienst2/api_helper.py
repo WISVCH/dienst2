@@ -41,7 +41,7 @@ def get_search(Model):
         # Do the query.
         q = request.GET.get('q', '')
         mod = request.GET.get('mod', 'default')
-        sqs = SearchQuerySet().models(Model).load_all().filter(text=convert_free_search(q, mod))
+        sqs = SearchQuerySet().models(Model).load_all().filter(text=Raw(convert_free_search(q, mod)))
         sqs = filter(None, sqs)
         paginator = Paginator(sqs, 20)
 
