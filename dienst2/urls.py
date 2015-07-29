@@ -2,6 +2,7 @@ from django.conf.urls import patterns, include, url
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
+from dienst2 import settings
 
 admin.autodiscover()
 
@@ -26,4 +27,10 @@ urlpatterns = patterns('',
 
                        # Post URLs
                        url(r'^kas/', include('kas.urls')),
-)
+                       )
+
+if settings.DEBUG:
+    urlpatterns += patterns('',
+                            (r'^404/$', 'django.views.defaults.page_not_found'),
+                            (r'^500/$', 'django.views.defaults.server_error'),
+                            )
