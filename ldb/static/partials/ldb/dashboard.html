@@ -22,7 +22,7 @@
 
       <ul class="nav nav-pills nav-stacked" ng-show="searchtype=='p'">
         <li ng-repeat="person in results | orderBy:'id':true">
-          <a href="/ldb/people/{{person.id}}">
+          <a href="people/{{person.id}}">
             <strong>{{person.firstname}} {{person.preposition}} {{person.surname}}</strong>
             <span ng-show="person.deceased" class="muted"> (&dagger;)</span>
             <span ng-show="person.age && !person.deceased" class="muted"> ({{person.age}})</span>
@@ -33,7 +33,7 @@
 
       <ul class="nav nav-pills nav-stacked" ng-show="searchtype=='o'">
         <li ng-repeat="organization in results | orderBy:'surname'">
-          <a href="/ldb/organizations/{{organization.id}}">
+          <a href="organizations/{{organization.id}}">
             <strong>{{organization.name}}</strong>
           </a>
         </li>
