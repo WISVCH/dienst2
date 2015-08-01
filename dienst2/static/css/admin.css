@@ -1,24 +1,24 @@
 #header {
-    background: #0e4385;
-    border-bottom: 1px solid #0b3365;
+  background: #0e4385;
+  border-bottom: 1px solid #0b3365;
 }
 
 #header h1 {
-    color: #FFF;
+  color: #FFF;
 }
 
 td.original p {
-    display: none;
+  display: none;
 }
 
 .inline-group .tabular tr.has_original td {
-    padding-top: 0 !important;
+  padding-top: 0 !important;
 }
 
 .module, .inline-group {
-    border-color: #0b3365 !important;
+  border-color: #0b3365 !important;
 }
 
 .module h2, .module caption, .inline-group h2 {
-    background: #0e4385;
+  background: #0e4385;
 }

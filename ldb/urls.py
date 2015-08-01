@@ -36,7 +36,7 @@ urlpatterns = patterns(
 
     url(r'^index/$', index_old, name='ldb_index'),
 
-    url(r'^people/search/$', ResultsView.as_view(), name='ldb_people_search' ),
+    url(r'^people/search/$', ResultsView.as_view(), name='ldb_people_search'),
 
     url(r'^people/(?P<pk>\d+)/$', PersonDetailView.as_view(), name='ldb_people_detail'),
     url(r'^people/(?P<pk>\d+)/delete/$', PersonDeleteView.as_view(), name='ldb_people_delete'),

@@ -4,28 +4,28 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
-    <img id="logo" src="{% static 'img/logo.svg' %}" width="600" height="188" class="img-responsive center-block"/>
+  <img id="logo" src="{% static 'img/logo.svg' %}" width="600" height="188" class="img-responsive center-block"/>
 
-    <div class="col-md-4 col-md-offset-4">
-        {% if next %}
-            {% if user.is_authenticated %}
-                <p class="alert alert-warning">Jouw account heeft geen toegang tot deze pagina. Log in met een account
-                    dat toegang heeft om door te gaan.</p>
-            {% else %}
-                <p class="alert alert-info">Log in om deze pagina te bekijken.</p>
-            {% endif %}
-        {% endif %}
+  <div class="col-md-4 col-md-offset-4">
+    {% if next %}
+      {% if user.is_authenticated %}
+        <p class="alert alert-warning">Jouw account heeft geen toegang tot deze pagina. Log in met een account
+          dat toegang heeft om door te gaan.</p>
+      {% else %}
+        <p class="alert alert-info">Log in om deze pagina te bekijken.</p>
+      {% endif %}
+    {% endif %}
 
-        <form method="post" action="{% url 'django.contrib.auth.views.login' %}">
-            {% csrf_token %}
-            {% bootstrap_form form layout='inline' %}
+    <form method="post" action="{% url 'django.contrib.auth.views.login' %}">
+      {% csrf_token %}
+      {% bootstrap_form form layout='inline' %}
 
-            {% buttons %}
-                <button type="submit" class="btn btn-primary btn-lg btn-block">Login</button>
-            {% endbuttons %}
+      {% buttons %}
+        <button type="submit" class="btn btn-primary btn-lg btn-block">Login</button>
+      {% endbuttons %}
 
-            <input type="hidden" name="next" value="{{ next }}"/>
-        </form>
-    </div>
+      <input type="hidden" name="next" value="{{ next }}"/>
+    </form>
+  </div>
 
 {% endblock %}

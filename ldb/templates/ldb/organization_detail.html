@@ -4,59 +4,59 @@
 {% block title %}{{ organization }}{% endblock %}
 
 {% block content %}
-<div id="entity_detail" class="form-horizontal form-condensed">
-  <h2 class="page-header">{{ organization }}
-    <div class="pull-right btn-group">
-      <a href="./edit/" class="btn btn-primary">
-        <i class="fa fa-pencil"></i><span class="visible-lg-inline visible-md-inline"> Edit</span>
-      </a>
-      <a href="./delete/" class="btn btn-danger">
-        <i class="fa fa-trash-o"></i><span class="visible-lg-inline visible-md-inline"> Delete</span>
-      </a>
-      <a href="{% url 'admin:ldb_organization_change' organization.id %}" class="btn btn-success">
-        <i class="fa fa-wrench"></i><span class="visible-lg-inline visible-md-inline"> Admin</span>
-      </a>
-    </div>
-  </h2>
+  <div id="entity_detail" class="form-horizontal form-condensed">
+    <h2 class="page-header">{{ organization }}
+      <div class="pull-right btn-group">
+        <a href="./edit/" class="btn btn-primary">
+          <i class="fa fa-pencil"></i><span class="visible-lg-inline visible-md-inline"> Edit</span>
+        </a>
+        <a href="./delete/" class="btn btn-danger">
+          <i class="fa fa-trash-o"></i><span class="visible-lg-inline visible-md-inline"> Delete</span>
+        </a>
+        <a href="{% url 'admin:ldb_organization_change' organization.id %}" class="btn btn-success">
+          <i class="fa fa-wrench"></i><span class="visible-lg-inline visible-md-inline"> Admin</span>
+        </a>
+      </div>
+    </h2>
 
-  <div class="row">
-    <div class="col-md-6">
-      <fieldset>
-        <legend>Algemeen</legend>
-        <div class="col-xs-12">
-          {{ organization.name_prefix }}<br/>
-          {{ organization.name }}
-          ({{ organization.name_short }})
-        </div>
+    <div class="row">
+      <div class="col-md-6">
+        <fieldset>
+          <legend>Algemeen</legend>
+          <div class="col-xs-12">
+            {{ organization.name_prefix }}<br/>
+            {{ organization.name }}
+            ({{ organization.name_short }})
+          </div>
 
-        <div class="col-xs-12">{% include "ldb/entity_address.html" with entity=organization %}</div>
+          <div class="col-xs-12">{% include "ldb/entity_address.html" with entity=organization %}</div>
 
-        {% if organization.email %}
-        <div class="col-xs-12"><a href="mailto:{{ organization.email }}">{{ organization.email }}</a></div>
+          {% if organization.email %}
+            <div class="col-xs-12"><a href="mailto:{{ organization.email }}">{{ organization.email }}</a></div>
+          {% endif %}
+
+          {% stcontrol organization 'salutation' %}
+          {% stcontrol organization 'phone_fixed' %}
+        </fieldset>
+
+        {% if organization.comment %}
+          <fieldset>
+            <legend>Opmerkingen</legend>
+            <pre>{{ organization.comment|linebreaksbr }}</pre>
+          </fieldset>
         {% endif %}
+      </div>
 
-        {% stcontrol organization 'salutation' %}
-        {% stcontrol organization 'phone_fixed' %}
-      </fieldset>
-
-      {% if organization.comment %}
-      <fieldset>
-        <legend>Opmerkingen</legend>
-        <pre>{{ organization.comment|linebreaksbr }}</pre>
-      </fieldset>
-      {% endif %}
-    </div>
-
-    <div class="col-md-6">
-      <fieldset>
-        <legend>Aanmeldingen</legend>
-        {% stcontrol_janee organization 'machazine' %}
-        {% stcontrol_janee organization 'constitution_card' %}
-        {% stcontrol_janee organization 'christmas_card' %}
-        {% stcontrol_janee organization 'board_invites' %}
-        {% stcontrol_janee organization 'yearbook' %}
-      </fieldset>
+      <div class="col-md-6">
+        <fieldset>
+          <legend>Aanmeldingen</legend>
+          {% stcontrol_janee organization 'machazine' %}
+          {% stcontrol_janee organization 'constitution_card' %}
+          {% stcontrol_janee organization 'christmas_card' %}
+          {% stcontrol_janee organization 'board_invites' %}
+          {% stcontrol_janee organization 'yearbook' %}
+        </fieldset>
+      </div>
     </div>
   </div>
-</div>
 {% endblock %}

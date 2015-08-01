@@ -30,6 +30,7 @@ SEARCH_FORMATS = {
     'exact': '{}',
 }
 
+
 def convert_free_search(string, mod='default'):
     search_format = SEARCH_FORMATS[mod]
     return ' '.join([search_format.format(word) for word in string.split(' ')])

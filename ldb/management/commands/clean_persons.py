@@ -7,6 +7,7 @@ from ldb.models import Person, Member, Student, Alumnus
 
 BASE_URL = 'https://frans.chnet/dienst2'
 
+
 class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument('--no-persons',

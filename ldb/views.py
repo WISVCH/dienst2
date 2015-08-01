@@ -7,8 +7,8 @@ from django.views.generic import DetailView, DeleteView, TemplateView, UpdateVie
 from django.views.generic.detail import SingleObjectMixin
 from haystack.inputs import Raw
 from haystack.query import SearchQuerySet
-from dienst2.extras import convert_free_search
 
+from dienst2.extras import convert_free_search
 from ldb.forms import PersonForm, MemberFormSet, StudentFormSet, AlumnusFormSet, EmployeeFormSet, \
     CommitteeMembershipFormSet
 from ldb.models import Organization, Person, CommitteeMembership
@@ -35,12 +35,13 @@ def index(request):
 
     return render_to_response('ldb/dashboard.html', post_data, context_instance=RequestContext(request))
 
+
 def index_old(request):
     data = {
-        'title' : 'Ledenadministratie'
+        'title': 'Ledenadministratie'
     }
-    return render_to_response( 'ldb/index.html', data,
-                               context_instance = RequestContext(request))
+    return render_to_response('ldb/index.html', data,
+                              context_instance=RequestContext(request))
 
 
 class ResultsView(TemplateView):
@@ -73,6 +74,7 @@ class OrganizationDetailView(DetailView):
     context_object_name = 'organization'
     model = Organization
 
+
 class OrganizationDeleteView(DeleteView):
     context_object_name = 'organization'
     model = Organization
@@ -103,6 +105,7 @@ class PersonDetailView(DetailView):
                 queryset=CommitteeMembership.objects.order_by('-board').prefetch_related('committee')
             ))
         return qs
+
 
 class PersonDeleteView(DeleteView):
     context_object_name = 'person'

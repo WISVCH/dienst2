@@ -3,19 +3,19 @@
 {% load angular %}
 
 {% block styles %}
-<style type="text/css">
-  body {
-    padding-top: 60px;
-  }
-</style>
+  <style type="text/css">
+    body {
+      padding-top: 60px;
+    }
+  </style>
 {% endblock %}
 
 {% block content %}
-{% include "dienst2/navbar.html" %}
+  {% include "dienst2/navbar.html" %}
 
-<div class="container">
-  <div ng-view></div>
-</div>
+  <div class="container">
+    <div ng-view></div>
+  </div>
 
 {% endblock %}
 

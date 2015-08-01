@@ -4,116 +4,117 @@
 {% block title %}{% if person %}Bewerk {{ person }}{% else %}Persoon aanmaken{% endif %}{% endblock %}
 
 {% block content %}
-<div id="entity_form">
+  <div id="entity_form">
     {% if person %}
-    <h2 class="page-header">Bewerk {{ person }}</h2>
+      <h2 class="page-header">Bewerk {{ person }}</h2>
     {% else %}
-    <h2 class="page-header">Persoon aanmaken</h2>
+      <h2 class="page-header">Persoon aanmaken</h2>
     {% endif %}
 
     {% if form.errors %}
-    <p style="color: red;">
+      <p style="color: red;">
         Please correct the error{{ form.errors|pluralize }} below.
-    </p>
+      </p>
     {% endif %}
 
     <form action="" method="post" class="form form-horizontal form-condensed">
-        {% csrf_token %}
-        {% if form.non_field_errors %}{{ form.non_field_errors }}{% endif %}
+      {% csrf_token %}
+      {% if form.non_field_errors %}{{ form.non_field_errors }}{% endif %}
 
-        <div class="row">
-            <div class="col-md-6">
-                <fieldset>
-                    <legend>Naam</legend>
-                    {% get_fieldset titles,initials,firstname,preposition,surname,postfix_titles as name_fields from form %}
-                    {% bootstrap_form name_fields layout='horizontal' %}
-                </fieldset>
-                <fieldset>
-                    <legend>Adres</legend>
-                    {% get_fieldset street_name,house_number,postcode,address_2,address_3,city,country,email,living_with as address_fields from form %}
-                    {% bootstrap_form address_fields layout='horizontal' %}
-                </fieldset>
+      <div class="row">
+        <div class="col-md-6">
+          <fieldset>
+            <legend>Naam</legend>
+            {% get_fieldset titles,initials,firstname,preposition,surname,postfix_titles as name_fields from form %}
+            {% bootstrap_form name_fields layout='horizontal' %}
+          </fieldset>
+          <fieldset>
+            <legend>Adres</legend>
+            {% get_fieldset street_name,house_number,postcode,address_2,address_3,city,country,email,living_with as address_fields from form %}
+            {% bootstrap_form address_fields layout='horizontal' %}
+          </fieldset>
 
-                <fieldset>
-                    <legend>Telefoon</legend>
-                    {% get_fieldset phone_fixed,phone_mobile as phone_fields from form %}
-                    {% bootstrap_form phone_fields layout='horizontal' %}
-                </fieldset>
+          <fieldset>
+            <legend>Telefoon</legend>
+            {% get_fieldset phone_fixed,phone_mobile as phone_fields from form %}
+            {% bootstrap_form phone_fields layout='horizontal' %}
+          </fieldset>
 
-                <fieldset>
-                    <legend>Overige</legend>
-                    {% get_fieldset gender,birthdate,deceased,ldap_username,legacy_ID,comment,netid,facebook_id,linkedin_id as other_fields from form %}
-                    {% bootstrap_form other_fields layout='horizontal' %}
-                </fieldset>
+          <fieldset>
+            <legend>Overige</legend>
+            {% get_fieldset gender,birthdate,deceased,ldap_username,legacy_ID,comment,netid,facebook_id,linkedin_id as other_fields from form %}
+            {% bootstrap_form other_fields layout='horizontal' %}
+          </fieldset>
 
-                <fieldset>
-                    <legend>Commissies</legend>
+          <fieldset>
+            <legend>Commissies</legend>
 
-                    <div class="row">
-                        <div class="col-sm-4">Commissie</div>
-                        <div class="col-sm-2">Jaar</div>
-                        <div class="col-sm-3">Functie</div>
-                        <div class="col-sm-2">RAS</div>
-                        <div class="col-sm-1"><i class="fa fa-remove"></i></div>
-                    </div>
-
-                {% for form in committeemembership_formset.forms %}
-                    <div class="row">
-                        {% for hidden in form.hidden_fields %}
-                            {{ hidden }}
-                        {% endfor %}
-                        {% for field in form.visible_fields %}
-                        <div class="col-sm-{% if forloop.counter == 1 %}4{% elif forloop.counter == 3 %}3{% elif forloop.counter == 5 %}1{% else %}2{% endif %}">
-                            {{ field.errors.as_ul }}
-                            {% if forloop.counter == 5 %}
-                                {{ field }}
-                            {% else %}
-                                {% bootstrap_field field layout='inline'%}
-                            {% endif %}
-                        </div>
-                        {% endfor %}
-                    </div>
-                    {% endfor %}
-                    </fieldset>
-
-                    {{ committeemembership_formset.management_form }}
+            <div class="row">
+              <div class="col-sm-4">Commissie</div>
+              <div class="col-sm-2">Jaar</div>
+              <div class="col-sm-3">Functie</div>
+              <div class="col-sm-2">RAS</div>
+              <div class="col-sm-1"><i class="fa fa-remove"></i></div>
             </div>
 
-            <div class="col-md-6">
-                <fieldset>
-                    <legend>Aanmeldingen</legend>
-                    {% get_fieldset machazine,board_invites,constitution_card,christmas_card,yearbook,mail_announcements,mail_company as subscription_fields from form %}
-                    {% bootstrap_form subscription_fields layout='horizontal' horizontal_label_class='col-md-4 visible-md-block visible-lg-block' %}
-                </fieldset>
+            {% for form in committeemembership_formset.forms %}
+              <div class="row">
+                {% for hidden in form.hidden_fields %}
+                  {{ hidden }}
+                {% endfor %}
+                {% for field in form.visible_fields %}
+                  <div
+                      class="col-sm-{% if forloop.counter == 1 %}4{% elif forloop.counter == 3 %}3{% elif forloop.counter == 5 %}1{% else %}2{% endif %}">
+                    {{ field.errors.as_ul }}
+                    {% if forloop.counter == 5 %}
+                      {{ field }}
+                    {% else %}
+                      {% bootstrap_field field layout='inline' %}
+                    {% endif %}
+                  </div>
+                {% endfor %}
+              </div>
+            {% endfor %}
+          </fieldset>
 
-                <fieldset>
-                    <legend>Lidmaatschap</legend>
-                    {% bootstrap_formset member_formset layout='horizontal' %}
-                </fieldset>
-
-                <fieldset>
-                    <legend>Student</legend>
-                    {% bootstrap_formset student_formset layout='horizontal' %}
-                </fieldset>
-
-                <fieldset>
-                    <legend>Alumnus</legend>
-                    {% bootstrap_formset alumnus_formset layout='horizontal' %}
-                </fieldset>
-
-                <fieldset>
-                    <legend>Medewerker</legend>
-                    {% bootstrap_formset employee_formset layout='horizontal' %}
-                </fieldset>
-            </div>
+          {{ committeemembership_formset.management_form }}
         </div>
 
-        <div class="row">
-            {% buttons %}
-            <button type="submit" class="btn btn-primary">Submit</button>
-            {% endbuttons %}
+        <div class="col-md-6">
+          <fieldset>
+            <legend>Aanmeldingen</legend>
+            {% get_fieldset machazine,board_invites,constitution_card,christmas_card,yearbook,mail_announcements,mail_company as subscription_fields from form %}
+            {% bootstrap_form subscription_fields layout='horizontal' horizontal_label_class='col-md-4 visible-md-block visible-lg-block' %}
+          </fieldset>
+
+          <fieldset>
+            <legend>Lidmaatschap</legend>
+            {% bootstrap_formset member_formset layout='horizontal' %}
+          </fieldset>
+
+          <fieldset>
+            <legend>Student</legend>
+            {% bootstrap_formset student_formset layout='horizontal' %}
+          </fieldset>
+
+          <fieldset>
+            <legend>Alumnus</legend>
+            {% bootstrap_formset alumnus_formset layout='horizontal' %}
+          </fieldset>
+
+          <fieldset>
+            <legend>Medewerker</legend>
+            {% bootstrap_formset employee_formset layout='horizontal' %}
+          </fieldset>
         </div>
+      </div>
+
+      <div class="row">
+        {% buttons %}
+          <button type="submit" class="btn btn-primary">Submit</button>
+        {% endbuttons %}
+      </div>
     </form>
-</div>
+  </div>
 
 {% endblock %}

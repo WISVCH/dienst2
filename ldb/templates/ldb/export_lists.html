@@ -1,14 +1,14 @@
 {% extends 'ldb/base.html' %}
 
 {% block content %}
-<h2>{{ list }}</h2>
+  <h2>{{ list }}</h2>
 
-<div>
+  <div>
     <h2>Mailinglijsten</h2>
 
     <a href="{% url 'ldb_export_list' type='mailing' list='announcements' %}">Activiteitenmailing</a>
 
-    <br />
+    <br/>
 
     <a href="{% url 'ldb_export_list' type='mailing' list='company' %}">Bedrijvenmailing</a>
 
@@ -16,12 +16,12 @@
 
     <a href="{% url 'ldb_export_list' type='address' list='machazine' %}">MaCHazine</a>
 
-    <br />
+    <br/>
 
     <a href="{% url 'ldb_export_list' type='address' list='constitution' %}">Constitutiekaartjes</a>
 
-    <br />
+    <br/>
 
     <a href="{% url 'ldb_export_list' type='address' list='christmas' %}">Kerstkaartjes</a>
-</div>
+  </div>
 {% endblock %}
