@@ -1,21 +1,21 @@
 #dashboard #logo {
-    margin-bottom: 50px;
+  margin-bottom: 50px;
 }
 
 #dashboard ul {
-    list-style: none outside none;
-    margin: 0;
-    padding: 0;
-    text-align: center;
+  list-style: none outside none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
 }
 
 #dashboard li {
-    display: inline-block;
-    width: 200px;
-    font-size: 20px;
-    margin-bottom: 50px;
+  display: inline-block;
+  width: 200px;
+  font-size: 20px;
+  margin-bottom: 50px;
 }
 
 .committees {
-    font-size: 12px;
+  font-size: 12px;
 }

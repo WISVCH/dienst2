@@ -3,7 +3,6 @@ from tastypie.api import Api
 
 from post.api import *
 
-
 api = Api(api_name='v2')
 api.register(CategoryResource())
 api.register(SourceResource())
@@ -13,4 +12,4 @@ urlpatterns = patterns('',
                        (r'^api/', include(api.urls)),
 
                        url(r'^$', 'post.views.index', name="post_index"),
-)
+                       )

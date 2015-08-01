@@ -252,13 +252,13 @@ class Person(Entity):
                 other = self.living_with
                 # Avoid save loops
                 if other.living_with != self or \
-                                other.street_name != self.street_name or \
-                                other.house_number != self.house_number or \
-                                other.address_2 != self.address_2 or \
-                                other.address_3 != self.address_3 or \
-                                other.postcode != self.postcode or \
-                                other.city != self.city or \
-                                other.country != self.country:
+                        other.street_name != self.street_name or \
+                        other.house_number != self.house_number or \
+                        other.address_2 != self.address_2 or \
+                        other.address_3 != self.address_3 or \
+                        other.postcode != self.postcode or \
+                        other.city != self.city or \
+                        other.country != self.country:
                     other.living_with = self
                     other.street_name = self.street_name
                     other.house_number = self.house_number
@@ -349,7 +349,7 @@ class Member(models.Model):
 
     def clean(self):
         if (self.date_from is not None and self.date_to is not None and self.date_from > self.date_to) or \
-                (self.date_to is not None and self.date_from is None):
+            (self.date_to is not None and self.date_from is None):
             raise ValidationError("'Date to' cannot be before 'date from'")
 
         if self.date_to is not None and (self.merit_date_from is not None or self.honorary_date_from is not None):

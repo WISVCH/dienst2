@@ -5,10 +5,10 @@
       <div class="uil-fixed">
         <a href="{% url 'dienst2.views.index' %}"><img src="{% static "img/uil.png" %}"></a>
       </div>
-      <a class="brand" href="#">{{navbar.title}}</a>
+      <a class="brand" href="#">{{ navbar.title }}</a>
       <ul class="nav">
         {% for item in navbar.items %}
-        <li><a href="{{item.0}}">{{item.1}}</a></li>
+          <li><a href="{{ item.0 }}">{{ item.1 }}</a></li>
         {% endfor %}
       </ul>
 

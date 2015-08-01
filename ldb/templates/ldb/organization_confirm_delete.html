@@ -4,14 +4,14 @@
 {% block title %}{% trans 'Delete' %} {{ object }}{% endblock %}
 
 {% block content %}
-<h2 class="page-header">{% trans 'Delete' %} {{ object }}</h2>
-<p>{% trans 'Are you sure that you would like to delete this organization?' %}</p>
+  <h2 class="page-header">{% trans 'Delete' %} {{ object }}</h2>
+  <p>{% trans 'Are you sure that you would like to delete this organization?' %}</p>
 
-<form method="POST">
-  {% csrf_token %}
-  <div class="btn-group">
-    <button type="submit" class="btn btn-danger">{% trans 'Yes' %}</button>
-    <a href="{{ object.get_absolute_url }}" class="btn btn-default">{% trans 'No' %}</a>
-  </div>
-</form>
+  <form method="POST">
+    {% csrf_token %}
+    <div class="btn-group">
+      <button type="submit" class="btn btn-danger">{% trans 'Yes' %}</button>
+      <a href="{{ object.get_absolute_url }}" class="btn btn-default">{% trans 'No' %}</a>
+    </div>
+  </form>
 {% endblock %}
