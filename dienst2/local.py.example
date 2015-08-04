@@ -12,9 +12,10 @@ DATABASES = {
         'PORT': '',
         'CONN_MAX_AGE': 10800,
         'ATOMIC_REQUESTS': True,
-        'OPTIONS': {
-            'sslmode': 'require',
-        },
+        # Travis doesn't support SSL
+        # 'OPTIONS': {
+        #     'sslmode': 'require',
+        # },
     }
 }
 
