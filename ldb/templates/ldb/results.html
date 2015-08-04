@@ -21,10 +21,6 @@
             <p>{{ result.object.entity_ptr }}</p>
           {% endif %}
         </a>
-      {% else %}
-        <div class="list-group-item list-group-item-danger">
-          {% trans 'Deleted object' %}
-        </div>
       {% endif %}
     {% empty %}
       <div class="list-group-item list-group-item-warning">
