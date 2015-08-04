@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Mark Janssen <mark@praseodym.net>, 2011.
 # Hylke Visser <hylkev@ch.tudelft.nl>, 2012.
+# Jeffrey de Lange <jeffreyl@ch.tudelft.nl>, 2015.
 msgid ""
 msgstr ""
 "Project-Id-Version: 2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-06 15:56+0100\n"
+"POT-Creation-Date: 2015-08-04 10:35+0200\n"
 "PO-Revision-Date: 2012-11-01 12:54+0200\n"
-"Last-Translator: Hylke Visser <hylkev@ch.tudelft.nl>\n"
+"Last-Translator: Jeffrey de Lange <jeffreyl@ch.tudelft.nl>\n"
 "Language-Team: Secretarissen b'vo\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
@@ -19,1402 +20,1475 @@ msgstr ""
 "X-Generator: Virtaal 0.7.1\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
-#: admin.py:14 admin.py:23 admin.py:40 admin.py:71
+#: ldb/admin.py:17 ldb/admin.py:27 ldb/admin.py:46 ldb/admin.py:94
 msgid "Base"
 msgstr "Basis"
 
-#: admin.py:15 admin.py:41 admin.py:60 admin.py:75
+#: ldb/admin.py:18 ldb/admin.py:47 ldb/admin.py:70 ldb/admin.py:98
 msgid "Phone"
 msgstr "Telefoon"
 
-#: admin.py:16
+#: ldb/admin.py:19
 msgid "Permissions"
 msgstr "Toestemmingen"
 
-#: admin.py:17 admin.py:24 admin.py:61 admin.py:78
+#: ldb/admin.py:20 ldb/admin.py:28 ldb/admin.py:72 ldb/admin.py:101
 msgid "Other"
 msgstr "Overig"
 
-#: admin.py:25
+#: ldb/admin.py:29
 msgid "Merit"
 msgstr "LvV"
 
-#: admin.py:26
+#: ldb/admin.py:30
 msgid "Honorary"
 msgstr "Erelid"
 
-#: admin.py:32
+#: ldb/admin.py:37
 msgid "Study"
 msgstr "Studie"
 
-#: admin.py:34
+#: ldb/admin.py:39
 msgid "Work"
 msgstr "Werk"
 
-#: admin.py:55
+#: ldb/admin.py:65
 msgid "Name"
 msgstr "Naam"
 
-#: admin.py:57 admin.py:72
+#: ldb/admin.py:67 ldb/admin.py:95
 msgid "Address"
 msgstr "Adres"
 
-#: admin.py:62 admin.py:76
+#: ldb/admin.py:71
+msgid "Accounts"
+msgstr "Accounts"
+
+#: ldb/admin.py:73 ldb/admin.py:99
 msgid "Subscriptions"
 msgstr "Aanmeldingen"
 
-#: country_field.py:11
+#: ldb/country_field.py:11
 msgid "Afghanistan"
 msgstr "Afghanistan"
 
-#: country_field.py:12
+#: ldb/country_field.py:12
 msgid "Aland Islands"
 msgstr "Ålandseilanden"
 
-#: country_field.py:13
+#: ldb/country_field.py:13
 msgid "Albania"
 msgstr "Albanië"
 
-#: country_field.py:14
+#: ldb/country_field.py:14
 msgid "Algeria"
 msgstr "Algerije"
 
-#: country_field.py:15
+#: ldb/country_field.py:15
 msgid "American Samoa"
 msgstr "Amerikaans-Samoa"
 
-#: country_field.py:16
+#: ldb/country_field.py:16
 msgid "Andorra"
 msgstr "Andorra"
 
-#: country_field.py:17
+#: ldb/country_field.py:17
 msgid "Angola"
 msgstr "Angola"
 
-#: country_field.py:18
+#: ldb/country_field.py:18
 msgid "Anguilla"
 msgstr "Anguilla"
 
-#: country_field.py:19
+#: ldb/country_field.py:19
 msgid "Antarctica"
 msgstr "Antarctica"
 
-#: country_field.py:20
+#: ldb/country_field.py:20
 msgid "Antigua and Barbuda"
 msgstr "Antigua en Barbuda"
 
-#: country_field.py:21
+#: ldb/country_field.py:21
 msgid "Argentina"
 msgstr "Argentinië"
 
-#: country_field.py:22
+#: ldb/country_field.py:22
 msgid "Armenia"
 msgstr "Armenië"
 
-#: country_field.py:23
+#: ldb/country_field.py:23
 msgid "Aruba"
 msgstr "Aruba"
 
-#: country_field.py:24
+#: ldb/country_field.py:24
 msgid "Australia"
 msgstr "Australië"
 
-#: country_field.py:25
+#: ldb/country_field.py:25
 msgid "Austria"
 msgstr "Oostenrijk"
 
-#: country_field.py:26
+#: ldb/country_field.py:26
 msgid "Azerbaijan"
 msgstr "Azerbeidzjan"
 
-#: country_field.py:27
+#: ldb/country_field.py:27
 msgid "Bahamas"
 msgstr "Bahama's"
 
-#: country_field.py:28
+#: ldb/country_field.py:28
 msgid "Bahrain"
 msgstr "Bahrein"
 
-#: country_field.py:29
+#: ldb/country_field.py:29
 msgid "Bangladesh"
 msgstr "Bangladesh"
 
-#: country_field.py:30
+#: ldb/country_field.py:30
 msgid "Barbados"
 msgstr "Barbados"
 
-#: country_field.py:31
+#: ldb/country_field.py:31
 msgid "Belarus"
 msgstr "Wit-Rusland / Belarus"
 
-#: country_field.py:32
+#: ldb/country_field.py:32
 msgid "Belgium"
 msgstr "België"
 
-#: country_field.py:33
+#: ldb/country_field.py:33
 msgid "Belize"
 msgstr "Belize"
 
-#: country_field.py:34
+#: ldb/country_field.py:34
 msgid "Benin"
 msgstr "Benin"
 
-#: country_field.py:35
+#: ldb/country_field.py:35
 msgid "Bermuda"
 msgstr "Bermuda"
 
-#: country_field.py:36
+#: ldb/country_field.py:36
 msgid "Bhutan"
 msgstr "Bhutan"
 
-#: country_field.py:37
+#: ldb/country_field.py:37
 msgid "Bolivia, Plurinational State of"
 msgstr "Bolivia, Plurinationale Staat"
 
-#: country_field.py:38
+#: ldb/country_field.py:38
 msgid "Bonaire, Saint Eustatius and Saba"
 msgstr "Bonaire, Sint Eustatius en Saba"
 
-#: country_field.py:39
+#: ldb/country_field.py:39
 msgid "Bosnia and Herzegovina"
 msgstr "Bosnië en Herzegovina"
 
-#: country_field.py:40
+#: ldb/country_field.py:40
 msgid "Botswana"
 msgstr "Botswana"
 
-#: country_field.py:41
+#: ldb/country_field.py:41
 msgid "Bouvet Island"
 msgstr "Bouvet"
 
-#: country_field.py:42
+#: ldb/country_field.py:42
 msgid "Brazil"
 msgstr "Brazilië"
 
-#: country_field.py:43
+#: ldb/country_field.py:43
 msgid "British Indian Ocean Territory"
 msgstr "Brits Territorium in de Indische Oceaan"
 
-#: country_field.py:44
+#: ldb/country_field.py:44
 msgid "Brunei Darussalam"
 msgstr "Brunei"
 
-#: country_field.py:45
+#: ldb/country_field.py:45
 msgid "Bulgaria"
 msgstr "Bulgarije"
 
-#: country_field.py:46
+#: ldb/country_field.py:46
 msgid "Burkina Faso"
 msgstr "Burkina Faso"
 
-#: country_field.py:47
+#: ldb/country_field.py:47
 msgid "Burundi"
 msgstr "Burundi"
 
-#: country_field.py:48
+#: ldb/country_field.py:48
 msgid "Cambodia"
 msgstr "Cambodja"
 
-#: country_field.py:49
+#: ldb/country_field.py:49
 msgid "Cameroon"
 msgstr "Kameroen"
 
-#: country_field.py:50
+#: ldb/country_field.py:50
 msgid "Canada"
 msgstr "Canada"
 
-#: country_field.py:51
+#: ldb/country_field.py:51
 msgid "Cape Verde"
 msgstr "Kaap Verde"
 
-#: country_field.py:52
+#: ldb/country_field.py:52
 msgid "Cayman Islands"
 msgstr "Kaaimaneilanden"
 
-#: country_field.py:53
+#: ldb/country_field.py:53
 msgid "Central African Republic"
 msgstr "Centraal-Afrikaanse Republiek"
 
-#: country_field.py:54
+#: ldb/country_field.py:54
 msgid "Chad"
 msgstr "Tsjaad"
 
-#: country_field.py:55
+#: ldb/country_field.py:55
 msgid "Chile"
 msgstr "Chili"
 
-#: country_field.py:56
+#: ldb/country_field.py:56
 msgid "China"
 msgstr "China"
 
-#: country_field.py:57
+#: ldb/country_field.py:57
 msgid "Christmas Island"
 msgstr "Christmaseiland"
 
-#: country_field.py:58
+#: ldb/country_field.py:58
 msgid "Cocos (Keeling) Islands"
 msgstr "Cocoseilanden"
 
-#: country_field.py:59
+#: ldb/country_field.py:59
 msgid "Colombia"
 msgstr "Colombia"
 
-#: country_field.py:60
+#: ldb/country_field.py:60
 msgid "Comoros"
 msgstr "Comoren"
 
-#: country_field.py:61
+#: ldb/country_field.py:61
 msgid "Congo"
 msgstr "Congo-Brazzaville"
 
-#: country_field.py:62
+#: ldb/country_field.py:62
 msgid "Congo, The Democratic Republic of the"
 msgstr "Congo-Kinshasa"
 
-#: country_field.py:63
+#: ldb/country_field.py:63
 msgid "Cook Islands"
 msgstr "Cookeilanden"
 
-#: country_field.py:64
+#: ldb/country_field.py:64
 msgid "Costa Rica"
 msgstr "Costa Rica"
 
-#: country_field.py:65
+#: ldb/country_field.py:65
 msgid "Côte d'Ivoire"
 msgstr "Ivoorkust"
 
-#: country_field.py:66
+#: ldb/country_field.py:66
 msgid "Croatia"
 msgstr "Kroatië"
 
-#: country_field.py:67
+#: ldb/country_field.py:67
 msgid "Cuba"
 msgstr "Cuba"
 
-#: country_field.py:68
+#: ldb/country_field.py:68
 msgid "Curaçao"
 msgstr "Curaçao"
 
-#: country_field.py:69
+#: ldb/country_field.py:69
 msgid "Cyprus"
 msgstr "Cyprus"
 
-#: country_field.py:70
+#: ldb/country_field.py:70
 msgid "Czech Republic"
 msgstr "Tsjechië"
 
-#: country_field.py:71
+#: ldb/country_field.py:71
 msgid "Denmark"
 msgstr "Denemarken"
 
-#: country_field.py:72
+#: ldb/country_field.py:72
 msgid "Djibouti"
 msgstr "Djibouti"
 
-#: country_field.py:73
+#: ldb/country_field.py:73
 msgid "Dominica"
 msgstr "Dominica"
 
-#: country_field.py:74
+#: ldb/country_field.py:74
 msgid "Dominican Republic"
 msgstr "Dominicaanse Republiek"
 
-#: country_field.py:75
+#: ldb/country_field.py:75
 msgid "Ecuador"
 msgstr "Ecuador"
 
-#: country_field.py:76
+#: ldb/country_field.py:76
 msgid "Egypt"
 msgstr "Egypte"
 
-#: country_field.py:77
+#: ldb/country_field.py:77
 msgid "El Salvador"
 msgstr "El Salvador"
 
-#: country_field.py:78
+#: ldb/country_field.py:78
 msgid "Equatorial Guinea"
 msgstr "Equatoriaal-Guinea"
 
-#: country_field.py:79
+#: ldb/country_field.py:79
 msgid "Eritrea"
 msgstr "Eritrea"
 
-#: country_field.py:80
+#: ldb/country_field.py:80
 msgid "Estonia"
 msgstr "Estland"
 
-#: country_field.py:81
+#: ldb/country_field.py:81
 msgid "Ethiopia"
 msgstr "Ethiopië"
 
-#: country_field.py:82
+#: ldb/country_field.py:82
 msgid "Falkland Islands (Malvinas)"
 msgstr "Falklandeilanden"
 
-#: country_field.py:83
+#: ldb/country_field.py:83
 msgid "Faroe Islands"
 msgstr "Faeröer"
 
-#: country_field.py:84
+#: ldb/country_field.py:84
 msgid "Fiji"
 msgstr "Fiji"
 
-#: country_field.py:85
+#: ldb/country_field.py:85
 msgid "Finland"
 msgstr "Finland"
 
-#: country_field.py:86
+#: ldb/country_field.py:86
 msgid "France"
 msgstr "Frankrijk"
 
-#: country_field.py:87
+#: ldb/country_field.py:87
 msgid "French Guiana"
 msgstr "Frans-Guyana"
 
-#: country_field.py:88
+#: ldb/country_field.py:88
 msgid "French Polynesia"
 msgstr "Frans-Polynesië"
 
-#: country_field.py:89
+#: ldb/country_field.py:89
 msgid "French Southern Territories"
 msgstr "Franse Zuidelijke en Antarctische Gebieden"
 
-#: country_field.py:90
+#: ldb/country_field.py:90
 msgid "Gabon"
 msgstr "Gabon"
 
-#: country_field.py:91
+#: ldb/country_field.py:91
 msgid "Gambia"
 msgstr "Gambia"
 
-#: country_field.py:92
+#: ldb/country_field.py:92
 msgid "Georgia"
 msgstr "Georgië"
 
-#: country_field.py:93
+#: ldb/country_field.py:93
 msgid "Germany"
 msgstr "Duitsland"
 
-#: country_field.py:94
+#: ldb/country_field.py:94
 msgid "Ghana"
 msgstr "Ghana"
 
-#: country_field.py:95
+#: ldb/country_field.py:95
 msgid "Gibraltar"
 msgstr "Gibraltar"
 
-#: country_field.py:96
+#: ldb/country_field.py:96
 msgid "Greece"
 msgstr "Griekenland"
 
-#: country_field.py:97
+#: ldb/country_field.py:97
 msgid "Greenland"
 msgstr "Groenland"
 
-#: country_field.py:98
+#: ldb/country_field.py:98
 msgid "Grenada"
 msgstr "Grenada"
 
-#: country_field.py:99
+#: ldb/country_field.py:99
 msgid "Guadeloupe"
 msgstr "Guadeloupe"
 
-#: country_field.py:100
+#: ldb/country_field.py:100
 msgid "Guam"
 msgstr "Guam"
 
-#: country_field.py:101
+#: ldb/country_field.py:101
 msgid "Guatemala"
 msgstr "Guatemala"
 
-#: country_field.py:102
+#: ldb/country_field.py:102
 msgid "Guernsey"
 msgstr "Guernsey"
 
-#: country_field.py:103
+#: ldb/country_field.py:103
 msgid "Guinea"
 msgstr "Guinee"
 
-#: country_field.py:104
+#: ldb/country_field.py:104
 msgid "Guinea-Bissau"
 msgstr "Guinee-Bissau"
 
-#: country_field.py:105
+#: ldb/country_field.py:105
 msgid "Guyana"
 msgstr "Guyana"
 
-#: country_field.py:106
+#: ldb/country_field.py:106
 msgid "Haiti"
 msgstr "Haïti"
 
-#: country_field.py:107
+#: ldb/country_field.py:107
 msgid "Heard Island and McDonald Islands"
 msgstr "Heardeiland en McDonaldeilanden"
 
-#: country_field.py:108
+#: ldb/country_field.py:108
 msgid "Holy See (Vatican City State)"
 msgstr "Vaticaanstad"
 
-#: country_field.py:109
+#: ldb/country_field.py:109
 msgid "Honduras"
 msgstr "Honduras"
 
-#: country_field.py:110
+#: ldb/country_field.py:110
 msgid "Hong Kong"
 msgstr "Hong Kong"
 
-#: country_field.py:111
+#: ldb/country_field.py:111
 msgid "Hungary"
 msgstr "Hongarije"
 
-#: country_field.py:112
+#: ldb/country_field.py:112
 msgid "Iceland"
 msgstr "IJsland"
 
-#: country_field.py:113
+#: ldb/country_field.py:113
 msgid "India"
 msgstr "IndiaIndia"
 
-#: country_field.py:114
+#: ldb/country_field.py:114
 msgid "Indonesia"
 msgstr "Indonesië"
 
-#: country_field.py:115
+#: ldb/country_field.py:115
 msgid "Iran, Islamic Republic of"
 msgstr "Iran"
 
-#: country_field.py:116
+#: ldb/country_field.py:116
 msgid "Iraq"
 msgstr "Irak"
 
-#: country_field.py:117
+#: ldb/country_field.py:117
 msgid "Ireland"
 msgstr "Ierland"
 
-#: country_field.py:118
+#: ldb/country_field.py:118
 msgid "Isle of Man"
 msgstr "Man"
 
-#: country_field.py:119
+#: ldb/country_field.py:119
 msgid "Israel"
 msgstr "Israël"
 
-#: country_field.py:120
+#: ldb/country_field.py:120
 msgid "Italy"
 msgstr "Italië"
 
-#: country_field.py:121
+#: ldb/country_field.py:121
 msgid "Jamaica"
 msgstr "Jamaica"
 
-#: country_field.py:122
+#: ldb/country_field.py:122
 msgid "Japan"
 msgstr "Japan"
 
-#: country_field.py:123
+#: ldb/country_field.py:123
 msgid "Jersey"
 msgstr "Jersey"
 
-#: country_field.py:124
+#: ldb/country_field.py:124
 msgid "Jordan"
 msgstr "Jordanië"
 
-#: country_field.py:125
+#: ldb/country_field.py:125
 msgid "Kazakhstan"
 msgstr "Kazachstan"
 
-#: country_field.py:126
+#: ldb/country_field.py:126
 msgid "Kenya"
 msgstr "Kenia"
 
-#: country_field.py:127
+#: ldb/country_field.py:127
 msgid "Kiribati"
 msgstr "KiribatiKiribati"
 
-#: country_field.py:128
+#: ldb/country_field.py:128
 msgid "Korea, Democratic People's Republic of"
 msgstr "Noord-Korea"
 
-#: country_field.py:129
+#: ldb/country_field.py:129
 msgid "Korea, Republic of"
 msgstr "Zuid-Korea"
 
-#: country_field.py:130
+#: ldb/country_field.py:130
 msgid "Kuwait"
 msgstr "Koeweit"
 
-#: country_field.py:131
+#: ldb/country_field.py:131
 msgid "Kyrgyzstan"
 msgstr "Kirgizië"
 
-#: country_field.py:132
+#: ldb/country_field.py:132
 msgid "Lao People's Democratic Republic"
 msgstr "Laos"
 
-#: country_field.py:133
+#: ldb/country_field.py:133
 msgid "Latvia"
 msgstr "Letland"
 
-#: country_field.py:134
+#: ldb/country_field.py:134
 msgid "Lebanon"
 msgstr "Libanon"
 
-#: country_field.py:135
+#: ldb/country_field.py:135
 msgid "Lesotho"
 msgstr "Lesotho"
 
-#: country_field.py:136
+#: ldb/country_field.py:136
 msgid "Liberia"
 msgstr "Liberia"
 
-#: country_field.py:137
+#: ldb/country_field.py:137
 msgid "Libyan Arab Jamahiriya"
 msgstr "Libië"
 
-#: country_field.py:138
+#: ldb/country_field.py:138
 msgid "Liechtenstein"
 msgstr "Liechtenstein"
 
-#: country_field.py:139
+#: ldb/country_field.py:139
 msgid "Lithuania"
 msgstr "Litouwen"
 
-#: country_field.py:140
+#: ldb/country_field.py:140
 msgid "Luxembourg"
 msgstr "Luxemburg"
 
-#: country_field.py:141
+#: ldb/country_field.py:141
 msgid "Macao"
 msgstr "Macau"
 
-#: country_field.py:142
+#: ldb/country_field.py:142
 msgid "Macedonia, The Former Yugoslav Republic of"
 msgstr "Macedonië"
 
-#: country_field.py:143
+#: ldb/country_field.py:143
 msgid "Madagascar"
 msgstr "Madagaskar"
 
-#: country_field.py:144
+#: ldb/country_field.py:144
 msgid "Malawi"
 msgstr "Malawi"
 
-#: country_field.py:145
+#: ldb/country_field.py:145
 msgid "Malaysia"
 msgstr "Maleisië"
 
-#: country_field.py:146
+#: ldb/country_field.py:146
 msgid "Maldives"
 msgstr "Maldiven"
 
-#: country_field.py:147
+#: ldb/country_field.py:147
 msgid "Mali"
 msgstr "Mali"
 
-#: country_field.py:148
+#: ldb/country_field.py:148
 msgid "Malta"
 msgstr "Malta"
 
-#: country_field.py:149
+#: ldb/country_field.py:149
 msgid "Marshall Islands"
 msgstr "Marshalleilanden"
 
-#: country_field.py:150
+#: ldb/country_field.py:150
 msgid "Martinique"
 msgstr "Martinique"
 
-#: country_field.py:151
+#: ldb/country_field.py:151
 msgid "Mauritania"
 msgstr "Mauritanië"
 
-#: country_field.py:152
+#: ldb/country_field.py:152
 msgid "Mauritius"
 msgstr "Mauritius"
 
-#: country_field.py:153
+#: ldb/country_field.py:153
 msgid "Mayotte"
 msgstr "Mayotte"
 
-#: country_field.py:154
+#: ldb/country_field.py:154
 msgid "Mexico"
 msgstr "Mexico"
 
-#: country_field.py:155
+#: ldb/country_field.py:155
 msgid "Micronesia, Federated States of"
 msgstr "Micronesië"
 
-#: country_field.py:156
+#: ldb/country_field.py:156
 msgid "Moldova, Republic of"
 msgstr "Moldavië"
 
-#: country_field.py:157
+#: ldb/country_field.py:157
 msgid "Monaco"
 msgstr "Monaco"
 
-#: country_field.py:158
+#: ldb/country_field.py:158
 msgid "Mongolia"
 msgstr "Mongolië"
 
-#: country_field.py:159
+#: ldb/country_field.py:159
 msgid "Montenegro"
 msgstr "Montenegro"
 
-#: country_field.py:160
+#: ldb/country_field.py:160
 msgid "Montserrat"
 msgstr "Montserrat"
 
-#: country_field.py:161
+#: ldb/country_field.py:161
 msgid "Morocco"
 msgstr "Marokko"
 
-#: country_field.py:162
+#: ldb/country_field.py:162
 msgid "Mozambique"
 msgstr "Mozambique"
 
-#: country_field.py:163
+#: ldb/country_field.py:163
 msgid "Myanmar"
 msgstr "Myanmar"
 
-#: country_field.py:164
+#: ldb/country_field.py:164
 msgid "Namibia"
 msgstr "Namibië"
 
-#: country_field.py:165
+#: ldb/country_field.py:165
 msgid "Nauru"
 msgstr "Nauru"
 
-#: country_field.py:166
+#: ldb/country_field.py:166
 msgid "Nepal"
 msgstr "Nepal"
 
-#: country_field.py:167
+#: ldb/country_field.py:167
 msgid "Netherlands"
 msgstr "Nederland"
 
-#: country_field.py:168
+#: ldb/country_field.py:168
 msgid "New Caledonia"
 msgstr "Nieuw-Caledonië"
 
-#: country_field.py:169
+#: ldb/country_field.py:169
 msgid "New Zealand"
 msgstr "Nieuw Zeeland"
 
-#: country_field.py:170
+#: ldb/country_field.py:170
 msgid "Nicaragua"
 msgstr "Nicaragua"
 
-#: country_field.py:171
+#: ldb/country_field.py:171
 msgid "Niger"
 msgstr "Niger"
 
-#: country_field.py:172
+#: ldb/country_field.py:172
 msgid "Nigeria"
 msgstr "Nigeria"
 
-#: country_field.py:173
+#: ldb/country_field.py:173
 msgid "Niue"
 msgstr "Niue"
 
-#: country_field.py:174
+#: ldb/country_field.py:174
 msgid "Norfolk Island"
 msgstr "Norfolk"
 
-#: country_field.py:175
+#: ldb/country_field.py:175
 msgid "Northern Mariana Islands"
 msgstr "Noordelijke Marianen"
 
-#: country_field.py:176
+#: ldb/country_field.py:176
 msgid "Norway"
 msgstr "Noorwegen"
 
-#: country_field.py:177
+#: ldb/country_field.py:177
 msgid "Oman"
 msgstr "Oman"
 
-#: country_field.py:178
+#: ldb/country_field.py:178
 msgid "Pakistan"
 msgstr "Pakistan"
 
-#: country_field.py:179
+#: ldb/country_field.py:179
 msgid "Palau"
 msgstr "Palau"
 
-#: country_field.py:180
+#: ldb/country_field.py:180
 msgid "Palestinian Territory, Occupied"
 msgstr "Palestijnse Gebieden"
 
-#: country_field.py:181
+#: ldb/country_field.py:181
 msgid "Panama"
 msgstr "Panama"
 
-#: country_field.py:182
+#: ldb/country_field.py:182
 msgid "Papua New Guinea"
 msgstr "Papoea-Nieuw-Guinea"
 
-#: country_field.py:183
+#: ldb/country_field.py:183
 msgid "Paraguay"
 msgstr "Paraguay"
 
-#: country_field.py:184
+#: ldb/country_field.py:184
 msgid "Peru"
 msgstr "Peru"
 
-#: country_field.py:185
+#: ldb/country_field.py:185
 msgid "Philippines"
 msgstr "Filipijnen"
 
-#: country_field.py:186
+#: ldb/country_field.py:186
 msgid "Pitcairn"
 msgstr "Pitcairneilanden"
 
-#: country_field.py:187
+#: ldb/country_field.py:187
 msgid "Poland"
 msgstr "Polen"
 
-#: country_field.py:188
+#: ldb/country_field.py:188
 msgid "Portugal"
 msgstr "Portugal"
 
-#: country_field.py:189
+#: ldb/country_field.py:189
 msgid "Puerto Rico"
 msgstr "Puerto Rico"
 
-#: country_field.py:190
+#: ldb/country_field.py:190
 msgid "Qatar"
 msgstr "Qatar"
 
-#: country_field.py:191
+#: ldb/country_field.py:191
 msgid "Reunion"
 msgstr "Réunion"
 
-#: country_field.py:192
+#: ldb/country_field.py:192
 msgid "Romania"
 msgstr "Roemenië"
 
-#: country_field.py:193
+#: ldb/country_field.py:193
 msgid "Russian Federation"
 msgstr "Rusland"
 
-#: country_field.py:194
+#: ldb/country_field.py:194
 msgid "Rwanda"
 msgstr "Rwanda"
 
-#: country_field.py:195
+#: ldb/country_field.py:195
 msgid "Saint Barthelemy"
 msgstr "Saint-Barthélemy"
 
-#: country_field.py:196
+#: ldb/country_field.py:196
 msgid "Saint Helena, Ascension and Tristan Da Cunha"
 msgstr "Sint-Helena, Ascension en Tristan da Cunha"
 
-#: country_field.py:197
+#: ldb/country_field.py:197
 msgid "Saint Kitts and Nevis"
 msgstr "Saint Kitts en Nevis"
 
-#: country_field.py:198
+#: ldb/country_field.py:198
 msgid "Saint Lucia"
 msgstr "Saint Lucia"
 
-#: country_field.py:199
+#: ldb/country_field.py:199
 msgid "Saint Martin (French Part)"
 msgstr "Saint-Martin"
 
-#: country_field.py:200
+#: ldb/country_field.py:200
 msgid "Saint Pierre and Miquelon"
 msgstr "Saint-Pierre en Miquelon"
 
-#: country_field.py:201
+#: ldb/country_field.py:201
 msgid "Saint Vincent and the Grenadines"
 msgstr "Saint Vincent en de Grenadines"
 
-#: country_field.py:202
+#: ldb/country_field.py:202
 msgid "Samoa"
 msgstr "Samoa"
 
-#: country_field.py:203
+#: ldb/country_field.py:203
 msgid "San Marino"
 msgstr "San Marino"
 
-#: country_field.py:204
+#: ldb/country_field.py:204
 msgid "Sao Tome and Principe"
 msgstr "Sao Tomé en Principe"
 
-#: country_field.py:205
+#: ldb/country_field.py:205
 msgid "Saudi Arabia"
 msgstr "Saoedi-Arabië"
 
-#: country_field.py:206
+#: ldb/country_field.py:206
 msgid "Senegal"
 msgstr "Senegal"
 
-#: country_field.py:207
+#: ldb/country_field.py:207
 msgid "Serbia"
 msgstr "Servië"
 
-#: country_field.py:208
+#: ldb/country_field.py:208
 msgid "Seychelles"
 msgstr "Seychellen"
 
-#: country_field.py:209
+#: ldb/country_field.py:209
 msgid "Sierra Leone"
 msgstr "Sierra Leone"
 
-#: country_field.py:210
+#: ldb/country_field.py:210
 msgid "Singapore"
 msgstr "Singapore"
 
-#: country_field.py:211
+#: ldb/country_field.py:211
 msgid "Sint Maarten (Dutch Part)"
 msgstr "Sint Maarten"
 
-#: country_field.py:212
+#: ldb/country_field.py:212
 msgid "Slovakia"
 msgstr "Slowakije"
 
-#: country_field.py:213
+#: ldb/country_field.py:213
 msgid "Slovenia"
 msgstr "Slovenië"
 
-#: country_field.py:214
+#: ldb/country_field.py:214
 msgid "Solomon Islands"
 msgstr "Salomonseilanden"
 
-#: country_field.py:215
+#: ldb/country_field.py:215
 msgid "Somalia"
 msgstr "Somalië"
 
-#: country_field.py:216
+#: ldb/country_field.py:216
 msgid "South Africa"
 msgstr "Zuid Afrika"
 
-#: country_field.py:217
+#: ldb/country_field.py:217
 msgid "South Georgia and the South Sandwich Islands"
 msgstr "Zuid-Georgië en de Zuidelijke Sandwicheilanden"
 
-#: country_field.py:218
+#: ldb/country_field.py:218
 msgid "Spain"
 msgstr "Spanje"
 
-#: country_field.py:219
+#: ldb/country_field.py:219
 msgid "Sri Lanka"
 msgstr "Sri Lanka"
 
-#: country_field.py:220
+#: ldb/country_field.py:220
 msgid "Sudan"
 msgstr "Soedan"
 
-#: country_field.py:221
+#: ldb/country_field.py:221
 msgid "Suriname"
 msgstr "Suriname"
 
-#: country_field.py:222
+#: ldb/country_field.py:222
 msgid "Svalbard and Jan Mayen"
 msgstr "Spitsbergen en Jan Mayen"
 
-#: country_field.py:223
+#: ldb/country_field.py:223
 msgid "Swaziland"
 msgstr "Swaziland"
 
-#: country_field.py:224
+#: ldb/country_field.py:224
 msgid "Sweden"
 msgstr "Zweden"
 
-#: country_field.py:225
+#: ldb/country_field.py:225
 msgid "Switzerland"
 msgstr "Zwitserland"
 
-#: country_field.py:226
+#: ldb/country_field.py:226
 msgid "Syrian Arab Republic"
 msgstr "Syrië"
 
-#: country_field.py:227
+#: ldb/country_field.py:227
 msgid "Taiwan, Province of China"
 msgstr "Taiwan"
 
-#: country_field.py:228
+#: ldb/country_field.py:228
 msgid "Tajikistan"
 msgstr "Tadzjikistan"
 
-#: country_field.py:229
+#: ldb/country_field.py:229
 msgid "Tanzania, United Republic of"
 msgstr "Tanzania"
 
-#: country_field.py:230
+#: ldb/country_field.py:230
 msgid "Thailand"
 msgstr "Thailand"
 
-#: country_field.py:231
+#: ldb/country_field.py:231
 msgid "Timor-Leste"
 msgstr "Oost-Timor"
 
-#: country_field.py:232
+#: ldb/country_field.py:232
 msgid "Togo"
 msgstr "Togo"
 
-#: country_field.py:233
+#: ldb/country_field.py:233
 msgid "Tokelau"
 msgstr "Tokelau-eilanden"
 
-#: country_field.py:234
+#: ldb/country_field.py:234
 msgid "Tonga"
 msgstr "Tonga"
 
-#: country_field.py:235
+#: ldb/country_field.py:235
 msgid "Trinidad and Tobago"
 msgstr "Trinidad en Tobago"
 
-#: country_field.py:236
+#: ldb/country_field.py:236
 msgid "Tunisia"
 msgstr "Tunesië"
 
-#: country_field.py:237
+#: ldb/country_field.py:237
 msgid "Turkey"
 msgstr "Turkije"
 
-#: country_field.py:238
+#: ldb/country_field.py:238
 msgid "Turkmenistan"
 msgstr "Turkmenistan"
 
-#: country_field.py:239
+#: ldb/country_field.py:239
 msgid "Turks and Caicos Islands"
 msgstr "Turks- en Caicoseilanden"
 
-#: country_field.py:240
+#: ldb/country_field.py:240
 msgid "Tuvalu"
 msgstr "Tuvalu"
 
-#: country_field.py:241
+#: ldb/country_field.py:241
 msgid "Uganda"
 msgstr "Oeganda"
 
-#: country_field.py:242
+#: ldb/country_field.py:242
 msgid "Ukraine"
 msgstr "Oekraïne"
 
-#: country_field.py:243
+#: ldb/country_field.py:243
 msgid "United Arab Emirates"
 msgstr "Verenigde Arabische Emiraten"
 
-#: country_field.py:244
+#: ldb/country_field.py:244
 msgid "United Kingdom"
 msgstr "Verenigd Koninkrijk"
 
-#: country_field.py:245
+#: ldb/country_field.py:245
 msgid "United States"
 msgstr "Verenigde Staten"
 
-#: country_field.py:246
+#: ldb/country_field.py:246
 msgid "United States Minor Outlying Islands"
 msgstr "Kleine afgelegen eilanden van de Verenigde Staten"
 
-#: country_field.py:247
+#: ldb/country_field.py:247
 msgid "Uruguay"
 msgstr "Uruguay"
 
-#: country_field.py:248
+#: ldb/country_field.py:248
 msgid "Uzbekistan"
 msgstr "Oezbekistan"
 
-#: country_field.py:249
+#: ldb/country_field.py:249
 msgid "Vanuatu"
 msgstr "Vanuatu"
 
-#: country_field.py:250
+#: ldb/country_field.py:250
 msgid "Venezuela, Bolivarian Republic of"
 msgstr "Venezuela"
 
-#: country_field.py:251
+#: ldb/country_field.py:251
 msgid "Viet Nam"
 msgstr "Vietnam"
 
-#: country_field.py:252
+#: ldb/country_field.py:252
 msgid "Virgin Islands, British"
 msgstr "Maagdeneilanden, Brits"
 
-#: country_field.py:253
+#: ldb/country_field.py:253
 msgid "Virgin Islands, U.S."
 msgstr "Maagdeneilanden, Amerikaans"
 
-#: country_field.py:254
+#: ldb/country_field.py:254
 msgid "Wallis and Futuna"
 msgstr "Wallis en Futuna"
 
-#: country_field.py:255
+#: ldb/country_field.py:255
 msgid "Western Sahara"
 msgstr "Westelijke Sahara"
 
-#: country_field.py:256
+#: ldb/country_field.py:256
 msgid "Yemen"
 msgstr "Jemen"
 
-#: country_field.py:257
+#: ldb/country_field.py:257
 msgid "Zambia"
 msgstr "Zambia"
 
-#: country_field.py:258
+#: ldb/country_field.py:258
 msgid "Zimbabwe"
 msgstr "Zimbabwe"
 
-#: models.py:16
+#: ldb/models.py:22
 msgid "entity"
 msgstr "entiteit"
 
-#: models.py:17
+#: ldb/models.py:23
 msgid "entities"
 msgstr "entiteiten"
 
-#: models.py:20
+#: ldb/models.py:26
 msgid "street name"
 msgstr "straatnaam"
 
-#: models.py:21
+#: ldb/models.py:27
 msgid "house number"
 msgstr "huisnummer"
 
-#: models.py:22
+#: ldb/models.py:28
 msgid "address row 2"
 msgstr "adresregel 2"
 
-#: models.py:23
+#: ldb/models.py:29
 msgid "address row 3"
 msgstr "adresregel 3"
 
-#: models.py:24
+#: ldb/models.py:30
 msgid "postcode"
 msgstr "postcode"
 
-#: models.py:25
+#: ldb/models.py:31
 msgid "city"
 msgstr "plaats"
 
-#: models.py:26
+#: ldb/models.py:32
 msgid "country"
 msgstr "land"
 
-#: models.py:27
+#: ldb/models.py:33
 msgid "e-mail"
 msgstr "e-mail"
 
-#: models.py:30
+#: ldb/models.py:36
 msgid "phone fixed"
 msgstr "telefoon vast"
 
-#: models.py:33
+#: ldb/models.py:39
 msgid "MaCHazine"
 msgstr "MaCHazine"
 
-#: models.py:34
+#: ldb/models.py:40
 msgid "board invites"
 msgstr "uitnodigingen bestuur"
 
-#: models.py:35
+#: ldb/models.py:41
 msgid "constitution card"
 msgstr "constitutiekaartje"
 
-#: models.py:36
+#: ldb/models.py:42
 msgid "Christmas card"
 msgstr "Kerstkaartje"
 
-#: models.py:37
+#: ldb/models.py:43
 msgid "yearbook"
 msgstr "jaarboek"
 
-#: models.py:71
+#: ldb/models.py:89
 msgid "organization"
 msgstr "organisatie"
 
-#: models.py:72
+#: ldb/models.py:90
 msgid "organizations"
 msgstr "organisaties"
 
-#: models.py:73
+#: ldb/models.py:92
 msgid "name prefix"
 msgstr "naam voorvoegsel"
 
-#: models.py:74 models.py:298
+#: ldb/models.py:93 ldb/models.py:438
 msgid "name"
 msgstr "naam"
 
-#: models.py:75
+#: ldb/models.py:94
 msgid "name short"
 msgstr "naam kort"
 
-#: models.py:76
+#: ldb/models.py:95
 msgid "salutation"
 msgstr "aanhef"
 
-#: models.py:86
+#: ldb/models.py:115
+msgid "Not a member"
+msgstr "Niet lid"
+
+#: ldb/models.py:116
+msgid "Donating member"
+msgstr "Donateurlid"
+
+#: ldb/models.py:117
+msgid "Alumnus member"
+msgstr "Alumnuslid"
+
+#: ldb/models.py:118
+msgid "Regular member"
+msgstr "Lid"
+
+#: ldb/models.py:119
+msgid "Associate member"
+msgstr "Buitengewoon lid"
+
+#: ldb/models.py:120
+msgid "Merit member"
+msgstr "Lid van Verdienste"
+
+#: ldb/models.py:121
+msgid "Honorary member"
+msgstr "Erelid"
+
+#: ldb/models.py:127
 msgid "person"
 msgstr "persoon"
 
-#: models.py:87
+#: ldb/models.py:128
 msgid "people"
 msgstr "personen"
 
-#: models.py:90
+#: ldb/models.py:131
 msgid "Male"
 msgstr "Man"
 
-#: models.py:91
+#: ldb/models.py:132
 msgid "Female"
 msgstr "Vrouw"
 
-#: models.py:94
-msgid "Legacy ID"
-msgstr ""
-
-#: models.py:97
+#: ldb/models.py:136
 msgid "titles"
 msgstr "titels"
 
-#: models.py:98
+#: ldb/models.py:137
 msgid "initials"
 msgstr "initialen"
 
-#: models.py:99
+#: ldb/models.py:138
 msgid "first name"
 msgstr "voornaam"
 
-#: models.py:100
+#: ldb/models.py:139
 msgid "preposition"
 msgstr "tussenvoegsel"
 
-#: models.py:101
+#: ldb/models.py:140
 msgid "surname"
 msgstr "achternaam"
 
-#: models.py:102
+#: ldb/models.py:141
 msgid "postfix titles"
 msgstr "postfixtitels"
 
-#: models.py:105
+#: ldb/models.py:144
 msgid "phone mobile"
 msgstr "telefoon mobiel"
 
-#: models.py:108
+#: ldb/models.py:147
 msgid "gender"
 msgstr "geslacht"
 
-#: models.py:109
+#: ldb/models.py:148
 msgid "birthdate"
 msgstr "geboortedatum"
 
-#: models.py:111
+#: ldb/models.py:150
 msgid "deceased"
 msgstr "overleden"
 
-#: models.py:117
+#: ldb/models.py:156
 msgid "announcements mailing"
 msgstr "algemene mailing"
 
-#: models.py:118
+#: ldb/models.py:157
 msgid "company mailing"
 msgstr "bedrijvenmailing"
 
-#: models.py:120
+#: ldb/models.py:159
 msgid "LDAP username"
 msgstr "LDAP-gebruikersnaam"
 
-#: models.py:123
-msgid "netid"
-msgstr "netid"
+#: ldb/models.py:162
+msgid "NetID"
+msgstr "NetID"
 
-#: models.py:124
+#: ldb/models.py:163
 msgid "LinkedIn ID"
 msgstr "LinkedIn ID"
 
-#: models.py:125
+#: ldb/models.py:164
 msgid "Facebook ID"
 msgstr "Facebook ID"
 
-#: models.py:207
+#: ldb/models.py:290
 msgid "member"
 msgstr "lid"
 
-#: models.py:208
+#: ldb/models.py:291
 msgid "members"
 msgstr "leden"
 
-#: models.py:211
+#: ldb/models.py:295
 msgid "date from"
 msgstr "lid sinds"
 
-#: models.py:212
+#: ldb/models.py:296
 msgid "date to"
 msgstr "lid tot"
 
-#: models.py:213
+#: ldb/models.py:297
 msgid "date paid"
 msgstr "datum betaald"
 
-#: models.py:214
+#: ldb/models.py:298
 msgid "amount paid"
 msgstr "bedrag betaald"
 
-#: models.py:216
+#: ldb/models.py:300
 msgid "associate member"
 msgstr "buitengewoon lid"
 
-#: models.py:217
+#: ldb/models.py:301
 msgid "donating member"
 msgstr "donateur"
 
-#: models.py:219
+#: ldb/models.py:303
 msgid "merit member date from"
 msgstr "LvV sinds"
 
-#: models.py:220
+#: ldb/models.py:304
 msgid "merit member invitations"
 msgstr "LvV-uitnodigingen"
 
-#: models.py:221
+#: ldb/models.py:305
 msgid "merit member history"
 msgstr "LvV-geschiedenis"
 
-#: models.py:223
+#: ldb/models.py:307
 msgid "honorary member from date"
 msgstr "erelid sinds"
 
-#: models.py:235
+#: ldb/models.py:367
 msgid "student"
 msgstr "student"
 
-#: models.py:236
+#: ldb/models.py:368
 msgid "students"
 msgstr "studenten"
 
-#: models.py:239 models.py:264
-msgid "study"
-msgstr "studie"
-
-#: models.py:240
-msgid "first year"
-msgstr "eerste jaar"
-
-#: models.py:241
-msgid "student number"
-msgstr "studienummer"
-
-#: models.py:242
+#: ldb/models.py:372
 msgid "enrolled"
 msgstr "ingeschreven"
 
-#: models.py:244
+#: ldb/models.py:373 ldb/models.py:400
+msgid "study"
+msgstr "studie"
+
+#: ldb/models.py:374
+msgid "first year"
+msgstr "eerste jaar"
+
+#: ldb/models.py:375
+msgid "student number"
+msgstr "studienummer"
+
+#: ldb/models.py:377
 msgid "phone parents"
 msgstr "telefoon ouders"
 
-#: models.py:246
+#: ldb/models.py:379
 msgid "yearbook permission"
 msgstr "toestemming jaarboek"
 
-#: models.py:248
+#: ldb/models.py:381
 msgid "date verified"
 msgstr "datum bevestigd"
 
-#: models.py:260
+#: ldb/models.py:395
 msgid "alumnus"
 msgstr "alumnus"
 
-#: models.py:261
+#: ldb/models.py:396
 msgid "alumni"
 msgstr "alumni"
 
-#: models.py:265
+#: ldb/models.py:401
 msgid "study first year"
 msgstr "eerste jaar studie"
 
-#: models.py:266
+#: ldb/models.py:402
 msgid "study last year"
 msgstr "laatste jaar studie"
 
-#: models.py:267
+#: ldb/models.py:403
 msgid "research group"
 msgstr "onderzoeksgroep"
 
-#: models.py:268
+#: ldb/models.py:404
 msgid "paper"
 msgstr "paper"
 
-#: models.py:269
+#: ldb/models.py:405
 msgid "professor"
 msgstr "professor"
 
-#: models.py:271
+#: ldb/models.py:407
 msgid "company"
 msgstr "bedrijf"
 
-#: models.py:272 models.py:314
+#: ldb/models.py:408 ldb/models.py:456
 msgid "position"
 msgstr "functie"
 
-#: models.py:273
+#: ldb/models.py:409
 msgid "sector"
 msgstr "sector"
 
-#: models.py:275
+#: ldb/models.py:411
 msgid "contact method"
 msgstr "contact methode"
 
-#: models.py:282
+#: ldb/models.py:419
 msgid "employee"
 msgstr "medewerker"
 
-#: models.py:283
+#: ldb/models.py:420
 msgid "employees"
 msgstr "medewerkers"
 
-#: models.py:286
+#: ldb/models.py:424
 msgid "faculty"
 msgstr "faculteit"
 
-#: models.py:287
+#: ldb/models.py:425
 msgid "department"
 msgstr "afdeling"
 
-#: models.py:288
+#: ldb/models.py:426
 msgid "function"
 msgstr "functie"
 
-#: models.py:289
+#: ldb/models.py:427
 msgid "phone internal"
 msgstr "telefoon intern"
 
-#: models.py:296
+#: ldb/models.py:435
 msgid "committee"
 msgstr "commissie"
 
-#: models.py:297
+#: ldb/models.py:436
 msgid "committees"
 msgstr "commissies"
 
-#: models.py:299
+#: ldb/models.py:439
 msgid "description"
 msgstr "beschrijving"
 
-#: models.py:307
+#: ldb/models.py:448
 msgid "committee membership"
 msgstr "commissielidmaatschap"
 
-#: models.py:308
+#: ldb/models.py:449
 msgid "committee memberships"
 msgstr "commissielidmaatschappen"
 
-#: models.py:313
+#: ldb/models.py:455
 msgid "board"
 msgstr "bestuur"
 
-#: models.py:315
+#: ldb/models.py:457
 msgid "RAS months"
 msgstr "RAS-maanden"
 
-#~ msgid "Member administration"
-#~ msgstr "Ledenadministratie"
+#: ldb/models.py:465 ldb/models.py:471
+msgid "modification"
+msgstr "wijziging"
 
-#~ msgid "secotr"
-#~ msgstr "sector"
+#: ldb/models.py:466
+msgid "modifications"
+msgstr "wijzigingen"
 
-#~ msgid "Person"
-#~ msgstr "Persoon"
+#: ldb/models.py:469
+msgid "date"
+msgstr "datum"
 
-#~ msgid "Work company"
-#~ msgstr "Bedrijf"
+#: ldb/models.py:470
+msgid "ip address"
+msgstr "ip adres"
+
+#: ldb/templates/ldb/index.html:47 ldb/templates/ldb/index.html.py:49
+msgid "Search"
+msgstr "Zoeken"
+
+#: ldb/templates/ldb/organization_confirm_delete.html:4
+#: ldb/templates/ldb/organization_confirm_delete.html:7
+#: ldb/templates/ldb/person_confirm_delete.html:4
+#: ldb/templates/ldb/person_confirm_delete.html:7
+msgid "Delete"
+msgstr "Verwijder"
+
+#: ldb/templates/ldb/organization_confirm_delete.html:8
+msgid "Are you sure that you would like to delete this organization?"
+msgstr "Weet je zeker dat je deze organisatie wilt verwijderen?"
+
+#: ldb/templates/ldb/organization_confirm_delete.html:13
+#: ldb/templates/ldb/person_confirm_delete.html:13
+msgid "Yes"
+msgstr "Ja"
+
+#: ldb/templates/ldb/organization_confirm_delete.html:14
+#: ldb/templates/ldb/person_confirm_delete.html:14
+msgid "No"
+msgstr "Nee"
+
+#: ldb/templates/ldb/person_confirm_delete.html:8
+msgid "Are you sure that you would like to delete this person?"
+msgstr "Weet je zeker dat je deze persoon wilt verwijderen?"
+
+#: ldb/templates/ldb/results.html:5
+msgid "Search results"
+msgstr "Zoekresultaten"
+
+#: ldb/templates/ldb/results.html:26
+msgid "Deleted object"
+msgstr "Verwijderd object"
+
+#: ldb/templates/ldb/results.html:31
+msgid "Your search yielded no results"
+msgstr "Je zoekopdracht heeft geen resultaten opgeleverd"

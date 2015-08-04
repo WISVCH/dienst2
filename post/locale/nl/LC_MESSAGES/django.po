@@ -1,0 +1,76 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Jeffrey de Lange <jeffreyl@ch.tudelft.nl>, 2015.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 2\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-08-04 10:35+0200\n"
+"POT-Revision-Date: 2015-08-04 10:35+0200\n"
+"Last-Translator: Jeffrey de Lange <jeffreyl@ch.tudelft.nl>\n"
+"Language-Team: Secretarissen b'vo\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Virtaal 0.7.1\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#: post/models.py:8
+msgid "category"
+msgstr "categorie"
+
+#: post/models.py:9
+msgid "categories"
+msgstr "categoriën"
+
+#: post/models.py:11 post/models.py:31
+msgid "name"
+msgstr "naam"
+
+#: post/models.py:12
+msgid "grouping"
+msgstr ""
+
+#: post/models.py:13
+msgid "counting"
+msgstr ""
+
+#: post/models.py:21
+msgid "source"
+msgstr "bron"
+
+#: post/models.py:22
+msgid "sources"
+msgstr "bronnen"
+
+#: post/models.py:27
+msgid "internal"
+msgstr "intern"
+
+#: post/models.py:28
+msgid "external"
+msgstr "extern"
+
+#: post/models.py:32
+msgid "location"
+msgstr "locatie"
+
+#: post/models.py:40
+msgid "item"
+msgstr ""
+
+#: post/models.py:41
+msgid "items"
+msgstr ""
+
+#: post/models.py:44
+msgid "date"
+msgstr "datum"
+
+#: post/models.py:45
+msgid "description"
+msgstr "omschrijving"
