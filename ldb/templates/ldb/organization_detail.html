@@ -36,7 +36,7 @@
           {% endif %}
 
           {% stcontrol organization 'salutation' %}
-          {% stcontrol organization 'phone_fixed' %}
+          {% stcontrol_format organization 'phone_fixed' '<a href="tel:{0}"><i class="fa fa-fw fa-phone"></i>{0}</a>' %}
         </fieldset>
 
         {% if organization.comment %}
