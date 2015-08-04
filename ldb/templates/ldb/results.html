@@ -31,5 +31,8 @@
         <i class="fa fa-fw fa-warning"></i> {% trans "Your search yielded no results" %}
       </div>
     {% endfor %}
+    {% if remainder > 0 %}
+      <div class="panel-footer">{% blocktrans count counter=remainder %}{{ remainder }} more result{% plural %}{{ remainder }} more results{% endblocktrans %}</div>
+    {% endif %}
   </div>
 </div>
