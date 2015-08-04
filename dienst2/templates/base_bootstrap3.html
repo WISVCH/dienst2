@@ -7,16 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{% block title %}{{ title }}{% endblock %} &mdash; Dienst2</title>
 {% compress css %}
-  <link rel="stylesheet" type="text/less" href="{% static 'lib/bootstrap-theme-wisvch/dist/css/bootstrap.css' %}"/>
-  <link rel="stylesheet" type="text/less" href="{% static 'css/style.css' %}"/>
+  <link rel="stylesheet" type="text/css" href="{% static 'lib/bootstrap-theme-wisvch/dist/css/bootstrap.css' %}"/>
+  <link rel="stylesheet" type="text/css" href="{% static 'lib/components-font-awesome/css/font-awesome.min.css' %}"/>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
 {% endcompress %}
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
-<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
 
 {% compress js %}
   <script type="text/javascript" src="{% static 'lib/jquery/dist/jquery.js' %}"></script>

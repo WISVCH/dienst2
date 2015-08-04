@@ -16,6 +16,7 @@
   ],
   "dependencies": {
     "bootstrap": "~3.3.4",
-    "bootstrap-theme-wisvch": "WISVCH/bootstrap-theme#gh-pages"
+    "bootstrap-theme-wisvch": "WISVCH/bootstrap-theme#gh-pages",
+    "components-font-awesome": "~4.4.0"
   }
 }
