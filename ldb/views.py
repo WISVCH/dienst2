@@ -53,6 +53,7 @@ class ResultsView(TemplateView):
         if q is not None:
             search_term = convert_free_search(q)
             return SearchQuerySet().models(Person, Organization).filter(
+                SQ(text=Raw(search_term)) |
                 SQ(name=Raw(search_term)) |
                 SQ(address=Raw(search_term)) |
                 SQ(contact=Raw(search_term))
