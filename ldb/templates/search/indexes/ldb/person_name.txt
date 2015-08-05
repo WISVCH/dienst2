@@ -1,4 +1,4 @@
-{{ object.firstname }} {{ object.preposition }} {{ object.surname }} 
+{{ object.firstname }} {{ object.preposition }} {{ object.surname }}
 {{ object.ldap_username }}
 {{ object.netid }}
 {{ object.if_student_number }}
