@@ -7,6 +7,7 @@ from django.views.generic import DetailView, DeleteView, TemplateView, UpdateVie
 from django.views.generic.detail import SingleObjectMixin
 from haystack.inputs import Raw
 from haystack.query import SearchQuerySet
+from haystack.query import SQ
 
 from dienst2.extras import convert_free_search
 from ldb.forms import PersonForm, MemberFormSet, StudentFormSet, AlumnusFormSet, EmployeeFormSet, \
@@ -50,7 +51,11 @@ class ResultsView(TemplateView):
     def get_results(self):
         q = self.request.GET.get('q')
         if q is not None:
-            return SearchQuerySet().models(Person, Organization).filter(text=Raw(convert_free_search(q)))
+            return SearchQuerySet().models(Person, Organization).filter(
+                SQ(name=Raw(convert_free_search(q))) |
+                SQ(address=Raw(convert_free_search(q))) |
+                SQ(contact=Raw(convert_free_search(q)))
+            )
         return []
 
     def get_context_data(self, **kwargs):
