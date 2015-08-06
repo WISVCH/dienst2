@@ -5,7 +5,7 @@ Dienstensysteem v2
 ## Development installation
 
 1. Install PostgreSQL (e.g. [Postgres.app for OS X](http://postgresapp.com), make sure to add it to `$PATH`
-2. Install less and coffee script (`npm install -g coffee-script less`) for the compiling of the assets
+2. Install bower, less and coffee script (`npm install -g bower coffee-script less`) for further package management and the compiling of the assets
 3. Install [PyCharm Professional](https://www.jetbrains.com/pycharm/) ([free for students](https://www.jetbrains.com/student/))
 4. Open project
 5. [Create virtual environment](https://www.jetbrains.com/pycharm/help/creating-virtual-environment.html)
@@ -15,8 +15,9 @@ Dienstensysteem v2
    * If psycopg2 fails during server start, maybe [this](http://stackoverflow.com/questions/28515972/problems-using-psycopg2-on-mac-os-yosemite) solution will work for you.
 8. Create database (`createdb dienst2`, `createuser dienst2`)
 9. Initialise database [using manage.py](https://www.jetbrains.com/pycharm/help/running-tasks-of-manage-py-utility.html) (`manage.py migrate`)
-10. Start server
-11. You should be good to go!
+10. Install bower dependencies (`bower install`)
+11. Start server
+12. You should be good to go!
 
 **Note: please do not use (a copy of) the production database for local development.**
 
