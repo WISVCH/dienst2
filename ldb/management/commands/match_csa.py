@@ -5,7 +5,7 @@ import reversion
 from django.db import transaction
 from django.core.management import BaseCommand
 
-from ldb.models import Student, MembershipStatus
+from ldb.models import Student, MembershipStatus, Person
 
 
 class Command(BaseCommand):
@@ -44,6 +44,8 @@ class Command(BaseCommand):
                     if not row[1].lower() == options['yes-value'].lower():
                         student.enrolled = False
                         student.save()
+
+                        person = Person.objects.get(pk=student.person_id)
 
                         if person.membership_status == MembershipStatus.REGULAR:
                             member = person.member
