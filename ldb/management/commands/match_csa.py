@@ -5,7 +5,7 @@ import reversion
 from django.db import transaction
 from django.core.management import BaseCommand
 
-from ldb.models import Student, MembershipStatus, Person
+from ldb.models import Student, MembershipStatus, Person, Member
 
 
 class Command(BaseCommand):
@@ -46,9 +46,13 @@ class Command(BaseCommand):
                         student.save()
 
                         person = Person.objects.get(pk=student.person_id)
-
-                        if person.membership_status == MembershipStatus.REGULAR:
+                        try:
                             member = person.member
+                        except Member.DoesNotExist:
+                            person.save()
+                            continue
+
+                        if person.membership_status == MembershipStatus.NONE and member.date_to is None:
                             member.date_to = date
 
                             message = 'Membership revoked. Student is either unknown or no longer a student according to CSa.'
