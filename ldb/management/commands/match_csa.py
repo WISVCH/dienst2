@@ -10,7 +10,7 @@ from ldb.models import Student, MembershipStatus
 
 class Command(BaseCommand):
     def add_arguments(self, parser):
-        parser.add_argument('file', nargs=1, type=unicode)
+        parser.add_argument('file', type=unicode)
 
         parser.add_argument('--yes-value',
                             dest='yes-value',
@@ -36,7 +36,7 @@ class Command(BaseCommand):
                     try:
                         student = Student.objects.get(student_number=student_number)
                     except Student.DoesNotExist:
-                        self.stderr("Failed to find student with student number '{}' in database".format(student_number))
+                        self.stderr.write("Failed to find student with student number '{}' in database".format(student_number))
                         continue
 
                     person = student.person
@@ -54,11 +54,11 @@ class Command(BaseCommand):
 
                             member.save()
 
-                            self.stdout("Student with student number '{}' is no longer active, membership ended.".format(student_number))
+                            self.stdout.write("Student with student number '{}' is no longer active, membership ended.".format(student_number))
                     else:
                         reversion.set_comment('Student confirmed by CSa')
                         student.date_verified = date
-                        self.stdout("Student with student number '{}' is still active".format(student_number))
+                        self.stdout.write("Student with student number '{}' is still active".format(student_number))
                         student.save()
 
                     # Person is saved so the reversion revision is made
