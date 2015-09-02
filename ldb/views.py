@@ -56,7 +56,8 @@ class ResultsView(TemplateView):
                 SQ(text=Raw(search_term)) |
                 SQ(name=Raw(search_term)) |
                 SQ(address=Raw(search_term)) |
-                SQ(contact=Raw(search_term))
+                SQ(contact=Raw(search_term)) |
+                SQ(ldap_username=Raw(search_term))
             )
         return []
 
