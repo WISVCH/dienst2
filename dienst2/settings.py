@@ -139,12 +139,12 @@ AUTH_LDAP_USER_DN_TEMPLATE = "uid=%(user)s,ou=People,dc=ank,dc=chnet"
 AUTH_LDAP_GROUP_SEARCH = LDAPSearch("ou=Group,dc=ank,dc=chnet", ldap.SCOPE_SUBTREE, "(objectClass=posixGroup)")
 AUTH_LDAP_GROUP_TYPE = PosixGroupType()
 
-AUTH_LDAP_REQUIRE_GROUP = "cn=dienst2,ou=Overig,ou=Group,dc=ank,dc=chnet"
+AUTH_LDAP_REQUIRE_GROUP = "cn=dienst2,ou=Group,dc=ank,dc=chnet"
 
 AUTH_LDAP_USER_FLAGS_BY_GROUP = {
-    "is_active": "cn=dienst2,ou=Overig,ou=Group,dc=ank,dc=chnet",
-    "is_staff": "cn=dienst2-admin,ou=Overig,ou=Group,dc=ank,dc=chnet",
-    "is_superuser": "cn=dienst2-admin,ou=Overig,ou=Group,dc=ank,dc=chnet"
+    "is_active": "cn=dienst2,ou=Group,dc=ank,dc=chnet",
+    "is_staff": "cn=dienst2-admin,ou=Group,dc=ank,dc=chnet",
+    "is_superuser": "cn=dienst2-admin,ou=Group,dc=ank,dc=chnet"
 }
 
 AUTH_LDAP_MIRROR_GROUPS = True
