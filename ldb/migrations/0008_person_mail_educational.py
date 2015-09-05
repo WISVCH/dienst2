@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AddField(
             model_name='person',
-            name='mail_educational',
-            field=models.BooleanField(default=True, verbose_name='educational mailing'),
+            name='mail_education',
+            field=models.BooleanField(default=True, verbose_name='education mailing'),
         ),
     ]
