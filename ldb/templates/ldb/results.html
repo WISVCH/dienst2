@@ -2,7 +2,7 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <h3 class="panel-title">
-      {% trans 'Search results' %}
+      {% trans 'Search results' %} <span class="badge">{{ count }}</span>
     </h3>
   </div>
   <div class="list-group">
@@ -21,15 +21,14 @@
             <p>{{ result.object.entity_ptr }}</p>
           {% endif %}
         </a>
-      {% else %}
-        <div class="list-group-item list-group-item-danger">
-          {% trans 'Deleted object' %}
-        </div>
       {% endif %}
     {% empty %}
       <div class="list-group-item list-group-item-warning">
         <i class="fa fa-fw fa-warning"></i> {% trans "Your search yielded no results" %}
       </div>
     {% endfor %}
+    {% if remainder > 0 %}
+      <div class="panel-footer">{% blocktrans count counter=remainder %}{{ remainder }} more result{% plural %}{{ remainder }} more results{% endblocktrans %}</div>
+    {% endif %}
   </div>
 </div>
