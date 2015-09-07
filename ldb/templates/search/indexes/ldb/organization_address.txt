@@ -1,0 +1,5 @@
+{{ object.entity_ptr.street_name }} {{ object.entity_ptr.house_number }}
+{{ object.entity_ptr.address_2 }}
+{{ object.entity_ptr.address_3 }}
+{{ object.entity_ptr.postcode }} {{ object.entity_ptr.city }}
+{{ object.entity_ptr.country }}
