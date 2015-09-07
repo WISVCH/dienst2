@@ -72,7 +72,7 @@ class PersonAdmin(CompareVersionAdmin):
         (_('Other'), {'fields': ['gender', 'birthdate', 'deceased', 'comment']}),
         (_('Subscriptions'), {'fields': ['machazine', 'board_invites', 'constitution_card',
                                          'christmas_card', 'yearbook',
-                                         'mail_announcements', 'mail_company']}),
+                                         'mail_announcements', 'mail_company', 'mail_education']}),
     ]
     inlines = [MemberInline, CommitteeMembershipInline, StudentInline, AlumnusInline, EmployeeInline]
 

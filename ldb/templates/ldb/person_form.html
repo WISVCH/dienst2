@@ -83,7 +83,7 @@
         <div class="col-md-6">
           <fieldset>
             <legend>Aanmeldingen</legend>
-            {% get_fieldset machazine,board_invites,constitution_card,christmas_card,yearbook,mail_announcements,mail_company as subscription_fields from form %}
+            {% get_fieldset machazine,board_invites,constitution_card,christmas_card,yearbook,mail_announcements,mail_company,mail_education as subscription_fields from form %}
             {% bootstrap_form subscription_fields layout='horizontal' horizontal_label_class='col-md-4 visible-md-block visible-lg-block' %}
           </fieldset>
 

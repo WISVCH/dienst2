@@ -155,6 +155,7 @@ class Person(Entity):
     # Subscriptions
     mail_announcements = models.BooleanField(_('announcements mailing'), default=True)
     mail_company = models.BooleanField(_('company mailing'), default=True)
+    mail_education = models.BooleanField(_('education mailing'), default=True)
 
     ldap_username = CharNullField(_('LDAP username'), max_length=64, blank=True, null=True, unique=True)
 
@@ -213,7 +214,7 @@ class Person(Entity):
     def subscriptions(self):
         return get_attributes(self, ['machazine', 'constitution_card',
                                      'christmas_card', 'board_invites',
-                                     'mail_announcements', 'mail_company'])
+                                     'mail_announcements', 'mail_company', 'mail_education'])
 
     @property
     def gender_symbol(self):

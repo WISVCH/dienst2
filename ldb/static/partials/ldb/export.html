@@ -185,6 +185,22 @@
             <span class="help-block">Is aangemeld voor Bedrijvenmailing.</span>
           </div>
         </div>
+
+        <div class="control-group">
+          <div class="control-label">Onderwijsmailing:</div>
+          <div class="controls">
+            <label class="radio inline">
+              <input type="radio" ng-model="export.filters.person__mail_education" value="true"> Ja
+            </label>
+            <label class="radio inline">
+              <input type="radio" ng-model="export.filters.person__mail_education" value="false"> Nee
+            </label>
+            <label class="radio inline">
+              <input type="radio" ng-model="export.filters.person__mail_education" value="undefined"> Maakt niet uit
+            </label>
+            <span class="help-block">Is aangemeld voor Onderwijsmailing.</span>
+          </div>
+        </div>
       </fieldset>
 
       <fieldset ng-show="export.queryset.members || export.queryset.merit || export.queryset.honorary">
