@@ -13,9 +13,9 @@
         <a href="./delete/" class="btn btn-danger">
           <i class="fa fa-trash-o"></i><span class="visible-lg-inline visible-md-inline"> Delete</span>
         </a>
-        <a href="{% url 'admin:ldb_organization_change' organization.id %}" class="btn btn-success">
+        {% if user.is_staff %}<a href="{% url 'admin:ldb_organization_change' organization.id %}" class="btn btn-success">
           <i class="fa fa-wrench"></i><span class="visible-lg-inline visible-md-inline"> Admin</span>
-        </a>
+        </a>{% endif %}
       </div>
     </h2>
 
