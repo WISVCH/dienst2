@@ -6,7 +6,7 @@ from ldb import views_api
 from ldb.api import *
 from ldb.export import ExportResource
 from ldb.views import PersonDetailView, PersonDeleteView, OrganizationDetailView, OrganizationDeleteView, \
-    index_old, PersonEditView, OrganizationEditView, ResultsView
+    index_old, PersonEditView, OrganizationEditView, ResultsView, CommitteeMembershipFilterView
 
 api = Api(api_name='v2')
 
@@ -49,5 +49,5 @@ urlpatterns = patterns(
         name='ldb_organizations_delete'),
     url(r'^organizations/(?P<pk>\d+)/edit/$', OrganizationEditView.as_view()),
     url(r'^organizations/create/$', OrganizationEditView.as_view(), name='ldb_organizations_create'),
-
+    url(r'^committees/$', CommitteeMembershipFilterView.as_view(), name='ldb_committees'),
 )
