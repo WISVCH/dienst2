@@ -194,3 +194,11 @@ class PersonEditView(SingleObjectMixin, TemplateView):
 
 class CommitteeMembershipFilterView(FilterView):
     filterset_class = CommitteeMembershipFilter
+
+    def get(self, request, *args, **kwargs):
+        filterset_class = self.get_filterset_class()
+        self.filterset = self.get_filterset(filterset_class)
+        self.object_list = self.filterset.qs.select_related('person').prefetch_related('committee')
+        context = self.get_context_data(filter=self.filterset,
+                                        object_list=self.object_list)
+        return self.render_to_response(context)
