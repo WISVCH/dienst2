@@ -2,9 +2,12 @@ language: python
 python: 2.7
 sudo: false
 addons:
-  postgresql: "9.3"
-install: "pip install -r requirements.txt"
+  postgresql: '9.3'
+install: pip install -r requirements.txt
 before_script:
-  - "cp dienst2/local.py.example dienst2/local.py"
-  - psql -c "CREATE DATABASE dienst2;" -U postgres
+- cp dienst2/local.py.example dienst2/local.py
+- psql -c "CREATE DATABASE dienst2;" -U postgres
 script: python manage.py test
+notifications:
+  slack:
+    secure: dS+liN2wupdJSWqJut+HxT6b/BemHT9MVOFAPjYApeDV+ne441G7JYpqTrfX6t62ezxE9PmzQuVZyzkhhQ1u04my4KmOsVfHmC5yppR6zrGCPdH18EJORYehKcDbF3jnbBWJvM3P8qXGrWpK3iI61ZgO5h8isj8u3gKAdCbvOds=
