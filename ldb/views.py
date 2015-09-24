@@ -194,6 +194,7 @@ class PersonEditView(SingleObjectMixin, TemplateView):
 
 class CommitteeMembershipFilterView(FilterView):
     filterset_class = CommitteeMembershipFilter
+    paginate_by = 50
 
     def get(self, request, *args, **kwargs):
         filterset_class = self.get_filterset_class()

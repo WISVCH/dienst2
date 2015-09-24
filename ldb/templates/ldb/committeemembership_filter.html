@@ -1,18 +1,33 @@
 {% extends 'ldb/base.html' %}
-{% load i18n static bootstrap3 %}
+{% load i18n static bootstrap3 query_string %}
 
 {% block title %}{% trans 'Committees' %}{% endblock %}
 
 {% block content %}
   <h2 class="page-header">{% trans 'Committees' %}</h2>
 
-  <form class="form-inline">
-  {% bootstrap_form filter.form layout='inline' %}
-  <button type="submit" class="btn btn-primary"><i class="fa fa-filter"></i> Filter</button>
-  </form>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        {% trans 'Filter' %}
+      </h3>
+    </div>
+    <div class="panel-body">
+      <form class="form-inline">
+        {% bootstrap_form filter.form layout='inline' %}
+        <button type="submit" class="btn btn-primary"><i class="fa fa-filter"></i> Filter</button>
+      </form>
+    </div>
+  </div>
 
-  <table class="table table-striped">
-    <thead>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        {% trans 'Search results' %} <span class="badge">{{ filter.count }}</span>
+      </h3>
+    </div>
+    <table class="table table-striped">
+      <thead>
       <tr>
         <th>{% trans "Board" %}</th>
         <th>{% trans "Committee" %}</th>
@@ -20,21 +35,41 @@
         <th>{% trans "Position" %}</th>
         <th>{% trans "RAS" %}</th>
       </tr>
-    </thead>
-    <tbody>
-    {% for obj in object_list %}
-      <tr>
-        <td>{{ obj.board }}</td>
-        <td>{{ obj.committee }}</td>
-        <td><a href="{{ obj.person.get_absolute_url }}">{{ obj.person }}</a></td>
-        <td>{{ obj.position }}</td>
-        <td>{{ obj.ras_months }}</td>
-      </tr>
-    {% empty %}
-      <tr>
-        <td colspan="5">{% trans "No people found." %}</td>
-      </tr>
-    {% endfor %}
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+      {% for obj in object_list %}
+        <tr>
+          <td>{{ obj.board }}</td>
+          <td>{{ obj.committee }}</td>
+          <td><a href="{{ obj.person.get_absolute_url }}">{{ obj.person }}</a></td>
+          <td>{{ obj.position }}</td>
+          <td>{{ obj.ras_months }}</td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="5">{% trans "No people found." %}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  {% if is_paginated %}
+    <nav>
+      <ul class="pager">
+        <li{% if not page_obj.has_previous %} class="disabled"{% endif %}>
+          <a {% if page_obj.has_previous %}
+            href="{% query_string request.META.QUERY_STRING page=page_obj.previous_page_number %}"{% endif %}>
+            <span aria-hidden="true">&larr;</span> {% trans "Previous" %}
+          </a>
+        </li>
+        <li{% if not page_obj.has_next %} class="disabled"{% endif %}>
+          <a {% if page_obj.has_next %}
+            href="{% query_string request.META.QUERY_STRING page=page_obj.next_page_number %}"{% endif %}>
+            {% trans "Next" %} <span aria-hidden="true">&rarr;</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  {% endif %}
 {% endblock %}
