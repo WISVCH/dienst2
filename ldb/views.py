@@ -5,11 +5,13 @@ from django.core.urlresolvers import reverse
 from django.template import RequestContext
 from django.views.generic import DetailView, DeleteView, TemplateView, UpdateView
 from django.views.generic.detail import SingleObjectMixin
+from django_filters.views import FilterView
 from haystack.inputs import Raw
 from haystack.query import SearchQuerySet
 from haystack.query import SQ
 
 from dienst2.extras import convert_free_search
+from ldb.filters import CommitteeMembershipFilter
 from ldb.forms import PersonForm, MemberFormSet, StudentFormSet, AlumnusFormSet, EmployeeFormSet, \
     CommitteeMembershipFormSet
 from ldb.models import Organization, Person, CommitteeMembership
@@ -188,3 +190,19 @@ class PersonEditView(SingleObjectMixin, TemplateView):
             return super(PersonEditView, self).get_object(**kwargs)
         except AttributeError:
             return None
+
+
+class CommitteeMembershipFilterView(FilterView):
+    filterset_class = CommitteeMembershipFilter
+    paginate_by = 50
+
+    def get(self, request, *args, **kwargs):
+        filterset_class = self.get_filterset_class()
+        self.filterset = self.get_filterset(filterset_class)
+        self.object_list = self.filterset.qs\
+            .select_related('person')\
+            .prefetch_related('committee')\
+            .order_by('board', 'committee__name', 'person__firstname')
+        context = self.get_context_data(filter=self.filterset,
+                                        object_list=self.object_list)
+        return self.render_to_response(context)
