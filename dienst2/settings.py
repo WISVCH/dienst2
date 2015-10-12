@@ -123,6 +123,8 @@ TEMPLATE_DIRS = (
 )
 
 INSTALLED_APPS = (
+    'dienst2',
+
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -141,7 +143,6 @@ INSTALLED_APPS = (
     'bootstrap3',
     'compressor',
 
-    'dienst2',
     'ldb',
     'kas',
     'post',

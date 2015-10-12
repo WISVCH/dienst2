@@ -19,6 +19,9 @@ urlpatterns = patterns('',
                        # The signin page
                        url(r'^accounts/login/$', 'django.contrib.auth.views.login'),
 
+                       # The logout page
+                       url(r'^accounts/logout/$', 'django.contrib.auth.views.logout'),
+
                        # LDB URLs
                        url(r'^ldb/', include('ldb.urls')),
 
