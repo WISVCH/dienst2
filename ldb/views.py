@@ -183,6 +183,9 @@ class PersonEditView(SingleObjectMixin, TemplateView):
                     obj.person = person
                     obj.save()
 
+        # Save person again to set the right membership_status
+        person.save()
+
         return HttpResponseRedirect(person.get_absolute_url())
 
     def get_object(self, **kwargs):
