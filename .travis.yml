@@ -10,4 +10,4 @@ before_script:
 script: python manage.py test
 notifications:
   slack:
-    secure: dS+liN2wupdJSWqJut+HxT6b/BemHT9MVOFAPjYApeDV+ne441G7JYpqTrfX6t62ezxE9PmzQuVZyzkhhQ1u04my4KmOsVfHmC5yppR6zrGCPdH18EJORYehKcDbF3jnbBWJvM3P8qXGrWpK3iI61ZgO5h8isj8u3gKAdCbvOds=
+    secure: Iw0CyxjbyNpxD+/TaMGb5vGt2BGzevNsqUX3fhmaUMGJc2upxPTxHZzSsYPAWlZrGj6Wt/woa8DwgKlwpwQcsdkYqOccHu3mkHum9PkgzO/chmUHUiqB0SuYtsQYO38677HJN5Ba1u60CB0+WsDHekEuIpx9TBhEV6sr3J3JqNA=
