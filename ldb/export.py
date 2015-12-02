@@ -2,9 +2,9 @@
 import sys
 import re
 import csv
-import StringIO
 import traceback
 
+from io import StringIO
 from tastypie.resources import Resource
 from tastypie.authorization import DjangoAuthorization
 from tastypie.cache import SimpleCache
@@ -14,7 +14,6 @@ import simplejson
 from tastypie.serializers import Serializer
 
 from ldb.models import *
-
 
 class CSVSerializer(Serializer):
     formats = ['json', 'jsonp', 'html', 'plist', 'csv']

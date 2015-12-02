@@ -6,7 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import ValidationError
 from django_enumfield import enum
 
-from country_field import CountryField
+from .country_field import CountryField
 from dienst2.extras import CharNullField
 
 
