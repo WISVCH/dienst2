@@ -1,10 +1,14 @@
+from __future__ import unicode_literals
+
 from django.db import models
+from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import ValidationError
 from django.utils.text import capfirst
 from django.utils import timezone
 
 
+@python_2_unicode_compatible
 class Transaction(models.Model):
     class Meta:
         verbose_name = _('transaction')
@@ -54,10 +58,11 @@ class Transaction(models.Model):
         if not self.editable:
             raise ValidationError(_('Transaction not editable.'))
 
-    def __unicode__(self):
+    def __str__(self):
         return capfirst(_("transaction")) + " " + timezone.localtime(self.date).strftime("%Y-%m-%d %H:%M")
 
 
+@python_2_unicode_compatible
 class Closure(models.Model):
     class Meta:
         verbose_name = _('closure')
@@ -161,5 +166,5 @@ class Closure(models.Model):
         amounts = map(lambda transaction: transaction.amount, transactions_pin)
         self.transactions_pin = reduce(lambda x, y: x + y, amounts, 0)
 
-    def __unicode__(self):
+    def __str__(self):
         return capfirst(_("closure")) + " " + timezone.localtime(self.date).strftime("%Y-%m-%d %H:%M")

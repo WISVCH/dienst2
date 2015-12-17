@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 import copy
 
 from django.utils.safestring import mark_safe

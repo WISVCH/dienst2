@@ -1,3 +1,6 @@
+from __future__ import unicode_literals
+
+from functools import reduce
 from django.db.models import Prefetch
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response, redirect

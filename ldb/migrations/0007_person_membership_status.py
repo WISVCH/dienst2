@@ -14,6 +14,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='person',
             name='_membership_status',
-            field=models.IntegerField(default=0, db_column=b'membership_status'),
+            field=models.IntegerField(default=0, db_column='membership_status'),
         ),
     ]

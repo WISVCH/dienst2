@@ -53,8 +53,8 @@ class Migration(migrations.Migration):
                 ('amount', models.FloatField(verbose_name='amount')),
                 ('description', models.TextField(verbose_name='description')),
                 ('valid', models.BooleanField(default=True, verbose_name='valid')),
-                ('method', models.CharField(default=b'C', max_length=1, verbose_name='method',
-                                            choices=[(b'P', 'PIN'), (b'C', 'Cash')])),
+                ('method', models.CharField(default='C', max_length=1, verbose_name='method',
+                                            choices=[('P', 'PIN'), ('C', 'Cash')])),
             ],
             options={
                 'ordering': ['-date'],

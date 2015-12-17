@@ -4,7 +4,11 @@ import re
 import csv
 import traceback
 
-from io import StringIO
+from django.utils.encoding import smart_str
+try:
+    from StringIO import StringIO
+except ImportError:
+    from io import StringIO
 from tastypie.resources import Resource
 from tastypie.authorization import DjangoAuthorization
 from tastypie.cache import SimpleCache
@@ -28,7 +32,7 @@ class CSVSerializer(Serializer):
     def to_csv(self, data, options=None):
         options = options or {}
 
-        raw_data = StringIO.StringIO()
+        raw_data = StringIO()
 
         try:
             if len(data['objects']) < 1:
@@ -46,25 +50,12 @@ class CSVSerializer(Serializer):
 
             fields = data['objects'][0].data['data'].keys()
             fields.sort(key=lambda p: order.index(p))
-            header = {}
-            for field in fields:
-                header[field] = field
 
             writer = csv.DictWriter(raw_data, fieldnames=fields, quoting=csv.QUOTE_MINIMAL)
-            writer.writerow(header)
+            writer.writeheader()
 
             for obj in data.get('objects', []):
-                try:
-                    writer.writerow(obj.data.get('data', {}))
-                except:
-                    utf = {}
-                    for k in obj.data['data']:
-                        try:
-                            utf[k] = str(obj.data['data'].get(k))
-                        except:
-                            utf[k] = obj.data['data'].get(k).encode('utf-8', "replace")
-
-                    writer.writerow(utf)
+                writer.writerow({k: smart_str(v) for k, v in obj.data.get('data', {}).items()})
             return raw_data.getvalue()
         except:
             return "Unexpected error:", sys.exc_info()[0], '\n', traceback.format_exc()
