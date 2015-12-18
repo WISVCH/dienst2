@@ -24,9 +24,9 @@
         <fieldset>
           <legend>Algemeen</legend>
           <div class="col-xs-12">
-            {{ organization.name_prefix }}<br/>
+            {% if organization.name_prefix %}{{ organization.name_prefix }}<br/>{% endif %}
             {{ organization.name }}
-            ({{ organization.name_short }})
+            {% if organization.name_short %}({{ organization.name_short }}){% endif %}
           </div>
 
           <div class="col-xs-12">{% include "ldb/entity_address.html" with entity=organization %}</div>
