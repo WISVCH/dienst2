@@ -42,6 +42,7 @@ class CommitteeMembershipSerializer(serializers.ModelSerializer):
 class EntitySerializer(serializers.HyperlinkedModelSerializer):
     street_address = ReadOnlyField()
     formatted_address = ReadOnlyField()
+    kix_code = ReadOnlyField()
     country_full = ReadOnlyField(source='get_country_display')
 
     class Meta:

@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import re
+
 from datetime import date
 
 from django.db import models
@@ -49,6 +51,12 @@ class Entity(models.Model):
     def street_address(self):
         strings = [self.street_name + ' ' + self.house_number, self.address_2, self.address_3]
         return '\n'.join(filter(None, strings))
+
+    @property
+    def kix_code(self):
+        number = re.match(r"(?P<number>[0-9]+)(?P<affix>.*)$", self.house_number)
+        affix = re.sub(r'[^a-zA-Z0-9]', '', number.group('affix'))
+        return ("%s%sX%s" if affix else "%s%s%s") % (self.postcode, number.group('number'), affix)
 
     @property
     def formatted_address(self):
