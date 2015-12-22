@@ -15,7 +15,7 @@ class Transaction(models.Model):
     date = models.DateTimeField(_('date'), auto_now_add=True)
 
     amount = models.FloatField(_('amount'), blank=False)
-    description = models.TextField(_('description'), blank=False)
+    description = models.CharField(_('description'), max_length=255, blank=False)
 
     valid = models.BooleanField(_('valid'), default=True)
 
