@@ -1,0 +1,9 @@
+{% extends "base_bootstrap3.html" %}
+
+{% block menu %}
+  <li><a href="{% url 'kas_index' %}">Transacties</a></li>
+  <li><a href="{% url 'kas_index_angular' %}#/closures">Dagafsluitingen</a></li>
+  <li><a href="{% url 'kas_index_angular' %}#/barcode">Barcode Tool</a></li>
+  {% if user.is_staff %}
+    <li><a href="{% url 'admin:kas_transaction_changelist' %}">Beheer</a></li>{% endif %}
+{% endblock %}

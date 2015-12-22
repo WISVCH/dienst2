@@ -1,0 +1,33 @@
+{% load i18n %}
+{% load bootstrap3 %}
+
+{% block content %}
+    <form id="transaction_add_form" action="" method="post" class="form">
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}{{ form.non_field_errors }}{% endif %}
+
+        <div class="row">
+            <div class="col-sm-2">
+                <div class="input-group" id="method_group">
+                    <span class="input-group-btn" id="method_button_wrapper"></span>
+                    <span class="input-group-btn" id="inout_button_wrapper"></span>
+                </div>
+                {% bootstrap_field form.method show_label=False form_group_class="" %}
+            </div>
+
+            <div class="col-sm-2">
+                {% bootstrap_field form.amount show_label=False addon_before="&euro;" %}
+            </div>
+
+            <div class="col-sm-6">
+                {% bootstrap_field form.description show_label=False %}
+            </div>
+
+            <div class="col-sm-2">
+                <button class="btn btn-primary btn-block" type="submit">{% bootstrap_icon "plus small" %} {% trans 'Add' %} </button>
+            </div>
+        </div>
+
+    </form>
+{% endblock %}

@@ -1,0 +1,161 @@
+{% extends 'kas/base.html' %}
+{% load i18n static %}
+
+{% block extra_js %}
+
+    <script type="text/javascript">
+        var xhr;
+
+        // Load transactions
+        jQuery(function ($) {
+
+            // Set min limit to amount
+            $("#id_amount").attr("min", 0);
+
+            // Switch Cash / PIN dropdown to button
+            var dropdown = $("#id_method");
+            dropdown.hide();
+
+            var method_switcher = $('<button class="btn btn-default btn-block" type="button">' + dropdown.find("option:selected").text() + '</button>');
+
+            // Create IN / OUT button
+            var inout_switcher = $('<button class="btn btn-default btn-block" type="button">IN</button>').data("inout", "IN");
+
+            // Add PIN / Cash click handler
+            method_switcher.on('click', function (e) {
+                e.preventDefault();
+
+                var option = $("option:not(:selected)", dropdown);
+                option.prop("selected", "selected");
+                dropdown.change();
+                method_switcher.text(option.text());
+
+                // PIN not possible with IN
+                if (inout_switcher.data("inout") === "IN")
+                    inout_switcher.click()
+
+            });
+
+            // Add in / out event handler
+            inout_switcher.on('click', function (e) {
+                e.preventDefault();
+                switch ($(this).data("inout")) {
+                    case "IN":
+                        $(this).data("inout", "OUT").text("OUT")
+
+                        break;
+                    case "OUT":
+                        $(this).data("inout", "IN").text("IN")
+
+                        // IN not possible with PIN
+                        if (dropdown.val() === "P")
+                            method_switcher.click()
+
+                        break;
+                }
+
+
+            });
+
+            // Add buttons to DOM
+            $("#method_button_wrapper").append(method_switcher);
+            $("#inout_button_wrapper").append(inout_switcher);
+
+            // Add form submit handler (for in / out)
+            $("#transaction_add_form").on("submit", function (e) {
+
+                var inout = inout_switcher.data("inout");
+
+                // Check for tampering
+                if (inout !== "IN" && inout !== "OUT") {
+                    e.preventDefault();
+                    inout_switcher.addClass("btn-danger")
+                }
+
+                // If OUT, adjust value
+                if (inout === "OUT") {
+                    var amount = $("#id_amount").val();
+                    $("#id_amount").val("-" + Math.abs(amount))
+                }
+
+                return true;
+            });
+
+        });
+    </script>
+
+    <script type="text/javascript">
+        var xhr;
+
+        $(document).ready(function () {
+            $('#spinner').hide();
+
+            // Load transactions
+            loadTransactions(location.search, false);
+
+            // AJAXify earlier / later buttons
+            $(document).on('click', '.panel-footer a', function (e) {
+                e.preventDefault();
+                loadTransactions($(this).attr("href"));
+            })
+
+            // Use arrow keys for navigation
+            $(document).on('keydown', function (e) {
+                switch (e.which) {
+                    case 37: // left
+                        var prev = $(".panel-footer a.pull-left")
+                        if (prev.size() > 0) {
+                            e.preventDefault();
+                            prev.click()
+                        }
+                        break;
+
+                    case 39: // right
+                        var next = $(".panel-footer a.pull-right")
+                        if (next.size() > 0) {
+                            e.preventDefault();
+                            next.click()
+                        }
+                        break;
+
+                    default:
+                        return;
+                }
+            });
+
+            // Make sure history works as expected
+            window.addEventListener('popstate', function (e) {
+                loadTransactions(location.search, false)
+            });
+
+        });
+
+        function loadTransactions(param, pushstate) {
+            if (typeof pushstate === "undefined") pushstate = true;
+            xhr = $.ajax({
+                url: '{% url "kas_transaction_search" %}' + param,
+                success: function (data) {
+                    $('#recent_transactions').html(data);
+                    if (pushstate) history.pushState({}, '', '{% url "kas_index" %}' + param);
+                }
+            });
+        }
+
+        // AJAX spinner
+        $(document).ajaxStart(function () {
+            $('#spinner').show();
+        }).ajaxStop(function () {
+            $('#spinner').hide();
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+    <h2 class="page-header">{% trans 'Transactions' %}</h2>
+
+    {% include "kas/transaction_add_form.html" %}
+
+    <div id="recent_transactions">
+        {% include "kas/transactions.html" %}
+    </div>
+{% endblock %}

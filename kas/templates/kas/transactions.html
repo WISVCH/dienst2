@@ -1,0 +1,76 @@
+{% load i18n %}
+{% load transaction_tags %}
+
+<div class="margin">
+    <div class="panel panel-default">
+        <div class="panel-heading clearfix">
+            <h3 class="panel-title">
+                {% trans 'Recent transactions' %} <i id="spinner" class="fa fa-fw fa-spinner fa-pulse"></i>
+                <span class="label label-default pull-right">Pagina {{ results.number }}</span>
+            </h3>
+        </div>
+
+
+        {% if results %}
+
+            <table class="table">
+                <tr>
+                    <th width="15%">{% trans 'Date' %}</th>
+                    <th width="12%">{% trans 'User' %}</th>
+                    <th width="7%">{% trans 'Type' %}</th>
+                    <th width="10%">{% trans 'Amount' %}</th>
+                    <th width="50%">{% trans 'Description' %}</th>
+                    <th width="6%">{% trans 'Valid' %}</th>
+                </tr>
+
+                {% for result in results %}
+                    <tr class="{% if not result|is_valid %}danger{% endif %}">
+                        <td>{{ result.date|date:"d b Y, H:i" }}</td>
+                        <td>{{ result.user }}</td>
+                        <td>
+                            {% if result.method == 'P' %}<i class="glyphicon glyphicon-credit-card" title="Pin"></i>&nbsp;
+                            {% elif result.method == 'C' %}<i class=" glyphicon glyphicon-piggy-bank" title="Cash"></i>&nbsp;{% endif %}
+                            {% if result.amount > 0 %}<i class="glyphicon glyphicon-arrow-down" title="{% trans 'In' %}"></i>
+                            {% elif result.amount < 0 %}<i class="glyphicon glyphicon-arrow-up" title="{% trans 'Out' %}"></i>
+                            {% else %}<i class="glyphicon glyphicon-minus" title="{% trans 'Unchanged' %}"></i>{% endif %}
+                        </td>
+                        <td>{{ result.amount|currency }}</td>
+                        <td>{{ result.description }}</td>
+                        <td>
+                            <button class="btn btn-sm btn-default" type="button"
+                                    data-valid="{{ result.valid }}"
+                                    {% if not result.editable %}disabled{% endif %}>
+                                <i class="glyphicon glyphicon-{% if result|is_valid %}remove{% else %}ok{% endif %}"></i>
+                            </button>
+                        </td>
+                    </tr>
+
+                {% endfor %}
+                </tbody>
+            </table>
+
+            {% if results.has_previous or results.has_next %}
+                <div class="panel-footer clearfix">
+                    {% if results.has_previous %}
+                        <a class="btn btn-default pull-left"
+                           href="?page={{ results.previous_page_number }}">&lsaquo; {% trans "Later transactions" %}</a>
+                    {% endif %}
+                    {% if results.has_next %}
+                        <a class="btn btn-default pull-right"
+                           href="?page={{ results.next_page_number }}">{% trans "Earlier transactions" %} &rsaquo;</a>
+                    {% endif %}
+                </div>
+            {% endif %}
+
+        {% else %}
+
+            <div class="list-group">
+                <div class="list-group-item list-group-item-warning">
+                    <i class="fa fa-fw fa-warning"></i> {% trans "No recent transactions found." %}
+                </div>
+            </div>
+
+        {% endif %}
+
+    </div>
+</div>
