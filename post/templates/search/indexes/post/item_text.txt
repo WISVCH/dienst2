@@ -1,3 +1,0 @@
-{{ object.description }}
-{{ object.sender.name }}
-{{ object.receiver.name }}

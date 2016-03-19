@@ -1,31 +1,11 @@
 from django.core.urlresolvers import reverse_lazy
-from django.db.models import Prefetch
-from django.shortcuts import render_to_response
-from django.template import RequestContext
-from django.views.generic import ListView, CreateView, WeekArchiveView
+from django.views.generic import CreateView, WeekArchiveView
 from django.views.generic.edit import FormMixin
 from django_filters.views import FilterView
 
 from post.filters import ItemFilterSet, AVFilterSet
 from post.forms import ItemForm
 from post.models import Item, Category
-
-post_data = {
-    'title': 'Post',
-    'ng_app': 'post',
-    'navbar': {
-        'title': 'Post',
-        'items': [
-            ('#/dashboard', 'Dashboard'),
-            ('#/week', 'Weekoverzicht'),
-            ('#/av', 'AV-Overzicht'),
-        ]
-    }
-}
-
-
-def index(request):
-    return render_to_response('post/dashboard.html', post_data, context_instance=RequestContext(request))
 
 
 class ItemListView(FormMixin, FilterView):

@@ -1,11 +1,12 @@
 import datetime
+
 import django_filters
 from django.db import models
 from django.db.models import Prefetch
 from django.utils import formats
 from django.utils.encoding import force_str
 
-from post.models import Item, Category
+from post.models import Item
 
 
 class ItemFilterSet(django_filters.FilterSet):
@@ -40,6 +41,3 @@ class AVFilterSet(django_filters.FilterSet):
         if date is None:
             return queryset
         return queryset.prefetch_related(Prefetch('items', queryset=Item.objects.filter(date__gte=date)))
-
-
-
