@@ -1,15 +1,6 @@
 {% extends "base_bootstrap3.html" %}
 {% load i18n static compress %}
 
-{% block extra_css %}
-<link rel="stylesheet" type="text/css" href="{% static 'lib/select2/dist/css/select2.css' %}"/>
-<link rel="stylesheet" type="text/css" href="{% static 'lib/select2-bootstrap-theme/dist/select2-bootstrap.css' %}"/>
-{% endblock %}
-
-{% block extra_js %}
-  <script type="text/javascript" src="{% static 'lib/select2/dist/js/select2.full.min.js' %}"></script>
-{% endblock %}
-
 {% block menu %}
   <li><a href="{% url 'post_index' %}">{% trans 'Overview' %}</a></li>
   {% now "Y" as this_year %}{% now "W" as this_week %}

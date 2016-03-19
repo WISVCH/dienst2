@@ -45,9 +45,9 @@ class Item(models.Model):
 
     date = models.DateTimeField(_('date'), auto_now_add=True)
     description = models.CharField(_('description'), max_length=128, blank=False)
-    sender = models.ForeignKey(Contact, related_name='sent_items')
-    recipient = models.ForeignKey(Contact, related_name='received_items')
-    category = models.ForeignKey(Category, related_name='items')
+    sender = models.ForeignKey(Contact, verbose_name=_('sender'), related_name='sent_items')
+    recipient = models.ForeignKey(Contact, verbose_name=_('recipient'), related_name='received_items')
+    category = models.ForeignKey(Category, verbose_name=_('category'), related_name='items')
 
     objects = ItemQuerySet.as_manager()
 
