@@ -16,12 +16,13 @@
       <form class="form-inline" action="{% url 'post_create' %}" method="post">
         {% csrf_token %}
         {% bootstrap_form form layout='inline' %}
-        <button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i> {% trans 'Add' %}</button>
+          <button type="submit" class="btn btn-primary" style="width: 120px"><i
+                  class="fa fa-plus"></i> {% trans 'Add' %}</button>
         <script type="text/javascript">
           $(document).ready(function() {
-            $('#id_sender').select2({theme: "boostrap"});
-            $('#id_receiver').select2({theme: "boostrap"});
-            $('#id_category').select2({theme: "boostrap"});
+              $('#id_sender').select2({theme: "boostrap", width: "300px"});
+              $('#id_receiver').select2({theme: "boostrap", width: "300px"});
+              $('#id_category').select2({theme: "boostrap", width: "200px"});
           })
         </script>
       </form>
@@ -37,12 +38,13 @@
     <div class="panel-body">
       <form class="form-inline">
         {% bootstrap_form filter.form layout='inline' %}
-        <button type="submit" class="btn btn-primary"><i class="fa fa-filter"></i> Filter</button>
+          <button type="submit" class="btn btn-primary" style="width: 120px"><i class="fa fa-filter"></i> Filter
+          </button>
         <script type="text/javascript">
           $(document).ready(function() {
-            $('#id_filter-sender').select2({theme: "boostrap"});
-            $('#id_filter-receiver').select2({theme: "boostrap"});
-            $('#id_filter-category').select2({theme: "boostrap"});
+              $('#id_filter-sender').select2({theme: "boostrap", width: "300px"});
+              $('#id_filter-receiver').select2({theme: "boostrap", width: "300px"});
+              $('#id_filter-category').select2({theme: "boostrap", width: "200px"});
           })
         </script>
       </form>
