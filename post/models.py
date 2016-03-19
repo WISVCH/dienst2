@@ -2,11 +2,14 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 # Create your models here.
+from post.querysets import ItemQuerySet
+
 
 class Category(models.Model):
     class Meta:
         verbose_name = _("category")
         verbose_name_plural = _("categories")
+        ordering = ['name']
 
     name = models.CharField(_('name'), max_length=128, blank=False)
     grouping = models.BooleanField(_('grouping'), default=False)
@@ -43,9 +46,11 @@ class Item(models.Model):
 
     date = models.DateTimeField(_('date'), auto_now_add=True)
     description = models.CharField(_('description'), max_length=128, blank=False)
-    sender = models.ForeignKey(Source, related_name='sender')
-    receiver = models.ForeignKey(Source, related_name='receiver')
-    category = models.ForeignKey(Category)
+    sender = models.ForeignKey(Source, related_name='sent_items')
+    receiver = models.ForeignKey(Source, related_name='received_items')
+    category = models.ForeignKey(Category, related_name='items')
+
+    objects = ItemQuerySet.as_manager()
 
     def __unicode__(self):
         return self.description

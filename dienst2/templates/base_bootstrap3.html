@@ -10,6 +10,8 @@
   <link rel="stylesheet" type="text/css" href="{% static 'lib/bootstrap-theme-wisvch/dist/css/bootstrap.css' %}"/>
   <link rel="stylesheet" type="text/css" href="{% static 'lib/components-font-awesome/css/font-awesome.min.css' %}"/>
   <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
+  {% block extra_css %}
+  {% endblock %}
 {% endcompress %}
 
 {% compress js %}

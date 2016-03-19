@@ -1,0 +1,105 @@
+{% extends 'post/base.html' %}
+{% load i18n static bootstrap3 query_string %}
+{% block title %}{% trans 'Post' %}{% endblock %}
+
+
+{% block content %}
+  <h2 class="page-header">{% trans 'Post' %}</h2>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        {% trans 'Add' %}
+      </h3>
+    </div>
+    <div class="panel-body">
+      <form class="form-inline" action="{% url 'post_create' %}" method="post">
+        {% csrf_token %}
+        {% bootstrap_form form layout='inline' %}
+        <button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i> {% trans 'Add' %}</button>
+        <script type="text/javascript">
+          $(document).ready(function() {
+            $('#id_sender').select2({theme: "boostrap"});
+            $('#id_receiver').select2({theme: "boostrap"});
+            $('#id_category').select2({theme: "boostrap"});
+          })
+        </script>
+      </form>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        {% trans 'Filter' %}
+      </h3>
+    </div>
+    <div class="panel-body">
+      <form class="form-inline">
+        {% bootstrap_form filter.form layout='inline' %}
+        <button type="submit" class="btn btn-primary"><i class="fa fa-filter"></i> Filter</button>
+        <script type="text/javascript">
+          $(document).ready(function() {
+            $('#id_filter-sender').select2({theme: "boostrap"});
+            $('#id_filter-receiver').select2({theme: "boostrap"});
+            $('#id_filter-category').select2({theme: "boostrap"});
+          })
+        </script>
+      </form>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        {% trans 'Search results' %} <span class="badge">{{ filter.count }}</span>
+      </h3>
+    </div>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th width="10%" style="overflow:hidden">{% trans 'Category' %}</th>
+        <th width="60%" style="overflow:hidden">{% trans 'Description' %}</th>
+        <th width="10%" style="overflow:hidden">{% trans 'Sender' %}</th>
+        <th width="10%" style="overflow:hidden">{% trans 'Receiver' %}</th>
+        <th width="10%" style="overflow:hidden">{% trans 'Date' %}</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for obj in object_list %}
+        <tr>
+          <td>{{ obj.category }}</td>
+          <td>{{ obj.description }}</td>
+          <td>{{ obj.sender }}</td>
+          <td>{{ obj.receiver }}</td>
+          <td>{{ obj.date | date:'d-m-Y' }}</td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="5">{% trans "No items found." %}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  {% if is_paginated %}
+    <nav>
+      <ul class="pager">
+        <li{% if not page_obj.has_previous %} class="disabled"{% endif %}>
+          <a {% if page_obj.has_previous %}
+            href="{% query_string request.META.QUERY_STRING page=page_obj.previous_page_number %}"{% endif %}>
+            <span aria-hidden="true">&larr;</span> {% trans "Previous" %}
+          </a>
+        </li>
+        <li{% if not page_obj.has_next %} class="disabled"{% endif %}>
+          <a {% if page_obj.has_next %}
+            href="{% query_string request.META.QUERY_STRING page=page_obj.next_page_number %}"{% endif %}>
+            {% trans "Next" %} <span aria-hidden="true">&rarr;</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  {% endif %}
+{% endblock %}
+
