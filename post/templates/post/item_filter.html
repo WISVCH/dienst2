@@ -20,9 +20,9 @@
                   class="fa fa-plus"></i> {% trans 'Add' %}</button>
         <script type="text/javascript">
           $(document).ready(function() {
-              $('#id_sender').select2({theme: "boostrap", width: "300px"});
-              $('#id_receiver').select2({theme: "boostrap", width: "300px"});
-              $('#id_category').select2({theme: "boostrap", width: "200px"});
+            $('#id_sender').select2({theme: "boostrap", width: "300px"});
+            $('#id_recipient').select2({theme: "boostrap", width: "300px"});
+            $('#id_category').select2({theme: "boostrap", width: "200px"});
           })
         </script>
       </form>
@@ -42,9 +42,9 @@
           </button>
         <script type="text/javascript">
           $(document).ready(function() {
-              $('#id_filter-sender').select2({theme: "boostrap", width: "300px"});
-              $('#id_filter-receiver').select2({theme: "boostrap", width: "300px"});
-              $('#id_filter-category').select2({theme: "boostrap", width: "200px"});
+            $('#id_filter-sender').select2({theme: "boostrap", width: "300px"});
+            $('#id_filter-recipient').select2({theme: "boostrap", width: "300px"});
+            $('#id_filter-category').select2({theme: "boostrap", width: "200px"});
           })
         </script>
       </form>
@@ -63,7 +63,7 @@
         <th width="10%" style="overflow:hidden">{% trans 'Category' %}</th>
         <th width="60%" style="overflow:hidden">{% trans 'Description' %}</th>
         <th width="10%" style="overflow:hidden">{% trans 'Sender' %}</th>
-        <th width="10%" style="overflow:hidden">{% trans 'Receiver' %}</th>
+        <th width="10%" style="overflow:hidden">{% trans 'Recipient' %}</th>
         <th width="10%" style="overflow:hidden">{% trans 'Date' %}</th>
       </tr>
       </thead>
@@ -73,7 +73,7 @@
           <td>{{ obj.category }}</td>
           <td>{{ obj.description }}</td>
           <td>{{ obj.sender }}</td>
-          <td>{{ obj.receiver }}</td>
+          <td>{{ obj.recipient }}</td>
           <td>{{ obj.date | date:'d-m-Y' }}</td>
         </tr>
       {% empty %}

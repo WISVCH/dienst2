@@ -39,7 +39,7 @@
               <th width="15%" style="overflow:hidden">{% trans 'Date' %}</th>
               <th width="65%" style="overflow:hidden">{% trans 'Description' %}</th>
               <th width="10%" style="overflow:hidden">{% trans 'Sender' %}</th>
-              <th width="10%" style="overflow:hidden">{% trans 'Receiver' %}</th>
+              <th width="10%" style="overflow:hidden">{% trans 'Recipient' %}</th>
             </tr>
             </thead>
             <tbody>
@@ -48,7 +48,7 @@
                 <td>{{ item.date|date:'d-m-Y' }}</td>
                 <td>{{ item.description }}</td>
                 <td>{{ item.sender }}</td>
-                <td>{{ item.receiver }}</td>
+                <td>{{ item.recipient }}</td>
               </tr>
             {% endfor %}
             </tbody>

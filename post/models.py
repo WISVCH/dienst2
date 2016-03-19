@@ -18,10 +18,10 @@ class Category(models.Model):
         return self.name
 
 
-class Source(models.Model):
+class Contact(models.Model):
     class Meta:
-        verbose_name = _("source")
-        verbose_name_plural = _("sources")
+        verbose_name = _("contact")
+        verbose_name_plural = _("contacts")
 
     INTERNAL = 'I'
     EXTERNAL = 'E'
@@ -45,8 +45,8 @@ class Item(models.Model):
 
     date = models.DateTimeField(_('date'), auto_now_add=True)
     description = models.CharField(_('description'), max_length=128, blank=False)
-    sender = models.ForeignKey(Source, related_name='sent_items')
-    receiver = models.ForeignKey(Source, related_name='received_items')
+    sender = models.ForeignKey(Contact, related_name='sent_items')
+    recipient = models.ForeignKey(Contact, related_name='received_items')
     category = models.ForeignKey(Category, related_name='items')
 
     objects = ItemQuerySet.as_manager()

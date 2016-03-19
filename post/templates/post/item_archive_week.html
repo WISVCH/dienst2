@@ -12,7 +12,7 @@
         <th width="10%" style="overflow:hidden">{% trans 'Category' %}</th>
         <th width="60%" style="overflow:hidden">{% trans 'Description' %}</th>
         <th width="10%" style="overflow:hidden">{% trans 'Sender' %}</th>
-        <th width="10%" style="overflow:hidden">{% trans 'Receiver' %}</th>
+        <th width="10%" style="overflow:hidden">{% trans 'Recipient' %}</th>
         <th width="10%" style="overflow:hidden">{% trans 'Date' %}</th>
       </tr>
       </thead>
@@ -22,7 +22,7 @@
           <td>{{ obj.category }}</td>
           <td>{{ obj.description }}</td>
           <td>{{ obj.sender }}</td>
-          <td>{{ obj.receiver }}</td>
+          <td>{{ obj.recipient }}</td>
           <td>{{ obj.date | date:'d-m-Y' }}</td>
         </tr>
       {% empty %}

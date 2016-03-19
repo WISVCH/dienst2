@@ -21,7 +21,7 @@ class ItemFilterSet(django_filters.FilterSet):
 
     class Meta:
         model = Item
-        fields = ('description', 'sender', 'receiver', 'category')
+        fields = ('description', 'sender', 'recipient', 'category')
 
 
 class AVFilterSet(django_filters.FilterSet):

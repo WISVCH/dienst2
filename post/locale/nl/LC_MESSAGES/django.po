@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-19 09:52+0100\n"
+"POT-Creation-Date: 2016-03-19 21:07+0100\n"
 "Last-Translator: Jeffrey de Lange <jeffreyl@ch.tudelft.nl>\n"
 "Language-Team: Secretarissen b'vo\n"
 "Language: nl\n"
@@ -40,12 +40,12 @@ msgid "counting"
 msgstr ""
 
 #: models.py:23
-msgid "source"
-msgstr "bron"
+msgid "contact"
+msgstr "contact"
 
 #: models.py:24
-msgid "sources"
-msgstr "bronnen"
+msgid "contacts"
+msgstr "contacten"
 
 #: models.py:29
 msgid "internal"
@@ -91,10 +91,8 @@ msgstr "Datum"
 
 #: templates/post/av.html:40 templates/post/av.html.py:61
 #: templates/post/item_archive_week.html:13 templates/post/item_filter.html:62
-#, fuzzy
-#| msgid "description"
 msgid "Description"
-msgstr "omschrijving"
+msgstr "Omschrijving"
 
 #: templates/post/av.html:41 templates/post/item_archive_week.html:14
 #: templates/post/item_filter.html:63
@@ -103,7 +101,7 @@ msgstr "Afzender"
 
 #: templates/post/av.html:42 templates/post/item_archive_week.html:15
 #: templates/post/item_filter.html:64
-msgid "Receiver"
+msgid "Recipient"
 msgstr "Ontvanger"
 
 #: templates/post/av.html:60
@@ -128,10 +126,8 @@ msgid "Week"
 msgstr "Week"
 
 #: templates/post/item_archive_week.html:12 templates/post/item_filter.html:61
-#, fuzzy
-#| msgid "category"
 msgid "Category"
-msgstr "categorie"
+msgstr "Categorie"
 
 #: templates/post/item_archive_week.html:30 templates/post/item_filter.html:79
 msgid "No items found."

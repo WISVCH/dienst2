@@ -15,7 +15,7 @@ class ItemListView(FormMixin, FilterView):
     filterset_class = ItemFilterSet
 
     def get_queryset(self):
-        return super(ItemListView, self).get_queryset().select_related('sender', 'receiver', 'category')
+        return super(ItemListView, self).get_queryset().select_related('sender', 'recipient', 'category')
 
     def get_context_data(self, **kwargs):
         context = super(ItemListView, self).get_context_data(**kwargs)
@@ -46,7 +46,7 @@ class ItemWeekArchiveView(WeekArchiveView):
     week_format = "%W"
 
     def get_queryset(self):
-        return super(ItemWeekArchiveView, self).get_queryset().select_related('sender', 'receiver', 'category')
+        return super(ItemWeekArchiveView, self).get_queryset().select_related('sender', 'recipient', 'category')
 
 
 class AVListView(FilterView):
