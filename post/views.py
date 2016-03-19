@@ -53,3 +53,6 @@ class AVListView(FilterView):
     template_name = 'post/av.html'
     model = Category
     filterset_class = AVFilterSet
+
+    def get_queryset(self):
+        return super(AVListView, self).get_queryset().prefetch_related('items__sender', 'items__recipient')
