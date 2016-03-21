@@ -15,7 +15,9 @@ class ItemListView(FormMixin, FilterView):
     filterset_class = ItemFilterSet
 
     def get_queryset(self):
-        return super(ItemListView, self).get_queryset().select_related('sender', 'recipient', 'category')
+        return super(ItemListView, self).get_queryset()\
+            .order_by('-date')\
+            .select_related('sender', 'recipient', 'category')
 
     def get_context_data(self, **kwargs):
         context = super(ItemListView, self).get_context_data(**kwargs)
@@ -40,8 +42,10 @@ class ItemCreateView(CreateView):
 
 
 class ItemWeekArchiveView(WeekArchiveView):
+    model = Item
+    ordering = 'date'
+
     allow_empty = True
-    queryset = Item.objects.all()
     date_field = "date"
     week_format = "%W"
 

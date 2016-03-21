@@ -41,7 +41,7 @@ class Item(models.Model):
     class Meta:
         verbose_name = _("item")
         verbose_name_plural = _("items")
-        ordering = ['-date']
+        ordering = ('date', )
 
     date = models.DateTimeField(_('date'), auto_now_add=True)
     description = models.CharField(_('description'), max_length=128, blank=False)
