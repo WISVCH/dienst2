@@ -1,2 +1,0 @@
-{{ object.name }}
-{% ifequal object.location 'I' %}INTERN{% else %}EXTERN{% endifequal %}
