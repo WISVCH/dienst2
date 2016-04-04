@@ -58,5 +58,10 @@ class AVListView(FilterView):
     model = Category
     filterset_class = AVFilterSet
 
-    def get_queryset(self):
-        return super(AVListView, self).get_queryset().prefetch_related('items__sender', 'items__recipient')
+    def get(self, request, *args, **kwargs):
+        filterset_class = self.get_filterset_class()
+        self.filterset = self.get_filterset(filterset_class)
+        self.object_list = self.filterset.qs.prefetch_related('items__sender', 'items__recipient')
+        context = self.get_context_data(filter=self.filterset,
+                                        object_list=self.object_list)
+        return self.render_to_response(context)
