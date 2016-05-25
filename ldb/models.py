@@ -449,6 +449,7 @@ class CommitteeMembership(models.Model):
     class Meta:
         verbose_name = _('committee membership')
         verbose_name_plural = _('committee memberships')
+        ordering = ['board', 'committee__name']
 
     # Django admin doesn't support nested inlines,
     # so we'll just link to Person instead.

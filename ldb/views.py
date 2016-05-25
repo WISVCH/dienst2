@@ -205,7 +205,7 @@ class CommitteeMembershipFilterView(FilterView):
         self.object_list = self.filterset.qs\
             .select_related('person')\
             .prefetch_related('committee')\
-            .order_by('board', 'committee__name', 'person__firstname')
+            .order_by('-board', 'committee__name', 'person__firstname')
         context = self.get_context_data(filter=self.filterset,
                                         object_list=self.object_list)
         return self.render_to_response(context)
