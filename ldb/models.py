@@ -435,6 +435,7 @@ class Committee(models.Model):
     class Meta:
         verbose_name = _('committee')
         verbose_name_plural = _('committees')
+        ordering = ['name']
 
     name = models.CharField(_('name'), max_length=50)
     description = models.TextField(_('description'), blank=True)
