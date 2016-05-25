@@ -43,7 +43,7 @@
           <td>{{ obj.committee }}</td>
           <td><a href="{{ obj.person.get_absolute_url }}">{{ obj.person }}</a></td>
           <td>{{ obj.position }}</td>
-          <td>{{ obj.ras_months }}</td>
+          <td>{{ obj.ras_months|default_if_none:"" }}</td>
         </tr>
       {% empty %}
         <tr>
