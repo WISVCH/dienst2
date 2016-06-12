@@ -23,7 +23,7 @@ Dienstensysteem v2
 
 ## Production deployment
 
-Run `./deploy.sh` from your local checkout.
+TeamCity automatically deploys the `master` branch.
 
 ## API
 
