@@ -18,7 +18,7 @@ import os
 try:
     import newrelic.agent
 
-    newrelic.agent.initialize('/srv/www/dienst2/newrelic.ini')
+    newrelic.agent.initialize('/srv/dienst2/config/newrelic.ini')
 except ImportError:
     pass
 
