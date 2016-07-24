@@ -4,7 +4,7 @@ django-auth-ldap==1.2.8
 django-form-utils==1.0.3
 django-haystack==2.4.1
 django-reversion==1.9.1
-django-tastypie==0.12.2
+django-tastypie==0.13.3
 psycopg2
 pyelasticsearch==1.4
 pytz
