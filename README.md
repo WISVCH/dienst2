@@ -13,6 +13,8 @@ Dienstensysteem v2
 7. [Install dependencies in virtual environment](https://www.jetbrains.com/pycharm/help/resolving-unsatisfied-dependencies.html)
    * If e.g. psycopg2 won't install, activate virtualenv (`source bin/activate`) and then manually install dependencies (`pip install -r requirements.txt`)
    * If psycopg2 fails during server start, maybe [this](http://stackoverflow.com/questions/28515972/problems-using-psycopg2-on-mac-os-yosemite) solution will work for you.
+   * On macOS, install python-ldap using:
+     `pip install -U python-ldap --global-option=build_ext --global-option="-I$(xcrun --show-sdk-path)/usr/include/sasl"`
 8. Create database (`createdb dienst2`, `createuser dienst2`)
 9. Initialise database [using manage.py](https://www.jetbrains.com/pycharm/help/running-tasks-of-manage-py-utility.html) (`manage.py migrate`)
 10. Install bower dependencies (`bower install`)
