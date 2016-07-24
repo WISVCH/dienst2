@@ -1,7 +1,7 @@
 Django>=1.8,<1.9
 Whoosh==2.7.4
 django-auth-ldap==1.2.8
-django-form-utils==1.0.2
+django-form-utils==1.0.3
 django-haystack==2.4.1
 django-reversion==1.9.1
 django-tastypie==0.12.2
