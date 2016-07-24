@@ -3,12 +3,10 @@ import sys
 import re
 import csv
 import traceback
+from functools import reduce
 
 from django.utils.encoding import smart_str
-try:
-    from StringIO import StringIO
-except ImportError:
-    from io import StringIO
+from io import StringIO
 from tastypie.resources import Resource
 from tastypie.authorization import DjangoAuthorization
 from tastypie.cache import SimpleCache
@@ -16,6 +14,7 @@ from tastypie import fields
 from django.db.models import Q
 import simplejson
 from tastypie.serializers import Serializer
+from six import iteritems
 
 from ldb.models import *
 
@@ -48,7 +47,7 @@ class CSVSerializer(Serializer):
                      'person__alumnus__study', 'person__alumnus__study_first_year', 'person__alumnus__study_last_year',
                      'person__alumnus__work_company', 'id']
 
-            fields = data['objects'][0].data['data'].keys()
+            fields = list(data['objects'][0].data['data'].keys())
             fields.sort(key=lambda p: order.index(p))
 
             writer = csv.DictWriter(raw_data, fieldnames=fields, quoting=csv.QUOTE_MINIMAL)
@@ -129,7 +128,7 @@ class ExportResource(Resource):
         requested_fields = simplejson.loads(str(requested_fields))
 
         fields = {}
-        for k, v in requested_fields.iteritems():
+        for k, v in iteritems(requested_fields):
             if v == True:
                 fields[k] = v
         requested_fields = fields
@@ -159,7 +158,7 @@ class ExportResource(Resource):
         requested_querysets = simplejson.loads(str(requested_querysets))
 
         querysets = {}
-        for k, v in requested_querysets.iteritems():
+        for k, v in iteritems(requested_querysets):
             if v == True:
                 querysets[k] = v
         requested_querysets = querysets
@@ -283,7 +282,7 @@ class ExportResource(Resource):
                 converted_obj['name'] = obj.get('combined_name', getname(obj))
                 return ExportObject(converted_obj)
 
-            converted = map(format, objects)
+            converted = list(map(format, objects))
             converted.sort(key=lambda p: p.kixcode)
 
         return converted
