@@ -43,7 +43,7 @@ class CSVSerializer(Serializer):
                      'person__ldap_username', 'person__netid', 'person__student__study', 'person__student__first_year',
                      'person__student__student_number', 'person__student__enrolled', 'person__student__phone_parents',
                      'person__alumnus__study', 'person__alumnus__study_first_year', 'person__alumnus__study_last_year',
-                     'person__alumnus__work_company']
+                     'person__alumnus__work_company', 'id']
 
             fields = data['objects'][0].data['data'].keys()
             fields.sort(key=lambda p: order.index(p))
