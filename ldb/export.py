@@ -1,22 +1,22 @@
 # coding: utf-8
-import sys
-import re
 import csv
-import traceback
-from functools import reduce
 
+import re
+import simplejson
+from django.db.models import Q
 from django.utils.encoding import smart_str
+from functools import reduce
 from io import StringIO
-from tastypie.resources import Resource
+from six import iteritems
+from tastypie import fields
 from tastypie.authorization import DjangoAuthorization
 from tastypie.cache import SimpleCache
-from tastypie import fields
-from django.db.models import Q
-import simplejson
+from tastypie.http import HttpBadRequest
+from tastypie.resources import Resource
 from tastypie.serializers import Serializer
-from six import iteritems
 
 from ldb.models import *
+
 
 class CSVSerializer(Serializer):
     formats = ['json', 'jsonp', 'html', 'plist', 'csv']
@@ -29,35 +29,30 @@ class CSVSerializer(Serializer):
     }
 
     def to_csv(self, data, options=None):
-        options = options or {}
-
         raw_data = StringIO()
 
-        try:
-            if len(data['objects']) < 1:
-                return ""
+        if 'objects' not in data or len(data['objects']) < 1:
+            return HttpBadRequest("No fields selected")
 
-            order = ['name', 'streetnumber', 'postcodecity', 'kixcode', 'street_name', 'house_number', 'address_2',
-                     'address_3', 'postcode', 'city', 'country', 'email', 'phone_fixed', 'organization__name_prefix',
-                     'organization__name', 'organization__name_short', 'organization__salutation', 'person__titles',
-                     'person__initials', 'person__firstname', 'person__preposition', 'person__surname',
-                     'person__postfix_titles', 'person__phone_mobile', 'person__gender', 'person__birthdate',
-                     'person__ldap_username', 'person__netid', 'person__student__study', 'person__student__first_year',
-                     'person__student__student_number', 'person__student__enrolled', 'person__student__phone_parents',
-                     'person__alumnus__study', 'person__alumnus__study_first_year', 'person__alumnus__study_last_year',
-                     'person__alumnus__work_company', 'id']
+        order = ['name', 'streetnumber', 'postcodecity', 'kixcode', 'street_name', 'house_number', 'address_2',
+                 'address_3', 'postcode', 'city', 'country', 'email', 'phone_fixed', 'organization__name_prefix',
+                 'organization__name', 'organization__name_short', 'organization__salutation', 'person__titles',
+                 'person__initials', 'person__firstname', 'person__preposition', 'person__surname',
+                 'person__postfix_titles', 'person__phone_mobile', 'person__gender', 'person__birthdate',
+                 'person__ldap_username', 'person__netid', 'person__student__study', 'person__student__first_year',
+                 'person__student__student_number', 'person__student__enrolled', 'person__student__phone_parents',
+                 'person__alumnus__study', 'person__alumnus__study_first_year', 'person__alumnus__study_last_year',
+                 'person__alumnus__work_company', 'id']
 
-            fields = list(data['objects'][0].data['data'].keys())
-            fields.sort(key=lambda p: order.index(p))
+        fields = list(data['objects'][0].data['data'].keys())
+        fields.sort(key=lambda p: order.index(p))
 
-            writer = csv.DictWriter(raw_data, fieldnames=fields, quoting=csv.QUOTE_MINIMAL)
-            writer.writeheader()
+        writer = csv.DictWriter(raw_data, fieldnames=fields, quoting=csv.QUOTE_MINIMAL)
+        writer.writeheader()
 
-            for obj in data.get('objects', []):
-                writer.writerow({k: smart_str(v) for k, v in obj.data.get('data', {}).items()})
-            return raw_data.getvalue()
-        except:
-            return "Unexpected error:", sys.exc_info()[0], '\n', traceback.format_exc()
+        for obj in data.get('objects', []):
+            writer.writerow({k: smart_str(v) for k, v in obj.data.get('data', {}).items()})
+        return raw_data.getvalue()
 
     def from_csv(self, content):
         pass
@@ -122,14 +117,13 @@ class ExportResource(Resource):
     }
 
     def set_fields(self, query):
-        export_fields = {}
         allowed_fields = flatten(self.allowed_fields)
         requested_fields = query.get("fields", "[]")
         requested_fields = simplejson.loads(str(requested_fields))
 
         fields = {}
         for k, v in iteritems(requested_fields):
-            if v == True:
+            if v:
                 fields[k] = v
         requested_fields = fields
 
@@ -206,6 +200,9 @@ class ExportResource(Resource):
             get = bundle.request.GET.copy()
 
         querysets = self.set_querysets(get)
+
+        if not querysets:
+            return HttpBadRequest("No groups selected")
 
         import operator
 
