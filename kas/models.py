@@ -1,11 +1,12 @@
 from __future__ import unicode_literals
 
-from django.db import models
-from django.utils.encoding import python_2_unicode_compatible
-from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import ValidationError
-from django.utils.text import capfirst
+from django.db import models
 from django.utils import timezone
+from django.utils.encoding import python_2_unicode_compatible
+from django.utils.text import capfirst
+from django.utils.translation import ugettext_lazy as _
+from functools import reduce
 
 
 @python_2_unicode_compatible
@@ -114,7 +115,7 @@ class Closure(models.Model):
 
     @property
     def previous(self):
-        previous = None;
+        previous = None
         try:
             if self.pk:
                 previous = Closure.objects.filter(date__lt=self.date)[0:1].get()

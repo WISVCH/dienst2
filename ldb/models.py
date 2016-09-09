@@ -3,14 +3,14 @@ from __future__ import unicode_literals
 
 from datetime import date
 
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
-from django.core.exceptions import ValidationError
 from django_enumfield import enum
 
-from .country_field import CountryField
 from dienst2.extras import CharNullField
+from .country_field import CountryField
 
 
 def get_attributes(self, attrs):
@@ -101,10 +101,10 @@ class Organization(Entity):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('ldb_organizations_detail', [str(self.id)])
+        return 'ldb_organizations_detail', [str(self.id)]
 
     def __str__(self):
-        return unicode(self.name)
+        return str(self.name)
 
 
 class MembershipStatus(enum.Enum):
@@ -285,7 +285,7 @@ class Person(Entity):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('ldb_people_detail', [str(self.id)])
+        return 'ldb_people_detail', [str(self.id)]
 
     def __str__(self):
         return ('%s, %s %s%s' %
@@ -353,7 +353,7 @@ class Member(models.Model):
         return self.honorary_date_from is not None and self.current_member
 
     def __str__(self):
-        return unicode(self.person)
+        return str(self.person)
 
     def clean(self):
         if (self.date_from is not None and self.date_to is not None and self.date_from > self.date_to) or \
@@ -390,7 +390,7 @@ class Student(models.Model):
     date_verified = models.DateField(_('date verified'), blank=True, null=True)
 
     def __str__(self):
-        return "%s %s" % (self.student_number, unicode(self.person))
+        return "%s %s" % (self.student_number, str(self.person))
 
 
 CONTACT_METHOD_CHOICES = (
@@ -421,7 +421,7 @@ class Alumnus(models.Model):
     contact_method = models.CharField(_('contact method'), max_length=1, choices=CONTACT_METHOD_CHOICES, default='e')
 
     def __str__(self):
-        return unicode(self.person)
+        return str(self.person)
 
 
 @python_2_unicode_compatible
@@ -438,7 +438,7 @@ class Employee(models.Model):
     phone_internal = models.CharField(_('phone internal'), max_length=5)
 
     def __str__(self):
-        return unicode(self.person)
+        return str(self.person)
 
 
 @python_2_unicode_compatible
