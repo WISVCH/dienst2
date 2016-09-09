@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 from haystack import indexes
 
 from kas.models import Transaction, Closure

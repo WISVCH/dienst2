@@ -1,9 +1,13 @@
+from __future__ import unicode_literals
+
 from django.db import models
+from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
 from post.querysets import ItemQuerySet
 
 
+@python_2_unicode_compatible
 class Category(models.Model):
     class Meta:
         verbose_name = _("category")
@@ -14,10 +18,11 @@ class Category(models.Model):
     grouping = models.BooleanField(_('grouping'), default=False)
     counting = models.BooleanField(_('counting'), default=False)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
+@python_2_unicode_compatible
 class Contact(models.Model):
     class Meta:
         verbose_name = _("contact")
@@ -33,10 +38,11 @@ class Contact(models.Model):
     name = models.CharField(_('name'), max_length=128, blank=False)
     location = models.CharField(_('location'), max_length=1, choices=LOCATIONS)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
+@python_2_unicode_compatible
 class Item(models.Model):
     class Meta:
         verbose_name = _("item")
@@ -51,5 +57,5 @@ class Item(models.Model):
 
     objects = ItemQuerySet.as_manager()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.description

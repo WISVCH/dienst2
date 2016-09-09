@@ -1,13 +1,16 @@
 # -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
 from datetime import date
 
-from django.db import models
-from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import ValidationError
+from django.db import models
+from django.utils.encoding import python_2_unicode_compatible
+from django.utils.translation import ugettext_lazy as _
 from django_enumfield import enum
 
-from country_field import CountryField
 from dienst2.extras import CharNullField
+from .country_field import CountryField
 
 
 def get_attributes(self, attrs):
@@ -17,6 +20,7 @@ def get_attributes(self, attrs):
     return v
 
 
+@python_2_unicode_compatible
 class Entity(models.Model):
     class Meta:
         verbose_name = _('entity')
@@ -70,9 +74,9 @@ class Entity(models.Model):
                     self.city != '') and self.country == '':
             raise ValidationError('Country is required if address is entered.')
 
-    def __unicode__(self):
-        return u'%s %s, %s %s, %s' % (self.street_name, self.house_number,
-                                      self.postcode, self.city, self.country)
+    def __str__(self):
+        return '%s %s, %s %s, %s' % (self.street_name, self.house_number,
+                                     self.postcode, self.city, self.country)
 
     def set_address_incorrect(self):
         self.street_name = ''
@@ -84,6 +88,7 @@ class Entity(models.Model):
         self.country = ''
 
 
+@python_2_unicode_compatible
 class Organization(Entity):
     class Meta:
         verbose_name = _('organization')
@@ -96,10 +101,10 @@ class Organization(Entity):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('ldb_organizations_detail', [str(self.id)])
+        return 'ldb_organizations_detail', [str(self.id)]
 
-    def __unicode__(self):
-        return unicode(self.name)
+    def __str__(self):
+        return str(self.name)
 
 
 class MembershipStatus(enum.Enum):
@@ -122,6 +127,7 @@ class MembershipStatus(enum.Enum):
     }
 
 
+@python_2_unicode_compatible
 class Person(Entity):
     class Meta:
         verbose_name = _('person')
@@ -219,9 +225,9 @@ class Person(Entity):
     @property
     def gender_symbol(self):
         if self.gender == 'M':
-            return u'♂'
+            return '♂'
         elif self.gender == 'F':
-            return u'♀'
+            return '♀'
         else:
             return
 
@@ -238,10 +244,10 @@ class Person(Entity):
         else:
             return today.year - born.year
 
-    def save(self):
+    def save(self, **kwargs):
         self._membership_status = self.membership_status
 
-        super(Person, self).save()
+        super(Person, self).save(**kwargs)
         if self.pk is not None:
             old = self._original_living_with_id
             if old != self.living_with_id and old:
@@ -279,13 +285,14 @@ class Person(Entity):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('ldb_people_detail', [str(self.id)])
+        return 'ldb_people_detail', [str(self.id)]
 
-    def __unicode__(self):
-        return (u'%s, %s %s%s' % \
-                (self.surname, self.firstname, self.preposition, u' ✝' if self.deceased else '')).strip()
+    def __str__(self):
+        return ('%s, %s %s%s' %
+                (self.surname, self.firstname, self.preposition, ' ✝' if self.deceased else '')).strip()
 
 
+@python_2_unicode_compatible
 class Member(models.Model):
     class Meta:
         verbose_name = _('member')
@@ -345,8 +352,8 @@ class Member(models.Model):
     def current_honorary_member(self):
         return self.honorary_date_from is not None and self.current_member
 
-    def __unicode__(self):
-        return unicode(self.person)
+    def __str__(self):
+        return str(self.person)
 
     def clean(self):
         if (self.date_from is not None and self.date_to is not None and self.date_from > self.date_to) or \
@@ -363,6 +370,7 @@ class Member(models.Model):
             raise ValidationError("'Date to' is required for donating members")
 
 
+@python_2_unicode_compatible
 class Student(models.Model):
     class Meta:
         verbose_name = _('student')
@@ -381,8 +389,8 @@ class Student(models.Model):
 
     date_verified = models.DateField(_('date verified'), blank=True, null=True)
 
-    def __unicode__(self):
-        return "%s %s" % (self.student_number, unicode(self.person))
+    def __str__(self):
+        return "%s %s" % (self.student_number, str(self.person))
 
 
 CONTACT_METHOD_CHOICES = (
@@ -391,6 +399,7 @@ CONTACT_METHOD_CHOICES = (
 )
 
 
+@python_2_unicode_compatible
 class Alumnus(models.Model):
     class Meta:
         verbose_name = _('alumnus')
@@ -411,10 +420,11 @@ class Alumnus(models.Model):
 
     contact_method = models.CharField(_('contact method'), max_length=1, choices=CONTACT_METHOD_CHOICES, default='e')
 
-    def __unicode__(self):
-        return unicode(self.person)
+    def __str__(self):
+        return str(self.person)
 
 
+@python_2_unicode_compatible
 class Employee(models.Model):
     class Meta:
         verbose_name = _('employee')
@@ -427,10 +437,11 @@ class Employee(models.Model):
     function = models.CharField(_('function'), max_length=50)
     phone_internal = models.CharField(_('phone internal'), max_length=5)
 
-    def __unicode__(self):
-        return unicode(self.person)
+    def __str__(self):
+        return str(self.person)
 
 
+@python_2_unicode_compatible
 class Committee(models.Model):
     class Meta:
         verbose_name = _('committee')
@@ -441,10 +452,11 @@ class Committee(models.Model):
     description = models.TextField(_('description'), blank=True)
     members = models.ManyToManyField(Person, through='CommitteeMembership')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
+@python_2_unicode_compatible
 class CommitteeMembership(models.Model):
     class Meta:
         verbose_name = _('committee membership')
@@ -459,10 +471,11 @@ class CommitteeMembership(models.Model):
     position = models.CharField(_('position'), max_length=50, blank=True)
     ras_months = models.IntegerField(_('RAS months'), blank=True, null=True)
 
-    def __unicode__(self):
-        return u'[%s] %s - %s' % (self.board, self.committee, self.person)
+    def __str__(self):
+        return '[%s] %s - %s' % (self.board, self.committee, self.person)
 
 
+@python_2_unicode_compatible
 class Modification(models.Model):
     class Meta:
         verbose_name = _('modification')
@@ -473,5 +486,5 @@ class Modification(models.Model):
     ip = models.CharField(_('ip address'), max_length=40)
     modification = models.TextField(_('modification'), blank=True)
 
-    def __unicode__(self):
-        return u'Edit [%s] %s' % (self.date, self.person.__unicode__())
+    def __str__(self):
+        return 'Edit [%s] %s' % (self.date, self.person.__str__())

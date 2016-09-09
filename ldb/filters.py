@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 import django_filters
 from ldb.models import CommitteeMembership
 

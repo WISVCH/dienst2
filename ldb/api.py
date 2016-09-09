@@ -123,7 +123,7 @@ class CommitteeMembershipResource(ModelResource):
 
     def dehydrate_personname(self, bundle):
         try:
-            return bundle.obj.person.__unicode__()
+            return bundle.obj.person.__str__()
         except:
             return None
 

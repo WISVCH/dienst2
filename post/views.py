@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 from django.core.urlresolvers import reverse_lazy
 from django.views.generic import CreateView, WeekArchiveView
 from django.views.generic.edit import FormMixin

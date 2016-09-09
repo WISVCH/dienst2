@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 from sys import stderr
 
 from django.core.exceptions import ValidationError
@@ -44,7 +45,7 @@ class Command(BaseCommand):
                     person.full_clean()
                     if options['save']:
                         person.save()
-                except ValidationError, e:
+                except ValidationError as e:
                     stderr.write('Validation error in Person {}/admin/ldb/person/{}/ - {}\n'
                                  .format(BASE_URL, person.id, e))
 
@@ -55,7 +56,7 @@ class Command(BaseCommand):
                         person.member.save()
                 except Member.DoesNotExist:
                     pass
-                except ValidationError, e:
+                except ValidationError as e:
                     stderr.write('Validation error in Member {}/admin/ldb/person/{} - {}/\n'
                                  .format(BASE_URL, person.id, e))
 
@@ -66,7 +67,7 @@ class Command(BaseCommand):
                         person.student.save()
                 except Student.DoesNotExist:
                     pass
-                except ValidationError, e:
+                except ValidationError as e:
                     stderr.write('Validation error in Student {}/admin/ldb/person/{}/ - {}\n'
                                  .format(BASE_URL, person.id, e))
 
@@ -77,6 +78,6 @@ class Command(BaseCommand):
                         person.alumnus.save()
                 except Alumnus.DoesNotExist:
                     pass
-                except ValidationError, e:
+                except ValidationError as e:
                     stderr.write('Validation error in Alumnus {}/admin/ldb/person/{}/ - {}\n'
                                  .format(BASE_URL, person.id, e))

@@ -1,10 +1,10 @@
-from tastypie.resources import ModelResource
-from tastypie import fields
 from django.forms import ModelForm
+from tastypie import fields
+from tastypie.resources import ModelResource
 from tastypie.validation import FormValidation
 
-from kas.models import *
 from dienst2 import api_helper
+from kas.models import *
 
 
 class TransactionForm(ModelForm):
@@ -80,7 +80,7 @@ class ClosureResource(ModelResource):
         validation = FormValidation(form_class=ClosureForm)
 
         filtering = {
-            "finished": ('exact')
+            "finished": 'exact'
         }
 
         # transactions = fields.ToManyField('kas.api.TransactionResource', attribute=lambda bundle: bundle.obj.transactions, readonly=True)

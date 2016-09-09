@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
 from django.utils.translation import ugettext as _
 from django.db import models
 
@@ -62,10 +64,10 @@ COUNTRIES = (
     ('CD', _('Congo, The Democratic Republic of the')),
     ('CK', _('Cook Islands')),
     ('CR', _('Costa Rica')),
-    ('CI', _(u'Côte d\'Ivoire')),
+    ('CI', _('Côte d\'Ivoire')),
     ('HR', _('Croatia')),
     ('CU', _('Cuba')),
-    ('CW', _(u'Curaçao')),
+    ('CW', _('Curaçao')),
     ('CY', _('Cyprus')),
     ('CZ', _('Czech Republic')),
     ('DK', _('Denmark')),

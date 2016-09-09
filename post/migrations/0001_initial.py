@@ -42,7 +42,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('name', models.CharField(max_length=128, verbose_name='name')),
                 ('location', models.CharField(max_length=1, verbose_name='location',
-                                              choices=[(b'I', 'internal'), (b'E', 'external')])),
+                                              choices=[('I', 'internal'), ('E', 'external')])),
             ],
             options={
                 'verbose_name': 'source',

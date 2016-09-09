@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 from django.db.models import Prefetch
 import django_filters
 from rest_framework import viewsets
