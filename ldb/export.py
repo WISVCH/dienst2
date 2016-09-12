@@ -4,6 +4,7 @@ import csv
 import re
 import simplejson
 from django.db.models import Q
+from django.http import HttpResponse
 from django.utils.encoding import smart_str
 from functools import reduce
 from io import StringIO
@@ -32,7 +33,7 @@ class CSVSerializer(Serializer):
         raw_data = StringIO()
 
         if 'objects' not in data or len(data['objects']) < 1:
-            return HttpBadRequest("No fields selected")
+            return HttpResponse("No results found")
 
         order = ['name', 'streetnumber', 'postcodecity', 'kixcode', 'street_name', 'house_number', 'address_2',
                  'address_3', 'postcode', 'city', 'country', 'email', 'phone_fixed', 'organization__name_prefix',
@@ -215,7 +216,7 @@ class ExportResource(Resource):
         if addresslist == 'off':
             export_fields = self.set_fields(get)
             objects = objects.values(*export_fields)
-            converted = map(ExportObject, objects)
+            converted = list(map(ExportObject, objects))
         elif addresslist in ['doubles', 'living_with']:
             objects = objects.filter(
                 ~Q(street_name=''), ~Q(house_number='')
