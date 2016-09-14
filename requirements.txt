@@ -21,3 +21,6 @@ django-reversion-compare==0.5.5
 diff-match-patch==20121119
 django-enumfield==1.2.1
 django-bootstrap3==6.1.0
+pyldap==2.4.25.1
+python-dateutil==2.5.3
+python-mimeparse==1.5.2
