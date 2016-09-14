@@ -9,7 +9,9 @@ install: pip install -r requirements.txt
 before_script:
 - cp dienst2/local.py.example dienst2/local.py
 - psql -c "CREATE DATABASE dienst2;" -U postgres
-script: python manage.py test
+script:
+- echo '! python manage.py makemigrations --dry-run -e' | bash
+- python manage.py test
 notifications:
   slack:
     secure: Iw0CyxjbyNpxD+/TaMGb5vGt2BGzevNsqUX3fhmaUMGJc2upxPTxHZzSsYPAWlZrGj6Wt/woa8DwgKlwpwQcsdkYqOccHu3mkHum9PkgzO/chmUHUiqB0SuYtsQYO38677HJN5Ba1u60CB0+WsDHekEuIpx9TBhEV6sr3J3JqNA=
