@@ -4,7 +4,13 @@
 {% block title %}{% trans 'Committees' %}{% endblock %}
 
 {% block content %}
-  <h2 class="page-header">{% trans 'Committees' %}</h2>
+  <h2 class="page-header">{% trans 'Committees' %}
+    <div class="pull-right btn-group">
+      {% if user.is_staff %}<a href="{% url 'admin:ldb_committee_changelist' %}" class="btn btn-success">
+        <i class="fa fa-wrench"></i><span class="visible-lg-inline visible-md-inline"> Admin</span>
+      </a>{% endif %}
+    </div>
+  </h2>
 
   <div class="panel panel-default">
     <div class="panel-heading">
