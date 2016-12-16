@@ -18,8 +18,8 @@ Dienstensysteem v2
 8. Create database (`createdb dienst2`, `createuser dienst2`)
 9. Initialise database [using manage.py](https://www.jetbrains.com/pycharm/help/running-tasks-of-manage-py-utility.html) (`manage.py migrate`)
 10. Initialize user auth (choose what's applicable)
-    * Connect to [CH VPN](https://ch.tudelft.nl/vpn/) and log in with your CH account. Or,
-    * Connect to your own LDAP server (Change `AUTH_LDAP*` values in `dienst2/settings.py`). Or,
+    * Connect to [CH VPN](https://ch.tudelft.nl/vpn/) and log in with a CH account that is in the `dienst2` group. Or,
+    * Connect to your own LDAP server (Override `AUTH_LDAP*` values in your `dienst2/local.py`). Or,
     * Create local superuser (`manage.py createsuperuser`)
 11. Install bower dependencies (`bower install`)
 12. Start server
