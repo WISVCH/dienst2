@@ -7,7 +7,6 @@ import copy
 from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
 from django.utils.translation import ugettext as _
-from django.utils.datastructures import SortedDict
 from django import template
 
 register = template.Library()
