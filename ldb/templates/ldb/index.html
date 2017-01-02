@@ -10,7 +10,7 @@
       $('#spinner').hide();
       var $q = $('#q');
 
-      $q.keyup(function () {
+      $q.keyup(function (e) {
         if (q != $q.val()) {
           q = $('#q').val();
           location.hash = q;
@@ -27,6 +27,33 @@
           }
           else
             $('#results').html('&nbsp;');
+        }
+        else
+          if(e.key === "ArrowDown") {
+            $('#results a:first-child').focus();
+          }
+      });
+
+
+      $('#results').on("keyup", "a", function (e) {
+        switch(e.key) {
+          case "ArrowUp":
+            $(this).prev().focus();
+            break;
+          case "ArrowDown":
+            $(this).next().focus();
+            break;
+          case "ArrowLeft":
+            $(this).prev().focus();
+            break;
+          case "ArrowRight":
+            $(this).next().focus();
+            break;
+          case "Escape":
+            $q.focus();
+            break;
+          default:
+            // nop
         }
       });
 
