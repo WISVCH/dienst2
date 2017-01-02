@@ -5,3 +5,4 @@
 .idea
 *.iml
 lib
+/dienst2/whoosh_index/

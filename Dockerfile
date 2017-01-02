@@ -15,9 +15,11 @@ RUN export DEBIAN_FRONTEND="noninteractive" && \
 RUN mkdir -p /srv
 WORKDIR /srv
 
-COPY requirements.txt /srv
-RUN pip install --no-cache-dir -r requirements.txt
-RUN pip install --no-cache-dir newrelic gunicorn
 COPY . /srv
+RUN pip install --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt && \
+    pip install --no-cache-dir newrelic gunicorn
 
-CMD ["gunicorn", "--workers=5", "dienst2.wsgi"]
+ENTRYPOINT ["/srv/docker-entrypoint.sh"]
+EXPOSE 8000
+CMD ["gunicorn"]
