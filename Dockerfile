@@ -5,11 +5,11 @@ RUN curl -so /usr/local/share/ca-certificates/wisvch.crt https://ch.tudelft.nl/c
     chmod 644 /usr/local/share/ca-certificates/wisvch.crt && \
     update-ca-certificates
 
-# Build dependencies for pyldap
+# Build dependencies for pyldap + runtime dependencies for django_compressor (coffee, lessc)
 RUN export DEBIAN_FRONTEND="noninteractive" && \
     apt-get update && \
     apt-get dist-upgrade -y && \
-    apt-get install -y --no-install-recommends libldap2-dev libsasl2-dev && \
+    apt-get install -y --no-install-recommends libldap2-dev libsasl2-dev coffeescript node-less && \
     rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /srv
