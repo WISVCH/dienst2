@@ -36,20 +36,20 @@
 
 
       $('#results').on("keyup", "a", function (e) {
-        switch(e.key) {
-          case "ArrowUp":
-            $(this).prev().focus();
+          console.log(e.keyCode);
+        switch(e.keyCode) {
+          case 38:
+            if($(this).prev().hasClass("list-group-item")) {
+              $(this).prev().focus();
+            }
+            else {
+              $q.focus();
+            }
             break;
-          case "ArrowDown":
+          case 40:
             $(this).next().focus();
             break;
-          case "ArrowLeft":
-            $(this).prev().focus();
-            break;
-          case "ArrowRight":
-            $(this).next().focus();
-            break;
-          case "Escape":
+          case 13:
             $q.focus();
             break;
           default:
