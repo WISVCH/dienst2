@@ -1,0 +1,7 @@
+.*
+**/.DS_Store
+**/*.pyc
+**/__pycache__
+dienst2/local.py
+dienst2/whoosh_index
+static
