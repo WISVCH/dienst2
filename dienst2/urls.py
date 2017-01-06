@@ -7,13 +7,13 @@ from django.views.defaults import page_not_found
 from django.views.defaults import server_error
 
 from dienst2 import settings
-from dienst2.views import index
+from dienst2.views import DashboardView
 
 admin.autodiscover()
 
 urlpatterns = [
     # The LDB index:
-    url(r'^$', index, name='index'),
+    url(r'^$', DashboardView.as_view(), name='index'),
 
     # The Admin docs:
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

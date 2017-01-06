@@ -7,7 +7,6 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
-from django_enumfield import enum
 
 from dienst2.extras import CharNullField
 from .country_field import CountryField
@@ -107,7 +106,7 @@ class Organization(Entity):
         return str(self.name)
 
 
-class MembershipStatus(enum.Enum):
+class MembershipStatus(object):
     NONE = 0
     DONATING = 10
     ALUMNUS = 20
@@ -125,6 +124,25 @@ class MembershipStatus(enum.Enum):
         MERIT: _('Merit member'),
         HONORARY: _('Honorary member'),
     }
+
+    @classmethod
+    def choices(cls):
+        return [(value, label) for value, label in cls.labels.items()]
+
+
+class MembershipStatusField(models.IntegerField):
+    def __init__(self, enum, *args, **kwargs):
+        self.enum = enum
+        kwargs['choices'] = self.enum.choices()
+        super(MembershipStatusField, self).__init__(*args, **kwargs)
+
+    def deconstruct(self):
+        name, path, args, kwargs = super(MembershipStatusField, self).deconstruct()
+        if self.enum is not None:
+            kwargs['enum'] = self.enum
+        if 'choices' in kwargs:
+            del kwargs['choices']
+        return name, path, args, kwargs
 
 
 @python_2_unicode_compatible
@@ -171,7 +189,9 @@ class Person(Entity):
     facebook_id = CharNullField(_('Facebook ID'), max_length=64, blank=True, null=True, unique=True)
 
     # Membership status
-    _membership_status = enum.EnumField(MembershipStatus, db_column='membership_status', default=MembershipStatus.NONE)
+    _membership_status = MembershipStatusField(enum=MembershipStatus, db_column='membership_status',
+                                               default=MembershipStatus.NONE)
+    # enum.EnumField(MembershipStatus, db_column='membership_status', default=MembershipStatus.NONE)
 
     _original_living_with_id = None
 

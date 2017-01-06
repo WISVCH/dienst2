@@ -8,7 +8,7 @@ from ldb import views_api
 from ldb.api import *
 from ldb.export import ExportResource
 from ldb.views import PersonDetailView, PersonDeleteView, OrganizationDetailView, OrganizationDeleteView, \
-    index_old, PersonEditView, OrganizationEditView, ResultsView, CommitteeMembershipFilterView, index
+    PersonEditView, OrganizationEditView, ResultsView, CommitteeMembershipFilterView, IndexView, AngularIndexView
 
 api = Api(api_name='v2')
 
@@ -30,12 +30,12 @@ router.register(r'organizations', views_api.OrganizationsViewSet)
 urlpatterns = [
     url(r'^api/', include(api.urls)),
 
-    url(r'^$', index, name="ldb_index_angular"),
+    url(r'^$', AngularIndexView.as_view(), name="ldb_index_angular"),
 
     url(r'^api/v3/', include(router.urls)),
     # url(r'^api/v3/api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 
-    url(r'^index/$', index_old, name='ldb_index'),
+    url(r'^index/$', IndexView.as_view(), name='ldb_index'),
 
     url(r'^people/search/$', ResultsView.as_view(), name='ldb_people_search'),
 
