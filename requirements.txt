@@ -2,13 +2,13 @@ Django==1.10.5
 Whoosh==2.7.4
 django-auth-ldap==1.2.8
 django-form-utils==1.0.3
-django-haystack==2.5.1
+django-haystack==2.6.0
 django-reversion==2.0.8
 django-tastypie==0.13.3
 psycopg2
 pyelasticsearch==1.4
 pytz
-requests==2.10.0
+requests==2.12.4
 simplejson==3.10.0
 six==1.10.0
 djangorestframework==3.5.3
