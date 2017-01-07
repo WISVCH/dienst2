@@ -25,12 +25,12 @@ class ItemFilterSet(django_filters.FilterSet):
 
 
 class AVFilterSet(django_filters.FilterSet):
-    date = django_filters.MethodFilter(action='filter_date')
+    date = django_filters.CharFilter(method='filter_date')
 
     def strptime(self, value, format):
         return datetime.datetime.strptime(force_str(value), format).date()
 
-    def filter_date(self, queryset, value):
+    def filter_date(self, queryset, name, value):
         date = None
         for format in formats.get_format('DATE_INPUT_FORMATS'):
             try:
@@ -41,3 +41,7 @@ class AVFilterSet(django_filters.FilterSet):
         if date is None:
             return queryset
         return queryset.prefetch_related(Prefetch('items', queryset=Item.objects.filter(date__gte=date)))
+
+    class Meta:
+        model = Item
+        fields = ['date']

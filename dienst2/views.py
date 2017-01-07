@@ -1,7 +1,10 @@
-from django.shortcuts import render_to_response
-from django.template import RequestContext
+from django.views.generic import TemplateView
 
 
-def index(request):
-    return render_to_response('dienst2/dashboard.html', {'title': 'Dashboard'},
-                              context_instance=RequestContext(request))
+class DashboardView(TemplateView):
+    template_name = 'dienst2/dashboard.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(DashboardView, self).get_context_data(**kwargs)
+        context['title'] = 'Dashboard'
+        return context

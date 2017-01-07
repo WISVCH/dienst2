@@ -4,7 +4,6 @@ from django.db import models
 
 class CharNullField(models.CharField):  # subclass the CharField
     description = "CharField that stores NULL but returns ''"
-    __metaclass__ = models.SubfieldBase  # this ensures to_python will be called
 
     def to_python(self, value):
         # this is the value right out of the db, or an instance

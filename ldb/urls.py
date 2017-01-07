@@ -1,6 +1,6 @@
 from __future__ import unicode_literals
 
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include, url
 from rest_framework import routers
 from tastypie.api import Api
 
@@ -8,7 +8,7 @@ from ldb import views_api
 from ldb.api import *
 from ldb.export import ExportResource
 from ldb.views import PersonDetailView, PersonDeleteView, OrganizationDetailView, OrganizationDeleteView, \
-    index_old, PersonEditView, OrganizationEditView, ResultsView, CommitteeMembershipFilterView
+    PersonEditView, OrganizationEditView, ResultsView, CommitteeMembershipFilterView, IndexView, AngularIndexView
 
 api = Api(api_name='v2')
 
@@ -27,16 +27,15 @@ router = routers.DefaultRouter()
 router.register(r'people', views_api.PersonViewSet)
 router.register(r'organizations', views_api.OrganizationsViewSet)
 
-urlpatterns = patterns(
-    '',
-    (r'^api/', include(api.urls)),
+urlpatterns = [
+    url(r'^api/', include(api.urls)),
 
-    url(r'^$', 'ldb.views.index', name="ldb_index_angular"),
+    url(r'^$', AngularIndexView.as_view(), name="ldb_index_angular"),
 
     url(r'^api/v3/', include(router.urls)),
     # url(r'^api/v3/api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 
-    url(r'^index/$', index_old, name='ldb_index'),
+    url(r'^index/$', IndexView.as_view(), name='ldb_index'),
 
     url(r'^people/search/$', ResultsView.as_view(), name='ldb_people_search'),
 
@@ -52,4 +51,4 @@ urlpatterns = patterns(
     url(r'^organizations/(?P<pk>\d+)/edit/$', OrganizationEditView.as_view()),
     url(r'^organizations/create/$', OrganizationEditView.as_view(), name='ldb_organizations_create'),
     url(r'^committees/$', CommitteeMembershipFilterView.as_view(), name='ldb_committees'),
-)
+]

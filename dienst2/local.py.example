@@ -22,7 +22,7 @@ DATABASES = {
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'CHANGEME'
 
-TEMPLATE_DEBUG = DEBUG = True
+DEBUG = True
 AUTH_LDAP_GLOBAL_OPTIONS = { ldap.OPT_X_TLS_REQUIRE_CERT: ldap.OPT_X_TLS_NEVER }
 
 # Uncomment and edit to override default CH LDAP
