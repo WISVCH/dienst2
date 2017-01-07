@@ -20,7 +20,6 @@ class ClosureForm(ModelForm):
 
 
 class TransactionResource(ModelResource):
-    get_search = api_helper.get_search(Transaction)
     prepend_urls = api_helper.prepend_urls()
 
     class Meta(api_helper.BaseMeta):
@@ -47,7 +46,6 @@ class TransactionResource(ModelResource):
 
 
 class ClosureResource(ModelResource):
-    get_search = api_helper.get_search(Closure)
     prepend_urls = api_helper.prepend_urls()
 
     cashdifference = fields.DecimalField(readonly=True)
@@ -82,5 +80,3 @@ class ClosureResource(ModelResource):
         filtering = {
             "finished": 'exact'
         }
-
-        # transactions = fields.ToManyField('kas.api.TransactionResource', attribute=lambda bundle: bundle.obj.transactions, readonly=True)
