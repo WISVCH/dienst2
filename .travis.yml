@@ -9,7 +9,7 @@ before_script:
 - cp dienst2/local.py.example dienst2/local.py
 - psql -c "CREATE DATABASE dienst2;" -U postgres
 script:
-- echo '! python manage.py makemigrations --dry-run -e' | bash
+- python manage.py makemigrations --check --dry-run
 - python manage.py test
 notifications:
   slack:
