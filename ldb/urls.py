@@ -5,22 +5,11 @@ from rest_framework import routers
 from tastypie.api import Api
 
 from ldb import views_api
-from ldb.api import *
 from ldb.export import ExportResource
 from ldb.views import PersonDetailView, PersonDeleteView, OrganizationDetailView, OrganizationDeleteView, \
     PersonEditView, OrganizationEditView, ResultsView, CommitteeMembershipFilterView, IndexView, AngularIndexView
 
 api = Api(api_name='v2')
-
-api.register(OrganizationResource())
-api.register(PersonResource())
-api.register(MemberResource())
-api.register(StudentResource())
-api.register(AlumnusResource())
-api.register(EmployeeResource())
-api.register(CommitteeResource())
-api.register(CommitteeMembershipResource())
-api.register(ModificationResource())
 api.register(ExportResource())
 
 router = routers.DefaultRouter()
