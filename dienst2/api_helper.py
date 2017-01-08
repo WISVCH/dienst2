@@ -1,17 +1,11 @@
 from __future__ import unicode_literals
 
 from django.conf.urls import url
-from django.core.paginator import Paginator, InvalidPage
-from django.http import Http404
-from haystack.query import SearchQuerySet
-from haystack.inputs import Raw
-from tastypie.authorization import DjangoAuthorization
-from tastypie.utils import trailing_slash
-from tastypie.cache import SimpleCache
-from tastypie.validation import Validation
 from django.core.exceptions import ValidationError
-
-from dienst2.extras import convert_free_search
+from tastypie.authorization import DjangoAuthorization
+from tastypie.cache import SimpleCache
+from tastypie.utils import trailing_slash
+from tastypie.validation import Validation
 
 
 class CHValidation(Validation):

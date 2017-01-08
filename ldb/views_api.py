@@ -9,8 +9,8 @@ from ldb.serializers import PersonSerializer, OrganizationSerializer
 
 
 class PersonFilter(django_filters.FilterSet):
-    netid = django_filters.CharFilter(name='netid', lookup_type='iexact')
-    ldap_username = django_filters.CharFilter(name='ldap_username', lookup_type='iexact')
+    netid = django_filters.CharFilter(name='netid', lookup_expr='iexact')
+    ldap_username = django_filters.CharFilter(name='ldap_username', lookup_expr='iexact')
 
     class Meta:
         model = Person
