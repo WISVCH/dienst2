@@ -6,9 +6,11 @@ from datetime import date
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
+from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
 from dienst2.extras import CharNullField
+from ldb.querysets import EntityQuerySet, PersonQuerySet
 from .country_field import CountryField
 
 
@@ -47,6 +49,8 @@ class Entity(models.Model):
 
     # Other
     comment = models.TextField(blank=True)
+
+    objects = EntityQuerySet.as_manager()
 
     @property
     def street_address(self):
@@ -191,9 +195,10 @@ class Person(Entity):
     # Membership status
     _membership_status = MembershipStatusField(enum=MembershipStatus, db_column='membership_status',
                                                default=MembershipStatus.NONE)
-    # enum.EnumField(MembershipStatus, db_column='membership_status', default=MembershipStatus.NONE)
 
     _original_living_with_id = None
+
+    objects = PersonQuerySet.as_manager()
 
     def __init__(self, *args, **kwargs):
         super(Person, self).__init__(*args, **kwargs)
@@ -349,12 +354,9 @@ class Member(models.Model):
 
     @property
     def current_alumnus_member(self):
-        try:
-            # noinspection PyUnusedLocal
-            alumnus = self.person.alumnus
-            return self.current_member and not self.current_regular_member
-        except Alumnus.DoesNotExist:
-            return False
+        return self.current_member and \
+               Alumnus.objects.filter(person=self.person).exists() > 0 and \
+               not self.current_regular_member
 
     @property
     def current_associate_member(self):
@@ -382,6 +384,12 @@ class Member(models.Model):
 
         if self.date_to is not None and (self.merit_date_from is not None or self.honorary_date_from is not None):
             raise ValidationError("'Date to' cannot be set for merit and honorary members")
+
+        if self.merit_date_from is not None and self.merit_date_from > date.today():
+            raise ValidationError("Merit date from should be in the past")
+
+        if self.honorary_date_from is not None and self.honorary_date_from > date.today():
+            raise ValidationError("Honorary date from should be in the past")
 
         if self.date_to is None and self.associate_member:
             raise ValidationError("'Date to' is required for associate members")
