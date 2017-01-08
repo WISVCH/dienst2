@@ -4,7 +4,7 @@ from django.conf.urls import include, url
 from rest_framework import routers
 from tastypie.api import Api
 
-from ldb import views_api
+from ldb import viewsets
 from ldb.export import ExportResource
 from ldb.views import PersonDetailView, PersonDeleteView, OrganizationDetailView, OrganizationDeleteView, \
     PersonEditView, OrganizationEditView, ResultsView, CommitteeMembershipFilterView, IndexView, AngularIndexView
@@ -13,8 +13,8 @@ api = Api(api_name='v2')
 api.register(ExportResource())
 
 router = routers.DefaultRouter()
-router.register(r'people', views_api.PersonViewSet)
-router.register(r'organizations', views_api.OrganizationsViewSet)
+router.register(r'people', viewsets.PersonViewSet)
+router.register(r'organizations', viewsets.OrganizationsViewSet)
 
 urlpatterns = [
     url(r'^api/', include(api.urls)),
