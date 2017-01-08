@@ -24,7 +24,7 @@ class RequireLoginMiddleware(object):
         r = resolve(request.path_info)
 
         # django-rest-framework (DEFAULT_PERMISSION_CLASSES in settings.py)
-        if r._func_path.startswith("rest_framework.") or r._func_path.startswith("ldb.views_api."):
+        if r._func_path.startswith("rest_framework.") or r._func_path.startswith("ldb.viewsets."):
             return
 
         # other pages except login page
