@@ -10,18 +10,17 @@ from post.models import Item
 
 
 class ItemFilterSet(django_filters.FilterSet):
-    filter_overrides = {
-        models.CharField: {
-            'filter_class': django_filters.CharFilter,
-            'extra': lambda f: {
-                'lookup_type': 'icontains',
-            }
-        }
-    }
-
     class Meta:
         model = Item
         fields = ('description', 'sender', 'recipient', 'category')
+        filter_overrides = {
+            models.CharField: {
+                'filter_class': django_filters.CharFilter,
+                'extra': lambda f: {
+                    'lookup_expr': 'icontains',
+                }
+            }
+        }
 
 
 class AVFilterSet(django_filters.FilterSet):
