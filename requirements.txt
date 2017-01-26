@@ -24,3 +24,4 @@ django-bootstrap3==7.1.0
 pyldap==2.4.25.1
 python-dateutil==2.6.0
 python-mimeparse==1.6.0
+django-seed==0.1.7
