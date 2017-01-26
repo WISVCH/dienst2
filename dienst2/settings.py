@@ -129,7 +129,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.admindocs',
     'debug_toolbar',
-
+    'django_seed',
     'bootstrap3',
     'compressor',
 
