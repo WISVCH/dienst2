@@ -217,4 +217,6 @@ BOOTSTRAP3 = {
     'horizontal_field_class': 'col-md-8',
 }
 
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+
 from .local import *
