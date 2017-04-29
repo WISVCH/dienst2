@@ -17,8 +17,9 @@ WORKDIR /srv
 
 COPY . /srv
 RUN pip install --upgrade pip && \
-    pip install --no-cache-dir -r requirements.txt && \
-    pip install --no-cache-dir newrelic gunicorn
+    pip install --no-cache-dir -r requirements.txt newrelic gunicorn && \
+    ./manage.py collectstatic --noinput && \
+    ./manage.py compress --noinput
 
 ENTRYPOINT ["/srv/docker-entrypoint.sh"]
 EXPOSE 8000
