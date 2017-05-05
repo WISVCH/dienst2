@@ -25,7 +25,7 @@ class MembershipStatusTestCase(LDBHelperMixin, TestCase):
             member_kwargs={'date_to': self.tomorrow},
         )
         member = self.get_member(person.pk)
-        self.assertTrue(member.current_member, 'member.date_to=yesterday')
+        self.assertTrue(member.current_member, 'member.date_to=tomorrow')
 
     def test_donating_member(self):
         person = self.create_donating_member()
