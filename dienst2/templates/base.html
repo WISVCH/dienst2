@@ -21,26 +21,25 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/angular-strap/0.7.1/angular-strap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/spin.js/1.2.7/spin.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/ocanvas/2.4.0/ocanvas.min.js"></script>
-
+<script type="text/javascript">
+window.prefix = '{% get_static_prefix %}';
+window.admin = {{ perms.admin|yesno:'true,false' }};
+</script>
 {% compress js %}
   {% block javascript_libraries %}{% endblock %}
-  <script type="text/javascript">
-    window.prefix = '{% get_static_prefix %}';
-    window.admin = {{ perms.admin|yesno:'true,false' }};
-  </script>
   <script type="text/coffeescript" src="{% static 'coffee/dienst2.coffee' %}"></script>
   <script type="text/coffeescript" src="{% static 'coffee/spin.coffee' %}"></script>
   <script type="text/coffeescript" src="{% static 'coffee/forms.coffee' %}"></script>
-  {% if ng_app %}
-    <script type="text/coffeescript" src="{% static 'coffee/'|add:ng_app|add:'.coffee' %}"></script>{% endif %}
-  {% if ng_app == 'kas' %}
-    <script type="text/coffeescript" src="{% static 'coffee/barcode.coffee' %}"></script>{% endif %}
+  <script type="text/coffeescript" src="{% static 'coffee/ldb.coffee' %}"></script>
+  <script type="text/coffeescript" src="{% static 'coffee/kas.coffee' %}"></script>
+  <script type="text/coffeescript" src="{% static 'coffee/barcode.coffee' %}"></script>
   {% block javascript %}{% endblock %}
 {% endcompress %}
 <div class="row-fluid">
-  <div class="span4 offset4">
-    <div class="alert alert-info" style="opacity: 0.7; margin-top: 2em">
-      <strong>Werkt het niet?</strong> Maak een <a href="https://github.com/WISVCH/dienst2/issues">issue</a> aan.
+  <div class="span2 offset5">
+    <div class="alert alert-info" style="opacity: 0.7; margin-top: 2em; text-align: center">
+      <strong>Werkt het niet?</strong>
+      <a href="https://github.com/WISVCH/dienst2/issues/5{% if ng_app == 'ldb'%}0{% elif ng_app == 'kas' %}7{% endif %}">Fix het!</a>
     </div>
   </div>
 </div>
