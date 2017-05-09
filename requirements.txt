@@ -1,4 +1,4 @@
-Django==1.11
+Django==1.11.1
 Whoosh==2.7.4
 django-auth-ldap==1.2.8
 django-form-utils==1.0.3
