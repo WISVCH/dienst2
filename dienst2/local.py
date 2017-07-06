@@ -6,16 +6,12 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'dienst2',
-        'USER': 'postgres',
+        'USER': 'dienst2',
         'PASSWORD': '',
-        'HOST': '127.0.0.1',
+        'HOST': 'postgres',
         'PORT': '',
         'CONN_MAX_AGE': 10800,
-        'ATOMIC_REQUESTS': True,
-        # Travis doesn't support SSL
-        # 'OPTIONS': {
-        #     'sslmode': 'require',
-        # },
+        'ATOMIC_REQUESTS': True
     }
 }
 
@@ -23,7 +19,7 @@ DATABASES = {
 SECRET_KEY = 'CHANGEME'
 
 DEBUG = True
-AUTH_LDAP_GLOBAL_OPTIONS = { ldap.OPT_X_TLS_REQUIRE_CERT: ldap.OPT_X_TLS_NEVER }
+AUTH_LDAP_GLOBAL_OPTIONS = {ldap.OPT_X_TLS_REQUIRE_CERT: ldap.OPT_X_TLS_NEVER}
 
 # Uncomment and edit to override default CH LDAP
 # AUTH_LDAP_SERVER_URI = "ldaps://ank.chnet"
