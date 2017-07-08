@@ -6,7 +6,7 @@ django-haystack==2.6.1
 django-reversion==2.0.9
 django-tastypie==0.14.0
 psycopg2
-elasticsearch>=2,<3
+elasticsearch>=2.0.0,<3.0.0 # rq.filter: >=2.0.0,<3.0.0
 pytz
 requests==2.18.1
 simplejson==3.11.1
