@@ -410,7 +410,8 @@ class Student(models.Model):
     first_year = models.IntegerField(_('first year'), blank=True, null=True)
     student_number = CharNullField(_('student number'), max_length=7, blank=True, null=True, unique=True)
 
-    phone_parents = models.CharField(_('phone parents'), max_length=16, blank=True)
+    emergency_name = models.CharField(_('emergency name'), max_length=16, blank=True)
+    emergency_phone = models.CharField(_('emergency phone'), max_length=16, blank=True)
 
     yearbook_permission = models.BooleanField(_('yearbook permission'), default=True)
 

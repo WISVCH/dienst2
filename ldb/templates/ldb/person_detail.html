@@ -87,8 +87,14 @@
           {% stcontrol_format person 'email' '<a href="mailto:{0}">{0}</a>' %}
           {% stcontrol_format person 'phone_fixed' '<a href="tel:{0}"><i class="fa fa-fw fa-phone"></i>{0}</a>' %}
           {% stcontrol_format person 'phone_mobile' '<a href="tel:{0}"><i class="fa fa-fw fa-mobile"></i>{0}</a>' %}
-          {% if person.student %}
-            {% stcontrol_format person.student 'phone_parents' '<a href="tel:{0}"><i class="fa fa-fw fa-phone"></i>{0}</a>' %}
+          {% if person.student.emergency_phone %}
+            <div class="form-group">
+              <label class="col-sm-4 control-label">Contact noodgeval</label>
+              <div class="col-sm-8">
+                <p class="form-control-static"><a href="tel:{{ person.student.emergency_phone }}"><i class="fa fa-fw fa-phone"></i>{{ person.student.emergency_phone }}</a>
+                  {% if person.student.emergency_name %}({{ person.student.emergency_name }}){% endif %}</p>
+              </div>
+            </div>
           {% endif %}
         </fieldset>
 
