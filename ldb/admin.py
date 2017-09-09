@@ -17,7 +17,7 @@ class StudentInline(admin.StackedInline):
     model = Student
     fieldsets = [
         (_('Base'), {'fields': ['study', 'first_year', 'student_number', 'enrolled']}),
-        (_('Phone'), {'fields': ['emergency_name', 'emergency_phone']}),
+        (_('Emergency'), {'fields': ['emergency_name', 'emergency_phone']}),
         (_('Permissions'), {'fields': ['yearbook_permission']}),
         (_('Other'), {'fields': ['date_verified']})
     ]
