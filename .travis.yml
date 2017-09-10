@@ -5,10 +5,15 @@ addons:
   postgresql: '9.4'
 before_script:
 - psql -c "CREATE DATABASE dienst2;" -U postgres
-- docker build --no-cache --pull -t dienst2 .
+- docker build --no-cache --pull -t dienst2 -t wisvch/dienst2:$TRAVIS_BUILD_NUMBER .
 script:
 - docker run --net=host -v `pwd`/dienst2/local.py.travis:/srv/dienst2/local.py:ro dienst2 ./manage.py makemigrations --check --dry-run
 - docker run --net=host -v `pwd`/dienst2/local.py.travis:/srv/dienst2/local.py:ro dienst2 ./manage.py test
+after_success:
+- if [ "${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}" == "master" ]; then
+  docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+  docker push wisvch/dienst2:$TRAVIS_BUILD_NUMBER;
+  fi
 notifications:
   slack:
     secure: Iw0CyxjbyNpxD+/TaMGb5vGt2BGzevNsqUX3fhmaUMGJc2upxPTxHZzSsYPAWlZrGj6Wt/woa8DwgKlwpwQcsdkYqOccHu3mkHum9PkgzO/chmUHUiqB0SuYtsQYO38677HJN5Ba1u60CB0+WsDHekEuIpx9TBhEV6sr3J3JqNA=
