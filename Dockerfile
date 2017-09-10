@@ -1,4 +1,4 @@
-FROM python:3.6
+FROM python:3.6-stretch
 
 # CH CA certificate for LDAP and PostgreSQL TLS connections
 RUN curl -so /usr/local/share/ca-certificates/wisvch.crt https://ch.tudelft.nl/certs/wisvch.crt && \
