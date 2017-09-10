@@ -102,7 +102,7 @@
         {% if person.ldap_username or person.netid or person.facebook_id or person.linkedin_id %}
           <fieldset>
             <legend>Accounts</legend>
-            {% if user|has_group:'pccom' %}
+            {% if user|has_group:'staff' %}
               {% stcontrol_format person 'ldap_username' '<a href="https://frans.chnet/userman2/users/{0}/">{0}</a>' %}
             {% else %}
               {% stcontrol person 'ldap_username' %}
