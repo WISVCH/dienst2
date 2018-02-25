@@ -10,7 +10,7 @@ WORKDIR /srv
 COPY . /srv
 
 RUN export DEBIAN_FRONTEND="noninteractive" && \
-    curl -sL https://deb.nodesource.com/setup_6.x | bash - && \
+    curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
     apt-get install -y --no-install-recommends libldap2-dev libsasl2-dev nodejs && \
     npm install -g bower less coffee-script && \
     pip install --upgrade pip && \
