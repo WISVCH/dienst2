@@ -22,6 +22,9 @@ RUN export DEBIAN_FRONTEND="noninteractive" && \
     apt-get autoremove -y && \
     rm -rf dienst2/local.py* /var/lib/apt/lists/* /usr/lib/node_modules
 
+RUN groupadd -r dienst2 --gid=999 && useradd --no-log-init -r -g dienst2 --uid=999 dienst2
+USER dienst2
+
 ENTRYPOINT ["/srv/docker-entrypoint.sh"]
 CMD ["gunicorn"]
 EXPOSE 8000
