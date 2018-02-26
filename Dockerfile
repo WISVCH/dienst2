@@ -14,7 +14,7 @@ RUN export DEBIAN_FRONTEND="noninteractive" && \
     apt-get install -y --no-install-recommends libldap2-dev libsasl2-dev nodejs && \
     npm install -g bower less coffee-script && \
     pip install --upgrade pip && \
-    pip install --no-cache-dir -r requirements.txt newrelic gunicorn && \
+    pip install --no-cache-dir -r requirements.txt ddtrace gunicorn && \
     bower --allow-root install && \
     ./manage.py collectstatic --noinput && \
     ./manage.py compress && \
