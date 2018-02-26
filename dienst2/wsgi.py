@@ -15,13 +15,6 @@ framework.
 """
 import os
 
-try:
-    import newrelic.agent
-
-    newrelic.agent.initialize('/srv/dienst2/config/newrelic.ini')
-except ImportError:
-    pass
-
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "dienst2.settings")
 
 # This application object is used by any WSGI server configured to use this
