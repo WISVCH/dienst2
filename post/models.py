@@ -47,13 +47,14 @@ class Item(models.Model):
     class Meta:
         verbose_name = _("item")
         verbose_name_plural = _("items")
-        ordering = ('date', )
+        ordering = ('date',)
 
     date = models.DateTimeField(_('date'), auto_now_add=True)
     description = models.CharField(_('description'), max_length=128, blank=False)
-    sender = models.ForeignKey(Contact, verbose_name=_('sender'), related_name='sent_items')
-    recipient = models.ForeignKey(Contact, verbose_name=_('recipient'), related_name='received_items')
-    category = models.ForeignKey(Category, verbose_name=_('category'), related_name='items')
+    sender = models.ForeignKey(Contact, verbose_name=_('sender'), related_name='sent_items', on_delete=models.PROTECT)
+    recipient = models.ForeignKey(Contact, verbose_name=_('recipient'), related_name='received_items',
+                                  on_delete=models.PROTECT)
+    category = models.ForeignKey(Category, verbose_name=_('category'), related_name='items', on_delete=models.PROTECT)
 
     objects = ItemQuerySet.as_manager()
 
