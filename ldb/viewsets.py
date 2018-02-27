@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 
-from django.db.models import Prefetch
 import django_filters
+from django.db.models import Prefetch
 from rest_framework import viewsets
 
 from ldb.models import Person, Organization, CommitteeMembership
@@ -9,8 +9,8 @@ from ldb.serializers import PersonSerializer, OrganizationSerializer
 
 
 class PersonFilter(django_filters.FilterSet):
-    netid = django_filters.CharFilter(name='netid', lookup_expr='iexact')
-    ldap_username = django_filters.CharFilter(name='ldap_username', lookup_expr='iexact')
+    netid = django_filters.CharFilter(field_name='netid', lookup_expr='iexact')
+    ldap_username = django_filters.CharFilter(field_name='ldap_username', lookup_expr='iexact')
 
     class Meta:
         model = Person
