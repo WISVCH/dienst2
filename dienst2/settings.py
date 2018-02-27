@@ -79,8 +79,8 @@ COMPRESS_CSS_FILTERS = [
 ]
 
 COMPRESS_PRECOMPILERS = (
-    ('text/coffeescript', 'coffee --compile --stdio'),
-    ('text/less', 'lessc {infile} {outfile}'),
+    ('text/coffeescript', 'node_modules/coffeescript/bin/coffee --compile --stdio'),
+    ('text/less', 'node_modules/less/bin/lessc {infile} {outfile}'),
 )
 
 # Needed to use the CssAbsoluteFilter

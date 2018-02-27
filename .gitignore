@@ -6,3 +6,4 @@
 *.iml
 lib
 /dienst2/whoosh_index/
+node_modules
