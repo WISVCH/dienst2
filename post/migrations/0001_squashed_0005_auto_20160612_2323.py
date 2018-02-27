@@ -17,6 +17,18 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
+            name='Contact',
+            fields=[
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('name', models.CharField(max_length=128, verbose_name='name')),
+                ('location', models.CharField(choices=[('I', 'internal'), ('E', 'external')], max_length=1, verbose_name='location')),
+            ],
+            options={
+                'verbose_name': 'contact',
+                'verbose_name_plural': 'contacts',
+            },
+        ),
+        migrations.CreateModel(
             name='Category',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
@@ -43,18 +55,6 @@ class Migration(migrations.Migration):
                 'ordering': ('date',),
                 'verbose_name': 'item',
                 'verbose_name_plural': 'items',
-            },
-        ),
-        migrations.CreateModel(
-            name='Contact',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=128, verbose_name='name')),
-                ('location', models.CharField(choices=[('I', 'internal'), ('E', 'external')], max_length=1, verbose_name='location')),
-            ],
-            options={
-                'verbose_name': 'contact',
-                'verbose_name_plural': 'contacts',
             },
         ),
         migrations.AlterModelOptions(
