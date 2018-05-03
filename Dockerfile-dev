@@ -4,12 +4,14 @@ WORKDIR /srv
 COPY requirements.txt bower.json .bowerrc /srv/
 
 RUN export DEBIAN_FRONTEND="noninteractive" && \
-    curl -sL https://deb.nodesource.com/setup_6.x | bash - && \
-    apt-get install -y --no-install-recommends libldap2-dev libsasl2-dev nodejs netcat-openbsd && \
-    npm install -g bower less coffee-script && \
+    curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
+    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends libldap2-dev libsasl2-dev nodejs yarn netcat-openbsd && \
+    yarn install && \
     pip install --upgrade pip && \
     pip install -r requirements.txt && \
-    bower --allow-root install && \
     rm -rf /var/lib/apt/lists/*
 
 ENTRYPOINT ["/srv/docker-entrypoint-dev.sh"]
