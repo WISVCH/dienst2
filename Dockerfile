@@ -26,7 +26,7 @@ RUN export DEBIAN_FRONTEND="noninteractive" && \
     rm -rf dienst2/local.py* /var/lib/apt/lists/* /usr/lib/node_modules node_modules
 
 RUN groupadd -r dienst2 --gid=999 && useradd --no-log-init -r -g dienst2 --uid=999 dienst2
-USER dienst2
+USER 999
 
 ENTRYPOINT ["/srv/docker-entrypoint.sh"]
 CMD ["gunicorn"]
