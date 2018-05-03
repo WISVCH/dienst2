@@ -2,10 +2,10 @@ from __future__ import unicode_literals
 
 from functools import reduce
 
-from django.core.urlresolvers import reverse
 from django.db.models import Prefetch
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
+from django.urls import reverse
 from django.views.generic import DetailView, DeleteView, TemplateView, UpdateView
 from django.views.generic.detail import SingleObjectMixin
 from django_filters.views import FilterView

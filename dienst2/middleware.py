@@ -1,9 +1,10 @@
 from django.conf import settings
 from django.contrib.auth.views import redirect_to_login
-from django.core.urlresolvers import resolve
+from django.urls import resolve
+from django.utils.deprecation import MiddlewareMixin
 
 
-class RequireLoginMiddleware(object):
+class RequireLoginMiddleware(MiddlewareMixin):
     """
     Require Login middleware. If enabled, each Django-powered page will
     require authentication. Also checks API key for requests to API.
@@ -13,11 +14,12 @@ class RequireLoginMiddleware(object):
     http://stackoverflow.com/questions/2164069/best-way-to-make-djangos-login-required-the-default
     """
 
-    def __init__(self):
+    def __init__(self, get_response=None):
+        super().__init__(get_response)
         self.require_login_path = getattr(settings, 'LOGIN_URL', '/accounts/login/')
 
     def process_request(self, request):
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             return
 
         # resolve() will raise an Http404 error if url not found

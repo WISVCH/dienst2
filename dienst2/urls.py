@@ -1,5 +1,4 @@
 from django.conf.urls import include, url
-
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
@@ -19,7 +18,7 @@ urlpatterns = [
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # The Admin site:
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/', admin.site.urls),
 
     # The signin page
     url(r'^accounts/login/$', auth_views.login, name='login'),
