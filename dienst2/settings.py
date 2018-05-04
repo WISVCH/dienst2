@@ -142,6 +142,9 @@ INSTALLED_APPS = (
     'rest_framework.authtoken',
     'django.contrib.admin',
     'django.contrib.admindocs',
+    'health_check',
+    'health_check.db',
+    'health_check.cache',
     'debug_toolbar',
 
     'bootstrap3',
