@@ -1,7 +1,7 @@
 FROM python:3.6-stretch
 
 WORKDIR /srv
-COPY requirements.txt bower.json .bowerrc /srv/
+COPY requirements.txt package.json yarn.lock /srv/
 
 RUN export DEBIAN_FRONTEND="noninteractive" && \
     curl -sL https://deb.nodesource.com/setup_8.x | bash - && \

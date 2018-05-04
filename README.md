@@ -6,7 +6,7 @@ Dienstensysteem v2
 
 ### With Docker
 
-1. Build and run the development Docker image using [Docker Compose](https://docs.docker.com/compose/install/): `docker-compose up`
+1. Build and run the development Docker image using [Docker Compose](https://docs.docker.com/compose/install/): `docker-compose up` and go to http://localhost:8000
 
 ### Without Docker
 
