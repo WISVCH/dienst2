@@ -26,3 +26,5 @@ python-dateutil==2.7.2
 python-mimeparse==1.6.0
 whitenoise==3.3.1
 django-health-check==3.5.1
+gunicorn
+ddtrace
