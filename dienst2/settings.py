@@ -146,6 +146,7 @@ INSTALLED_APPS = (
     'health_check.db',
     'health_check.cache',
     'debug_toolbar',
+    'ddtrace.contrib.django',
 
     'bootstrap3',
     'compressor',
@@ -176,6 +177,13 @@ AUTHENTICATION_BACKENDS = (
     'django_auth_ldap.backend.LDAPBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
+
+DATADOG_TRACE = {
+    'DEFAULT_SERVICE': 'dienst2',
+    'DEFAULT_DATABASE_PREFIX': 'dienst2',
+    'DISTRIBUTED_TRACING': True,
+    'TAGS': {'env': 'production'},
+}
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (

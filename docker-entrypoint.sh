@@ -8,8 +8,7 @@ if [ "$1" = 'gunicorn' ]; then
         sleep 1
     done
     ./manage.py rebuild_index --noinput &
-    export DATADOG_SERVICE_NAME=dienst2
-    exec ddtrace-run "$@" -b 0.0.0.0 dienst2.wsgi
+    exec "$@" -b 0.0.0.0 dienst2.wsgi
 fi
 
 exec "$@"

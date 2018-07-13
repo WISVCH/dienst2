@@ -17,7 +17,7 @@ RUN export DEBIAN_FRONTEND="noninteractive" && \
     apt-get install -y --no-install-recommends libldap2-dev libsasl2-dev nodejs yarn && \
     yarn install && \
     pip install --upgrade pip && \
-    pip install --no-cache-dir -r requirements.txt ddtrace gunicorn && \
+    pip install --no-cache-dir -r requirements.txt && \
     cp dienst2/local.py.ci dienst2/local.py && \
     ./manage.py collectstatic --noinput && \
     ./manage.py compress && \
