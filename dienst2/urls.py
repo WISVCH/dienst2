@@ -36,7 +36,7 @@ urlpatterns = [
     url(r'^kas/', include('kas.urls')),
 
     # Health check
-    url(r'^healthz$', include('health_check.urls')),
+    url(r'^healthz', include('health_check.urls')),
 ]
 
 if settings.DEBUG:
