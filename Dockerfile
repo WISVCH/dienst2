@@ -20,7 +20,6 @@ RUN export DEBIAN_FRONTEND="noninteractive" && \
     pip install --no-cache-dir -r requirements.txt && \
     cp dienst2/local.py.ci dienst2/local.py && \
     ./manage.py collectstatic --noinput && \
-    ./manage.py compress && \
     apt-get purge -y libldap2-dev libsasl2-dev nodejs yarn && \
     apt-get autoremove -y && \
     rm -rf dienst2/local.py* /var/lib/apt/lists/* /usr/lib/node_modules node_modules

@@ -71,19 +71,9 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'compressor.finders.CompressorFinder',
 )
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-COMPRESS_CSS_FILTERS = [
-    'compressor.filters.css_default.CssAbsoluteFilter',
-]
-
-# Needed to use the CssAbsoluteFilter
-COMPRESS_ENABLED = True
-# http://whitenoise.evans.io/en/stable/django.html#django-compressor
-COMPRESS_OFFLINE = True
 
 TEMPLATES = [
     {
@@ -146,7 +136,6 @@ INSTALLED_APPS = (
     'ddtrace.contrib.django',
 
     'bootstrap3',
-    'compressor',
 
     'ldb',
     'kas',

@@ -3,7 +3,6 @@ set -e
 
 if [ "$1" = 'dev' ]; then
     yarn install
-    ./manage.py compress
     until nc -z postgres 5432 > /dev/null 2>&1; do
       echo "Waiting for postgres..."
       sleep 5
