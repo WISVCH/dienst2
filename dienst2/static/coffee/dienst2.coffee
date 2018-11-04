@@ -2,7 +2,7 @@ $ = window.jQuery
 
 angular.module('dienst2', [])
   .factory('Tastypie', ['$http', '$rootScope', ($http, $rootScope) ->
-    
+
     throwError = (data, status, headers, config) ->
       alert("Server communication failed.")
       throw { message: 'Server communication failed.', status: status, config: config }
@@ -10,11 +10,11 @@ angular.module('dienst2', [])
     report = (callback) ->
       return if callback then callback else throwError
 
-    Tastypie = (api_root) -> 
+    Tastypie = (api_root) ->
 
       # Response Processors
 
-      process = (data) -> 
+      process = (data) ->
         return new Model(data)
 
       processAll = (data) ->
@@ -22,24 +22,24 @@ angular.module('dienst2', [])
         angular.forEach(data.objects, (data) -> models.push(new Model(data)))
 
         if data.meta
-          next = (success) -> 
+          next = (success) ->
             $http({ method: 'GET', url: data.meta.next })
               .error(report())
               .success((data, status, headers, config) -> success(processAll(data)))
           models.next = if data.meta.next then next else false
-          previous = (success) -> 
+          previous = (success) ->
             $http({ method: 'GET', url: data.meta.previous })
               .error(report())
               .success((data, status, headers, config) -> success(processAll(data)))
           models.previous = if data.meta.previous then previous else false
 
           models.total_count = data.meta.total_count
-        
+
         return models
-      
+
       # Public methods
 
-      Model = (data) -> 
+      Model = (data) ->
         if !data
           data = {}
           Model._loadFromSchema(this)
@@ -48,7 +48,7 @@ angular.module('dienst2', [])
       Model._loadFromSchema = (model) ->
         $http({method: 'GET', url: Model.api_root + 'schema/', cache: true})
           .error(report)
-          .success((data, status, headers, config) -> 
+          .success((data, status, headers, config) ->
             model._saved = {}
             model._required = []
             angular.forEach(data.fields, (info, field) ->
@@ -57,7 +57,7 @@ angular.module('dienst2', [])
               if !info.readonly
                 if info.default != "No default provided." && info.default != ""
                   model[field] = model._saved[field] = info.default
-              
+
                 if info.nullable == info.blank == false
                   model._required.push(field)
             )
@@ -74,14 +74,14 @@ angular.module('dienst2', [])
         $http(data)
           .error(report)
           .success((data, status, headers, config) -> success(process(data), status, headers, config))
-      
+
       Model.get = (id, success) -> Model._one({method: 'GET', url: Model.api_root + id + '/'}, success)
 
-      Model.all = (success, data) -> 
+      Model.all = (success, data) ->
         data = angular.extend({ method: 'GET', url: Model.api_root , params: {'limit': 10} }, data)
         Model._more(data, success)
 
-      Model.search = (query, success, mod, id) -> 
+      Model.search = (query, success, mod, id) ->
         if !mod
           mod = 'default'
         Model._more({ method: 'GET', url: Model.api_root + 'search/', params: {'q': query, 'mod': mod, 'searchID': id} }, success)
@@ -98,7 +98,7 @@ angular.module('dienst2', [])
         model = this
         $http({ method: 'POST', url: Model.api_root , data: this })
           .error(report(error))
-          .success((data, status, headers, config) -> 
+          .success((data, status, headers, config) ->
             data = process(data)
             angular.extend(model, data)
             model._saved = data
@@ -110,7 +110,7 @@ angular.module('dienst2', [])
         model = this
         $http({ method: 'PUT', url: model.resource_uri , data: this })
           .error(report(error))
-          .success((data, status, headers, config) -> 
+          .success((data, status, headers, config) ->
             data = process(data)
             angular.extend(model, data)
             model._saved = data
@@ -176,22 +176,22 @@ angular.module('dienst2', [])
       else
         return input
   )
-  
+
 
 angular.module('typeahead', [])
   .directive('chSelector', ['$parse', ($parse) ->
     return {
       restrict: 'A',
       require: '?ngModel',
-    
-      link: (scope, element, attrs, controller) -> 
+
+      link: (scope, element, attrs, controller) ->
         ModelGetter = $parse(attrs.ngModel + "_model")
         ModelSetter = ModelGetter.assign
 
         ModelListgetter = $parse(attrs.chSelector)
         values = ModelListgetter(scope)
 
-        scope.$watch(attrs.chSelector, (newValue, oldValue) -> 
+        scope.$watch(attrs.chSelector, (newValue, oldValue) ->
           if newValue != oldValue
             values = newValue
         )
@@ -208,9 +208,9 @@ angular.module('typeahead', [])
           minLength: attrs.minLength || 1
           matcher: (item) -> true
           sorter: (items) -> items
-          updater: (item) -> 
+          updater: (item) ->
             setModel(item)
-            element.one('focus', (event) -> 
+            element.one('focus', (event) ->
               #setModel(undefined)
               #element.val('')
             )
@@ -223,7 +223,7 @@ angular.module('typeahead', [])
         })
 
         typeahead = element.data('typeahead');
-        typeahead.select = () -> 
+        typeahead.select = () ->
           model = this.$menu.find('.active').data('typeahead-model')
           this.$element
             .val(this.updater(model))
@@ -297,7 +297,7 @@ angular.module("ngLocale", [], ["$provide", ($provide) ->
         "CURRENCY_SYM":"€"
       },
       "pluralCat": (n) ->
-        if n == 1 
+        if n == 1
           return PLURAL_CATEGORY.ONE
         return PLURAL_CATEGORY.OTHER
       "id":"nl"

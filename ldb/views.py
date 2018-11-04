@@ -32,9 +32,9 @@ class AngularIndexView(TemplateView):
                 'title': 'Ledendatabase',
                 'items': [
                     (reverse('ldb_index'), 'Zoeken'),
-                    (reverse('ldb_people_create'), 'Nieuw Persoon'),
-                    (reverse('ldb_organizations_create'), 'Nieuwe Organisatie'),
-                    ('#/committees', 'Commissies'),
+                    (reverse('ldb_people_create'), 'Persoon toevoegen'),
+                    (reverse('ldb_organizations_create'), 'Organisatie toevoegen'),
+                    (reverse('ldb_committees'), 'Commissies'),
                     ('#/export', 'Exporteren')
                 ]
             }
