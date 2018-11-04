@@ -1,0 +1,80 @@
+{% extends 'post/base.html' %}
+{% load i18n static bootstrap3 query_string post_tags %}
+{% block title %}{% trans 'AV overview' %}{% endblock %}
+
+
+{% block content %}
+  <h2 class="page-header">{% trans 'AV overview' %}</h2>
+
+  <div class="panel panel-default hidden-print">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        {% trans 'Filter' %}
+      </h3>
+    </div>
+    <div class="panel-body">
+      <form class="form-inline">
+        {% bootstrap_form filter.form layout='inline' %}
+        <button type="submit" class="btn btn-primary"><i class="fa fa-filter"></i> Filter</button>
+      </form>
+    </div>
+  </div>
+
+
+  {% for category in category_list %}
+    {% if category.items.count == 0 %}
+    {% else %}
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            {{ category.name }}{% if not category.counting %}
+              <span class="badge">{{ category.items.count }}</span>{% endif %}
+          </h3>
+        </div>
+
+        {% if not category.counting %}
+          <table class="table table-condensed">
+            <thead>
+            <tr>
+              <th width="15%" style="overflow:hidden">{% trans 'Date' %}</th>
+              <th width="65%" style="overflow:hidden">{% trans 'Description' %}</th>
+              <th width="10%" style="overflow:hidden">{% trans 'Sender' %}</th>
+              <th width="10%" style="overflow:hidden">{% trans 'Recipient' %}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in category.items.all %}
+              <tr>
+                <td>{{ item.date|date:'d-m-Y' }}</td>
+                <td>{{ item.description }}</td>
+                <td>{{ item.sender }}</td>
+                <td>{{ item.recipient }}</td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        {% else %}
+          <table class="table table-condensed">
+            <thead>
+            <tr>
+              <th width="15%" style="overflow:hidden">{% trans 'Count' %}</th>
+              <th width="85%" style="overflow:hidden">{% trans 'Description' %}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% group_by_description category.items.all as grouped_items %}
+            {% for item in grouped_items %}
+
+              <tr>
+                <td>{{ item.id__count }}</td>
+                <td>{{ item.description }}</td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        {% endif %}
+      </div>
+    {% endif %}
+  {% endfor %}
+{% endblock %}
+

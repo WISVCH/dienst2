@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 from rest_framework import serializers
 from rest_framework.fields import ReadOnlyField
 
@@ -19,16 +21,19 @@ class MemberSerializer(serializers.ModelSerializer):
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
+        fields = '__all__'
 
 
 class AlumnusSerializer(serializers.ModelSerializer):
     class Meta:
         model = Alumnus
+        fields = '__all__'
 
 
 class EmployeeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Employee
+        fields = '__all__'
 
 
 class CommitteeMembershipSerializer(serializers.ModelSerializer):
@@ -47,6 +52,7 @@ class EntitySerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Entity
+        fields = '__all__'
 
 
 class PersonSerializer(EntitySerializer):
@@ -71,3 +77,4 @@ class OrganizationSerializer(EntitySerializer):
 
     class Meta:
         model = Organization
+        fields = '__all__'

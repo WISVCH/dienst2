@@ -1,0 +1,19 @@
+version: '2.3'
+services:
+  django:
+    build:
+      context: .
+      dockerfile: Dockerfile-dev
+    user: $UID
+    ports:
+      - 127.0.0.1:8000:8000
+    depends_on:
+      - postgres
+    volumes:
+      - .:/srv:cached
+  postgres:
+    image: postgres:9.4
+    ports:
+      - 127.0.0.1:5432:5432
+    environment:
+     - POSTGRES_USER=dienst2

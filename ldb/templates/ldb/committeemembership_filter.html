@@ -4,7 +4,13 @@
 {% block title %}{% trans 'Committees' %}{% endblock %}
 
 {% block content %}
-  <h2 class="page-header">{% trans 'Committees' %}</h2>
+  <h2 class="page-header">{% trans 'Committees' %}
+    <div class="pull-right btn-group">
+      {% if user.is_staff %}<a href="{% url 'admin:ldb_committee_changelist' %}" class="btn btn-success">
+        <i class="fa fa-wrench"></i><span class="visible-lg-inline visible-md-inline"> Admin</span>
+      </a>{% endif %}
+    </div>
+  </h2>
 
   <div class="panel panel-default">
     <div class="panel-heading">
@@ -43,7 +49,7 @@
           <td>{{ obj.committee }}</td>
           <td><a href="{{ obj.person.get_absolute_url }}">{{ obj.person }}</a></td>
           <td>{{ obj.position }}</td>
-          <td>{{ obj.ras_months }}</td>
+          <td>{{ obj.ras_months|default_if_none:"" }}</td>
         </tr>
       {% empty %}
         <tr>

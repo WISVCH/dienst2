@@ -1,9 +1,12 @@
+from __future__ import unicode_literals
+
+from collections import OrderedDict
+
 import copy
 
 from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
 from django.utils.translation import ugettext as _
-from django.utils.datastructures import SortedDict
 from django import template
 
 register = template.Library()
@@ -67,7 +70,7 @@ class FieldSetNode(template.Node):
     def render(self, context):
         form = template.Variable(self.form_variable).resolve(context)
         new_form = copy.copy(form)
-        new_form.fields = SortedDict([(key, value) for key, value in form.fields.items() if key in self.fields])
+        new_form.fields = OrderedDict([(key, value) for key, value in form.fields.items() if key in self.fields])
 
         context[self.variable_name] = new_form
 

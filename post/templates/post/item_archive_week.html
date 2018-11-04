@@ -1,0 +1,53 @@
+{% extends 'post/base.html' %}
+{% load i18n post_tags %}
+
+{% block title %}{% trans 'Week' %} {{ week|strftime:'%W' }}{% endblock %}
+
+{% block content %}
+  <h2 class="page-header">{% trans 'Week' %} {{ week|strftime:'%W' }}</h2>
+  <div class="panel panel-default">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th width="10%" style="overflow:hidden">{% trans 'Category' %}</th>
+        <th width="60%" style="overflow:hidden">{% trans 'Description' %}</th>
+        <th width="10%" style="overflow:hidden">{% trans 'Sender' %}</th>
+        <th width="10%" style="overflow:hidden">{% trans 'Recipient' %}</th>
+        <th width="10%" style="overflow:hidden">{% trans 'Date' %}</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for obj in object_list %}
+        <tr>
+          <td>{{ obj.category }}</td>
+          <td>{{ obj.description }}</td>
+          <td>{{ obj.sender }}</td>
+          <td>{{ obj.recipient }}</td>
+          <td>{{ obj.date | date:'d-m-Y' }}</td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="5">{% trans "No items found." %}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+    <nav>
+      <ul class="pager">
+        <li{% if not previous_week %} class="disabled"{% endif %}>
+          <a {% if previous_week %}
+              href="{% url 'post_archive_week' previous_week|strftime:'%Y' previous_week|strftime:'%W' %}"{% endif %}>
+            <span aria-hidden="true">&larr;</span> {% trans "Previous" %}
+          </a>
+        </li>
+        <li{% if not next_week %} class="disabled"{% endif %}>
+          <a {% if next_week %}
+            href="{% url 'post_archive_week' next_week|strftime:'%Y' next_week|strftime:'%W' %}"{% endif %}>
+            {% trans "Next" %} <span aria-hidden="true">&rarr;</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+{% endblock %}

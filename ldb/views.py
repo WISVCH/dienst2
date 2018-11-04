@@ -1,14 +1,17 @@
+from __future__ import unicode_literals
+
+from functools import reduce
+
 from django.db.models import Prefetch
 from django.http import HttpResponseRedirect
-from django.shortcuts import render_to_response, redirect
-from django.core.urlresolvers import reverse
-from django.template import RequestContext
+from django.shortcuts import redirect
+from django.urls import reverse
 from django.views.generic import DetailView, DeleteView, TemplateView, UpdateView
 from django.views.generic.detail import SingleObjectMixin
 from django_filters.views import FilterView
 from haystack.inputs import Raw
-from haystack.query import SearchQuerySet
 from haystack.query import SQ
+from haystack.query import SearchQuerySet
 
 from dienst2.extras import convert_free_search
 from ldb.filters import CommitteeMembershipFilter
@@ -17,34 +20,39 @@ from ldb.forms import PersonForm, MemberFormSet, StudentFormSet, AlumnusFormSet,
 from ldb.models import Organization, Person, CommitteeMembership
 
 
-def index(request):
-    post_data = {
-        'title': 'Ledendatabase',
-        'ng_app': 'ldb',
-        'navbar': {
+class AngularIndexView(TemplateView):
+    template_name = 'ldb/dashboard.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(AngularIndexView, self).get_context_data(**kwargs)
+        context.update(**{
             'title': 'Ledendatabase',
-            'items': [
-                (reverse('ldb_index'), 'Zoeken'),
-                (reverse('ldb_people_create'), 'Nieuw Persoon'),
-                (reverse('ldb_organizations_create'), 'Nieuwe Organisatie'),
-                ('#/committees', 'Commissies'),
-                ('#/export', 'Exporteren')
-            ]
-        }
-    }
+            'ng_app': 'ldb',
+            'navbar': {
+                'title': 'Ledendatabase',
+                'items': [
+                    (reverse('ldb_index'), 'Zoeken'),
+                    (reverse('ldb_people_create'), 'Nieuw Persoon'),
+                    (reverse('ldb_organizations_create'), 'Nieuwe Organisatie'),
+                    ('#/committees', 'Commissies'),
+                    ('#/export', 'Exporteren')
+                ]
+            }
+        })
 
-    if request.user.has_module_perms('admin'):
-        post_data['navbar']['items'].append((reverse('admin:ldb_person_changelist'), "Beheer"))
+        if self.request.user.has_module_perms('admin'):
+            context['navbar']['items'].append((reverse('admin:ldb_person_changelist'), "Beheer"))
 
-    return render_to_response('ldb/dashboard.html', post_data, context_instance=RequestContext(request))
+        return context
 
 
-def index_old(request):
-    data = {
-        'title': 'Ledenadministratie'
-    }
-    return render_to_response('ldb/index.html', data,
-                              context_instance=RequestContext(request))
+class IndexView(TemplateView):
+    template_name = 'ldb/index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(IndexView, self).get_context_data(**kwargs)
+        context['title'] = 'Ledenadministratie'
+        return context
 
 
 class ResultsView(TemplateView):
@@ -202,10 +210,10 @@ class CommitteeMembershipFilterView(FilterView):
     def get(self, request, *args, **kwargs):
         filterset_class = self.get_filterset_class()
         self.filterset = self.get_filterset(filterset_class)
-        self.object_list = self.filterset.qs\
-            .select_related('person')\
-            .prefetch_related('committee')\
-            .order_by('board', 'committee__name', 'person__firstname')
+        self.object_list = self.filterset.qs \
+            .select_related('person') \
+            .prefetch_related('committee') \
+            .order_by('-board', 'committee__name', 'person__firstname')
         context = self.get_context_data(filter=self.filterset,
                                         object_list=self.object_list)
         return self.render_to_response(context)

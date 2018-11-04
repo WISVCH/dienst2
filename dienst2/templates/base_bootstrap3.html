@@ -10,6 +10,8 @@
   <link rel="stylesheet" type="text/css" href="{% static 'lib/bootstrap-theme-wisvch/dist/css/bootstrap.css' %}"/>
   <link rel="stylesheet" type="text/css" href="{% static 'lib/components-font-awesome/css/font-awesome.min.css' %}"/>
   <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
+  {% block extra_css %}
+  {% endblock %}
 {% endcompress %}
 
 {% compress js %}
@@ -48,7 +50,7 @@
               <li><a href="{% url 'ldb_index' %}"><i class="fa fa-fw fa-users"></i> Ledendatabase</a></li>
               <li><a href="{% url 'post_index' %}"><i class="fa fa-fw fa-envelope"></i> Post</a></li>
               <li><a href="{% url 'kas_index' %}"><i class="fa fa-fw fa-balance-scale"></i> Kasbeheer</a>
-              <li><a href="{% url 'django.contrib.auth.views.logout' %}"><i class="fa fa-fw fa-sign-out"></i> Uitloggen</a>
+              <li><a href="{% url 'logout' %}"><i class="fa fa-fw fa-sign-out"></i> Uitloggen</a>
               </li>
             </ul>
           </li>

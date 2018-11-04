@@ -1,15 +1,19 @@
 # -*- coding: utf-8 -*-
 import re
 
+from __future__ import unicode_literals
+
 from datetime import date
 
-from django.db import models
-from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import ValidationError
-from django_enumfield import enum
+from django.db import models
+from django.urls import reverse
+from django.utils.encoding import python_2_unicode_compatible
+from django.utils.translation import ugettext_lazy as _
 
-from country_field import CountryField
 from dienst2.extras import CharNullField
+from ldb.querysets import EntityQuerySet, PersonQuerySet
+from .country_field import CountryField
 
 
 def get_attributes(self, attrs):
@@ -19,6 +23,7 @@ def get_attributes(self, attrs):
     return v
 
 
+@python_2_unicode_compatible
 class Entity(models.Model):
     class Meta:
         verbose_name = _('entity')
@@ -46,6 +51,8 @@ class Entity(models.Model):
 
     # Other
     comment = models.TextField(blank=True)
+
+    objects = EntityQuerySet.as_manager()
 
     @property
     def street_address(self):
@@ -78,9 +85,9 @@ class Entity(models.Model):
                     self.city != '') and self.country == '':
             raise ValidationError('Country is required if address is entered.')
 
-    def __unicode__(self):
-        return u'%s %s, %s %s, %s' % (self.street_name, self.house_number,
-                                      self.postcode, self.city, self.country)
+    def __str__(self):
+        return '%s %s, %s %s, %s' % (self.street_name, self.house_number,
+                                     self.postcode, self.city, self.country)
 
     def set_address_incorrect(self):
         self.street_name = ''
@@ -92,25 +99,26 @@ class Entity(models.Model):
         self.country = ''
 
 
+@python_2_unicode_compatible
 class Organization(Entity):
     class Meta:
         verbose_name = _('organization')
         verbose_name_plural = _('organizations')
+        manager_inheritance_from_future = True
 
-    name_prefix = models.CharField(_('name prefix'), max_length=100)
+    name_prefix = models.CharField(_('name prefix'), max_length=100, blank=True)
     name = models.CharField(_('name'), max_length=100)
     name_short = models.CharField(_('name short'), max_length=100, blank=True)
     salutation = models.CharField(_('salutation'), max_length=100)
 
-    @models.permalink
     def get_absolute_url(self):
-        return ('ldb_organizations_detail', [str(self.id)])
+        return reverse('ldb_organizations_detail', args=[str(self.id)])
 
-    def __unicode__(self):
-        return unicode(self.name)
+    def __str__(self):
+        return str(self.name)
 
 
-class MembershipStatus(enum.Enum):
+class MembershipStatus(object):
     NONE = 0
     DONATING = 10
     ALUMNUS = 20
@@ -129,7 +137,27 @@ class MembershipStatus(enum.Enum):
         HONORARY: _('Honorary member'),
     }
 
+    @classmethod
+    def choices(cls):
+        return [(value, label) for value, label in cls.labels.items()]
 
+
+class MembershipStatusField(models.IntegerField):
+    def __init__(self, enum, *args, **kwargs):
+        self.enum = enum
+        kwargs['choices'] = self.enum.choices()
+        super(MembershipStatusField, self).__init__(*args, **kwargs)
+
+    def deconstruct(self):
+        name, path, args, kwargs = super(MembershipStatusField, self).deconstruct()
+        if self.enum is not None:
+            kwargs['enum'] = self.enum
+        if 'choices' in kwargs:
+            del kwargs['choices']
+        return name, path, args, kwargs
+
+
+@python_2_unicode_compatible
 class Person(Entity):
     class Meta:
         verbose_name = _('person')
@@ -173,9 +201,12 @@ class Person(Entity):
     facebook_id = CharNullField(_('Facebook ID'), max_length=64, blank=True, null=True, unique=True)
 
     # Membership status
-    _membership_status = enum.EnumField(MembershipStatus, db_column='membership_status', default=MembershipStatus.NONE)
+    _membership_status = MembershipStatusField(enum=MembershipStatus, db_column='membership_status',
+                                               default=MembershipStatus.NONE)
 
     _original_living_with_id = None
+
+    objects = PersonQuerySet.as_manager()
 
     def __init__(self, *args, **kwargs):
         super(Person, self).__init__(*args, **kwargs)
@@ -227,9 +258,9 @@ class Person(Entity):
     @property
     def gender_symbol(self):
         if self.gender == 'M':
-            return u'♂'
+            return '♂'
         elif self.gender == 'F':
-            return u'♀'
+            return '♀'
         else:
             return
 
@@ -246,10 +277,10 @@ class Person(Entity):
         else:
             return today.year - born.year
 
-    def save(self):
+    def save(self, **kwargs):
         self._membership_status = self.membership_status
 
-        super(Person, self).save()
+        super(Person, self).save(**kwargs)
         if self.pk is not None:
             old = self._original_living_with_id
             if old != self.living_with_id and old:
@@ -285,21 +316,21 @@ class Person(Entity):
         else:
             return None
 
-    @models.permalink
     def get_absolute_url(self):
-        return ('ldb_people_detail', [str(self.id)])
+        return reverse('ldb_people_detail', args=[str(self.id)])
 
-    def __unicode__(self):
-        return (u'%s, %s %s%s' % \
-                (self.surname, self.firstname, self.preposition, u' ✝' if self.deceased else '')).strip()
+    def __str__(self):
+        return ('%s, %s %s%s' %
+                (self.surname, self.firstname, self.preposition, ' ✝' if self.deceased else '')).strip()
 
 
+@python_2_unicode_compatible
 class Member(models.Model):
     class Meta:
         verbose_name = _('member')
         verbose_name_plural = _('members')
 
-    person = models.OneToOneField(Person, primary_key=True)
+    person = models.OneToOneField(Person, primary_key=True, on_delete=models.CASCADE)
 
     date_from = models.DateField(_('date from'), blank=True, null=True)
     date_to = models.DateField(_('date to'), blank=True, null=True)
@@ -330,12 +361,9 @@ class Member(models.Model):
 
     @property
     def current_alumnus_member(self):
-        try:
-            # noinspection PyUnusedLocal
-            alumnus = self.person.alumnus
-            return self.current_member and not self.current_regular_member
-        except Alumnus.DoesNotExist:
-            return False
+        return self.current_member and \
+               Alumnus.objects.filter(person=self.person).exists() > 0 and \
+               not self.current_regular_member
 
     @property
     def current_associate_member(self):
@@ -353,8 +381,8 @@ class Member(models.Model):
     def current_honorary_member(self):
         return self.honorary_date_from is not None and self.current_member
 
-    def __unicode__(self):
-        return unicode(self.person)
+    def __str__(self):
+        return str(self.person)
 
     def clean(self):
         if (self.date_from is not None and self.date_to is not None and self.date_from > self.date_to) or \
@@ -364,6 +392,12 @@ class Member(models.Model):
         if self.date_to is not None and (self.merit_date_from is not None or self.honorary_date_from is not None):
             raise ValidationError("'Date to' cannot be set for merit and honorary members")
 
+        if self.merit_date_from is not None and self.merit_date_from > date.today():
+            raise ValidationError("Merit date from should be in the past")
+
+        if self.honorary_date_from is not None and self.honorary_date_from > date.today():
+            raise ValidationError("Honorary date from should be in the past")
+
         if self.date_to is None and self.associate_member:
             raise ValidationError("'Date to' is required for associate members")
 
@@ -371,12 +405,13 @@ class Member(models.Model):
             raise ValidationError("'Date to' is required for donating members")
 
 
+@python_2_unicode_compatible
 class Student(models.Model):
     class Meta:
         verbose_name = _('student')
         verbose_name_plural = _('students')
 
-    person = models.OneToOneField(Person, primary_key=True)
+    person = models.OneToOneField(Person, primary_key=True, on_delete=models.CASCADE)
 
     enrolled = models.BooleanField(_('enrolled'), default=True)
     study = models.CharField(_('study'), max_length=50)
@@ -389,8 +424,8 @@ class Student(models.Model):
 
     date_verified = models.DateField(_('date verified'), blank=True, null=True)
 
-    def __unicode__(self):
-        return "%s %s" % (self.student_number, unicode(self.person))
+    def __str__(self):
+        return "%s %s" % (self.student_number, str(self.person))
 
 
 CONTACT_METHOD_CHOICES = (
@@ -399,12 +434,13 @@ CONTACT_METHOD_CHOICES = (
 )
 
 
+@python_2_unicode_compatible
 class Alumnus(models.Model):
     class Meta:
         verbose_name = _('alumnus')
         verbose_name_plural = _('alumni')
 
-    person = models.OneToOneField(Person, primary_key=True)
+    person = models.OneToOneField(Person, primary_key=True, on_delete=models.CASCADE)
 
     study = models.CharField(_('study'), max_length=100, blank=True)
     study_first_year = models.IntegerField(_('study first year'), blank=True, null=True)
@@ -419,65 +455,71 @@ class Alumnus(models.Model):
 
     contact_method = models.CharField(_('contact method'), max_length=1, choices=CONTACT_METHOD_CHOICES, default='e')
 
-    def __unicode__(self):
-        return unicode(self.person)
+    def __str__(self):
+        return str(self.person)
 
 
+@python_2_unicode_compatible
 class Employee(models.Model):
     class Meta:
         verbose_name = _('employee')
         verbose_name_plural = _('employees')
 
-    person = models.OneToOneField(Person, primary_key=True)
+    person = models.OneToOneField(Person, primary_key=True, on_delete=models.CASCADE)
 
     faculty = models.CharField(_('faculty'), max_length=50)
     department = models.CharField(_('department'), max_length=50)
     function = models.CharField(_('function'), max_length=50)
     phone_internal = models.CharField(_('phone internal'), max_length=5)
 
-    def __unicode__(self):
-        return unicode(self.person)
+    def __str__(self):
+        return str(self.person)
 
 
+@python_2_unicode_compatible
 class Committee(models.Model):
     class Meta:
         verbose_name = _('committee')
         verbose_name_plural = _('committees')
+        ordering = ['name']
 
     name = models.CharField(_('name'), max_length=50)
     description = models.TextField(_('description'), blank=True)
     members = models.ManyToManyField(Person, through='CommitteeMembership')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
+@python_2_unicode_compatible
 class CommitteeMembership(models.Model):
     class Meta:
         verbose_name = _('committee membership')
         verbose_name_plural = _('committee memberships')
+        ordering = ['board', 'committee__name']
 
     # Django admin doesn't support nested inlines,
     # so we'll just link to Person instead.
-    person = models.ForeignKey(Person, related_name="committee_memberships")
-    committee = models.ForeignKey(Committee)
+    person = models.ForeignKey(Person, related_name="committee_memberships", on_delete=models.CASCADE)
+    committee = models.ForeignKey(Committee, on_delete=models.CASCADE)
     board = models.IntegerField(_('board'))
     position = models.CharField(_('position'), max_length=50, blank=True)
     ras_months = models.IntegerField(_('RAS months'), blank=True, null=True)
 
-    def __unicode__(self):
-        return u'[%s] %s - %s' % (self.board, self.committee, self.person)
+    def __str__(self):
+        return '[%s] %s - %s' % (self.board, self.committee, self.person)
 
 
+@python_2_unicode_compatible
 class Modification(models.Model):
     class Meta:
         verbose_name = _('modification')
         verbose_name_plural = _('modifications')
 
-    person = models.ForeignKey(Person)
+    person = models.ForeignKey(Person, on_delete=models.CASCADE)
     date = models.DateTimeField(_('date'), auto_now_add=True)
     ip = models.CharField(_('ip address'), max_length=40)
     modification = models.TextField(_('modification'), blank=True)
 
-    def __unicode__(self):
-        return u'Edit [%s] %s' % (self.date, self.person.__unicode__())
+    def __str__(self):
+        return 'Edit [%s] %s' % (self.date, self.person.__str__())

@@ -4,5 +4,6 @@
 .dienst2-env
 .idea
 *.iml
-newrelic.ini
 lib
+/dienst2/whoosh_index/
+node_modules

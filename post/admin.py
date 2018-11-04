@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 from django.contrib import admin
 
 from post.models import *
@@ -10,7 +12,7 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'grouping', 'counting')
 
 
-@admin.register(Source)
+@admin.register(Contact)
 class SourceAdmin(admin.ModelAdmin):
     """SourceAdmin"""
     search_fields = ('name',)
@@ -23,5 +25,5 @@ class ItemAdmin(admin.ModelAdmin):
     """ItemAdmin"""
     date_hierarchy = 'date'
     search_fields = ('description',)
-    list_filter = ('sender', 'receiver', 'category')
-    list_display = ('description', 'date', 'sender', 'receiver', 'category')
+    list_filter = ('sender', 'recipient', 'category')
+    list_display = ('description', 'date', 'sender', 'recipient', 'category')

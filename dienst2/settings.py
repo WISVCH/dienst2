@@ -6,7 +6,6 @@ from django_auth_ldap.config import LDAPSearch, PosixGroupType
 # Django settings for dienst2 project.
 
 DEBUG = True
-TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -45,6 +44,16 @@ LOCALE_PATHS = (
 # Example: "/home/media/media.lawrence.com/media/"
 MEDIA_ROOT = ''
 
+# Absolute path to the directory static files should be collected to.
+# Don't put anything in this directory yourself; store your static files
+# in apps' "static/" subdirectories and in STATICFILES_DIRS.
+# Example: "/home/media/media.lawrence.com/static/"
+STATIC_ROOT = os.path.join(os.path.dirname(__file__), '../static/')
+
+# URL prefix for static files.
+# Example: "http://media.lawrence.com/static/"
+STATIC_URL = '/static/'
+
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
@@ -70,23 +79,22 @@ COMPRESS_CSS_FILTERS = [
 ]
 
 COMPRESS_PRECOMPILERS = (
-    ('text/coffeescript', 'coffee --compile --stdio'),
-    ('text/less', 'lessc {infile} {outfile}'),
+    ('text/coffeescript', 'node_modules/coffeescript/bin/coffee --compile --stdio'),
+    ('text/less', 'node_modules/less/bin/lessc {infile} {outfile}'),
 )
 
 # Needed to use the CssAbsoluteFilter
 COMPRESS_ENABLED = True
-
-# List of callables that know how to import templates from various sources.
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-)
+# http://whitenoise.evans.io/en/stable/django.html#django-compressor
+COMPRESS_OFFLINE = True
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'APP_DIRS': True,
+        'DIRS': [
+            os.path.join(os.path.dirname(__file__), 'templates'),
+        ],
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -98,7 +106,8 @@ TEMPLATES = [
     },
 ]
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = (
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -106,6 +115,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'dienst2.middleware.RequireLoginMiddleware',
     'reversion.middleware.RevisionMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
 ROOT_URLCONF = 'dienst2.urls'
@@ -115,13 +125,6 @@ LOGIN_REDIRECT_URL = '/'
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'dienst2.wsgi.application'
 
-TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-    os.path.join(os.path.dirname(__file__), 'templates'),
-)
-
 INSTALLED_APPS = (
     'dienst2',
 
@@ -129,6 +132,7 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'reversion',
     'reversion_compare',
@@ -138,7 +142,11 @@ INSTALLED_APPS = (
     'rest_framework.authtoken',
     'django.contrib.admin',
     'django.contrib.admindocs',
+    'health_check',
+    'health_check.db',
+    'health_check.cache',
     'debug_toolbar',
+    'ddtrace.contrib.django',
 
     'bootstrap3',
     'compressor',
@@ -170,6 +178,13 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
+DATADOG_TRACE = {
+    'DEFAULT_SERVICE': 'dienst2',
+    'DEFAULT_DATABASE_PREFIX': 'dienst2',
+    'DISTRIBUTED_TRACING': True,
+    'TAGS': {'env': 'production'},
+}
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
@@ -179,7 +194,7 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ),
     'DEFAULT_FILTER_BACKENDS': (
-        'rest_framework.filters.DjangoFilterBackend',
+        'django_filters.rest_framework.DjangoFilterBackend',
     ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 20,
@@ -213,4 +228,6 @@ BOOTSTRAP3 = {
     'horizontal_field_class': 'col-md-8',
 }
 
-from local import *
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+
+from .local import *

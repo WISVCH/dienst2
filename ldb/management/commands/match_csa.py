@@ -1,16 +1,18 @@
+from __future__ import unicode_literals
+
 import csv
 import datetime
 
 import reversion
-from django.db import transaction
 from django.core.management import BaseCommand
+from django.db import transaction
 
 from ldb.models import Student, MembershipStatus, Person, Member
 
 
 class Command(BaseCommand):
     def add_arguments(self, parser):
-        parser.add_argument('file', type=unicode)
+        parser.add_argument('file')
 
         parser.add_argument('--yes-value',
                             dest='yes-value',

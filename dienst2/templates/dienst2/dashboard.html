@@ -9,7 +9,7 @@
       <li><a href="{% url 'ldb_index' %}"><i class="fa fa-5x fa-users"></i><br/> Ledendatabase</a></li>
       <li><a href="{% url 'post_index' %}"><i class="fa fa-5x fa-envelope"></i><br/> Post</a></li>
       <li><a href="{% url 'kas_index' %}"><i class="fa fa-5x fa-balance-scale"></i><br/> Kasbeheer</a></li>
-      {% if user|has_group:'pccom' %}
+      {% if user|has_group:'staff' %}
         <li><a href="https://frans.chnet/userman2"><i class="fa fa-5x fa-user-secret"></i><br/> Userman</a></li>
       {% endif %}
     </ul>

@@ -1,16 +1,19 @@
 # coding: utf-8
-import sys
-import re
 import csv
-import StringIO
-import traceback
 
-from tastypie.resources import Resource
+import re
+import simplejson
+from django.db.models import Q
+from django.http import HttpResponse
+from django.utils.encoding import smart_str
+from functools import reduce
+from io import StringIO
+from six import iteritems
+from tastypie import fields
 from tastypie.authorization import DjangoAuthorization
 from tastypie.cache import SimpleCache
-from tastypie import fields
-from django.db.models import Q
-import simplejson
+from tastypie.http import HttpBadRequest
+from tastypie.resources import Resource
 from tastypie.serializers import Serializer
 
 from ldb.models import *
@@ -27,48 +30,30 @@ class CSVSerializer(Serializer):
     }
 
     def to_csv(self, data, options=None):
-        options = options or {}
+        raw_data = StringIO()
 
-        raw_data = StringIO.StringIO()
+        if 'objects' not in data or len(data['objects']) < 1:
+            return HttpResponse("No results found")
 
-        try:
-            if len(data['objects']) < 1:
-                return ""
+        order = ['name', 'streetnumber', 'postcodecity', 'kixcode', 'street_name', 'house_number', 'address_2',
+                 'address_3', 'postcode', 'city', 'country', 'email', 'phone_fixed', 'organization__name_prefix',
+                 'organization__name', 'organization__name_short', 'organization__salutation', 'person__titles',
+                 'person__initials', 'person__firstname', 'person__preposition', 'person__surname',
+                 'person__postfix_titles', 'person__phone_mobile', 'person__gender', 'person__birthdate',
+                 'person__ldap_username', 'person__netid', 'person__student__study', 'person__student__first_year',
+                 'person__student__student_number', 'person__student__enrolled', 'person__student__phone_parents',
+                 'person__alumnus__study', 'person__alumnus__study_first_year', 'person__alumnus__study_last_year',
+                 'person__alumnus__work_company', 'id']
 
-            order = ['name', 'streetnumber', 'postcodecity', 'kixcode', 'street_name', 'house_number', 'address_2',
-                     'address_3', 'postcode', 'city', 'country', 'email', 'phone_fixed', 'organization__name_prefix',
-                     'organization__name', 'organization__name_short', 'organization__salutation', 'person__titles',
-                     'person__initials', 'person__firstname', 'person__preposition', 'person__surname',
-                     'person__postfix_titles', 'person__phone_mobile', 'person__gender', 'person__birthdate',
-                     'person__ldap_username', 'person__netid', 'person__student__study', 'person__student__first_year',
-                     'person__student__student_number', 'person__student__enrolled', 'person__student__phone_parents',
-                     'person__alumnus__study', 'person__alumnus__study_first_year', 'person__alumnus__study_last_year',
-                     'person__alumnus__work_company']
+        fields = list(data['objects'][0].data['data'].keys())
+        fields.sort(key=lambda p: order.index(p))
 
-            fields = data['objects'][0].data['data'].keys()
-            fields.sort(key=lambda p: order.index(p))
-            header = {}
-            for field in fields:
-                header[field] = field
+        writer = csv.DictWriter(raw_data, fieldnames=fields, quoting=csv.QUOTE_MINIMAL)
+        writer.writeheader()
 
-            writer = csv.DictWriter(raw_data, fieldnames=fields, quoting=csv.QUOTE_MINIMAL)
-            writer.writerow(header)
-
-            for obj in data.get('objects', []):
-                try:
-                    writer.writerow(obj.data.get('data', {}))
-                except:
-                    utf = {}
-                    for k in obj.data['data']:
-                        try:
-                            utf[k] = str(obj.data['data'].get(k))
-                        except:
-                            utf[k] = obj.data['data'].get(k).encode('utf-8', "replace")
-
-                    writer.writerow(utf)
-            return raw_data.getvalue()
-        except:
-            return "Unexpected error:", sys.exc_info()[0], '\n', traceback.format_exc()
+        for obj in data.get('objects', []):
+            writer.writerow({k: smart_str(v) for k, v in obj.data.get('data', {}).items()})
+        return raw_data.getvalue()
 
     def from_csv(self, content):
         pass
@@ -133,14 +118,13 @@ class ExportResource(Resource):
     }
 
     def set_fields(self, query):
-        export_fields = {}
         allowed_fields = flatten(self.allowed_fields)
         requested_fields = query.get("fields", "[]")
         requested_fields = simplejson.loads(str(requested_fields))
 
         fields = {}
-        for k, v in requested_fields.iteritems():
-            if v == True:
+        for k, v in iteritems(requested_fields):
+            if v:
                 fields[k] = v
         requested_fields = fields
 
@@ -169,7 +153,7 @@ class ExportResource(Resource):
         requested_querysets = simplejson.loads(str(requested_querysets))
 
         querysets = {}
-        for k, v in requested_querysets.iteritems():
+        for k, v in iteritems(requested_querysets):
             if v == True:
                 querysets[k] = v
         requested_querysets = querysets
@@ -218,6 +202,9 @@ class ExportResource(Resource):
 
         querysets = self.set_querysets(get)
 
+        if not querysets:
+            return HttpBadRequest("No groups selected")
+
         import operator
 
         objects = Entity.objects.filter(reduce(operator.or_, map(lambda x: self.allowed_querysets.get(x), querysets)))
@@ -229,7 +216,7 @@ class ExportResource(Resource):
         if addresslist == 'off':
             export_fields = self.set_fields(get)
             objects = objects.values(*export_fields)
-            converted = map(ExportObject, objects)
+            converted = list(map(ExportObject, objects))
         elif addresslist in ['doubles', 'living_with']:
             objects = objects.filter(
                 ~Q(street_name=''), ~Q(house_number='')
@@ -293,7 +280,7 @@ class ExportResource(Resource):
                 converted_obj['name'] = obj.get('combined_name', getname(obj))
                 return ExportObject(converted_obj)
 
-            converted = map(format, objects)
+            converted = list(map(format, objects))
             converted.sort(key=lambda p: p.kixcode)
 
         return converted
