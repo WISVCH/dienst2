@@ -1,0 +1,25 @@
+{% extends "ldb/base.html" %}
+{% load static %}
+
+{% block extra_js %}
+  <script type="text/javascript" src="{% static 'js/angular.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/ldb.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+  <script type="text/javascript">
+    window.partialUrl = "{% static 'partials/ldb/export.html' %}";
+    window.apiUrl = "{% url 'api_dispatch_list' api_name='v2' resource_name='export' %}";
+  </script>
+
+  <div ng-app="{{ ng_app }}" ng-view></div>
+
+  <div class="row">
+    <div class="col-sm-12 col-md-12">
+      <div class="alert alert-info" style="opacity: 0.7; margin-top: 2em; text-align: center">
+        <strong>Werkt het niet?</strong>
+        <a href="https://github.com/WISVCH/dienst2/issues/92">Fix het!</a>
+      </div>
+    </div>
+  </div>
+{% endblock %}

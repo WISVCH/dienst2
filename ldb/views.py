@@ -20,28 +20,15 @@ from ldb.forms import PersonForm, MemberFormSet, StudentFormSet, AlumnusFormSet,
 from ldb.models import Organization, Person, CommitteeMembership
 
 
-class AngularIndexView(TemplateView):
-    template_name = 'ldb/dashboard.html'
+class ExportView(TemplateView):
+    template_name = 'ldb/export.html'
 
     def get_context_data(self, **kwargs):
-        context = super(AngularIndexView, self).get_context_data(**kwargs)
+        context = super(ExportView, self).get_context_data(**kwargs)
         context.update(**{
             'title': 'Ledendatabase',
             'ng_app': 'ldb',
-            'navbar': {
-                'title': 'Ledendatabase',
-                'items': [
-                    (reverse('ldb_index'), 'Zoeken'),
-                    (reverse('ldb_people_create'), 'Persoon toevoegen'),
-                    (reverse('ldb_organizations_create'), 'Organisatie toevoegen'),
-                    (reverse('ldb_committees'), 'Commissies'),
-                    ('#/export', 'Exporteren')
-                ]
-            }
         })
-
-        if self.request.user.has_module_perms('admin'):
-            context['navbar']['items'].append((reverse('admin:ldb_person_changelist'), "Beheer"))
 
         return context
 

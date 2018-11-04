@@ -80,11 +80,6 @@ COMPRESS_CSS_FILTERS = [
     'compressor.filters.css_default.CssAbsoluteFilter',
 ]
 
-COMPRESS_PRECOMPILERS = (
-    ('text/coffeescript', 'node_modules/coffeescript/bin/coffee --compile --stdio'),
-    ('text/less', 'node_modules/less/bin/lessc {infile} {outfile}'),
-)
-
 # Needed to use the CssAbsoluteFilter
 COMPRESS_ENABLED = True
 # http://whitenoise.evans.io/en/stable/django.html#django-compressor

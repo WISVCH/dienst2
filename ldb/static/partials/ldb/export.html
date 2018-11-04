@@ -1,5 +1,11 @@
+<style>
+input[type=checkbox], input[type=radio] {
+  margin: 0;
+}
+</style>
+
 <div class="row">
-  <div class="span12">
+  <div class="col-sm-12 col-md-12">
     <div class="page-header">
       <h1>1. Zoeken naar</h1>
     </div>
@@ -7,30 +13,30 @@
 </div>
 
 <div class="row">
-  <div class="span12">
-    <div class="well form-horizontal">
-        <div class="control-group">
+  <div class="col-sm-12 col-md-12">
+    <div class="well">
+        <div class="form-group">
           <div class="control-label">Zoeken naar:</div>
           <div class="controls">
-            <label class="checkbox inline">
+            <label class="checkbox-inline">
               <input type="checkbox" name="export_type" ng-model="export.queryset.organizations"> Organisaties
             </label>
-            <label class="checkbox inline">
+            <label class="checkbox-inline">
               <input type="checkbox" name="export_type" ng-model="export.queryset.members"> Leden
             </label>
-            <label class="checkbox inline">
+            <label class="checkbox-inline">
               <input type="checkbox" name="export_type" ng-model="export.queryset.merit"> LvV'ers
             </label>
-            <label class="checkbox inline">
+            <label class="checkbox-inline">
               <input type="checkbox" name="export_type" ng-model="export.queryset.honorary"> Ereleden
             </label>
-            <label class="checkbox inline">
+            <label class="checkbox-inline">
               <input type="checkbox" name="export_type" ng-model="export.queryset.students"> Studenten
             </label>
-            <label class="checkbox inline">
+            <label class="checkbox-inline">
               <input type="checkbox" name="export_type" ng-model="export.queryset.alumni"> Alumni
             </label>
-            <label class="checkbox inline">
+            <label class="checkbox-inline">
               <input type="checkbox" name="export_type" ng-model="export.queryset.employees"> Medewerkers
             </label>
             <span class="help-block">Selecteer minstens een groep.</span>
@@ -41,7 +47,7 @@
 </div>
 
 <div class="row">
-  <div class="span12">
+  <div class="col-sm-12 col-md-12">
     <div class="page-header">
       <h1>2. Filters</h1>
     </div>
@@ -49,95 +55,95 @@
 </div>
 
 <div class="row">
-  <div class="span6">
-    <div class="well form-horizontal">
+  <div class="col-sm-6 col-md-6">
+    <div class="well">
       <fieldset>
         <legend>Algemeen</legend>
 
-        <div class="control-group">
+        <div class="form-group">
           <div class="control-label">Land:</div>
           <div class="controls">
-            <label class="checkbox inline">
+            <label class="checkbox-inline">
               <input type="checkbox" ng-model="export.filters.country" ng-true-value="NL" ng-false-value="undefined"> Alleen Nederland
             </label>
             <span class="help-block">Post versturen we alleen binnen Nederland.</span>
           </div>
         </div>
 
-        <div class="control-group">
+        <div class="form-group">
           <div class="control-label">MaCHazine:</div>
           <div class="controls">
-            <label class="radio inline">
+            <label class="radio-inline">
               <input type="radio" ng-model="export.filters.machazine" value="true"> Ja
             </label>
-            <label class="radio inline">
+            <label class="radio-inline">
               <input type="radio" ng-model="export.filters.machazine" value="false"> Nee
             </label>
-            <label class="radio inline">
+            <label class="radio-inline">
               <input type="radio" ng-model="export.filters.machazine" value="undefined"> Maakt niet uit
             </label>
             <span class="help-block">Is aangemeld voor MaCHazine.</span>
           </div>
         </div>
 
-        <div class="control-group">
+        <div class="form-group">
           <div class="control-label">Uitnodigingen Bestuur:</div>
           <div class="controls">
-            <label class="radio inline">
+            <label class="radio-inline">
               <input type="radio" ng-model="export.filters.board_invites" value="true"> Ja
             </label>
-            <label class="radio inline">
+            <label class="radio-inline">
               <input type="radio" ng-model="export.filters.board_invites" value="false"> Nee
             </label>
-            <label class="radio inline">
+            <label class="radio-inline">
               <input type="radio" ng-model="export.filters.board_invites" value="undefined"> Maakt niet uit
             </label>
             <span class="help-block">Ontvangt uitnodigingen voor bestuursactiviteiten.</span>
           </div>
         </div>
 
-        <div class="control-group">
+        <div class="form-group">
           <div class="control-label">Constitutiekaartje:</div>
           <div class="controls">
-            <label class="radio inline">
+            <label class="radio-inline">
               <input type="radio" ng-model="export.filters.constitution_card" value="true"> Ja
             </label>
-            <label class="radio inline">
+            <label class="radio-inline">
               <input type="radio" ng-model="export.filters.constitution_card" value="false"> Nee
             </label>
-            <label class="radio inline">
+            <label class="radio-inline">
               <input type="radio" ng-model="export.filters.constitution_card" value="undefined"> Maakt niet uit
             </label>
             <span class="help-block">Ontvangt constitutiekaartje.</span>
           </div>
         </div>
 
-        <div class="control-group">
+        <div class="form-group">
           <div class="control-label">Kerstkaartje:</div>
           <div class="controls">
-            <label class="radio inline">
+            <label class="radio-inline">
               <input type="radio" ng-model="export.filters.christmas_card" value="true"> Ja
             </label>
-            <label class="radio inline">
+            <label class="radio-inline">
               <input type="radio" ng-model="export.filters.christmas_card" value="false"> Nee
             </label>
-            <label class="radio inline">
+            <label class="radio-inline">
               <input type="radio" ng-model="export.filters.christmas_card" value="undefined"> Maakt niet uit
             </label>
             <span class="help-block">Ontvangt kerstkaartje.</span>
           </div>
         </div>
 
-        <div class="control-group">
+        <div class="form-group">
           <div class="control-label">Jaarboek:</div>
           <div class="controls">
-            <label class="radio inline">
+            <label class="radio-inline">
               <input type="radio" ng-model="export.filters.yearbook" value="true"> Ja
             </label>
-            <label class="radio inline">
+            <label class="radio-inline">
               <input type="radio" ng-model="export.filters.yearbook" value="false"> Nee
             </label>
-            <label class="radio inline">
+            <label class="radio-inline">
               <input type="radio" ng-model="export.filters.yearbook" value="undefined"> Maakt niet uit
             </label>
             <span class="help-block">Ontvangt jaarboek.</span>
@@ -149,53 +155,53 @@
     </div>
   </div>
 
-  <div class="span6">
-    <div class="well form-horizontal">
+  <div class="col-sm-6 col-md-6">
+    <div class="well">
       <fieldset ng-show="export.queryset.members || export.queryset.merit || export.queryset.honorary || export.queryset.alumni || export.queryset.students || export.queryset.employees">
         <legend>Persoonlijk</legend>
 
-        <div class="control-group">
+        <div class="form-group">
           <div class="control-label">Activiteitenmailing:</div>
           <div class="controls">
-            <label class="radio inline">
+            <label class="radio-inline">
               <input type="radio" ng-model="export.filters.person__mail_announcements" value="true"> Ja
             </label>
-            <label class="radio inline">
+            <label class="radio-inline">
               <input type="radio" ng-model="export.filters.person__mail_announcements" value="false"> Nee
             </label>
-            <label class="radio inline">
+            <label class="radio-inline">
               <input type="radio" ng-model="export.filters.person__mail_announcements" value="undefined"> Maakt niet uit
             </label>
             <span class="help-block">Is aangemeld voor Activiteitenmailing.</span>
           </div>
         </div>
 
-        <div class="control-group">
+        <div class="form-group">
           <div class="control-label">Bedrijvenmailing:</div>
           <div class="controls">
-            <label class="radio inline">
+            <label class="radio-inline">
               <input type="radio" ng-model="export.filters.person__mail_company" value="true"> Ja
             </label>
-            <label class="radio inline">
+            <label class="radio-inline">
               <input type="radio" ng-model="export.filters.person__mail_company" value="false"> Nee
             </label>
-            <label class="radio inline">
+            <label class="radio-inline">
               <input type="radio" ng-model="export.filters.person__mail_company" value="undefined"> Maakt niet uit
             </label>
             <span class="help-block">Is aangemeld voor Bedrijvenmailing.</span>
           </div>
         </div>
 
-        <div class="control-group">
+        <div class="form-group">
           <div class="control-label">Onderwijsmailing:</div>
           <div class="controls">
-            <label class="radio inline">
+            <label class="radio-inline">
               <input type="radio" ng-model="export.filters.person__mail_education" value="true"> Ja
             </label>
-            <label class="radio inline">
+            <label class="radio-inline">
               <input type="radio" ng-model="export.filters.person__mail_education" value="false"> Nee
             </label>
-            <label class="radio inline">
+            <label class="radio-inline">
               <input type="radio" ng-model="export.filters.person__mail_education" value="undefined"> Maakt niet uit
             </label>
             <span class="help-block">Is aangemeld voor Onderwijsmailing.</span>
@@ -206,48 +212,48 @@
       <fieldset ng-show="export.queryset.members || export.queryset.merit || export.queryset.honorary">
         <legend>Leden</legend>
 
-        <div class="control-group">
+        <div class="form-group">
           <div class="control-label">Buitengewoon lid:</div>
           <div class="controls">
-            <label class="radio inline">
+            <label class="radio-inline">
               <input type="radio" ng-model="export.filters.person__member__associate_member" value="true"> Ja
             </label>
-            <label class="radio inline">
+            <label class="radio-inline">
               <input type="radio" ng-model="export.filters.person__member__associate_member" value="false"> Nee
             </label>
-            <label class="radio inline">
+            <label class="radio-inline">
               <input type="radio" ng-model="export.filters.person__member__associate_member" value="undefined"> Maakt niet uit
             </label>
             <span class="help-block">Is Buitengewoon lid.</span>
           </div>
         </div>
 
-        <div class="control-group">
+        <div class="form-group">
           <div class="control-label">Donateur:</div>
           <div class="controls">
-            <label class="radio inline">
+            <label class="radio-inline">
               <input type="radio" ng-model="export.filters.person__member__donating_member" value="true"> Ja
             </label>
-            <label class="radio inline">
+            <label class="radio-inline">
               <input type="radio" ng-model="export.filters.person__member__donating_member" value="false"> Nee
             </label>
-            <label class="radio inline">
+            <label class="radio-inline">
               <input type="radio" ng-model="export.filters.person__member__donating_member" value="undefined"> Maakt niet uit
             </label>
             <span class="help-block">Is Donateur.</span>
           </div>
         </div>
 
-        <div class="control-group">
+        <div class="form-group">
           <div class="control-label">Uitnodigingen LvV:</div>
           <div class="controls">
-            <label class="radio inline">
+            <label class="radio-inline">
               <input type="radio" ng-model="export.filters.person__member__merit_invitations" value="true"> Ja
             </label>
-            <label class="radio inline">
+            <label class="radio-inline">
               <input type="radio" ng-model="export.filters.person__member__merit_invitations" value="false"> Nee
             </label>
-            <label class="radio inline">
+            <label class="radio-inline">
               <input type="radio" ng-model="export.filters.person__member__merit_invitations" value="undefined"> Maakt niet uit
             </label>
             <span class="help-block">Ontvangt LvV Uitnodigingen.</span>
@@ -258,16 +264,16 @@
       <fieldset ng-show="export.queryset.students">
         <legend>Studenten</legend>
 
-        <div class="control-group">
+        <div class="form-group">
             <div class="control-label">Ingeschreven:</div>
           <div class="controls">
-            <label class="radio inline">
+            <label class="radio-inline">
                 <input type="radio" ng-model="export.filters.person__student__enrolled" value="true"> Ja
             </label>
-            <label class="radio inline">
+            <label class="radio-inline">
                 <input type="radio" ng-model="export.filters.person__student__enrolled" value="false"> Nee
             </label>
-            <label class="radio inline">
+            <label class="radio-inline">
                 <input type="radio" ng-model="export.filters.person__student__enrolled" value="undefined"> Maakt niet
                 uit
             </label>
@@ -275,16 +281,16 @@
           </div>
         </div>
 
-        <div class="control-group">
+        <div class="form-group">
           <div class="control-label">Toestemming Jaarboek:</div>
           <div class="controls">
-            <label class="radio inline">
+            <label class="radio-inline">
               <input type="radio" ng-model="export.filters.person__student__yearbook_permission" value="true"> Ja
             </label>
-            <label class="radio inline">
+            <label class="radio-inline">
               <input type="radio" ng-model="export.filters.person__student__yearbook_permission" value="false"> Nee
             </label>
-            <label class="radio inline">
+            <label class="radio-inline">
               <input type="radio" ng-model="export.filters.person__student__yearbook_permission" value="undefined"> Maakt niet uit
             </label>
             <span class="help-block">Heeft toestemming gegeven om in de Annu te komen.</span>
@@ -297,22 +303,22 @@
 
 
 <div class="row">
-  <div class="span12">
+  <div class="col-sm-12 col-md-12">
     <div class="page-header">
-      <h1>3. Velden</h1>      
+      <h1>3. Velden</h1>
     </div>
   </div>
 </div>
 
 <div class="row">
-  <div class="span12">
-    <div class="well form-horizontal">
-      <div class="control-group">
+  <div class="col-sm-12 col-md-12">
+    <div class="well">
+      <div class="form-group">
         <div class="control-label">Verzendlijst:</div>
         <div class="controls">
-          <label class="radio"><input type="radio" ng-model="export.addresslist" value="off"> Andere export</label>
-          <label class="radio"><input type="radio" ng-model="export.addresslist" value="doubles"> Gewoon alle adressen</label>
-          <label class="radio"><input type="radio" ng-model="export.addresslist" value="living_with"> Voorkom dubbele verzending m.b.v. <em>woont samen met</em>.</label>
+          <div class="checkbox"><label class=""><input type="radio" ng-model="export.addresslist" value="off"> Andere export</label></div>
+          <div class="checkbox"><label class=""><input type="radio" ng-model="export.addresslist" value="doubles"> Gewoon alle adressen</label></div>
+          <div class="checkbox"><label class=""><input type="radio" ng-model="export.addresslist" value="living_with"> Voorkom dubbele verzending m.b.v. <em>woont samen met</em>.</label></div>
           <span class="help-block">Door deze functie te activeren, worden standaard velden gebruikt.</span>
         </div>
       </div>
@@ -321,81 +327,81 @@
 </div>
 
 <div class="row" ng-show="export.addresslist=='off'">
-  <div class="span4">
+  <div class="col-sm-4 col-md-4">
     <div class="well">
-      <div class="control-group">
+      <div class="form-group">
         <div class="control-label">Algemene velden:</div>
         <div class="controls">
-          <label class="checkbox"><input type="checkbox" ng-model="export.fields.street_name"> Straatnaam</label>
-          <label class="checkbox"><input type="checkbox" ng-model="export.fields.house_number"> Huisnummer</label>
-          <label class="checkbox"><input type="checkbox" ng-model="export.fields.address_2"> Adresregel 2</label>
-          <label class="checkbox"><input type="checkbox" ng-model="export.fields.address_3"> Adresregel 3</label>
-          <label class="checkbox"><input type="checkbox" ng-model="export.fields.postcode"> Postcode</label>
-          <label class="checkbox"><input type="checkbox" ng-model="export.fields.city"> Woonplaats</label>
-          <label class="checkbox"><input type="checkbox" ng-model="export.fields.country"> Land</label>
-          <label class="checkbox"><input type="checkbox" ng-model="export.fields.email"> Email adres</label>
-          <label class="checkbox"><input type="checkbox" ng-model="export.fields.phone_fixed"> Telefoon vast</label>
+          <div class="checkbox"><label class=""><input type="checkbox" ng-model="export.fields.street_name"> Straatnaam</label></div>
+          <div class="checkbox"><label class=""><input type="checkbox" ng-model="export.fields.house_number"> Huisnummer</label></div>
+          <div class="checkbox"><label class=""><input type="checkbox" ng-model="export.fields.address_2"> Adresregel 2</label></div>
+          <div class="checkbox"><label class=""><input type="checkbox" ng-model="export.fields.address_3"> Adresregel 3</label></div>
+          <div class="checkbox"><label class=""><input type="checkbox" ng-model="export.fields.postcode"> Postcode</label></div>
+          <div class="checkbox"><label class=""><input type="checkbox" ng-model="export.fields.city"> Woonplaats</label></div>
+          <div class="checkbox"><label class=""><input type="checkbox" ng-model="export.fields.country"> Land</label></div>
+          <div class="checkbox"><label class=""><input type="checkbox" ng-model="export.fields.email"> Email adres</label></div>
+          <div class="checkbox"><label class=""><input type="checkbox" ng-model="export.fields.phone_fixed"> Telefoon vast</label></div>
         </div>
       </div>
 
     </div>
   </div>
 
-  <div class="span4">
+  <div class="col-sm-4 col-md-4">
     <div class="well">
 
-      <div class="control-group" ng-show="export.queryset.organizations">
+      <div class="form-group" ng-show="export.queryset.organizations">
         <div class="control-label">Organisatie velden:</div>
         <div class="controls">
-          <label class="checkbox"><input type="checkbox" ng-model="export.fields.organization__name_prefix"> Naam voorvoegsel</label>
-          <label class="checkbox"><input type="checkbox" ng-model="export.fields.organization__name"> Naam</label>
-          <label class="checkbox"><input type="checkbox" ng-model="export.fields.organization__name_short"> Korte naam</label>
-          <label class="checkbox"><input type="checkbox" ng-model="export.fields.organization__salutation"> Aanhef</label>
+          <div class="checkbox"><label class=""><input type="checkbox" ng-model="export.fields.organization__name_prefix"> Naam voorvoegsel</label></div>
+          <div class="checkbox"><label class=""><input type="checkbox" ng-model="export.fields.organization__name"> Naam</label></div>
+          <div class="checkbox"><label class=""><input type="checkbox" ng-model="export.fields.organization__name_short"> Korte naam</label></div>
+          <div class="checkbox"><label class=""><input type="checkbox" ng-model="export.fields.organization__salutation"> Aanhef</label></div>
         </div>
       </div>
 
-      <div class="control-group" ng-show="export.queryset.members || export.queryset.merit || export.queryset.honorary || export.queryset.alumni || export.queryset.students || export.queryset.employees">
+      <div class="form-group" ng-show="export.queryset.members || export.queryset.merit || export.queryset.honorary || export.queryset.alumni || export.queryset.students || export.queryset.employees">
         <div class="control-label">Persoon velden:</div>
         <div class="controls">
-          <label class="checkbox"><input type="checkbox" ng-model="export.fields.person__titles"> Titels</label>
-          <label class="checkbox"><input type="checkbox" ng-model="export.fields.person__initials"> Initialen</label>
-          <label class="checkbox"><input type="checkbox" ng-model="export.fields.person__firstname"> Voornaam</label>
-          <label class="checkbox"><input type="checkbox" ng-model="export.fields.person__preposition"> Tussenvoegsel</label>
-          <label class="checkbox"><input type="checkbox" ng-model="export.fields.person__surname"> Achternaam</label>
-          <label class="checkbox"><input type="checkbox" ng-model="export.fields.person__postfix_titles"> Achtervoegsel</label>
-          <label class="checkbox"><input type="checkbox" ng-model="export.fields.person__phone_mobile"> Telefoon mobiel</label>
-          <label class="checkbox"><input type="checkbox" ng-model="export.fields.person__gender"> Geslacht</label>
-          <label class="checkbox"><input type="checkbox" ng-model="export.fields.person__birthdate"> Geboortedatum</label>
-          <label class="checkbox"><input type="checkbox" ng-model="export.fields.person__ldap_username"> LDAP-gebruikersnaam</label>
-          <label class="checkbox"><input type="checkbox" ng-model="export.fields.person__netid"> NetID</label>
+          <div class="checkbox"><label class=""><input type="checkbox" ng-model="export.fields.person__titles"> Titels</label></div>
+          <div class="checkbox"><label class=""><input type="checkbox" ng-model="export.fields.person__initials"> Initialen</label></div>
+          <div class="checkbox"><label class=""><input type="checkbox" ng-model="export.fields.person__firstname"> Voornaam</label></div>
+          <div class="checkbox"><label class=""><input type="checkbox" ng-model="export.fields.person__preposition"> Tussenvoegsel</label></div>
+          <div class="checkbox"><label class=""><input type="checkbox" ng-model="export.fields.person__surname"> Achternaam</label></div>
+          <div class="checkbox"><label class=""><input type="checkbox" ng-model="export.fields.person__postfix_titles"> Achtervoegsel</label></div>
+          <div class="checkbox"><label class=""><input type="checkbox" ng-model="export.fields.person__phone_mobile"> Telefoon mobiel</label></div>
+          <div class="checkbox"><label class=""><input type="checkbox" ng-model="export.fields.person__gender"> Geslacht</label></div>
+          <div class="checkbox"><label class=""><input type="checkbox" ng-model="export.fields.person__birthdate"> Geboortedatum</label></div>
+          <div class="checkbox"><label class=""><input type="checkbox" ng-model="export.fields.person__ldap_username"> LDAP-gebruikersnaam</label></div>
+          <div class="checkbox"><label class=""><input type="checkbox" ng-model="export.fields.person__netid"> NetID</label></div>
         </div>
       </div>
 
     </div>
   </div>
 
-  <div class="span4">
+  <div class="col-sm-4 col-md-4">
     <div class="well">
 
-      <div class="control-group" ng-show="export.queryset.students">
+      <div class="form-group" ng-show="export.queryset.students">
         <div class="control-label">Student velden:</div>
         <div class="controls">
-          <label class="checkbox"><input type="checkbox" ng-model="export.fields.person__student__study"> Studie</label>
-          <label class="checkbox"><input type="checkbox" ng-model="export.fields.person__student__first_year"> Eerste jaar</label>
-          <label class="checkbox"><input type="checkbox" ng-model="export.fields.person__student__student_number"> Studienummer</label>
-            <label class="checkbox"><input type="checkbox" ng-model="export.fields.person__student__enrolled">
-                Ingeschreven</label>
-          <label class="checkbox"><input type="checkbox" ng-model="export.fields.person__student__phone_parents"> Telefoon Ouders</label>
+          <div class="checkbox"><label class=""><input type="checkbox" ng-model="export.fields.person__student__study"> Studie</label></div>
+          <div class="checkbox"><label class=""><input type="checkbox" ng-model="export.fields.person__student__first_year"> Eerste jaar</label></div>
+          <div class="checkbox"><label class=""><input type="checkbox" ng-model="export.fields.person__student__student_number"> Studienummer</label></div>
+            <div class="checkbox"><label class=""><input type="checkbox" ng-model="export.fields.person__student__enrolled">
+                Ingeschreven</label></div>
+          <div class="checkbox"><label class=""><input type="checkbox" ng-model="export.fields.person__student__phone_parents"> Telefoon Ouders</label></div>
         </div>
       </div>
 
-      <div class="control-group" ng-show="export.queryset.alumni">
+      <div class="form-group" ng-show="export.queryset.alumni">
         <div class="control-label">Alumnus velden:</div>
         <div class="controls">
-          <label class="checkbox"><input type="checkbox" ng-model="export.fields.person__alumnus__study"> Studie</label>
-          <label class="checkbox"><input type="checkbox" ng-model="export.fields.person__alumnus__study_first_year"> Eerste Jaar</label>
-          <label class="checkbox"><input type="checkbox" ng-model="export.fields.person__alumnus__study_last_year"> Laatste Jaar</label>
-          <label class="checkbox"><input type="checkbox" ng-model="export.fields.person__alumnus__work_company"> Bedrijf</label>
+          <div class="checkbox"><label class=""><input type="checkbox" ng-model="export.fields.person__alumnus__study"> Studie</label></div>
+          <div class="checkbox"><label class=""><input type="checkbox" ng-model="export.fields.person__alumnus__study_first_year"> Eerste Jaar</label></div>
+          <div class="checkbox"><label class=""><input type="checkbox" ng-model="export.fields.person__alumnus__study_last_year"> Laatste Jaar</label></div>
+          <div class="checkbox"><label class=""><input type="checkbox" ng-model="export.fields.person__alumnus__work_company"> Bedrijf</label></div>
         </div>
       </div>
 
@@ -404,7 +410,7 @@
 </div>
 
 <div class="row">
-  <div class="span12">
+  <div class="col-sm-12 col-md-12">
     <div class="page-header">
       <h1>4. Export</h1>
     </div>
@@ -412,18 +418,18 @@
 </div>
 
 <div class="row">
-  <div class="span12">
+  <div class="col-sm-12 col-md-12">
     <div class="well">
       <div>
-        <a ng-hide="loading" class="btn btn-large btn-primary" ng-click="loadExport()">Exporteren</a>
+        <a ng-hide="loading" class="btn btn-primary btn-lg" ng-click="loadExport()">Exporteren</a>
         <i ng-show="loading" class="icon-refresh icon-spin icon-4x"></i>
       </div>
     </div>
   </div>
 </div>
 
-<div class="row" ng-show="data && !loading">
-  <div class="span12">
+<div class="row" ng-show="data &amp;&amp; !loading">
+  <div class="col-sm-12 col-md-12">
     <div class="page-header">
       <h1>CSV-Uitvoer</h1>
     </div>
