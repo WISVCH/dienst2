@@ -1,4 +1,4 @@
-from django.conf.urls import include, url
+from django.urls import include, path
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
@@ -12,35 +12,38 @@ admin.autodiscover()
 
 urlpatterns = [
     # The LDB index:
-    url(r'^$', DashboardView.as_view(), name='index'),
+    path('', DashboardView.as_view(), name='index'),
 
     # The Admin docs:
-    url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
+    path('admin/doc/', include('django.contrib.admindocs.urls')),
 
     # The Admin site:
-    url(r'^admin/', admin.site.urls),
+    path('admin/', admin.site.urls),
 
     # The signin page
-    url(r'^accounts/login/$', auth_views.login, name='login'),
+    path('accounts/login/', auth_views.LoginView.as_view(), name='login'),
 
     # The logout page
-    url(r'^accounts/logout/$', auth_views.logout, name='logout'),
+    path('accounts/logout/', auth_views.LogoutView.as_view(), name='logout'),
 
     # LDB URLs
-    url(r'^ldb/', include('ldb.urls')),
+    path('ldb/', include('ldb.urls')),
 
     # Post URLs
-    url(r'^post/', include('post.urls')),
+    path('post/', include('post.urls')),
 
     # Post URLs
-    url(r'^kas/', include('kas.urls')),
+    path('kas/', include('kas.urls')),
 
     # Health check
-    url(r'^healthz', include('health_check.urls')),
+    path('healthz', include('health_check.urls')),
 ]
 
 if settings.DEBUG:
+    import debug_toolbar
     urlpatterns += [
-        url(r'^404/$', page_not_found),
-        url(r'^500/$', server_error),
+        path('__debug__/', include(debug_toolbar.urls)),
+
+        path('404/', page_not_found),
+        path('500/', server_error),
     ]
