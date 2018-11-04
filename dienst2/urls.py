@@ -32,9 +32,6 @@ urlpatterns = [
     # Post URLs
     path('post/', include('post.urls')),
 
-    # Post URLs
-    path('kas/', include('kas.urls')),
-
     # Health check
     path('healthz', include('health_check.urls')),
 ]

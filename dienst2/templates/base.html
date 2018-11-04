@@ -31,15 +31,13 @@ window.admin = {{ perms.admin|yesno:'true,false' }};
   <script type="text/coffeescript" src="{% static 'coffee/spin.coffee' %}"></script>
   <script type="text/coffeescript" src="{% static 'coffee/forms.coffee' %}"></script>
   <script type="text/coffeescript" src="{% static 'coffee/ldb.coffee' %}"></script>
-  <script type="text/coffeescript" src="{% static 'coffee/kas.coffee' %}"></script>
-  <script type="text/coffeescript" src="{% static 'coffee/barcode.coffee' %}"></script>
   {% block javascript %}{% endblock %}
 {% endcompress %}
 <div class="row-fluid">
   <div class="span2 offset5">
     <div class="alert alert-info" style="opacity: 0.7; margin-top: 2em; text-align: center">
       <strong>Werkt het niet?</strong>
-      <a href="https://github.com/WISVCH/dienst2/issues/5{% if ng_app == 'ldb'%}0{% elif ng_app == 'kas' %}7{% endif %}">Fix het!</a>
+      <a href="https://github.com/WISVCH/dienst2/issues/50">Fix het!</a>
     </div>
   </div>
 </div>
