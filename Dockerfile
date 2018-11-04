@@ -1,3 +1,9 @@
+FROM node AS node
+
+WORKDIR /src
+COPY . .
+RUN yarn install --flat
+
 FROM python:3.7-stretch
 
 # CH CA certificate for LDAP and PostgreSQL TLS connections
@@ -8,19 +14,16 @@ RUN curl -so /usr/local/share/ca-certificates/wisvch.crt https://ch.tudelft.nl/c
 RUN mkdir -p /srv
 WORKDIR /srv
 COPY . /srv
+COPY --from=node /src/dienst2/static/lib /srv/dienst2/static/lib
 
 RUN export DEBIAN_FRONTEND="noninteractive" && \
-    curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
-    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
-    echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list && \
     apt-get update && \
-    apt-get install -y --no-install-recommends libldap2-dev libsasl2-dev nodejs yarn && \
-    yarn install && \
+    apt-get install -y --no-install-recommends libldap2-dev libsasl2-dev && \
     pip install --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt && \
     cp dienst2/local.py.ci dienst2/local.py && \
     ./manage.py collectstatic --noinput && \
-    apt-get purge -y libldap2-dev libsasl2-dev nodejs yarn && \
+    apt-get purge -y libldap2-dev libsasl2-dev && \
     apt-get autoremove -y && \
     rm -rf dienst2/local.py* /var/lib/apt/lists/* /usr/lib/node_modules node_modules
 

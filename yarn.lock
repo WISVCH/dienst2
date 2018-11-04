@@ -2,39 +2,39 @@
 # yarn lockfile v1
 
 
-"@bower_components/bootstrap-theme-wisvch@WISVCH/bootstrap-theme#gh-pages", themestrap@WISVCH/bootstrap-theme#gh-pages:
-  version "0.3.0"
-  resolved "https://codeload.github.com/WISVCH/bootstrap-theme/tar.gz/21cc92a37f3efeae03c2e4464260d61033c0deb1"
+almond@~0.3.1:
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/almond/-/almond-0.3.3.tgz#a0e7c95ac7624d6417b4494b1e68bff693168a20"
+  integrity sha1-oOfJWsdiTWQXtElLHmi/9pMWiiA=
 
-"@bower_components/bootstrap@twbs/bootstrap#3.3.5", bootstrap@twbs/bootstrap#3.3.5:
+bootstrap@twbs/bootstrap#3.3.5:
   version "3.3.5"
   resolved "https://codeload.github.com/twbs/bootstrap/tar.gz/16b48259a62f576e52c903c476bd42b90ab22482"
 
-"@bower_components/components-font-awesome@components/font-awesome#~4.4.0", font-awesome@components/font-awesome#~4.4.0:
+font-awesome@components/font-awesome#~4.4.0:
   version "0.0.0"
   resolved "https://codeload.github.com/components/font-awesome/tar.gz/7dffacc72e566e5db6272244effc06f64fe9f185"
 
-"@bower_components/jquery@jquery/jquery-dist#>= 1.9.1", "jquery@jquery/jquery-dist#>= 1.9.1":
+jquery-mousewheel@~3.1.13:
+  version "3.1.13"
+  resolved "https://registry.yarnpkg.com/jquery-mousewheel/-/jquery-mousewheel-3.1.13.tgz#06f0335f16e353a695e7206bf50503cb523a6ee5"
+  integrity sha1-BvAzXxbjU6aV5yBr9QUDy1I6buU=
+
+"jquery@jquery/jquery-dist#>= 1.9.1":
   version "3.3.1"
   resolved "https://codeload.github.com/jquery/jquery-dist/tar.gz/9e8ec3d10fad04748176144f108d7355662ae75e"
 
-"@bower_components/select2-bootstrap-theme@fk/select2-bootstrap-theme#^0.1.0-beta.4", select2-bootstrap-theme@fk/select2-bootstrap-theme#^0.1.0-beta.4:
+select2-bootstrap-theme@fk/select2-bootstrap-theme#^0.1.0-beta.4:
   version "0.1.0-beta.10"
   resolved "https://codeload.github.com/fk/select2-bootstrap-theme/tar.gz/7ad6e79f01dbb67c5f77ef102f9570266eca1aea"
 
-"@bower_components/select2@ivaynberg/select2#^4.0.2", select2@ivaynberg/select2#^4.0.2:
+select2@ivaynberg/select2#^4.0.2:
   version "4.0.5"
   resolved "https://codeload.github.com/ivaynberg/select2/tar.gz/ebf10c93db7d6d7a0d1330119d4c6f32cbd231d7"
   dependencies:
     almond "~0.3.1"
     jquery-mousewheel "~3.1.13"
 
-almond@~0.3.1:
-  version "0.3.3"
-  resolved "https://registry.yarnpkg.com/almond/-/almond-0.3.3.tgz#a0e7c95ac7624d6417b4494b1e68bff693168a20"
-  integrity sha1-oOfJWsdiTWQXtElLHmi/9pMWiiA=
-
-jquery-mousewheel@~3.1.13:
-  version "3.1.13"
-  resolved "https://registry.yarnpkg.com/jquery-mousewheel/-/jquery-mousewheel-3.1.13.tgz#06f0335f16e353a695e7206bf50503cb523a6ee5"
-  integrity sha1-BvAzXxbjU6aV5yBr9QUDy1I6buU=
+themestrap@WISVCH/bootstrap-theme#gh-pages:
+  version "0.3.0"
+  resolved "https://codeload.github.com/WISVCH/bootstrap-theme/tar.gz/21cc92a37f3efeae03c2e4464260d61033c0deb1"

@@ -8,14 +8,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{% block title %}{{ title }}{% endblock %} &mdash; Dienst2</title>
 
-<link rel="stylesheet" type="text/css" href="{% static 'lib/bootstrap-theme-wisvch/dist/css/bootstrap.css' %}"/>
-<link rel="stylesheet" type="text/css" href="{% static 'lib/components-font-awesome/css/font-awesome.min.css' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'lib/themestrap/dist/css/bootstrap.css' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'lib/font-awesome/css/font-awesome.min.css' %}"/>
 <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
 {% block extra_css %}
 {% endblock %}
 
-<script type="text/javascript" src="{% static 'lib/jquery/dist/jquery.js' %}"></script>
-<script type="text/javascript" src="{% static 'lib/bootstrap/dist/js/bootstrap.js' %}"></script>
+<script type="text/javascript" src="{% static 'lib/jquery/dist/jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'lib/bootstrap/dist/js/bootstrap.min.js' %}"></script>
 {% block extra_js %}
 {% endblock %}
 </head>
