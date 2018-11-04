@@ -103,13 +103,17 @@
           <fieldset>
             <legend>Accounts</legend>
             {% if user|has_group:'staff' %}
-              {% stcontrol_format person 'ldap_username' '<a href="https://frans.chnet/userman2/users/{0}/">{0}</a>' %}
+              {% stcontrol_format person 'ldap_username' '<a href="https://userman2.chnet/users/{0}">{0}</a>' %}
             {% else %}
               {% stcontrol person 'ldap_username' %}
             {% endif %}
             {% stcontrol person 'netid' %}
-            {% stcontrol_format person 'facebook_id' '<a target="_blank" href="https://www.facebook.com/{0}">{0}</a>' %}
-            {% stcontrol_format person 'linkedin_id' '<a target="_blank" href="http://www.linkedin.com/profile/view?id={0}">{0}</a>' %}
+            {% if person.facebook_id %}
+              {% stcontrol_format person 'facebook_id' '<a target="_blank" href="https://www.facebook.com/{0}">{0}</a>' %}
+            {% endif %}
+            {% if person.linkedin_id %}
+              {% stcontrol_format person 'linkedin_id' '<a target="_blank" href="http://www.linkedin.com/profile/view?id={0}">{0}</a>' %}
+            {% endif %}
           </fieldset>
         {% endif %}
 
