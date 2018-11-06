@@ -1,5 +1,5 @@
 .*
-!.bowerrc
+!.yarnrc
 **/.DS_Store
 **/*.pyc
 **/__pycache__

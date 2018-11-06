@@ -21,7 +21,7 @@ class PersonViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = PersonSerializer
     queryset = Person.objects.all().select_related('member', 'student', 'alumnus', 'employee').prefetch_related(
         Prefetch('committee_memberships', queryset=CommitteeMembership.objects.select_related('committee')))
-    filter_class = PersonFilter
+    filterset_class = PersonFilter
 
 
 class OrganizationsViewSet(viewsets.ReadOnlyModelViewSet):
