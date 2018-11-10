@@ -1,6 +1,8 @@
+import urllib.parse
+
 from django.conf import settings
-from django.contrib.auth.views import redirect_to_login
-from django.urls import resolve
+from django.shortcuts import redirect
+from django.urls import resolve, reverse
 from django.utils.deprecation import MiddlewareMixin
 
 
@@ -16,7 +18,6 @@ class RequireLoginMiddleware(MiddlewareMixin):
 
     def __init__(self, get_response=None):
         super().__init__(get_response)
-        self.require_login_path = getattr(settings, 'LOGIN_URL', '/accounts/login/')
 
     def process_request(self, request):
         if request.user.is_authenticated:
@@ -27,10 +28,11 @@ class RequireLoginMiddleware(MiddlewareMixin):
 
         # django-rest-framework (DEFAULT_PERMISSION_CLASSES in settings.py)
         if r._func_path.startswith("health_check.") or \
+            r._func_path.startswith("mozilla_django_oidc.") or \
             r._func_path.startswith("rest_framework.") or \
-            r._func_path.startswith("ldb.viewsets."):
+            r._func_path.startswith("ldb.viewsets.") or \
+            r.url_name == 'forbidden':
             return
 
         # other pages except login page
-        elif request.path != self.require_login_path:
-            return redirect_to_login(request.path)
+        return redirect(reverse('oidc_authentication_init') + '?next=' + urllib.parse.quote_plus(request.path))

@@ -1,9 +1,8 @@
-from django.urls import include, path
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
-from django.contrib.auth import views as auth_views
-from django.views.defaults import page_not_found
-from django.views.defaults import server_error
+from django.urls import include, path
+from django.views.defaults import page_not_found, server_error
+from django.views.generic.base import TemplateView
 
 from dienst2 import settings
 from dienst2.views import DashboardView
@@ -20,11 +19,9 @@ urlpatterns = [
     # The Admin site:
     path('admin/', admin.site.urls),
 
-    # The signin page
-    path('accounts/login/', auth_views.LoginView.as_view(), name='login'),
-
-    # The logout page
-    path('accounts/logout/', auth_views.LogoutView.as_view(), name='logout'),
+    # OIDC
+    path('oidc/', include('mozilla_django_oidc.urls')),
+    path('forbidden', TemplateView.as_view(template_name='403.html'), name="forbidden"),
 
     # LDB URLs
     path('ldb/', include('ldb.urls')),

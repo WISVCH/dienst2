@@ -1,11 +1,13 @@
 import os
+import environ
 
-import ldap
-from django_auth_ldap.config import LDAPSearch, PosixGroupType
+env = environ.Env(
+    DEBUG=(bool, False)
+)
 
 # Django settings for dienst2 project.
 
-DEBUG = True
+DEBUG = env('DEBUG')
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -99,6 +101,7 @@ MIDDLEWARE = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    # 'mozilla_django_oidc.middleware.SessionRefresh',
     'django.contrib.messages.middleware.MessageMiddleware',
     'dienst2.middleware.RequireLoginMiddleware',
     'reversion.middleware.RevisionMiddleware',
@@ -123,6 +126,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'reversion',
     'reversion_compare',
+    'mozilla_django_oidc',
     'haystack',
     'tastypie',
     'rest_framework',
@@ -142,26 +146,22 @@ INSTALLED_APPS = (
     'post',
 )
 
-AUTH_LDAP_SERVER_URI = "ldaps://ank.chnet"
-AUTH_LDAP_BIND_DN = ""
-AUTH_LDAP_BIND_PASSWORD = ""
-AUTH_LDAP_USER_DN_TEMPLATE = "uid=%(user)s,ou=People,dc=ank,dc=chnet"
-AUTH_LDAP_GROUP_SEARCH = LDAPSearch("ou=Group,dc=ank,dc=chnet", ldap.SCOPE_SUBTREE, "(objectClass=posixGroup)")
-AUTH_LDAP_GROUP_TYPE = PosixGroupType()
-
-AUTH_LDAP_REQUIRE_GROUP = "cn=dienst2,ou=Group,dc=ank,dc=chnet"
-
-AUTH_LDAP_USER_FLAGS_BY_GROUP = {
-    "is_active": "cn=dienst2,ou=Group,dc=ank,dc=chnet",
-    "is_staff": "cn=dienst2-admin,ou=Group,dc=ank,dc=chnet",
-    "is_superuser": "cn=dienst2-admin,ou=Group,dc=ank,dc=chnet"
-}
-
-AUTH_LDAP_MIRROR_GROUPS = True
+OIDC_RP_CLIENT_ID = env('OIDC_RP_CLIENT_ID', default='dienst2-dev')
+OIDC_RP_CLIENT_SECRET = env('OIDC_RP_CLIENT_SECRET', default='D6EFUL5Nvod2I_yYcqYhlpJr_EHoTaV4l7hp3GzUaYMtjpTPjuwUSK0g_HxG2EQjYZrAvY2yGvmZ4_tkr3Mzbg')
+OIDC_RP_SCOPES = 'openid profile ldap'
+OIDC_RP_SIGN_ALGO = 'RS256'
+OIDC_OP_AUTHORIZATION_ENDPOINT = 'https://connect.ch.tudelft.nl/authorize'
+OIDC_OP_TOKEN_ENDPOINT = 'https://connect.ch.tudelft.nl/token'
+OIDC_OP_USER_ENDPOINT = 'https://connect.ch.tudelft.nl/userinfo'
+OIDC_OP_JWKS_ENDPOINT = 'https://connect.ch.tudelft.nl/jwk'
+OIDC_OP_LOGOUT_URL_METHOD = 'dienst2.auth.provider_logout'
+OIDC_LDAP_ACCESS_GROUP = env('OIDC_LDAP_ACCESS_GROUP', default='dienst2')
+OIDC_LDAP_ADMIN_GROUP = env('OIDC_LDAP_ADMIN_GROUP', default='dienst2-admin')
+OIDC_LDAP_USERMAN2_GROUP = env('OIDC_LDAP_USERMAN2_GROUP', default='staff')
+LOGIN_REDIRECT_URL_FAILURE = '/forbidden'
 
 AUTHENTICATION_BACKENDS = (
-    'django_auth_ldap.backend.LDAPBackend',
-    'django.contrib.auth.backends.ModelBackend',
+    'dienst2.auth.CHConnect',
 )
 
 DATADOG_TRACE = {
@@ -206,7 +206,7 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': True,
         },
-    }
+    },
 }
 
 BOOTSTRAP3 = {
