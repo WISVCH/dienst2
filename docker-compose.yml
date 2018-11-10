@@ -4,8 +4,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile-dev
-    environment:
-      - DEBUG=True
+    env_file:
+      - dev.env
     user: $UID
     ports:
       - 127.0.0.1:8000:8000
