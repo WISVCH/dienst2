@@ -1,5 +1,3 @@
-import ldap
-
 # Configuration for Travis
 
 DATABASES = {
@@ -14,9 +12,9 @@ DATABASES = {
         'ATOMIC_REQUESTS': True
     }
 }
+
 SECRET_KEY = 'CHANGEME'
 DEBUG = True
-AUTH_LDAP_GLOBAL_OPTIONS = { ldap.OPT_X_TLS_REQUIRE_CERT: ldap.OPT_X_TLS_NEVER }
 STATIC_URL = '/static/'
 LOGIN_URL = '/accounts/login/'
 

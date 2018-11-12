@@ -17,17 +17,11 @@ Dienstensysteem v2
 5. [Install dependencies in virtual environment](https://www.jetbrains.com/pycharm/help/resolving-unsatisfied-dependencies.html)
    * If e.g. psycopg2 won't install, activate virtualenv (`source bin/activate`) and then manually install dependencies (`pip install -r requirements.txt`)
    * If psycopg2 fails during server start, maybe [this](http://stackoverflow.com/questions/28515972/problems-using-psycopg2-on-mac-os-yosemite) solution will work for you.
-   * On macOS, install python-ldap using:
-     `pip install -U python-ldap --global-option=build_ext --global-option="-I$(xcrun --show-sdk-path)/usr/include/sasl"`
 6. Install dependencies using Yarn (`yarn install`; first install [Node.js][nodejs] and [Yarn][yarn] if you haven't already)
 7. Create PostgreSQL database (`createdb dienst2`; `createuser dienst2`)
 8. Edit the `dienst2/local.py` file to set up your database
 9. Initialise database [using manage.py](https://www.jetbrains.com/pycharm/help/running-tasks-of-manage-py-utility.html) (`./manage.py migrate`)
-10. Initialize user auth, either:
-    * Connect to [CH VPN](https://ch.tudelft.nl/vpn/) and log in with a CH account that is in the `dienst2` group. Or,
-    * Connect to your own LDAP server (Override `AUTH_LDAP*` values in your `dienst2/local.py`). Or,
-    * Create local superuser (`./manage.py createsuperuser`)
-11. Start server (`./manage.py runserver`) and go to http://localhost:8000
+10. Start server (`./manage.py runserver`) and go to http://localhost:8000
 
 **Note: please do not use (a copy of) the production database for local development.**
 
