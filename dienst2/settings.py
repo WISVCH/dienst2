@@ -1,19 +1,36 @@
 import os
 import environ
+from email.utils import getaddresses
 
-env = environ.Env(
-    DEBUG=(bool, False)
-)
+env = environ.Env()
 
 # Django settings for dienst2 project.
 
-DEBUG = env('DEBUG')
+DEBUG = env.bool('DEBUG', default=False)
 
-ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
-)
-
+ADMINS = getaddresses([env('DJANGO_ADMINS', default='')])
 MANAGERS = ADMINS
+
+ALLOWED_HOSTS = ('*')
+INTERNAL_IPS = env.list('INTERNAL_IPS', default='')
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+DATABASES = {
+    'default': env.db(),
+}
+
+CACHES = {
+    'default': env.cache(),
+}
+
+HAYSTACK_CONNECTIONS = {
+    'default': env.search_url(),
+}
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+
+SECRET_KEY = env('SECRET_KEY')
+SESSION_ENGINE = env('SESSION_ENGINE', default='django.contrib.sessions.backends.db')
+EMAIL_HOST = env('EMAIL_HOST', default='')
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -101,7 +118,6 @@ MIDDLEWARE = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    # 'mozilla_django_oidc.middleware.SessionRefresh',
     'django.contrib.messages.middleware.MessageMiddleware',
     'dienst2.middleware.RequireLoginMiddleware',
     'reversion.middleware.RevisionMiddleware',
@@ -146,8 +162,8 @@ INSTALLED_APPS = (
     'post',
 )
 
-OIDC_RP_CLIENT_ID = env('OIDC_RP_CLIENT_ID', default='dienst2-dev')
-OIDC_RP_CLIENT_SECRET = env('OIDC_RP_CLIENT_SECRET', default='D6EFUL5Nvod2I_yYcqYhlpJr_EHoTaV4l7hp3GzUaYMtjpTPjuwUSK0g_HxG2EQjYZrAvY2yGvmZ4_tkr3Mzbg')
+OIDC_RP_CLIENT_ID = env('OIDC_RP_CLIENT_ID')
+OIDC_RP_CLIENT_SECRET = env('OIDC_RP_CLIENT_SECRET')
 OIDC_RP_SCOPES = 'openid profile ldap'
 OIDC_RP_SIGN_ALGO = 'RS256'
 OIDC_OP_AUTHORIZATION_ENDPOINT = 'https://connect.ch.tudelft.nl/authorize'
@@ -186,25 +202,32 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 20,
 }
 
-# A sample logging configuration. The only tangible logging
-# performed by this configuration is to send an email to
-# the site admins on every HTTP 500 error when DEBUG=False.
-# See http://docs.djangoproject.com/en/dev/topics/logging for
-# more details on how to customize your logging configuration.
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'formatters': {
+        'simple': {
+            'format': '%(asctime)s %(levelname)s %(name)s.%(funcName)s:%(lineno)s %(message)s'
+        },
+    },
     'handlers': {
-        'mail_admins': {
-            'level': 'ERROR',
-            'class': 'django.utils.log.AdminEmailHandler'
-        }
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+        },
     },
     'loggers': {
-        'django.request': {
-            'handlers': ['mail_admins'],
-            'level': 'ERROR',
-            'propagate': True,
+        'dienst2': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+        },
+        'django': {
+            'handlers': ['console'],
+            'level': 'INFO',
+        },
+        'health_check': {
+            'handlers': ['console'],
+            'level': 'INFO',
         },
     },
 }
@@ -213,7 +236,3 @@ BOOTSTRAP3 = {
     'horizontal_label_class': 'col-md-4',
     'horizontal_field_class': 'col-md-8',
 }
-
-HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
-
-from .local import *

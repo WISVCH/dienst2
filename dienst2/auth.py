@@ -1,14 +1,26 @@
+import logging
+
 from django.contrib.auth.models import Group
 from django.core.exceptions import ImproperlyConfigured, SuspiciousOperation
 from mozilla_django_oidc.auth import OIDCAuthenticationBackend
 
 from dienst2 import settings
 
+logger = logging.getLogger(__name__)
+
 
 class CHConnect(OIDCAuthenticationBackend):
     def verify_claims(self, claims):
         verified = super(CHConnect, self).verify_claims(claims)
-        has_access = settings.OIDC_LDAP_ACCESS_GROUP in claims.get('ldap_groups', [])
+        username = "%s (%s)" % (claims.get('sub'), claims.get('ldap_username'))
+        if not verified:
+            logger.warning("Could not verify claims for %s", username)
+        ldap_groups = claims.get('ldap_groups', [])
+        has_access = settings.OIDC_LDAP_ACCESS_GROUP in ldap_groups
+        if not has_access:
+            logger.warning("%s does not have access (%s)", username, ldap_groups)
+        if verified and has_access:
+            logger.info("%s successfully logged in", username)
         return verified and has_access
 
     def filter_users_by_claims(self, claims):
@@ -28,7 +40,6 @@ class CHConnect(OIDCAuthenticationBackend):
         self.set_attributes(user, claims)
 
         return user
-
 
     def update_user(self, user, claims):
         self.set_attributes(user, claims)
@@ -58,7 +69,6 @@ class CHConnect(OIDCAuthenticationBackend):
                 staff_group.save()
             groups.append(staff_group)
         user.groups.set(groups)
-
 
 
 def provider_logout(request):
