@@ -3,16 +3,49 @@
 
 {% block extra_js %}
   <script type="text/javascript" src="{% static 'js/angular.min.js' %}"></script>
-  <script type="text/javascript" src="{% static 'js/ldb.js' %}"></script>
 {% endblock %}
 
 {% block content %}
-  <script type="text/javascript">
-    window.partialUrl = "{% static 'partials/ldb/export.html' %}";
-    window.apiUrl = "{% url 'api_dispatch_list' api_name='v2' resource_name='export' %}";
-  </script>
-
   <div ng-app="{{ ng_app }}" ng-view></div>
+
+  <script type="text/javascript">
+    window.App = angular.module("ldb", ["ldb.controllers"]).config([
+      "$routeProvider",
+      function($routeProvider) {
+        $routeProvider.when("/", {
+          templateUrl: "{% static 'partials/export.html' %}",
+          controller: "ExportController"
+        });
+      }
+    ]);
+
+    angular.module("ldb.controllers", []).controller("ExportController", [
+      "$scope", "$http", "$filter",
+      function($scope, $http, $filter) {
+        $scope.export = {
+          queryset: {},
+          filters: {},
+          fields: {},
+        };
+        return ($scope.loadExport = function() {
+          return $http({
+            method: 'POST',
+            url: window.location.pathname,
+            headers: {
+              'Accept': 'text/csv',
+              'X-CSRFToken': '{{ csrf_token }}',
+            },
+            data: $scope.export
+          }).success(function(data, status, headers, config) {
+            return ($scope.data = data);
+          }).error(function(err) {
+            console.error(err);
+            return ($scope.data = err);
+          });
+        });
+      }
+    ]);
+  </script>
 
   <div class="row">
     <div class="col-sm-12 col-md-12">

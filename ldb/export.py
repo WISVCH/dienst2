@@ -1,39 +1,31 @@
-# coding: utf-8
 import csv
-
+import operator
 import re
-import simplejson
+from functools import reduce
+from io import StringIO
+
 from django.db.models import Q
 from django.http import HttpResponse
 from django.utils.encoding import smart_str
-from functools import reduce
-from io import StringIO
+from rest_framework import renderers, status
+from rest_framework.renderers import TemplateHTMLRenderer
+from rest_framework.response import Response
+from rest_framework.views import APIView
 from six import iteritems
-from tastypie import fields
-from tastypie.authorization import DjangoAuthorization
-from tastypie.cache import SimpleCache
-from tastypie.http import HttpBadRequest
-from tastypie.resources import Resource
-from tastypie.serializers import Serializer
 
 from ldb.models import *
 
 
-class CSVSerializer(Serializer):
-    formats = ['json', 'jsonp', 'html', 'plist', 'csv']
-    content_types = {
-        'json': 'application/json',
-        'jsonp': 'text/javascript',
-        'html': 'text/html',
-        'plist': 'application/x-plist',
-        'csv': 'text/csv',
-    }
+class CSVRenderer(renderers.BaseRenderer):
+    media_type = 'text/csv'
+    format = 'csv'
 
-    def to_csv(self, data, options=None):
-        raw_data = StringIO()
+    def render(self, data, media_type=None, renderer_context=None):
+        if not isinstance(data, list):
+            return data
 
-        if 'objects' not in data or len(data['objects']) < 1:
-            return HttpResponse("No results found")
+        if len(data) < 1:
+            return "Geen resultaten"
 
         order = ['name', 'streetnumber', 'postcodecity', 'kixcode', 'street_name', 'house_number', 'address_2',
                  'address_3', 'postcode', 'city', 'country', 'email', 'phone_fixed', 'organization__name_prefix',
@@ -45,18 +37,16 @@ class CSVSerializer(Serializer):
                  'person__alumnus__study', 'person__alumnus__study_first_year', 'person__alumnus__study_last_year',
                  'person__alumnus__work_company', 'id']
 
-        fields = list(data['objects'][0].data['data'].keys())
+        fields = list(data[0]._data.keys())
         fields.sort(key=lambda p: order.index(p))
 
+        raw_data = StringIO()
         writer = csv.DictWriter(raw_data, fieldnames=fields, quoting=csv.QUOTE_MINIMAL)
         writer.writeheader()
 
-        for obj in data.get('objects', []):
-            writer.writerow({k: smart_str(v) for k, v in obj.data.get('data', {}).items()})
+        for obj in data:
+            writer.writerow({k: smart_str(v) for k, v in obj._data.items()})
         return raw_data.getvalue()
-
-    def from_csv(self, content):
-        pass
 
 
 class ExportObject(object):
@@ -76,8 +66,6 @@ class ExportObject(object):
         return self._data
 
 
-# Helpers
-
 def flatten(infile):
     output = []
     for obj in infile:
@@ -90,21 +78,17 @@ def flatten(infile):
     return output
 
 
-# API Functions
+class Export(APIView):
+    renderer_classes = (TemplateHTMLRenderer, CSVRenderer)
 
-class ExportResource(Resource):
-    class Meta:
-        allowed_methods = ['get']
-        authorization = DjangoAuthorization()
-        cache = SimpleCache(timeout=10)
-        resource_name = 'export'
-        object_class = ExportObject
-        limit = 5000
-        max_limit = 5000
-        serializer = CSVSerializer()
+    def get(self, request):
+        data = {
+            'title': 'Ledendatabase',
+            'ng_app': 'ldb',
+        }
+        return Response(data, template_name='ldb/export.html')
 
     # Fields
-
     allowed_fields = {
         'entity': ['street_name', 'house_number', 'address_2', 'address_3', 'postcode', 'city', 'country', 'email',
                    'phone_fixed'],
@@ -119,8 +103,7 @@ class ExportResource(Resource):
 
     def set_fields(self, query):
         allowed_fields = flatten(self.allowed_fields)
-        requested_fields = query.get("fields", "[]")
-        requested_fields = simplejson.loads(str(requested_fields))
+        requested_fields = query.get("fields", [])
 
         fields = {}
         for k, v in iteritems(requested_fields):
@@ -134,9 +117,7 @@ class ExportResource(Resource):
         return export_fields
 
     # Querysets
-
     living_person = Q(~Q(person__isnull=True), Q(person__deceased=False))
-
     allowed_querysets = {
         'organizations': Q(~Q(organization__isnull=True)),
         'members': Q(living_person, Q(person__member__date_from__isnull=False),
@@ -149,8 +130,7 @@ class ExportResource(Resource):
     }
 
     def set_querysets(self, query):
-        requested_querysets = query.get('queryset', '[]')
-        requested_querysets = simplejson.loads(str(requested_querysets))
+        requested_querysets = query.get('queryset', [])
 
         querysets = {}
         for k, v in iteritems(requested_querysets):
@@ -162,7 +142,6 @@ class ExportResource(Resource):
         return export_querysets
 
     # Filters
-
     allowed_filters = {
         'entity': ['country', 'machazine', 'board_invites', 'constitution_card', 'christmas_card', 'yearbook'],
         'organization': [],
@@ -176,8 +155,7 @@ class ExportResource(Resource):
     def set_filters(self, query):
         export_filters = {}
         allowed_filters = flatten(self.allowed_filters)
-        requested_filters = query.get('filters', "[]")
-        requested_filters = simplejson.loads(str(requested_filters))
+        requested_filters = query.get('filters', [])
         for field in requested_filters:
             if field in allowed_filters:
                 value = requested_filters.get(field)
@@ -189,44 +167,30 @@ class ExportResource(Resource):
                     export_filters[field] = value
         return export_filters
 
-    # Other
-    def detail_uri_kwargs(self, bundle_or_obj):
-        return {}
-
-    # Export action
-    def obj_get_list(self, bundle, **kwargs):
-
-        get = {}
-        if hasattr(bundle.request, 'GET'):
-            get = bundle.request.GET.copy()
-
-        querysets = self.set_querysets(get)
+    def post(self, request):
+        querysets = self.set_querysets(request.data)
 
         if not querysets:
-            return HttpBadRequest("No groups selected")
-
-        import operator
+            return Response("No groups selected", status=status.HTTP_400_BAD_REQUEST)
 
         objects = Entity.objects.filter(reduce(operator.or_, map(lambda x: self.allowed_querysets.get(x), querysets)))
-
-        filters = self.set_filters(get)
+        filters = self.set_filters(request.data)
         objects = objects.filter(**filters)
 
-        addresslist = get.get('addresslist', 'off')
+        addresslist = request.data.get('addresslist', 'off')
         if addresslist == 'off':
-            export_fields = self.set_fields(get)
+            export_fields = self.set_fields(request.data)
             objects = objects.values(*export_fields)
             converted = list(map(ExportObject, objects))
         elif addresslist in ['doubles', 'living_with']:
-            objects = objects.filter(
-                ~Q(street_name=''), ~Q(house_number='')
-            ).values('street_name', 'house_number', 'address_2', 'address_3', 'postcode', 'city',
-                     'organization__name_prefix', 'organization__name', 'organization__name_short',
-                     'organization__salutation',
-                     'person__titles', 'person__initials', 'person__firstname', 'person__preposition',
-                     'person__surname', 'person__postfix_titles',
-                     'person__living_with', 'person__gender', 'id'
-                     )
+            objects = objects.filter(~Q(street_name=''), ~Q(house_number='')
+                                     ).values('street_name', 'house_number', 'address_2', 'address_3', 'postcode', 'city',
+                                              'organization__name_prefix', 'organization__name', 'organization__name_short',
+                                              'organization__salutation',
+                                              'person__titles', 'person__initials', 'person__firstname', 'person__preposition',
+                                              'person__surname', 'person__postfix_titles',
+                                              'person__living_with', 'person__gender', 'id'
+                                              )
 
             def getname(obj):
                 if obj.get('organization__name'):
@@ -283,11 +247,4 @@ class ExportResource(Resource):
             converted = list(map(format, objects))
             converted.sort(key=lambda p: p.kixcode)
 
-        return converted
-
-    # Field
-
-    data = fields.DictField()
-
-    def dehydrate_data(self, bundle):
-        return bundle.obj.to_dict()
+        return Response(converted)
