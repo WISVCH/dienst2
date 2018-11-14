@@ -26,6 +26,7 @@ CACHES = {
 HAYSTACK_CONNECTIONS = {
     'default': env.search_url(),
 }
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
 SECRET_KEY = env('SECRET_KEY')
 SESSION_ENGINE = env('SESSION_ENGINE', default='django.contrib.sessions.backends.db')
@@ -201,25 +202,32 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 20,
 }
 
-# A sample logging configuration. The only tangible logging
-# performed by this configuration is to send an email to
-# the site admins on every HTTP 500 error when DEBUG=False.
-# See http://docs.djangoproject.com/en/dev/topics/logging for
-# more details on how to customize your logging configuration.
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'formatters': {
+        'simple': {
+            'format': '%(asctime)s %(levelname)s %(name)s.%(funcName)s:%(lineno)s %(message)s'
+        },
+    },
     'handlers': {
-        'mail_admins': {
-            'level': 'ERROR',
-            'class': 'django.utils.log.AdminEmailHandler'
-        }
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+        },
     },
     'loggers': {
-        'django.request': {
-            'handlers': ['mail_admins'],
-            'level': 'ERROR',
-            'propagate': True,
+        'dienst2': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+        },
+        'django': {
+            'handlers': ['console'],
+            'level': 'INFO',
+        },
+        'health_check': {
+            'handlers': ['console'],
+            'level': 'INFO',
         },
     },
 }
@@ -228,6 +236,3 @@ BOOTSTRAP3 = {
     'horizontal_label_class': 'col-md-4',
     'horizontal_field_class': 'col-md-8',
 }
-
-HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
-
