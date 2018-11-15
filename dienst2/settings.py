@@ -144,7 +144,6 @@ INSTALLED_APPS = (
     'reversion_compare',
     'mozilla_django_oidc',
     'haystack',
-    'tastypie',
     'rest_framework',
     'rest_framework.authtoken',
     'django.contrib.admin',

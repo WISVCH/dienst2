@@ -20,19 +20,6 @@ from ldb.forms import PersonForm, MemberFormSet, StudentFormSet, AlumnusFormSet,
 from ldb.models import Organization, Person, CommitteeMembership
 
 
-class ExportView(TemplateView):
-    template_name = 'ldb/export.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(ExportView, self).get_context_data(**kwargs)
-        context.update(**{
-            'title': 'Ledendatabase',
-            'ng_app': 'ldb',
-        })
-
-        return context
-
-
 class IndexView(TemplateView):
     template_name = 'ldb/index.html'
 
