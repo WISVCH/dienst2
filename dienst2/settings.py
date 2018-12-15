@@ -203,7 +203,6 @@ REST_FRAMEWORK = {
 
 LOGGING = {
     'version': 1,
-    'disable_existing_loggers': False,
     'formatters': {
         'simple': {
             'format': '%(asctime)s %(levelname)s %(name)s.%(funcName)s:%(lineno)s %(message)s'
@@ -218,15 +217,38 @@ LOGGING = {
     'loggers': {
         'dienst2': {
             'handlers': ['console'],
-            'level': 'DEBUG',
+            'level': 'INFO',
+            'propagate': True,
         },
         'django': {
             'handlers': ['console'],
             'level': 'INFO',
+            'propagate': True,
+        },
+        'django.request': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'django.security': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'health-check': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': True,
         },
         'health_check': {
             'handlers': ['console'],
             'level': 'INFO',
+            'propagate': True,
+        },
+        'rest_framework': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': True,
         },
     },
 }
