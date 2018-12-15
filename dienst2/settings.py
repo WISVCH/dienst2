@@ -163,7 +163,7 @@ INSTALLED_APPS = (
 
 OIDC_RP_CLIENT_ID = env('OIDC_RP_CLIENT_ID')
 OIDC_RP_CLIENT_SECRET = env('OIDC_RP_CLIENT_SECRET')
-OIDC_RP_SCOPES = 'openid profile ldap'
+OIDC_RP_SCOPES = 'openid profile ldap email'
 OIDC_RP_SIGN_ALGO = 'RS256'
 OIDC_OP_AUTHORIZATION_ENDPOINT = 'https://connect.ch.tudelft.nl/authorize'
 OIDC_OP_TOKEN_ENDPOINT = 'https://connect.ch.tudelft.nl/token'
