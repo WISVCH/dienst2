@@ -1,10 +1,10 @@
 {
   "dependencies": {
-    "bootstrap": "twbs/bootstrap#3.3.5",
-    "font-awesome": "components/font-awesome#~4.4.0",
-    "jquery": "jquery/jquery-dist#>= 1.9.1",
-    "select2": "ivaynberg/select2#^4.0.2",
-    "select2-bootstrap-theme": "fk/select2-bootstrap-theme#^0.1.0-beta.4",
+    "bootstrap": "^3.4.0",
+    "font-awesome": "^4.7.0",
+    "jquery": "^1.12.4",
+    "select2": "^4.0.5",
+    "select2-bootstrap-theme": "^0.1.0-beta.10",
     "themestrap": "WISVCH/bootstrap-theme#gh-pages"
   }
 }

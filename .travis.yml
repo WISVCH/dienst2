@@ -5,13 +5,13 @@ addons:
   postgresql: "9.4"
 before_script:
   - psql -c "CREATE DATABASE dienst2;" -U postgres
-  - docker build --no-cache --pull -t dienst2 -t wisvch/dienst2:$TRAVIS_BUILD_NUMBER .
+  - docker build --no-cache --pull -t dienst2 -t quay.io/wisvch/dienst2:$TRAVIS_BUILD_NUMBER .
 script:
   - docker run --net=host --env-file ci.env dienst2 ./manage.py makemigrations --check --dry-run
   - docker run --net=host --env-file ci.env dienst2 ./manage.py test
 deploy:
   provider: script
-  script: sh -c 'docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"; docker push wisvch/dienst2:$TRAVIS_BUILD_NUMBER'
+  script: sh -c 'docker login -u "$QUAY_USERNAME" -p "$QUAY_PASSWORD" quay.io; docker push quay.io/wisvch/dienst2:$TRAVIS_BUILD_NUMBER'
   on:
     branch: master
 notifications:

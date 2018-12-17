@@ -24,16 +24,19 @@ class CHConnect(OIDCAuthenticationBackend):
         return verified and has_access
 
     def filter_users_by_claims(self, claims):
-        # We use ldap_username instead of sub for backwards compatibility
-        username = claims.get('ldap_username')
+        username = self.get_username(claims)
         if not username:
             return self.UserModel.objects.none()
         return self.UserModel.objects.filter(username=username)
 
+    def get_username(self, claims):
+        # We use ldap_username instead of sub for backwards compatibility
+        return claims.get('ldap_username')
+
     def create_user(self, claims):
         user = super(CHConnect, self).create_user(claims)
 
-        username = claims.get('ldap_username')
+        username = self.get_username(claims)
         if not username:
             return self.UserModel.objects.none()
 
@@ -53,7 +56,7 @@ class CHConnect(OIDCAuthenticationBackend):
 
         user.first_name = claims.get('given_name', '')
         user.last_name = claims.get('family_name', '')
-        user.email = ''
+        user.email = claims.get('email', '')
 
         user.is_active = True
         is_admin = settings.OIDC_LDAP_ADMIN_GROUP in ldap_groups
