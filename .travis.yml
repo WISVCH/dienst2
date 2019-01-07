@@ -2,7 +2,7 @@ sudo: required
 services:
   - docker
 addons:
-  postgresql: "9.4"
+  postgresql: "9.6"
 before_script:
   - psql -c "CREATE DATABASE dienst2;" -U postgres
   - docker build --no-cache --pull -t dienst2 -t quay.io/wisvch/dienst2:$TRAVIS_BUILD_NUMBER .
