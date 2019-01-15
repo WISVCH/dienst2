@@ -1,12 +1,13 @@
 from __future__ import unicode_literals
+
 from sys import stderr
 
 from django.core.exceptions import ValidationError
 from django.core.management import BaseCommand
 
-from ldb.models import Person, Member, Student, Alumnus
+from ldb.models import Alumnus, Member, Person, Student
 
-BASE_URL = 'https://frans.chnet/dienst2'
+BASE_URL = 'https://dienst2.chnet/ldb/people/'
 
 
 class Command(BaseCommand):
@@ -46,8 +47,7 @@ class Command(BaseCommand):
                     if options['save']:
                         person.save()
                 except ValidationError as e:
-                    stderr.write('Validation error in Person {}/admin/ldb/person/{}/ - {}\n'
-                                 .format(BASE_URL, person.id, e))
+                    stderr.write(f'Validation error in Person {BASE_URL}{person.id}/ - {e}\n')
 
             if options['clean-members']:
                 try:
@@ -57,8 +57,7 @@ class Command(BaseCommand):
                 except Member.DoesNotExist:
                     pass
                 except ValidationError as e:
-                    stderr.write('Validation error in Member {}/admin/ldb/person/{} - {}/\n'
-                                 .format(BASE_URL, person.id, e))
+                    stderr.write(f'Validation error in Member {BASE_URL}{person.id}/ - {e}\n')
 
             if options['clean-students']:
                 try:
@@ -68,8 +67,7 @@ class Command(BaseCommand):
                 except Student.DoesNotExist:
                     pass
                 except ValidationError as e:
-                    stderr.write('Validation error in Student {}/admin/ldb/person/{}/ - {}\n'
-                                 .format(BASE_URL, person.id, e))
+                    stderr.write(f'Validation error in Student {BASE_URL}{person.id}/ - {e}\n')
 
             if options['clean-alumni']:
                 try:
@@ -79,5 +77,4 @@ class Command(BaseCommand):
                 except Alumnus.DoesNotExist:
                     pass
                 except ValidationError as e:
-                    stderr.write('Validation error in Alumnus {}/admin/ldb/person/{}/ - {}\n'
-                                 .format(BASE_URL, person.id, e))
+                    stderr.write(f'Validation error in Alumnus {BASE_URL}{person.id}/ - {e}\n')
