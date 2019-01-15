@@ -62,6 +62,8 @@ class PersonAdminForm(forms.ModelForm):
 
 @admin.register(Person)
 class PersonAdmin(CompareVersionAdmin):
+    list_display = ('__str__', '_membership_status')
+
     form = PersonAdminForm
     fieldsets = [
         (_('Name'), {'fields': ['titles', 'initials', 'firstname', 'preposition',
