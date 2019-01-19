@@ -8,14 +8,14 @@ django-filter==2.0.0
 django-form-utils==1.0.3
 django-haystack==2.8.1
 django-health-check==3.8.0
-django-reversion-compare==0.8.5
+django-reversion-compare==0.8.6
 django-reversion==3.0.2
 Django==2.1.5
-djangorestframework==3.9.0
+djangorestframework==3.9.1
 elasticsearch>=2.0.0,<3.0.0 # rq.filter: >=2.0.0,<3.0.0
 gunicorn
 markdown==3.0.1
-mozilla-django-oidc==1.1.2
+mozilla-django-oidc==1.2.0
 psycopg2-binary
 python-dateutil==2.7.5
 python-memcached==1.59
