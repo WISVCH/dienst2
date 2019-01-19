@@ -146,6 +146,7 @@ INSTALLED_APPS = (
     'haystack',
     'rest_framework',
     'rest_framework.authtoken',
+    'django_filters',
     'django.contrib.admin',
     'django.contrib.admindocs',
     'health_check',
