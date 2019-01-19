@@ -12,6 +12,7 @@ django-reversion-compare==0.8.6
 django-reversion==3.0.2
 Django==2.1.5
 djangorestframework==3.9.1
+drf-writable-nested==0.5.1
 elasticsearch>=2.0.0,<3.0.0 # rq.filter: >=2.0.0,<3.0.0
 gunicorn
 markdown==3.0.1
