@@ -146,6 +146,7 @@ INSTALLED_APPS = (
     'haystack',
     'rest_framework',
     'rest_framework.authtoken',
+    'django_filters',
     'django.contrib.admin',
     'django.contrib.admindocs',
     'health_check',
@@ -216,6 +217,21 @@ LOGGING = {
     },
     'loggers': {
         'dienst2': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'kas': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'ldb': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'post': {
             'handlers': ['console'],
             'level': 'INFO',
             'propagate': True,

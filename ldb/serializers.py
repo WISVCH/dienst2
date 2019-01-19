@@ -1,9 +1,15 @@
-from __future__ import unicode_literals
+import logging
 
+import reversion
 from rest_framework import serializers
-from rest_framework.fields import ReadOnlyField
+from rest_framework.exceptions import ParseError
+from rest_framework.fields import CharField, HiddenField, ReadOnlyField
 
-from ldb.models import Person, Member, Student, Employee, Alumnus, CommitteeMembership, Organization, Entity
+from drf_writable_nested.mixins import NestedCreateMixin, NestedUpdateMixin
+from ldb.models import (Alumnus, CommitteeMembership, Employee, Entity, Member,
+                        Organization, Person, Student)
+
+logger = logging.getLogger(__name__)
 
 
 class MemberSerializer(serializers.ModelSerializer):
@@ -44,22 +50,36 @@ class CommitteeMembershipSerializer(serializers.ModelSerializer):
         exclude = ('ras_months',)
 
 
-class EntitySerializer(serializers.HyperlinkedModelSerializer):
+class EntitySerializer(NestedCreateMixin, NestedUpdateMixin, serializers.HyperlinkedModelSerializer):
     street_address = ReadOnlyField()
     formatted_address = ReadOnlyField()
     country_full = ReadOnlyField(source='get_country_display')
+
+    revision_comment = CharField(required=True, write_only=True)
 
     class Meta:
         model = Entity
         fields = '__all__'
 
+    def save(self):
+        if not 'revision_comment' in self.validated_data:
+            raise ParseError("revision_comment not set")
+        action = self.context['view'].action
+        api_user = self.context['request'].user.username
+        revision_comment = self.validated_data['revision_comment']
+        del self.validated_data['revision_comment']
+        with reversion.create_revision():
+            reversion.set_comment(revision_comment)
+            ret = super(EntitySerializer, self).save()
+        logger.info("%s through API: %s %d (%s)", api_user, action, ret.pk, revision_comment)
+
 
 class PersonSerializer(EntitySerializer):
     id = ReadOnlyField()
-    member = MemberSerializer()
-    student = StudentSerializer()
-    alumnus = AlumnusSerializer()
-    employee = EmployeeSerializer()
+    member = MemberSerializer(partial=True)
+    student = StudentSerializer(partial=True)
+    alumnus = AlumnusSerializer(partial=True)
+    employee = EmployeeSerializer(partial=True)
     living_with = serializers.HyperlinkedRelatedField(view_name='person-detail', read_only=True)
     committee_memberships = CommitteeMembershipSerializer(many=True, read_only=True)
     age = ReadOnlyField()
