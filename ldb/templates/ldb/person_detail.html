@@ -103,7 +103,7 @@
           <fieldset>
             <legend>Accounts</legend>
             {% if person.ldap_username and user|has_group:'userman2' %}
-              {% stcontrol_format person 'ldap_username' '<a href="https://userman2.chnet/users/{0}">{0}</a>' %}
+              {% stcontrol_format person 'ldap_username' '<a href="https://userman2.ch.tudelft.nl/users/{0}">{0}</a>' %}
             {% else %}
               {% stcontrol person 'ldap_username' %}
             {% endif %}
