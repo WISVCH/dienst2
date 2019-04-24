@@ -7,7 +7,7 @@ from django.core.management import BaseCommand
 
 from ldb.models import Alumnus, Member, Person, Student
 
-BASE_URL = 'https://dienst2.chnet/ldb/people/'
+BASE_URL = 'https://dienst2.ch.tudelft.nl/ldb/people/'
 
 
 class Command(BaseCommand):
