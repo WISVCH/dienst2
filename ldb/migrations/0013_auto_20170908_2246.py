@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='student',
             name='emergency_name',
-            field=models.CharField(blank=True, max_length=16, verbose_name='emergency name'),
+            field=models.CharField(blank=True, max_length=48, verbose_name='emergency name'),
         ),
         migrations.AlterField(
             model_name='student',
