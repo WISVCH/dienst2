@@ -33,9 +33,9 @@ class CSVRenderer(renderers.BaseRenderer):
                  'person__initials', 'person__firstname', 'person__preposition', 'person__surname',
                  'person__postfix_titles', 'person__phone_mobile', 'person__gender', 'person__birthdate',
                  'person__ldap_username', 'person__netid', 'person__student__study', 'person__student__first_year',
-                 'person__student__student_number', 'person__student__enrolled', 'person__student__phone_parents',
-                 'person__alumnus__study', 'person__alumnus__study_first_year', 'person__alumnus__study_last_year',
-                 'person__alumnus__work_company', 'id']
+                 'person__student__student_number', 'person__student__enrolled', 'person__student__emergency_name',
+                 'person__student__emergency_phone', 'person__alumnus__study', 'person__alumnus__study_first_year',
+                 'person__alumnus__study_last_year', 'person__alumnus__work_company', 'id']
 
         fields = list(data[0]._data.keys())
         fields.sort(key=lambda p: order.index(p))
@@ -96,7 +96,7 @@ class Export(APIView):
         'person': ['titles', 'initials', 'firstname', 'preposition', 'surname', 'postfix_titles', 'phone_mobile',
                    'gender', 'birthdate', 'ldap_username', 'netid'],
         'person__member': [],
-        'person__student': ['study', 'first_year', 'student_number', 'enrolled', 'phone_parents'],
+        'person__student': ['study', 'first_year', 'student_number', 'enrolled', 'emergency_name', 'emergency_phone'],
         'person__alumnus': ['study', 'study_first_year', 'study_last_year', 'work_company'],
         'person__employee': [],
     }
