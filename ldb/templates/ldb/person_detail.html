@@ -87,8 +87,10 @@
           {% stcontrol_format person 'email' '<a href="mailto:{0}">{0}</a>' %}
           {% stcontrol_format person 'phone_fixed' '<a href="tel:{0}"><i class="fa fa-fw fa-phone"></i>{0}</a>' %}
           {% stcontrol_format person 'phone_mobile' '<a href="tel:{0}"><i class="fa fa-fw fa-mobile"></i>{0}</a>' %}
-          {% stcontrol person.student 'emergency_name' %}
-          {% stcontrol_format person.student 'emergency_phone' '<a href="tel:{0}"><i class="fa fa-fw fa-mobile"></i>{0}</a>' %}
+          {% if person.student %}
+            {% stcontrol person.student 'emergency_name' %}
+            {% stcontrol_format person.student 'emergency_phone' '<a href="tel:{0}"><i class="fa fa-fw fa-mobile"></i>{0}</a>' %}
+          {% endif %}
         </fieldset>
 
         {% if person.comment %}
