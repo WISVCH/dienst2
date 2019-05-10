@@ -16,7 +16,7 @@ def update_merit_members_without_from_date(apps, _schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('ldb', '0001_squashed_0012_auto_20170106_1510'),
+        ('ldb', '0013_auto_20170908_2246'),
     ]
 
     operations = [
