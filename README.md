@@ -25,6 +25,19 @@ Dienstensysteem v2
 
 **Note: please do not use (a copy of) the production database for local development.**
 
+## Translation files
+
+We use django-admin `make-messages` for localisation. 
+The translations are generated in `.po` files, such as [this django.po file](dienst2/locale/nl/LC_MESSAGES/django.po).
+Please beware that these files should not be edited by hand, except for the translations themselves.
+For an example of translations in a file, please check [this file](ldb/templates/ldb/person_confirm_delete.html).
+
+### With docker
+If you run your development environment using docker, the generation of the translation files is done using the following command: `docker-compose run django python manage.py makemessages -l nl -i venv` at the root of the project.
+In this case we are generating the Dutch (nl) translation files.
+
+To compile the messages run `docker-compose run django python manage.py compilemessages -l nl`
+
 ## Production deployment
 
 Keel automatically deploys the `master` branch to the CH Kubernetes cluster.

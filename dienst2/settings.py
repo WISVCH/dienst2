@@ -55,8 +55,10 @@ USE_L10N = True
 # If you set this to False, Django will not use timezone-aware datetimes.
 USE_TZ = True
 
+SITE_ROOT = os.path.dirname(os.path.realpath(__name__))
+
 LOCALE_PATHS = (
-    os.path.join(os.path.dirname(__file__), 'locale'),
+    os.path.join(SITE_ROOT, 'locale'),
 )
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
@@ -144,6 +146,7 @@ INSTALLED_APPS = (
     'reversion_compare',
     'mozilla_django_oidc',
     'haystack',
+    'import_export',
     'rest_framework',
     'rest_framework.authtoken',
     'django_filters',
@@ -175,6 +178,8 @@ OIDC_LDAP_ACCESS_GROUP = env('OIDC_LDAP_ACCESS_GROUP', default='dienst2')
 OIDC_LDAP_ADMIN_GROUP = env('OIDC_LDAP_ADMIN_GROUP', default='dienst2-admin')
 OIDC_LDAP_USERMAN2_GROUP = env('OIDC_LDAP_USERMAN2_GROUP', default='staff')
 LOGIN_REDIRECT_URL_FAILURE = '/forbidden'
+
+IMPORT_EXPORT_USE_TRANSACTIONS = True
 
 AUTHENTICATION_BACKENDS = (
     'dienst2.auth.CHConnect',

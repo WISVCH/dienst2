@@ -7,8 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-04 10:35+0200\n"
-"POT-Revision-Date: 2015-08-04 10:35+0200\n"
+"POT-Creation-Date: 2019-06-14 11:56+0200\n"
 "Last-Translator: Jeffrey de Lange <jeffreyl@ch.tudelft.nl>\n"
 "Language-Team: Secretarissen b'vo\n"
 "Language: nl\n"
@@ -19,138 +18,138 @@ msgstr ""
 "X-Generator: Virtaal 0.7.1\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
-#: kas/models.py:10 kas/models.py:58
+#: kas/models.py:15 kas/models.py:63
 msgid "transaction"
 msgstr "transactie"
 
-#: kas/models.py:11
+#: kas/models.py:16
 msgid "transactions"
 msgstr "transacties"
 
-#: kas/models.py:14 kas/models.py:67
+#: kas/models.py:19 kas/models.py:73
 msgid "user"
 msgstr "gebruiker"
 
-#: kas/models.py:15 kas/models.py:69
+#: kas/models.py:20 kas/models.py:75
 msgid "date"
 msgstr "datum"
 
-#: kas/models.py:17
+#: kas/models.py:22
 msgid "amount"
 msgstr "hoeveelheid"
 
-#: kas/models.py:18
+#: kas/models.py:23
 msgid "description"
 msgstr "omschrijving"
 
-#: kas/models.py:20
+#: kas/models.py:25
 msgid "valid"
 msgstr "valide"
 
-#: kas/models.py:25
+#: kas/models.py:30
 msgid "PIN"
 msgstr ""
 
-#: kas/models.py:26
+#: kas/models.py:31
 msgid "Cash"
 msgstr ""
 
-#: kas/models.py:29
+#: kas/models.py:34
 msgid "method"
 msgstr "methode"
 
-#: kas/models.py:55
+#: kas/models.py:60
 msgid "Transaction not editable."
 msgstr "Transactie niet bewerkbaar"
 
-#: kas/models.py:63 kas/models.py:165
+#: kas/models.py:69 kas/models.py:171
 msgid "closure"
 msgstr "dagafsluiting"
 
-#: kas/models.py:64
+#: kas/models.py:70
 msgid "closures"
 msgstr "dagafsluitingen"
 
-#: kas/models.py:71
+#: kas/models.py:77
 msgid "500 euro"
 msgstr ""
 
-#: kas/models.py:72
+#: kas/models.py:78
 msgid "200 euro"
 msgstr ""
 
-#: kas/models.py:73
+#: kas/models.py:79
 msgid "100 euro"
 msgstr ""
 
-#: kas/models.py:74
+#: kas/models.py:80
 msgid "50 euro"
 msgstr ""
 
-#: kas/models.py:75
+#: kas/models.py:81
 msgid "20 euro"
 msgstr ""
 
-#: kas/models.py:76
+#: kas/models.py:82
 msgid "10 euro"
 msgstr ""
 
-#: kas/models.py:77
+#: kas/models.py:83
 msgid "5 euro"
 msgstr ""
 
-#: kas/models.py:78
+#: kas/models.py:84
 msgid "2 euro"
 msgstr ""
 
-#: kas/models.py:79
+#: kas/models.py:85
 msgid "1 euro"
 msgstr ""
 
-#: kas/models.py:80
+#: kas/models.py:86
 msgid "50 eurocent"
 msgstr ""
 
-#: kas/models.py:81
+#: kas/models.py:87
 msgid "20 eurocent"
 msgstr ""
 
-#: kas/models.py:82
+#: kas/models.py:88
 msgid "10 eurocent"
 msgstr ""
 
-#: kas/models.py:83
+#: kas/models.py:89
 msgid "5 eurocent"
 msgstr ""
 
-#: kas/models.py:85
+#: kas/models.py:91
 msgid "total register content"
 msgstr "totaal kassa inhoud"
 
-#: kas/models.py:87
+#: kas/models.py:93
 msgid "pin receipt"
 msgstr "pin bon"
 
-#: kas/models.py:89
+#: kas/models.py:95
 msgid "pin transactions"
 msgstr "pin transacties"
 
-#: kas/models.py:90
+#: kas/models.py:96
 msgid "cash transactions"
 msgstr "cash transacties"
 
-#: kas/models.py:92
+#: kas/models.py:98
 msgid "notes"
 msgstr "notities"
 
-#: kas/models.py:94
+#: kas/models.py:100
 msgid "finished"
 msgstr "gesloten"
 
-#: kas/models.py:134
+#: kas/models.py:140
 msgid "Closure already finished."
 msgstr "Dagafsluiting is al gesloten."
 
-#: kas/models.py:137
+#: kas/models.py:143
 msgid "Previous closure not finished yet"
 msgstr "Vorige dagafsluiting is nog niet gesloten"

@@ -1,12 +1,14 @@
 {% extends "base_bootstrap3.html" %}
+{% load i18n %}
 
 {% block menu %}
-  <li><a href="{% url 'ldb_index' %}">Zoeken</a></li>
-  <li><a href="{% url 'ldb_people_create' %}">Persoon toevoegen</a></li>
-  <li><a href="{% url 'ldb_organizations_create' %}">Organisatie toevoegen</a></li>
-  <li><a href="{% url 'ldb_committees' %}">Commissies</a></li>
-  <li><a href="{% url 'ldb_export' %}">Exporteren</a></li>
+  <li><a href="{% url 'ldb_index' %}">{% trans 'Search' %}</a></li>
+  <li><a href="{% url 'ldb_people_create' %}">{% trans 'Add person' %}</a></li>
+  <li><a href="{% url 'ldb_organizations_create' %}">{% trans 'Add organization' %}</a></li>
+  <li><a href="{% url 'ldb_committees' %}">{% trans 'Committees' %}</a></li>
+  <li><a href="{% url 'ldb_export' %}">{% trans 'Export' %}</a></li>
+  <li><a href="{% url 'admin:ldb_person_import' %}">{% trans 'Import' %}</a></li>
   {% if user.is_staff %}
-    <li><a href="{% url 'admin:ldb_person_changelist' %}">Beheer</a></li>
+    <li><a href="{% url 'admin:index' %}">{% trans 'Management' %}</a></li>
   {% endif %}
 {% endblock %}
