@@ -120,13 +120,16 @@ class PersonResource(resources.ModelResource):
         errors = {}
 
         for field in self.get_import_fields():
+            if str.startswith(field.attribute, "student__") or str.startswith(field.attribute, "member__"):
+                continue
             if isinstance(field.widget, widgets.ManyToManyWidget):
                 continue
             try:
                 self.import_field(field, obj, data)
             except ValueError as e:
-                errors[field.attribute] = ValidationError(
-                    force_text(e), code="invalid")
+                errors[field.attribute] = ValidationError(force_text(e), code="invalid")
+
+        print(obj.student.study, flush=True)
 
         # Student validation
         obj.student.yearbook_permission = bool(data['student__yearbook_permission'])
