@@ -4,6 +4,7 @@ import datetime
 
 from django.contrib import admin
 from django import forms
+from django.db.models import Q
 from django.utils.encoding import force_text
 
 from ldb.ImportExportVersionModelAdmin import ImportExportVersionModelAdmin
@@ -97,10 +98,7 @@ class PersonResource(resources.ModelResource):
         """
         try:
             instance = Person.objects.get(
-                # These should be unique values.
-                netid=str(row['netid']),
-                # Cast to string as it is saved like this in the DB
-                student__student_number=str(row['student__student_number'])
+                Q(netid=str(row['netid'])) | Q(student__student_number=str(row['student__student_number']))
             )
         except Person.DoesNotExist:
             instance = None
