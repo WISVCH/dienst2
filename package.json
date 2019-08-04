@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "bootstrap": "^3.4.0",
+    "bootstrap": "^3.4.1",
     "font-awesome": "^4.7.0",
     "jquery": "^1.12.4",
     "select2": "^4.0.5",
