@@ -161,18 +161,18 @@ class Person(Entity):
     )
 
     # Name
-    titles = CharNullField(_('titles'), max_length=20, blank=True, null=True)
+    titles = models.CharField(_('titles'), max_length=20, blank=True)
     initials = models.CharField(_('initials'), max_length=15)
     firstname = models.CharField(_('first name'), max_length=50)
-    preposition = CharNullField(_('preposition'), max_length=15, blank=True, null=True)  # Tussenvoegsel
+    preposition = models.CharField(_('preposition'), max_length=15, blank=True)  # Tussenvoegsel
     surname = models.CharField(_('surname'), max_length=100)
-    postfix_titles = CharNullField(_('postfix titles'), max_length=20, blank=True, null=True)
+    postfix_titles = models.CharField(_('postfix titles'), max_length=20, blank=True)
 
     # Telephone
-    phone_mobile = CharNullField(_('phone mobile'), max_length=16, blank=True, null=True)
+    phone_mobile = models.CharField(_('phone mobile'), max_length=16, blank=True)
 
     # Other
-    gender = CharNullField(_('gender'), max_length=1, choices=GENDER_CHOICES, blank=True, null=True)
+    gender = models.CharField(_('gender'), max_length=1, choices=GENDER_CHOICES, blank=True)
     birthdate = models.DateField(_('birthdate'), blank=True, null=True)
 
     deceased = models.BooleanField(_('deceased'), default=False)
@@ -334,7 +334,7 @@ class Member(models.Model):
 
     merit_date_from = models.DateField(_('merit member date from'), blank=True, null=True)
     merit_invitations = models.BooleanField(_('merit member invitations'), default=True)
-    merit_history = models.TextField(_('merit member history'), blank=True, null=True)
+    merit_history = models.TextField(_('merit member history'), blank=True)
 
     honorary_date_from = models.DateField(_('honorary member from date'), blank=True, null=True)
 
@@ -410,8 +410,8 @@ class Student(models.Model):
     first_year = models.IntegerField(_('first year'), blank=True, null=True)
     student_number = CharNullField(_('student number'), max_length=7, blank=True, null=True, unique=True)
 
-    emergency_name = CharNullField(_('emergency name'), max_length=48, blank=True, null=True)
-    emergency_phone = CharNullField(_('emergency phone'), max_length=16, blank=True, null=True)
+    emergency_name = models.CharField(_('emergency name'), max_length=48, blank=True)
+    emergency_phone = models.CharField(_('emergency phone'), max_length=16, blank=True)
 
     yearbook_permission = models.BooleanField(_('yearbook permission'), default=True)
 

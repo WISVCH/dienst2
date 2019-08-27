@@ -15,7 +15,7 @@ Django==2.1.11
 djangorestframework==3.9.1
 drf-writable-nested==0.5.1
 elasticsearch>=2.0.0,<3.0.0 # rq.filter: >=2.0.0,<3.0.0
-git+https://github.com/kennethreitz/tablib.git
+tablib==0.13.0
 gunicorn
 markdown==3.0.1
 mozilla-django-oidc==1.2.0

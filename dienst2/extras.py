@@ -25,7 +25,7 @@ class CharNullField(models.CharField):  # subclass the CharField
             return value  # otherwise, just return the value
 
     def get_prep_value(self, value):  # catches value right before sending to db
-        if value is None or str(value).strip() == '':
+        if value is None or value.strip() == '':
             # if Django tries to save an empty string, send the db None (NULL)
             return None
         else:
