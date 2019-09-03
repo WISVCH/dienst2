@@ -127,8 +127,6 @@ class PersonResource(resources.ModelResource):
             except ValueError as e:
                 errors[field.attribute] = ValidationError(force_text(e), code="invalid")
 
-        print(obj.student.study, flush=True)
-
         # Student validation
         obj.student.yearbook_permission = bool(data['student__yearbook_permission'])
         obj.student.first_year = data['student__first_year']
@@ -158,20 +156,13 @@ class PersonResource(resources.ModelResource):
         if errors:
             raise ValidationError(errors)
 
-    def save_instance(self, instance, using_transactions=True, dry_run=False):
-        self.before_save_instance(instance, using_transactions, dry_run)
-        if not using_transactions and dry_run:
-            # we don't have transactions and we want to do a dry_run
-            pass
-        else:
-            instance.save()
-            # Saving student
-            instance.student.person_id = instance.id
-            instance.student.save()
-            # Saving member
-            instance.member.person_id = instance.id
-            instance.member.save()
-        self.after_save_instance(instance, using_transactions, dry_run)
+    def after_save_instance(self, instance, using_transactions, dry_run):
+        # Saving student
+        instance.student.person_id = instance.id
+        instance.student.save()
+        # Saving member
+        instance.member.person_id = instance.id
+        instance.member.save()
 
     class Meta:
         model = Person
