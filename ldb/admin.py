@@ -167,8 +167,7 @@ class PersonResource(resources.ModelResource):
     class Meta:
         model = Person
         use_transactions = True
-        fields = ('id', 'initials', 'firstname', 'preposition', 'surname', 'netid', 'student__student_number', 'street_name', 'house_number', 'postcode', 'city', 'country', 'email', 'phone_mobile', 'gender', 'birthdate', 'student__yearbook_permission', 'mail_announcements', 'mail_company', 'mail_education', 'machazine', 'student__first_year', 'student__study', 'student__emergency_phone', 'student__emergency_name', 'member__amount_paid')
-        export_order = ('id', 'initials', 'firstname', 'preposition', 'surname', 'netid', 'student__student_number', 'street_name', 'house_number', 'postcode', 'city', 'country', 'email', 'phone_mobile', 'gender', 'birthdate', 'student__yearbook_permission', 'mail_announcements', 'mail_company', 'mail_education', 'machazine', 'student__first_year', 'student__study', 'student__emergency_phone', 'student__emergency_name', 'member__amount_paid')
+        fields = export_order = ('id', 'initials', 'firstname', 'preposition', 'surname', 'netid', 'student__student_number', 'street_name', 'house_number', 'postcode', 'city', 'country', 'email', 'phone_mobile', 'gender', 'birthdate', 'student__yearbook_permission', 'mail_announcements', 'mail_company', 'mail_education', 'machazine', 'student__first_year', 'student__study', 'student__emergency_phone', 'student__emergency_name', 'member__amount_paid')
         skip_unchanged = True
 
 
