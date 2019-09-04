@@ -1,7 +1,14 @@
 from __future__ import unicode_literals
 
+import datetime
+
 from django.contrib import admin
 from django import forms
+from django.db.models import Q
+from django.utils.encoding import force_text
+
+from ldb.ImportExportVersionModelAdmin import ImportExportVersionModelAdmin
+from import_export import fields, resources, widgets
 from django.utils.translation import ugettext_lazy as _
 from reversion_compare.admin import CompareVersionAdmin
 
@@ -60,9 +67,115 @@ class PersonAdminForm(forms.ModelForm):
         self.fields['living_with'].queryset = Person.objects.order_by('surname', 'firstname')
 
 
+class PersonResource(resources.ModelResource):
+    def before_import(self, dataset, using_transactions, dry_run, **kwargs):
+        if 'id' not in dataset.headers:
+            dataset.lpush_col([None for row in range(len(dataset))], header='id')
+
+    def init_instance(self, row=None):
+        instance = self._meta.model()
+        try:
+            student = Student.objects.get(
+                student_number=str(row['student__student_number'])  # Cast to string as it is saved like this in the DB
+            )
+        except Student.DoesNotExist:
+            student = Student()
+
+        try:
+            member = Member.objects.get(
+                person_id=row['id']
+            )
+        except Member.DoesNotExist:
+            member = Member()
+
+        instance.member = member
+        instance.student = student
+        return instance
+
+    def get_or_init_instance(self, instance_loader, row):
+        """
+        Either fetches an already existing instance or initializes a new one.
+        """
+        try:
+            instance = Person.objects.get(
+                Q(netid=str(row['netid'])) | Q(student__student_number=str(row['student__student_number']))
+            )
+        except Person.DoesNotExist:
+            instance = None
+
+        if instance:
+            return instance, False
+        else:
+            return self.init_instance(row), True
+
+    def import_obj(self, obj, data, dry_run):
+        """
+        Traverses every field in this Resource and calls
+        :meth:`~import_export.resources.Resource.import_field`. If
+        ``import_field()`` results in a ``ValueError`` being raised for
+        one of more fields, those errors are captured and reraised as a single,
+        multi-field ValidationError."""
+        errors = {}
+
+        for field in self.get_import_fields():
+            if str.startswith(field.attribute, "student__") or str.startswith(field.attribute, "member__"):
+                continue
+            if isinstance(field.widget, widgets.ManyToManyWidget):
+                continue
+            try:
+                self.import_field(field, obj, data)
+            except ValueError as e:
+                errors[field.attribute] = ValidationError(force_text(e), code="invalid")
+
+        # Student validation
+        obj.student.yearbook_permission = bool(data['student__yearbook_permission'])
+        obj.student.first_year = data['student__first_year']
+        obj.student.study = str(data['student__study'])
+        obj.student.student_number = str(data['student__student_number'])
+        obj.student.emergency_phone = str(data['student__emergency_phone'])
+        obj.student.emergency_name = str(data['student__emergency_name'])
+
+        try:
+            obj.student.full_clean(exclude='person')
+        except ValidationError as e:
+            for key, value in e:
+                if key is not 'person':
+                    errors["student__" + key] = ValidationError(force_text(value), code="invalid")
+
+        # Member validation
+        obj.member.amount_paid = data['member__amount_paid']
+        obj.member.date_from = datetime.datetime.today()
+
+        try:
+            obj.member.full_clean(exclude='person')
+        except ValidationError as e:
+            for key, value in e:
+                if key is not 'person':
+                    errors["member__" + key] = ValidationError(force_text(value), code="invalid")
+
+        if errors:
+            raise ValidationError(errors)
+
+    def after_save_instance(self, instance, using_transactions, dry_run):
+        # Saving student
+        instance.student.person_id = instance.id
+        instance.student.save()
+        # Saving member
+        instance.member.person_id = instance.id
+        instance.member.save()
+
+    class Meta:
+        model = Person
+        use_transactions = True
+        fields = export_order = ('id', 'initials', 'firstname', 'preposition', 'surname', 'netid', 'student__student_number', 'street_name', 'house_number', 'postcode', 'city', 'country', 'email', 'phone_mobile', 'gender', 'birthdate', 'student__yearbook_permission', 'mail_announcements', 'mail_company', 'mail_education', 'machazine', 'student__first_year', 'student__study', 'student__emergency_phone', 'student__emergency_name', 'member__amount_paid')
+        skip_unchanged = True
+
+
 @admin.register(Person)
-class PersonAdmin(CompareVersionAdmin):
+class PersonAdmin(ImportExportVersionModelAdmin):
     list_display = ('__str__', '_membership_status')
+
+    resource_class = PersonResource
 
     form = PersonAdminForm
     fieldsets = [

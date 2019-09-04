@@ -5,6 +5,15 @@ from django.db import models
 class CharNullField(models.CharField):  # subclass the CharField
     description = "CharField that stores NULL but returns ''"
 
+    def from_db_value(self, value, expression, connection, context):
+        """
+        Gets value right out of the db and changes it if its ``None``.
+        """
+        if value is None:
+            return ''
+        else:
+            return value
+
     def to_python(self, value):
         # this is the value right out of the db, or an instance
         # if an instance, just return the instance

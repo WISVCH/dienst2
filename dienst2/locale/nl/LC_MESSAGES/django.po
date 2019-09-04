@@ -7,8 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-04 10:35+0200\n"
-"POT-Revision-Date: 2015-08-04 10:35+0200\n"
+"POT-Creation-Date: 2019-06-27 12:01+0200\n"
 "Last-Translator: Jeffrey de Lange <jeffreyl@ch.tudelft.nl>\n"
 "Language-Team: Secretarissen b'vo\n"
 "Language: nl\n"
@@ -19,10 +18,8 @@ msgstr ""
 "X-Generator: Virtaal 0.7.1\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
-#: dienst2/templates/admin/base_site.html:4
 msgid "Member administration"
 msgstr "Ledenadministratie"
 
-#: dienst2/templates/admin/base_site.html:11
 msgid "Dienst2 Admin"
 msgstr ""

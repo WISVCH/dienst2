@@ -7,156 +7,115 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-19 23:21+0100\n"
+"POT-Creation-Date: 2019-06-27 12:01+0200\n"
 "Last-Translator: Jeffrey de Lange <jeffreyl@ch.tudelft.nl>\n"
 "Language-Team: Secretarissen b'vo\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Revision-Date: 2015-08-04 10:35+0200\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Virtaal 0.7.1\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
-#: models.py:9 models.py:50
 msgid "category"
 msgstr "categorie"
 
-#: models.py:10
 msgid "categories"
 msgstr "categoriën"
 
-#: models.py:13 models.py:33
 msgid "name"
 msgstr "naam"
 
-#: models.py:14
 msgid "grouping"
 msgstr ""
 
-#: models.py:15
 msgid "counting"
 msgstr ""
 
-#: models.py:23
 msgid "contact"
 msgstr "contact"
 
-#: models.py:24
 msgid "contacts"
 msgstr "contacten"
 
-#: models.py:29
 msgid "internal"
 msgstr "intern"
 
-#: models.py:30
 msgid "external"
 msgstr "extern"
 
-#: models.py:34
 msgid "location"
 msgstr "locatie"
 
-#: models.py:42
 msgid "item"
 msgstr ""
 
-#: models.py:43
 msgid "items"
 msgstr ""
 
-#: models.py:46
 msgid "date"
 msgstr "datum"
 
-#: models.py:47
 msgid "description"
 msgstr "omschrijving"
 
-#: models.py:48
 msgid "sender"
 msgstr "afzender"
 
-#: models.py:49
 msgid "recipient"
 msgstr "ontvanger"
 
-#: templates/post/av.html:3 templates/post/av.html.py:7
-#: templates/post/base.html:8
 msgid "AV overview"
 msgstr "AV overzicht"
 
-#: templates/post/av.html:12 templates/post/item_filter.html:52
 msgid "Filter"
 msgstr ""
 
-#: templates/post/av.html:39 templates/post/item_archive_week.html:16
-#: templates/post/item_filter.html:83
 msgid "Date"
 msgstr "Datum"
 
-#: templates/post/av.html:40 templates/post/av.html.py:61
-#: templates/post/item_archive_week.html:13 templates/post/item_filter.html:80
 msgid "Description"
 msgstr "Omschrijving"
 
-#: templates/post/av.html:41 templates/post/item_archive_week.html:14
-#: templates/post/item_filter.html:81
 msgid "Sender"
 msgstr "Afzender"
 
-#: templates/post/av.html:42 templates/post/item_archive_week.html:15
-#: templates/post/item_filter.html:82
 msgid "Recipient"
 msgstr "Ontvanger"
 
-#: templates/post/av.html:60
 msgid "Count"
 msgstr "Aantal"
 
-#: templates/post/base.html:5
 msgid "Overview"
 msgstr "Overzicht"
 
-#: templates/post/base.html:7
 msgid "Week overview"
 msgstr "Week overzicht"
 
-#: templates/post/base.html:11
 msgid "Admin"
 msgstr "Beheer"
 
-#: templates/post/item_archive_week.html:4
-#: templates/post/item_archive_week.html:7
 msgid "Week"
 msgstr "Week"
 
-#: templates/post/item_archive_week.html:12 templates/post/item_filter.html:79
 msgid "Category"
 msgstr "Categorie"
 
-#: templates/post/item_archive_week.html:30 templates/post/item_filter.html:97
 msgid "No items found."
 msgstr "Geen post gevonden"
 
-#: templates/post/item_archive_week.html:42 templates/post/item_filter.html:110
 msgid "Previous"
 msgstr "Vorige"
 
-#: templates/post/item_archive_week.html:48 templates/post/item_filter.html:116
 msgid "Next"
 msgstr "Volgende"
 
-#: templates/post/item_filter.html:3 templates/post/item_filter.html.py:30
 msgid "Post"
 msgstr ""
 
-#: templates/post/item_filter.html:35 templates/post/item_filter.html.py:44
 msgid "Add"
 msgstr "Toevoegen"
 
-#: templates/post/item_filter.html:73
 msgid "Search results"
 msgstr "Zoekresultaten"
