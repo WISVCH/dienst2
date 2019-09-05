@@ -13,6 +13,12 @@ def update_merit_members_without_from_date(apps, _schema_editor):
         .update(date_from=F('merit_date_from'))
 
 
+def update_honorary_members_without_from_date(apps, _schema_editor):
+    member = apps.get_model('ldb', 'Member')
+    member.objects.filter(date_from__isnull=True, honorary_date_from__isnull=False)\
+        .update(date_from=F('honorary_date_from'))
+
+
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -21,4 +27,5 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.RunPython(update_merit_members_without_from_date, migrations.RunPython.noop),
+        migrations.RunPython(update_honorary_members_without_from_date, migrations.RunPython.noop),
     ]
