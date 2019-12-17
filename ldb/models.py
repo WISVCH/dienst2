@@ -158,6 +158,7 @@ class Person(Entity):
     GENDER_CHOICES = (
         ('M', _('Male')),
         ('F', _('Female')),
+        ('O', _('Other')),
     )
 
     # Name
@@ -403,10 +404,16 @@ class Student(models.Model):
         verbose_name = _('student')
         verbose_name_plural = _('students')
 
+    STUDY_CHOICES = (
+        ('c', _('Computer Science and Engineering')),
+        ('a', _('Applied Mathematics')),
+    )
+
     person = models.OneToOneField(Person, primary_key=True, on_delete=models.CASCADE)
 
     enrolled = models.BooleanField(_('enrolled'), default=True)
-    study = models.CharField(_('study'), max_length=50)
+    study = models.CharField(_('study'), max_length=50, choices=STUDY_CHOICES)
+
     first_year = models.IntegerField(_('first year'), blank=True, null=True)
     student_number = CharNullField(_('student number'), max_length=7, blank=True, null=True, unique=True)
 
