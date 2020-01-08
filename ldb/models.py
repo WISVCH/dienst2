@@ -378,7 +378,7 @@ class Member(models.Model):
 
     def clean(self):
         if (self.date_from is not None and self.date_to is not None and self.date_from > self.date_to) or \
-            (self.date_to is not None and self.date_from is None):
+           (self.date_to is not None and self.date_from is None):
             raise ValidationError("'Date to' cannot be before 'date from'")
 
         if self.date_to is not None and (self.merit_date_from is not None or self.honorary_date_from is not None):
@@ -389,6 +389,14 @@ class Member(models.Model):
 
         if self.honorary_date_from is not None and self.honorary_date_from > date.today():
             raise ValidationError("Honorary date from should be in the past")
+
+        if self.merit_date_from is not None and self.date_from is None:
+            raise ValidationError("Cannot have a 'merit from date' without a 'date from'. (Merit member must be a "
+                                  "regular member too)")
+
+        if self.honorary_date_from is not None and self.date_from is None:
+            raise ValidationError("Cannot have a 'honorary from date' without a 'date from'. (Honorary member must be a"
+                                  " regular member too)")
 
         if self.date_to is None and self.associate_member:
             raise ValidationError("'Date to' is required for associate members")
