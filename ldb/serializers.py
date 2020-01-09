@@ -6,8 +6,15 @@ from rest_framework.exceptions import ParseError
 from rest_framework.fields import CharField, HiddenField, ReadOnlyField
 
 from drf_writable_nested.mixins import NestedCreateMixin, NestedUpdateMixin
-from ldb.models import (Alumnus, CommitteeMembership, Employee, Entity, Member,
-                        Organization, Person, Student)
+
+from ldb.formTemplates.alumnus import Alumnus
+from ldb.formTemplates.committeeMemberShip import CommitteeMembership
+from ldb.formTemplates.employee import Employee
+from ldb.formTemplates.entity import Entity
+from ldb.formTemplates.member import Member
+from ldb.formTemplates.organization import Organization
+from ldb.formTemplates.person import Person
+from ldb.formTemplates.student import Student
 
 logger = logging.getLogger(__name__)
 

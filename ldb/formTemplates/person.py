@@ -11,7 +11,6 @@ from django.utils.translation import ugettext_lazy as _
 from dienst2.extras import CharNullField
 from ldb.querysets import PersonQuerySet
 from ldb.formTemplates.entity import Entity, get_attributes
-from ldb.formTemplates.member import Member
 from ldb.formTemplates.membershipStatus import MembershipStatus
 from ldb.formTemplates.membershipStatusField import MembershipStatusField
 
@@ -85,7 +84,7 @@ class Person(Entity):
     def membership_status(self):
         try:
             member = self.member
-        except Member.DoesNotExist:
+        except self.member.DoesNotExist:
             return MembershipStatus.NONE
         if member.current_honorary_member:
             return MembershipStatus.HONORARY
@@ -110,7 +109,7 @@ class Person(Entity):
             member = self.member
             if member.current_member and self.membership_status == MembershipStatus.NONE:
                 return False
-        except Member.DoesNotExist:
+        except self.member.DoesNotExist:
             return True
 
     @property

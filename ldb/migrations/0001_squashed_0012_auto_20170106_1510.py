@@ -6,7 +6,6 @@ import dienst2.extras
 from django.db import migrations, models
 import django.db.models.deletion
 import ldb.country_field
-import ldb.models
 
 
 class Migration(migrations.Migration):
@@ -303,7 +302,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='person',
             name='_membership_status',
-            field=ldb.models.MembershipStatusField(db_column='membership_status', default=0, enum=ldb.models.MembershipStatus),
+            field=ldb.formTemplates.membershipStatusField.MembershipStatusField(db_column='membership_status', default=0, enum=ldb.formTemplates.membershipStatus.MembershipStatus),
         ),
         migrations.AddField(
             model_name='person',

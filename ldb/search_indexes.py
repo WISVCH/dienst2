@@ -2,7 +2,8 @@ from __future__ import unicode_literals
 
 from haystack import indexes
 
-from ldb.models import Person, Organization
+from ldb.formTemplates.organization import Organization
+from ldb.formTemplates.person import Person
 
 
 class PersonIndex(indexes.SearchIndex, indexes.Indexable):

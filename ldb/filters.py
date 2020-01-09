@@ -1,7 +1,8 @@
 from __future__ import unicode_literals
 
 import django_filters
-from ldb.models import CommitteeMembership
+
+from ldb.formTemplates.committeeMemberShip import CommitteeMembership
 
 
 class CommitteeMembershipFilter(django_filters.FilterSet):

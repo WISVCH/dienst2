@@ -15,9 +15,11 @@ from haystack.query import SearchQuerySet
 
 from dienst2.extras import convert_free_search
 from ldb.filters import CommitteeMembershipFilter
+from ldb.formTemplates.committeeMemberShip import CommitteeMembership
+from ldb.formTemplates.organization import Organization
+from ldb.formTemplates.person import Person
 from ldb.forms import PersonForm, MemberFormSet, StudentFormSet, AlumnusFormSet, EmployeeFormSet, \
     CommitteeMembershipFormSet
-from ldb.models import Organization, Person, CommitteeMembership
 
 
 class IndexView(TemplateView):
