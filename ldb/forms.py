@@ -3,7 +3,13 @@ from __future__ import unicode_literals
 from django.forms import ModelForm
 from django.forms.models import inlineformset_factory
 
-from ldb.models import *
+from ldb.formTemplates.alumnus import Alumnus
+from ldb.formTemplates.committeeMemberShip import CommitteeMembership
+from ldb.formTemplates.employee import Employee
+from ldb.formTemplates.member import Member
+from ldb.formTemplates.organization import Organization
+from ldb.formTemplates.person import Person
+from ldb.formTemplates.student import Student
 
 
 class PersonForm(ModelForm):

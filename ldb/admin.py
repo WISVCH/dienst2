@@ -4,15 +4,24 @@ import datetime
 
 from django.contrib import admin
 from django import forms
+from django.core.exceptions import ValidationError
 from django.db.models import Q
 from django.utils.encoding import force_text
 
 from ldb.ImportExportVersionModelAdmin import ImportExportVersionModelAdmin
-from import_export import fields, resources, widgets
+from import_export import resources, widgets
 from django.utils.translation import ugettext_lazy as _
 from reversion_compare.admin import CompareVersionAdmin
 
-from ldb.models import *
+from ldb.formTemplates.alumnus import Alumnus
+from ldb.formTemplates.committee import Committee
+from ldb.formTemplates.committeeMemberShip import CommitteeMembership
+from ldb.formTemplates.employee import Employee
+from ldb.formTemplates.member import Member
+from ldb.formTemplates.modifaction import Modification
+from ldb.formTemplates.organization import Organization
+from ldb.formTemplates.person import Person
+from ldb.formTemplates.student import Student
 
 
 class CommitteeMembershipInline(admin.TabularInline):
