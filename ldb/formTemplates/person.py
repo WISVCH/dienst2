@@ -13,6 +13,8 @@ from ldb.querysets import PersonQuerySet
 from ldb.formTemplates.entity import Entity, get_attributes
 from ldb.formTemplates.membershipStatus import MembershipStatus
 from ldb.formTemplates.membershipStatusField import MembershipStatusField
+from django.core.exceptions import ObjectDoesNotExist
+
 
 
 @python_2_unicode_compatible
@@ -84,7 +86,7 @@ class Person(Entity):
     def membership_status(self):
         try:
             member = self.member
-        except self.member.DoesNotExist:
+        except ObjectDoesNotExist:
             return MembershipStatus.NONE
         if member.current_honorary_member:
             return MembershipStatus.HONORARY
@@ -109,7 +111,7 @@ class Person(Entity):
             member = self.member
             if member.current_member and self.membership_status == MembershipStatus.NONE:
                 return False
-        except self.member.DoesNotExist:
+        except ObjectDoesNotExist:
             return True
 
     @property
