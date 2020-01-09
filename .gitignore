@@ -8,3 +8,4 @@ lib
 /dienst2/whoosh_index/
 node_modules
 venv/
+*.log
