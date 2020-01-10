@@ -10,9 +10,9 @@ from django.utils.translation import ugettext_lazy as _
 
 from dienst2.extras import CharNullField
 from ldb.querysets import PersonQuerySet
-from ldb.formTemplates.entity import Entity, get_attributes
-from ldb.formTemplates.membershipStatus import MembershipStatus
-from ldb.formTemplates.membershipStatusField import MembershipStatusField
+from ldb.models.entity import Entity, get_attributes
+from ldb.models.membershipStatus import MembershipStatus
+from ldb.models.membershipStatusField import MembershipStatusField
 from django.core.exceptions import ObjectDoesNotExist
 
 

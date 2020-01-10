@@ -3,8 +3,8 @@ from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import gettext as _
 
 
-from ldb.formTemplates.committee import Committee
-from ldb.formTemplates.person import Person
+from ldb.models.committee import Committee
+from ldb.models.person import Person
 
 
 @python_2_unicode_compatible

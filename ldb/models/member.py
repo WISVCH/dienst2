@@ -8,9 +8,9 @@ from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
-from ldb.formTemplates.alumnus import Alumnus
-from ldb.formTemplates.person import Person
-from ldb.formTemplates.student import Student
+from ldb.models.alumnus import Alumnus
+from ldb.models.person import Person
+from ldb.models.student import Student
 
 
 @python_2_unicode_compatible

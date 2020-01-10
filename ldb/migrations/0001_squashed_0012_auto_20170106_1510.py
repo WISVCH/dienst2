@@ -302,7 +302,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='person',
             name='_membership_status',
-            field=ldb.formTemplates.membershipStatusField.MembershipStatusField(db_column='membership_status', default=0, enum=ldb.formTemplates.membershipStatus.MembershipStatus),
+            field=ldb.models.membershipStatusField.MembershipStatusField(db_column='membership_status', default=0, enum=ldb.models.membershipStatus.MembershipStatus),
         ),
         migrations.AddField(
             model_name='person',

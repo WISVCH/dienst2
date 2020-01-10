@@ -14,7 +14,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from six import iteritems
 
-from ldb.formTemplates.entity import Entity
+from ldb.models.entity import Entity
 
 
 class CSVRenderer(renderers.BaseRenderer):

@@ -2,9 +2,9 @@ import django_filters
 from django.db.models import Prefetch
 from rest_framework import viewsets
 
-from ldb.formTemplates.committeeMemberShip import CommitteeMembership
-from ldb.formTemplates.organization import Organization
-from ldb.formTemplates.person import Person
+from ldb.models.committeeMemberShip import CommitteeMembership
+from ldb.models.organization import Organization
+from ldb.models.person import Person
 from ldb.serializers import OrganizationSerializer, PersonSerializer
 
 

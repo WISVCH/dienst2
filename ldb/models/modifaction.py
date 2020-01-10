@@ -3,7 +3,7 @@ from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import gettext as _
 
 
-from ldb.formTemplates.person import Person
+from ldb.models.person import Person
 
 
 @python_2_unicode_compatible

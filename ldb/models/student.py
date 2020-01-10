@@ -7,7 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 
 
 from dienst2.extras import CharNullField
-from ldb.formTemplates.person import Person
+from ldb.models.person import Person
 
 
 @python_2_unicode_compatible

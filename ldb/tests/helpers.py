@@ -2,10 +2,10 @@ from datetime import timedelta
 
 from django.utils import timezone
 
-from ldb.formTemplates.alumnus import Alumnus
-from ldb.formTemplates.member import Member
-from ldb.formTemplates.person import Person
-from ldb.formTemplates.student import Student
+from ldb.models.alumnus import Alumnus
+from ldb.models.member import Member
+from ldb.models.person import Person
+from ldb.models.student import Student
 
 
 def combine(defaults=None, update_value=None):

@@ -7,14 +7,14 @@ from rest_framework.fields import CharField, HiddenField, ReadOnlyField
 
 from drf_writable_nested.mixins import NestedCreateMixin, NestedUpdateMixin
 
-from ldb.formTemplates.alumnus import Alumnus
-from ldb.formTemplates.committeeMemberShip import CommitteeMembership
-from ldb.formTemplates.employee import Employee
-from ldb.formTemplates.entity import Entity
-from ldb.formTemplates.member import Member
-from ldb.formTemplates.organization import Organization
-from ldb.formTemplates.person import Person
-from ldb.formTemplates.student import Student
+from ldb.models.alumnus import Alumnus
+from ldb.models.committeeMemberShip import CommitteeMembership
+from ldb.models.employee import Employee
+from ldb.models.entity import Entity
+from ldb.models.member import Member
+from ldb.models.organization import Organization
+from ldb.models.person import Person
+from ldb.models.student import Student
 
 logger = logging.getLogger(__name__)
 

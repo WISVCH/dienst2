@@ -13,15 +13,15 @@ from import_export import resources, widgets
 from django.utils.translation import ugettext_lazy as _
 from reversion_compare.admin import CompareVersionAdmin
 
-from ldb.formTemplates.alumnus import Alumnus
-from ldb.formTemplates.committee import Committee
-from ldb.formTemplates.committeeMemberShip import CommitteeMembership
-from ldb.formTemplates.employee import Employee
-from ldb.formTemplates.member import Member
-from ldb.formTemplates.modifaction import Modification
-from ldb.formTemplates.organization import Organization
-from ldb.formTemplates.person import Person
-from ldb.formTemplates.student import Student
+from ldb.models.alumnus import Alumnus
+from ldb.models.committee import Committee
+from ldb.models.committeeMemberShip import CommitteeMembership
+from ldb.models.employee import Employee
+from ldb.models.member import Member
+from ldb.models.modifaction import Modification
+from ldb.models.organization import Organization
+from ldb.models.person import Person
+from ldb.models.student import Student
 
 
 class CommitteeMembershipInline(admin.TabularInline):
