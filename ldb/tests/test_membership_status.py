@@ -1,8 +1,7 @@
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 
-from ldb.models.membershipStatus import MembershipStatus
-from ldb.models.student import Student
+from ldb.models import MembershipStatus, Student
 from ldb.tests.helpers import LDBHelperMixin
 
 

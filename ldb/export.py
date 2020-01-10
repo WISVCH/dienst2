@@ -6,7 +6,6 @@ from functools import reduce
 from io import StringIO
 
 from django.db.models import Q
-from django.http import HttpResponse
 from django.utils.encoding import smart_str
 from rest_framework import renderers, status
 from rest_framework.renderers import TemplateHTMLRenderer

@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 
 import django_filters
 
-from ldb.models.committeeMemberShip import CommitteeMembership
+from ldb.models import CommitteeMembership
 
 
 class CommitteeMembershipFilter(django_filters.FilterSet):

@@ -13,15 +13,7 @@ from import_export import resources, widgets
 from django.utils.translation import ugettext_lazy as _
 from reversion_compare.admin import CompareVersionAdmin
 
-from ldb.models.alumnus import Alumnus
-from ldb.models.committee import Committee
-from ldb.models.committeeMemberShip import CommitteeMembership
-from ldb.models.employee import Employee
-from ldb.models.member import Member
-from ldb.models.modifaction import Modification
-from ldb.models.organization import Organization
-from ldb.models.person import Person
-from ldb.models.student import Student
+from ldb.models import *
 
 
 class CommitteeMembershipInline(admin.TabularInline):
@@ -176,7 +168,12 @@ class PersonResource(resources.ModelResource):
     class Meta:
         model = Person
         use_transactions = True
-        fields = export_order = ('id', 'initials', 'firstname', 'preposition', 'surname', 'netid', 'student__student_number', 'street_name', 'house_number', 'postcode', 'city', 'country', 'email', 'phone_mobile', 'gender', 'birthdate', 'student__yearbook_permission', 'mail_announcements', 'mail_company', 'mail_education', 'machazine', 'student__first_year', 'student__study', 'student__emergency_phone', 'student__emergency_name', 'member__amount_paid')
+        fields = export_order = (
+        'id', 'initials', 'firstname', 'preposition', 'surname', 'netid', 'student__student_number', 'street_name',
+        'house_number', 'postcode', 'city', 'country', 'email', 'phone_mobile', 'gender', 'birthdate',
+        'student__yearbook_permission', 'mail_announcements', 'mail_company', 'mail_education', 'machazine',
+        'student__first_year', 'student__study', 'student__emergency_phone', 'student__emergency_name',
+        'member__amount_paid')
         skip_unchanged = True
 
 

@@ -3,18 +3,11 @@ import logging
 import reversion
 from rest_framework import serializers
 from rest_framework.exceptions import ParseError
-from rest_framework.fields import CharField, HiddenField, ReadOnlyField
+from rest_framework.fields import CharField, ReadOnlyField
 
 from drf_writable_nested.mixins import NestedCreateMixin, NestedUpdateMixin
 
-from ldb.models.alumnus import Alumnus
-from ldb.models.committeeMemberShip import CommitteeMembership
-from ldb.models.employee import Employee
-from ldb.models.entity import Entity
-from ldb.models.member import Member
-from ldb.models.organization import Organization
-from ldb.models.person import Person
-from ldb.models.student import Student
+from ldb.models import Alumnus, CommitteeMembership, Employee, Entity, Member, Organization, Person, Student
 
 logger = logging.getLogger(__name__)
 
