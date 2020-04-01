@@ -4,7 +4,6 @@ help: # Shows all commands
 
 bootstrap: # Copies the default
 	cp .env.example .env
-	cp sqreen.yaml.example sqreen.yaml
 
 dev: # Runs the Gin server
 	go run . server --verbose
