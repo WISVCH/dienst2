@@ -2,13 +2,11 @@ package cli
 
 import (
 	"fmt"
-	migrations "github.com/WISVCH/member-registration/src/database"
-	"github.com/WISVCH/member-registration/src/server"
-	"github.com/WISVCH/member-registration/src/config"
-	"github.com/jmoiron/sqlx"
+	migrations "github.com/WISVCH/member-registration/database"
+	"github.com/WISVCH/member-registration/server"
+	_ "github.com/WISVCH/member-registration/config"
 	"github.com/spf13/cobra"
 	"os"
-	"time"
 )
 
 var (
@@ -40,7 +38,6 @@ func init() {
 
 	// Add commands	to root command
 	rootCmd.AddCommand(serverCmd)
-	rootCmd.AddCommand(rankingjobCmd)
 	rootCmd.AddCommand(dbMigrateCmd)
 }
 

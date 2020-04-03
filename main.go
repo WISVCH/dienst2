@@ -1,8 +1,8 @@
 package main
 
 import (
+	"github.com/WISVCH/member-registration/server"
 	"github.com/gin-gonic/gin"
-	"./server"
 )
 
 func main() {

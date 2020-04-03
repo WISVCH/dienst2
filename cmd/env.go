@@ -2,7 +2,7 @@ package cli
 
 import (
 	"fmt"
-	cfg "github.com/WISVCH/member-registration/src/config"
+	cfg "github.com/WISVCH/member-registration/config"
 	"github.com/spf13/viper"
 )
 

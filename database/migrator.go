@@ -5,15 +5,17 @@ import (
 	"fmt"
 	"github.com/golang-migrate/migrate/v4"
 	"github.com/golang-migrate/migrate/v4/database/postgres"
+	"github.com/WISVCH/member-registration/config"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
 	_ "github.com/lib/pq"
 	"os"
 )
 
 func Migrate(direction string, config config.Config) error {
+
 	// Direction check
 	if direction != "up" && direction != "down" {
-		return fmt.Errorf("Migration direction should be 'up' or 'down'")
+		return fmt.Errorf("migration direction should be 'up' or 'down'")
 	}
 
 	// Database connection instance
@@ -33,7 +35,7 @@ func Migrate(direction string, config config.Config) error {
 	if err != nil {
 		return err
 	}
-	sourceURL := "file://" + workingDir + "/database/migrations" // TODO: Make less error prone
+	sourceURL := "file://" + workingDir + "/database/migrations"
 	migrator, err := migrate.NewWithDatabaseInstance(sourceURL, "postgres", driver)
 	if err != nil {
 		return err
