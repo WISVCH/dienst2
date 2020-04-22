@@ -1,12 +1,11 @@
-package cli
+package config
 
 import (
 	"fmt"
-	cfg "github.com/WISVCH/member-registration/config"
 	"github.com/spf13/viper"
 )
 
-func getConfig() cfg.Config {
+func GetConfig() Config {
 	config, err := loadConfig()
 	if err != nil { // Handle errors reading the config file
 		panic(fmt.Errorf("Fatal error config file: %s \n", err))
@@ -15,19 +14,19 @@ func getConfig() cfg.Config {
 	return config
 }
 
-func loadConfig() (cfg.Config, error) {
+func loadConfig() (Config, error) {
 	v := viper.New()
 	v.SetConfigType("toml")
 	v.SetConfigFile(".env")
 	err := v.ReadInConfig() // Find and read the config file
 	if err != nil {
-		return cfg.Config{}, err
+		return Config{}, err
 	}
 
-	var config cfg.Config
+	var config Config
 	err = v.Unmarshal(&config)
 	if err != nil {
-		return cfg.Config{}, err
+		return Config{}, err
 	}
 
 	isValidConfig := validateConfig(config)
@@ -37,8 +36,8 @@ func loadConfig() (cfg.Config, error) {
 	return config, err
 }
 
-func validateConfig(config cfg.Config) bool {
-	if config.DatabaseHost == "" || config.DatabasePort == 0 || config.DatabaseName == "" || config.DatabaseUser == "" || config.JWTSecret == "" {
+func validateConfig(config Config) bool {
+	if config.DatabaseHost == "" || config.DatabasePort == 0 || config.DatabaseName == "" || config.DatabaseUser == "" {
 		return false
 	}
 	return true

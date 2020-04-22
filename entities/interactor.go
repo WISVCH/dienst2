@@ -3,9 +3,7 @@ package entities
 import "github.com/gin-gonic/gin"
 
 type DBRepo interface {
-// Misc helpers
-GetContext(c *gin.Context) (Context, error)
-
+	AddFormEntry(f FormEntity) error
 }
 
 type MiddlewareRegisterable interface {

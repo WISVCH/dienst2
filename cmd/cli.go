@@ -4,7 +4,7 @@ import (
 	"fmt"
 	migrations "github.com/WISVCH/member-registration/database"
 	"github.com/WISVCH/member-registration/server"
-	_ "github.com/WISVCH/member-registration/config"
+	cfg "github.com/WISVCH/member-registration/config"
 	"github.com/spf13/cobra"
 	"os"
 )
@@ -12,7 +12,7 @@ import (
 var (
 	verbose            = false
 	dbMigrateDirection = ""
-	config             = getConfig()
+	config             = cfg.GetConfig()
 	rootCmd            = &cobra.Command{
 		Use:   "fantescy",
 		Short: "The backend for FantESCy",

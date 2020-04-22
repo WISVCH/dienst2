@@ -1,14 +1,48 @@
 <html>
-<form action="/form" method="POST">
+<form action="/api/form" method="POST">
     <p>Simple user form</p>
-    <label for="fname">firstname</label>
-    <input type="text" name="fname" value="re2d" id="re2d">
-    <label for="lastName">lastName</label>
-    <input type="text" name="lastname" value="green" id="green">
-    <label for="birthDate">birthDate</label>
-    <input type="text" name="birthdate" value="blue" id="blue">
-    <label for="red">Red</label>
-    <input type="checkbox" name="colors[]" value="red" id="red">
+    <label for="first_name">first name</label>
+    <input type="text" name="first_name" id="first_name" value="">
+    <label for="last_name">last name</label>
+    <input type="text" name="last_name" id="last_name" value="">
+    <label for="gender">gender</label>
+    <select name="gender" id="gender">
+        <option value="male">Male</option>
+        <option value="female">Male</option>
+        <option value="other">Other</option>
+    </select>
+    <label for="email">email</label>
+    <input type="text" name="email" id="email" value="">
+    <label for="phone_number">phone number</label>
+    <input type="text" name="phone_number" id="phone_number" value="">
+    <label for="full_name">full_name</label>
+    <input type="text" name="full_name" id="full_name" value="">
+    <label for="street_name">street_name</label>
+    <input type="text" name="street_name" id="street_name" value="">
+    <label for="street_number">street_number</label>
+    <input type="text" name="street_number" id="street_number" value="">
+    <label for="postal_code">postal_code</label>
+    <input type="text" name="postal_code" id="postal_code" value="">
+    <label for="place">place</label>
+    <input type="text" name="place" id="place" value="">
+    <label for="country">country</label>
+    <input type="text" name="country" id="country" value="">
+    <label for="first_letters">first_letters</label>
+    <input type="text" name="first_letters" id="first_letters" value="">
+    <label for="netid">netid</label>
+    <input type="text" name="netid" id="netid" value="">
+    <label for="yearbook_permission">yearbook_permission</label>
+    <input type="checkbox" name="yearbook_permission" id="yearbook_permission" value="">
+    <label for="activity_mail">activity_mail</label>
+    <input type="checkbox" name="activity_mail" id="activity_mail" value="">
+    <label for="career_mail">career_mail</label>
+    <input type="checkbox" name="career_mail" id="career_mail" value="">
+    <label for="education_mail">education_mail</label>
+    <input type="checkbox" name="education_mail" id="education_mail" value="">
+    <label for="machazine">machazine</label>
+    <input type="checkbox" name="machazine" id="machazine" value="">
+    <label for="freshmen_weekend">freshmen_weekend</label>
+    <input type="checkbox" name="freshmen_weekend" id="freshmen_weekend" value="">
     <input type="submit">
 </form>
 </html>

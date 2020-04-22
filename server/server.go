@@ -1,10 +1,8 @@
 package server
 
 import (
-	"encoding/base64"
 	"fmt"
 	"strconv"
-	"time"
 	"github.com/WISVCH/member-registration/config"
 	"github.com/WISVCH/member-registration/entities"
 	dbRepo "github.com/WISVCH/member-registration/server/data/repositories/db"
@@ -27,10 +25,9 @@ func Start(c config.Config) error {
 		panic(err)
 	}
 	db := dbRepo.InitDBRepo(dbConn)
-	mailerInstance := mailer.NewMailer(c)
 	handlerInteractor := entities.HandlerInteractor{
 		DB:                        db,
-		RegisterDefaultMiddleware: getDefaultMiddleware(c.IsDevMode),
+		RegisterDefaultMiddleware: getDefaultMiddleware(),
 	}
 	initLogger(c)
 	server := newServer(c.ServerPort, c.IsDevMode, handlerInteractor)
@@ -48,10 +45,13 @@ func newServer(port int, debug bool, hi entities.HandlerInteractor) GinServer {
 	}
 
 	r := server.Router
+	r.LoadHTMLGlob("./templates/*")
+
 
 	hi.RegisterDefaultMiddleware(r)
-	registerPublicRoutes(r.Group("/api/public"), hi)
-	registerAdminRoutes(r.Group("/api/admin"), hi)
+	registerPublicRoutes(r.Group(""), hi)
+	registerAdminRoutes(r.Group("/admin"), hi)
+	registerApiRoutes(r.Group("/api"), hi)
 
 	return server
 }
