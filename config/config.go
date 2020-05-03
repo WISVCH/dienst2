@@ -10,6 +10,13 @@ type Config struct {
 	DatabaseName           string `mapstructure:"db_name"`
 	DatabaseUser           string `mapstructure:"db_user"`
 	DatabasePass           string `mapstructure:"db_pass"`
+
+	ConnectUrl          	string `mapstructure:"connecturl"`
+	ConnectClientId	    	string `mapstructure:"connectclientid"`
+	ClientSecret         	string `mapstructure:"clientsecret"`
+	RedirectUrl          	string `mapstructure:"redirecturl"`
+	AllowedLdap				string `mapstructure:"allowedldap"`
+
 }
 
 func (c Config) DatabaseConnectionString() string {

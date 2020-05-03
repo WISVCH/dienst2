@@ -8,8 +8,8 @@ import (
 	dbRepo "github.com/WISVCH/member-registration/server/data/repositories/db"
 	"github.com/WISVCH/member-registration/server/middleware"
 	"github.com/gin-gonic/gin"
+	"github.com/WISVCH/member-registration/server/utils/auth"
 	"github.com/jmoiron/sqlx"
-	log "github.com/sirupsen/logrus"
 )
 
 type GinServer struct {
@@ -29,7 +29,7 @@ func Start(c config.Config) error {
 		DB:                        db,
 		RegisterDefaultMiddleware: getDefaultMiddleware(),
 	}
-	initLogger(c)
+	auth.Connect(c.ConnectUrl, c.ConnectClientId, c.ClientSecret, c.RedirectUrl, c.AllowedLdap)
 	server := newServer(c.ServerPort, c.IsDevMode, handlerInteractor)
 	return server.Start()
 }
@@ -45,24 +45,16 @@ func newServer(port int, debug bool, hi entities.HandlerInteractor) GinServer {
 	}
 
 	r := server.Router
-	r.LoadHTMLGlob("./templates/*")
+	r.LoadHTMLGlob("./resources/templates/*")
 
 
 	hi.RegisterDefaultMiddleware(r)
 	registerPublicRoutes(r.Group(""), hi)
 	registerAdminRoutes(r.Group("/admin"), hi)
 	registerApiRoutes(r.Group("/api"), hi)
+	registerAuthRoutes(r.Group("/auth"), hi)
 
 	return server
-}
-
-func initLogger(c config.Config) {
-	if !c.IsDevMode { // Is production mode, so use JSON
-		log.SetFormatter(&log.JSONFormatter{})
-		log.SetLevel(log.InfoLevel)
-	} else {
-		log.SetLevel(log.TraceLevel) // Lowest level in Logrus
-	}
 }
 
 func getDefaultMiddleware() func(router entities.MiddlewareRegisterable) {

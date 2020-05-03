@@ -2,7 +2,7 @@ package dbRepo
 
 import (
 	"fmt"
-	"github.com/WISVCH/member-registration/server/utils/logger"
+	logger "github.com/sirupsen/logrus"
 	"github.com/jmoiron/sqlx"
 )
 
@@ -18,14 +18,14 @@ func InitDBRepo(db *sqlx.DB) DBRepo {
 
 // Logging
 func (repo DBRepo) logDebug(domain string, message string) {
-	logger.Debug(fmt.Sprintf("repositories/db/%s", domain), logger.LogFields{}, message)
+	logger.Debug(fmt.Sprintf("repositories/db/%s", domain), message)
 }
 func (repo DBRepo) logInfo(domain string, message string) {
-	logger.Debug(fmt.Sprintf("repositories/db/%s", domain), logger.LogFields{}, message)
+	logger.Debug(fmt.Sprintf("repositories/db/%s", domain), message)
 }
 func (repo DBRepo) logWarning(domain string, err error) {
-	logger.Warn(fmt.Sprintf("repositories/db/%s", domain), logger.LogFields{}, err)
+	logger.Warn(fmt.Sprintf("repositories/db/%s", domain), err)
 }
 func (repo DBRepo) logError(domain string, err error) {
-	logger.Warn(fmt.Sprintf("repositories/db/%s", domain), logger.LogFields{}, err)
+	logger.Warn(fmt.Sprintf("repositories/db/%s", domain), err)
 }
