@@ -14,7 +14,8 @@ func registerPublicRoutes(router *gin.RouterGroup, i entities.HandlerInteractor)
 
 func registerAdminRoutes(router *gin.RouterGroup, i entities.HandlerInteractor) {
 	i.RegisterDefaultMiddleware(router)
-	router.Use(auth.ConnectMiddleware())
+	router.GET("/formlist", handlers.Formlist(i))
+	//router.Use(auth.ConnectMiddleware())
 }
 
 func registerApiRoutes(router * gin.RouterGroup, i entities.HandlerInteractor){
