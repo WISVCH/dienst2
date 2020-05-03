@@ -20,7 +20,7 @@ type Config struct {
 }
 
 func (c Config) DatabaseConnectionString() string {
-	connStr := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s",
+	connStr := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
 		c.DatabaseHost, c.DatabasePort, c.DatabaseUser, c.DatabasePass, c.DatabaseName)
 	return connStr
 }
