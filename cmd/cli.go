@@ -2,9 +2,9 @@ package cli
 
 import (
 	"fmt"
+	cfg "github.com/WISVCH/member-registration/config"
 	migrations "github.com/WISVCH/member-registration/database"
 	"github.com/WISVCH/member-registration/server"
-	cfg "github.com/WISVCH/member-registration/config"
 	"github.com/spf13/cobra"
 	"os"
 )
@@ -56,7 +56,6 @@ var serverCmd = &cobra.Command{
 		_ = server.Start(config)
 	},
 }
-
 
 var dbMigrateCmd = &cobra.Command{
 	Use:   "migrate [up|down]",

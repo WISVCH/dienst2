@@ -46,7 +46,7 @@ func handleRegistration(f *entities.FormEntity, i entities.HandlerInteractor) (e
 	memberEntry := *f
 	fmt.Println(memberEntry)
 	if err := i.DB.AddFormEntry(memberEntry); err != nil {
-		return err,"Unable to insert entry into database"
+		return err, "Unable to insert entry into database"
 	}
 	return nil, ""
 }

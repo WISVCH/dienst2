@@ -2,13 +2,12 @@ package auth
 
 import (
 	"context"
-	"net/http"
-	"strings"
-
 	"github.com/coreos/go-oidc"
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
 	"golang.org/x/oauth2"
+	"net/http"
+	"strings"
 )
 
 var connectConfig oauth2.Config
