@@ -2,17 +2,17 @@ package dbRepo
 
 import (
 	"fmt"
-	logger "github.com/sirupsen/logrus"
 	"github.com/jmoiron/sqlx"
+	logger "github.com/sirupsen/logrus"
 )
 
 type DBRepo struct {
-	db           *sqlx.DB
+	db *sqlx.DB
 }
 
 func InitDBRepo(db *sqlx.DB) DBRepo {
 	return DBRepo{
-		db:  db,
+		db: db,
 	}
 }
 

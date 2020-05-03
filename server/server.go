@@ -2,14 +2,14 @@ package server
 
 import (
 	"fmt"
-	"strconv"
 	"github.com/WISVCH/member-registration/config"
 	"github.com/WISVCH/member-registration/entities"
 	dbRepo "github.com/WISVCH/member-registration/server/data/repositories/db"
 	"github.com/WISVCH/member-registration/server/middleware"
-	"github.com/gin-gonic/gin"
 	"github.com/WISVCH/member-registration/server/utils/auth"
+	"github.com/gin-gonic/gin"
 	"github.com/jmoiron/sqlx"
+	"strconv"
 )
 
 type GinServer struct {
@@ -46,7 +46,6 @@ func newServer(port int, debug bool, hi entities.HandlerInteractor) GinServer {
 
 	r := server.Router
 	r.LoadHTMLGlob("./resources/templates/*")
-
 
 	hi.RegisterDefaultMiddleware(r)
 	registerPublicRoutes(r.Group(""), hi)

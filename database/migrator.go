@@ -3,9 +3,9 @@ package migrations
 import (
 	"database/sql"
 	"fmt"
+	"github.com/WISVCH/member-registration/config"
 	"github.com/golang-migrate/migrate/v4"
 	"github.com/golang-migrate/migrate/v4/database/postgres"
-	"github.com/WISVCH/member-registration/config"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
 	_ "github.com/lib/pq"
 	"os"
