@@ -1,5 +1,9 @@
 package entities
 
+import (
+	"time"
+)
+
 type FormEntity struct {
 	Gender          string `db:"gender" form:"gender"`
 	FirstName       string `db:"first_name" form:"first_name"`
@@ -21,4 +25,5 @@ type FormEntity struct {
 	Machazine       bool   `db:"machazine" form:"machazine"`
 	Added           bool   `db:"added_to_ldb"`
 	FreshMenWeekend bool   `db:"freshmen_weekend" form:"freshmen_weekend"`
+	CreatedAt		time.Time `db:"created_at"`
 }

@@ -57,16 +57,17 @@ func (repo DBRepo) AddFormEntry(f entities.FormEntity) error {
 
 func (repo DBRepo) ListForms() ([]entities.FormEntity, error) {
 	repo.logInfo("form", "listing forms")
-	rows, err := repo.db.Queryx("SELECT first_name FROM form_content")
+	rows, err := repo.db.Queryx("SELECT first_name,added_to_ldb,created_at FROM form_content")
 	var formList []entities.FormEntity
 	for rows.Next() {
 		var form entities.FormEntity
-		err := rows.Scan(&form.FirstName)
+		err := rows.Scan(&form.FirstName, &form.Added, &form.CreatedAt)
 		if err != nil {
 			fmt.Print(err)
 		}
 		formList = append(formList, form)
 	}
 	fmt.Print(err)
+
 	return formList, err
 }
