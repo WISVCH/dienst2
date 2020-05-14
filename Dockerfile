@@ -4,7 +4,7 @@ WORKDIR /src
 COPY . .
 RUN yarn install --flat
 
-FROM python:3.7
+FROM python:3.8
 
 # CH CA certificate for PostgreSQL TLS connections
 ADD https://ch.tudelft.nl/certs/wisvch.crt /usr/local/share/ca-certificates/wisvch.crt
