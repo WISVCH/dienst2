@@ -5,12 +5,17 @@ ENTRYPOINT ["/srv/docker-entrypoint-dev.sh"]
 CMD ["dev"]
 EXPOSE 8000
 
+# CH CA certificate for LDAPS connections
+ADD https://ch.tudelft.nl/certs/wisvch.crt /usr/local/share/ca-certificates/wisvch.crt
+RUN chmod 0644 /usr/local/share/ca-certificates/wisvch.crt && \
+    update-ca-certificates
+
 RUN export DEBIAN_FRONTEND="noninteractive" && \
     curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
     curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
     echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list && \
     apt-get update && \
-    apt-get install -y --no-install-recommends nodejs yarn netcat-openbsd gettext
+    apt-get install -y --no-install-recommends nodejs yarn netcat-openbsd gettext libldap2-dev libsasl2-dev
 
 COPY requirements.txt /srv/
 RUN pip install --upgrade pip && \
