@@ -9,23 +9,38 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('post', '0001_squashed_0005_auto_20160612_2323'),
+        ("post", "0001_squashed_0005_auto_20160612_2323"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='item',
-            name='category',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='items', to='post.Category', verbose_name='category'),
+            model_name="item",
+            name="category",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="items",
+                to="post.Category",
+                verbose_name="category",
+            ),
         ),
         migrations.AlterField(
-            model_name='item',
-            name='recipient',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='received_items', to='post.Contact', verbose_name='recipient'),
+            model_name="item",
+            name="recipient",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="received_items",
+                to="post.Contact",
+                verbose_name="recipient",
+            ),
         ),
         migrations.AlterField(
-            model_name='item',
-            name='sender',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='sent_items', to='post.Contact', verbose_name='sender'),
+            model_name="item",
+            name="sender",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="sent_items",
+                to="post.Contact",
+                verbose_name="sender",
+            ),
         ),
     ]

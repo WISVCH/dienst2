@@ -11,33 +11,27 @@ admin.autodiscover()
 
 urlpatterns = [
     # The LDB index:
-    path('', DashboardView.as_view(), name='index'),
-
+    path("", DashboardView.as_view(), name="index"),
     # The Admin docs:
-    path('admin/doc/', include('django.contrib.admindocs.urls')),
-
+    path("admin/doc/", include("django.contrib.admindocs.urls")),
     # The Admin site:
-    path('admin/', admin.site.urls),
-
+    path("admin/", admin.site.urls),
     # OIDC
-    path('oidc/', include('mozilla_django_oidc.urls')),
-    path('forbidden', TemplateView.as_view(template_name='403.html'), name="forbidden"),
-
+    path("oidc/", include("mozilla_django_oidc.urls")),
+    path("forbidden", TemplateView.as_view(template_name="403.html"), name="forbidden"),
     # LDB URLs
-    path('ldb/', include('ldb.urls')),
-
+    path("ldb/", include("ldb.urls")),
     # Post URLs
-    path('post/', include('post.urls')),
-
+    path("post/", include("post.urls")),
     # Health check
-    path('healthz', include('health_check.urls')),
+    path("healthz", include("health_check.urls")),
 ]
 
 if settings.DEBUG:
     import debug_toolbar
-    urlpatterns += [
-        path('__debug__/', include(debug_toolbar.urls)),
 
-        path('404/', page_not_found),
-        path('500/', server_error),
+    urlpatterns += [
+        path("__debug__/", include(debug_toolbar.urls)),
+        path("404/", page_not_found),
+        path("500/", server_error),
     ]

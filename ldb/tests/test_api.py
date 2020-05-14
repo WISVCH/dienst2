@@ -11,42 +11,42 @@ class ApiV3TestCase(LDBHelperMixin, APITestCase):
     def setUp(self):
         self.user = User.objects.create()
 
-        self.LDAP_USERNAME = 'ldap'
+        self.LDAP_USERNAME = "ldap"
 
         self.create_person(ldap_username=self.LDAP_USERNAME)
         self.create_person()
         self.create_person()
 
     def test_token_authentication(self):
-        key = 'welcome'
+        key = "welcome"
         token = Token.objects.create(key=key, user=self.user)
-        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
+        self.client.credentials(HTTP_AUTHORIZATION="Token " + token.key)
 
-        url = reverse('person-list')
+        url = reverse("person-list")
         response = self.client.get(url)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_person_list(self):
         self.client.force_login(self.user)
-        url = reverse('person-list')
+        url = reverse("person-list")
         response = self.client.get(url)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data['results']), 3)
+        self.assertEqual(len(response.data["results"]), 3)
 
     def test_person_filter_exists(self):
         self.client.force_login(self.user)
-        url = reverse('person-list')
-        response = self.client.get(url, {'ldap_username': self.LDAP_USERNAME})
+        url = reverse("person-list")
+        response = self.client.get(url, {"ldap_username": self.LDAP_USERNAME})
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data['results']), 1)
+        self.assertEqual(len(response.data["results"]), 1)
 
     def test_person_filter_not_exists(self):
         self.client.force_login(self.user)
-        url = reverse('person-list')
-        response = self.client.get(url, {'ldap_username': 'does not exist'})
+        url = reverse("person-list")
+        response = self.client.get(url, {"ldap_username": "does not exist"})
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data['results']), 0)
+        self.assertEqual(len(response.data["results"]), 0)

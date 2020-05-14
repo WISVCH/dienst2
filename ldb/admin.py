@@ -22,68 +22,84 @@ class CommitteeMembershipInline(admin.TabularInline):
 class StudentInline(admin.StackedInline):
     model = Student
     fieldsets = [
-        (_('Base'), {'fields': ['study', 'first_year', 'student_number', 'enrolled']}),
-        (_('Emergency'), {'fields': ['emergency_name', 'emergency_phone']}),
-        (_('Permissions'), {'fields': ['yearbook_permission']}),
-        (_('Other'), {'fields': ['date_verified']})
+        (_("Base"), {"fields": ["study", "first_year", "student_number", "enrolled"]}),
+        (_("Emergency"), {"fields": ["emergency_name", "emergency_phone"]}),
+        (_("Permissions"), {"fields": ["yearbook_permission"]}),
+        (_("Other"), {"fields": ["date_verified"]}),
     ]
 
 
 class MemberInline(admin.StackedInline):
     model = Member
     fieldsets = [
-        (_('Base'), {'fields': ['date_from', 'date_to', 'date_paid', 'amount_paid']}),
-        (_('Other'), {'fields': ['associate_member', 'donating_member']}),
-        (_('Merit'), {'fields': ['merit_date_from', 'merit_invitations', 'merit_history']}),
-        (_('Honorary'), {'fields': ['honorary_date_from']})
+        (_("Base"), {"fields": ["date_from", "date_to", "date_paid", "amount_paid"]}),
+        (_("Other"), {"fields": ["associate_member", "donating_member"]}),
+        (
+            _("Merit"),
+            {"fields": ["merit_date_from", "merit_invitations", "merit_history"]},
+        ),
+        (_("Honorary"), {"fields": ["honorary_date_from"]}),
     ]
 
 
 class AlumnusInline(admin.StackedInline):
     model = Alumnus
     fieldsets = [
-        (_('Study'), {'fields': ['study', 'study_first_year', 'study_last_year',
-                                 'study_research_group', 'study_paper', 'study_professor']}),
-        (_('Work'), {'fields': ['work_company', 'work_position', 'work_sector']}),
+        (
+            _("Study"),
+            {
+                "fields": [
+                    "study",
+                    "study_first_year",
+                    "study_last_year",
+                    "study_research_group",
+                    "study_paper",
+                    "study_professor",
+                ]
+            },
+        ),
+        (_("Work"), {"fields": ["work_company", "work_position", "work_sector"]}),
     ]
 
 
 class EmployeeInline(admin.StackedInline):
     model = Employee
     fieldsets = [
-        (_('Base'), {'fields': ['faculty', 'department', 'function']}),
-        (_('Phone'), {'fields': ['phone_internal']}),
+        (_("Base"), {"fields": ["faculty", "department", "function"]}),
+        (_("Phone"), {"fields": ["phone_internal"]}),
     ]
 
 
 class PersonAdminForm(forms.ModelForm):
     class Meta:
         model = Person
-        fields = '__all__'
+        fields = "__all__"
 
     def __init__(self, *args, **kwds):
         super(PersonAdminForm, self).__init__(*args, **kwds)
-        self.fields['living_with'].queryset = Person.objects.order_by('surname', 'firstname')
+        self.fields["living_with"].queryset = Person.objects.order_by(
+            "surname", "firstname"
+        )
 
 
 class PersonResource(resources.ModelResource):
     def before_import(self, dataset, using_transactions, dry_run, **kwargs):
-        if 'id' not in dataset.headers:
-            dataset.lpush_col([None for row in range(len(dataset))], header='id')
+        if "id" not in dataset.headers:
+            dataset.lpush_col([None for row in range(len(dataset))], header="id")
 
     def init_instance(self, row=None):
         instance = self._meta.model()
         try:
             student = Student.objects.get(
-                student_number=str(row['student__student_number'])  # Cast to string as it is saved like this in the DB
+                student_number=str(
+                    row["student__student_number"]
+                )  # Cast to string as it is saved like this in the DB
             )
         except Student.DoesNotExist:
             student = Student()
 
         try:
-            member = Member.objects.get(
-                person_id=row['id']
-            )
+            member = Member.objects.get(person_id=row["id"])
         except Member.DoesNotExist:
             member = Member()
 
@@ -97,7 +113,8 @@ class PersonResource(resources.ModelResource):
         """
         try:
             instance = Person.objects.get(
-                Q(netid=str(row['netid'])) | Q(student__student_number=str(row['student__student_number']))
+                Q(netid=str(row["netid"]))
+                | Q(student__student_number=str(row["student__student_number"]))
             )
         except Person.DoesNotExist:
             instance = None
@@ -117,7 +134,9 @@ class PersonResource(resources.ModelResource):
         errors = {}
 
         for field in self.get_import_fields():
-            if str.startswith(field.attribute, "student__") or str.startswith(field.attribute, "member__"):
+            if str.startswith(field.attribute, "student__") or str.startswith(
+                field.attribute, "member__"
+            ):
                 continue
             if isinstance(field.widget, widgets.ManyToManyWidget):
                 continue
@@ -127,30 +146,34 @@ class PersonResource(resources.ModelResource):
                 errors[field.attribute] = ValidationError(force_text(e), code="invalid")
 
         # Student validation
-        obj.student.yearbook_permission = bool(data['student__yearbook_permission'])
-        obj.student.first_year = data['student__first_year']
-        obj.student.study = str(data['student__study'])
-        obj.student.student_number = str(data['student__student_number'])
-        obj.student.emergency_phone = str(data['student__emergency_phone'])
-        obj.student.emergency_name = str(data['student__emergency_name'])
+        obj.student.yearbook_permission = bool(data["student__yearbook_permission"])
+        obj.student.first_year = data["student__first_year"]
+        obj.student.study = str(data["student__study"])
+        obj.student.student_number = str(data["student__student_number"])
+        obj.student.emergency_phone = str(data["student__emergency_phone"])
+        obj.student.emergency_name = str(data["student__emergency_name"])
 
         try:
-            obj.student.full_clean(exclude='person')
+            obj.student.full_clean(exclude="person")
         except ValidationError as e:
             for key, value in e:
-                if key != 'person':
-                    errors["student__" + key] = ValidationError(force_text(value), code="invalid")
+                if key != "person":
+                    errors["student__" + key] = ValidationError(
+                        force_text(value), code="invalid"
+                    )
 
         # Member validation
-        obj.member.amount_paid = data['member__amount_paid']
+        obj.member.amount_paid = data["member__amount_paid"]
         obj.member.date_from = datetime.datetime.today()
 
         try:
-            obj.member.full_clean(exclude='person')
+            obj.member.full_clean(exclude="person")
         except ValidationError as e:
             for key, value in e:
-                if key != 'person':
-                    errors["member__" + key] = ValidationError(force_text(value), code="invalid")
+                if key != "person":
+                    errors["member__" + key] = ValidationError(
+                        force_text(value), code="invalid"
+                    )
 
         if errors:
             raise ValidationError(errors)
@@ -166,31 +189,103 @@ class PersonResource(resources.ModelResource):
     class Meta:
         model = Person
         use_transactions = True
-        fields = export_order = ('id', 'initials', 'firstname', 'preposition', 'surname', 'netid', 'student__student_number', 'street_name', 'house_number', 'postcode', 'city', 'country', 'email', 'phone_mobile', 'gender', 'birthdate', 'student__yearbook_permission', 'mail_announcements', 'mail_company', 'mail_education', 'machazine', 'student__first_year', 'student__study', 'student__emergency_phone', 'student__emergency_name', 'member__amount_paid')
+        fields = export_order = (
+            "id",
+            "initials",
+            "firstname",
+            "preposition",
+            "surname",
+            "netid",
+            "student__student_number",
+            "street_name",
+            "house_number",
+            "postcode",
+            "city",
+            "country",
+            "email",
+            "phone_mobile",
+            "gender",
+            "birthdate",
+            "student__yearbook_permission",
+            "mail_announcements",
+            "mail_company",
+            "mail_education",
+            "machazine",
+            "student__first_year",
+            "student__study",
+            "student__emergency_phone",
+            "student__emergency_name",
+            "member__amount_paid",
+        )
         skip_unchanged = True
 
 
 @admin.register(Person)
 class PersonAdmin(ImportExportVersionModelAdmin):
-    list_display = ('__str__', '_membership_status')
+    list_display = ("__str__", "_membership_status")
 
     resource_class = PersonResource
 
     form = PersonAdminForm
     fieldsets = [
-        (_('Name'), {'fields': ['titles', 'initials', 'firstname', 'preposition',
-                                'surname', 'postfix_titles']}),
-        (_('Address'), {'fields': ['street_name', 'house_number', 'postcode',
-                                   'address_2', 'address_3',
-                                   'city', 'country', 'email', 'living_with']}),
-        (_('Phone'), {'fields': ['phone_fixed', 'phone_mobile']}),
-        (_('Accounts'), {'fields': ['ldap_username', 'netid', 'linkedin_id', 'facebook_id']}),
-        (_('Other'), {'fields': ['gender', 'birthdate', 'deceased', 'comment']}),
-        (_('Subscriptions'), {'fields': ['machazine', 'board_invites', 'constitution_card',
-                                         'christmas_card', 'yearbook',
-                                         'mail_announcements', 'mail_company', 'mail_education']}),
+        (
+            _("Name"),
+            {
+                "fields": [
+                    "titles",
+                    "initials",
+                    "firstname",
+                    "preposition",
+                    "surname",
+                    "postfix_titles",
+                ]
+            },
+        ),
+        (
+            _("Address"),
+            {
+                "fields": [
+                    "street_name",
+                    "house_number",
+                    "postcode",
+                    "address_2",
+                    "address_3",
+                    "city",
+                    "country",
+                    "email",
+                    "living_with",
+                ]
+            },
+        ),
+        (_("Phone"), {"fields": ["phone_fixed", "phone_mobile"]}),
+        (
+            _("Accounts"),
+            {"fields": ["ldap_username", "netid", "linkedin_id", "facebook_id"]},
+        ),
+        (_("Other"), {"fields": ["gender", "birthdate", "deceased", "comment"]}),
+        (
+            _("Subscriptions"),
+            {
+                "fields": [
+                    "machazine",
+                    "board_invites",
+                    "constitution_card",
+                    "christmas_card",
+                    "yearbook",
+                    "mail_announcements",
+                    "mail_company",
+                    "mail_education",
+                ]
+            },
+        ),
     ]
-    inlines = [MemberInline, CommitteeMembershipInline, StudentInline, AlumnusInline, EmployeeInline]
+    inlines = [
+        MemberInline,
+        CommitteeMembershipInline,
+        StudentInline,
+        AlumnusInline,
+        EmployeeInline,
+    ]
 
     # Make sure we save inlines before saving Person - http://stackoverflow.com/a/29231611/2354734
     def save_model(self, request, obj, form, change):
@@ -207,14 +302,36 @@ class PersonAdmin(ImportExportVersionModelAdmin):
 @admin.register(Organization)
 class OrganizationAdmin(CompareVersionAdmin):
     fieldsets = [
-        (_('Base'), {'fields': ['name_prefix', 'name', 'name_short', 'salutation']}),
-        (_('Address'), {'fields': ['street_name', 'house_number', 'postcode',
-                                   'address_2', 'address_3',
-                                   'city', 'country', 'email']}),
-        (_('Phone'), {'fields': ['phone_fixed']}),
-        (_('Subscriptions'), {'fields': ['machazine', 'constitution_card', 'yearbook',
-                                         'christmas_card', 'board_invites']}),
-        (_('Other'), {'fields': ['comment']})
+        (_("Base"), {"fields": ["name_prefix", "name", "name_short", "salutation"]}),
+        (
+            _("Address"),
+            {
+                "fields": [
+                    "street_name",
+                    "house_number",
+                    "postcode",
+                    "address_2",
+                    "address_3",
+                    "city",
+                    "country",
+                    "email",
+                ]
+            },
+        ),
+        (_("Phone"), {"fields": ["phone_fixed"]}),
+        (
+            _("Subscriptions"),
+            {
+                "fields": [
+                    "machazine",
+                    "constitution_card",
+                    "yearbook",
+                    "christmas_card",
+                    "board_invites",
+                ]
+            },
+        ),
+        (_("Other"), {"fields": ["comment"]}),
     ]
 
 

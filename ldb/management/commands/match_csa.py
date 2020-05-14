@@ -12,24 +12,28 @@ from ldb.models import Student, MembershipStatus, Person, Member
 
 class Command(BaseCommand):
     def add_arguments(self, parser):
-        parser.add_argument('file')
+        parser.add_argument("file")
 
-        parser.add_argument('--yes-value',
-                            dest='yes-value',
-                            default='ja',
-                            help='Define which value is in the document when the CSa says the person is still a student')
-        parser.add_argument('--date',
-                            dest='date',
-                            default=None,
-                            help='Date on which CSa provided the document')
+        parser.add_argument(
+            "--yes-value",
+            dest="yes-value",
+            default="ja",
+            help="Define which value is in the document when the CSa says the person is still a student",
+        )
+        parser.add_argument(
+            "--date",
+            dest="date",
+            default=None,
+            help="Date on which CSa provided the document",
+        )
 
     def handle(self, *args, **options):
-        if options['date']:
-            date = datetime.datetime.strptime(options['date'], '%Y-%m-%d').date()
+        if options["date"]:
+            date = datetime.datetime.strptime(options["date"], "%Y-%m-%d").date()
         else:
             date = datetime.date.today()
 
-        with open(options['file']) as csvfile:
+        with open(options["file"]) as csvfile:
             reader = csv.reader(csvfile)
             for row in reader:
                 with transaction.atomic(), reversion.create_revision():
@@ -38,12 +42,16 @@ class Command(BaseCommand):
                     try:
                         student = Student.objects.get(student_number=student_number)
                     except Student.DoesNotExist:
-                        self.stderr.write("Failed to find student with student number '{}' in database".format(student_number))
+                        self.stderr.write(
+                            "Failed to find student with student number '{}' in database".format(
+                                student_number
+                            )
+                        )
                         continue
 
                     person = student.person
 
-                    if not row[1].lower() == options['yes-value'].lower():
+                    if not row[1].lower() == options["yes-value"].lower():
                         student.enrolled = False
                         student.save()
 
@@ -54,19 +62,30 @@ class Command(BaseCommand):
                             person.save()
                             continue
 
-                        if person.membership_status == MembershipStatus.NONE and member.date_to is None:
+                        if (
+                            person.membership_status == MembershipStatus.NONE
+                            and member.date_to is None
+                        ):
                             member.date_to = date
 
-                            message = 'Membership revoked. Student is either unknown or no longer a student according to CSa.'
+                            message = "Membership revoked. Student is either unknown or no longer a student according to CSa."
                             reversion.set_comment(message)
 
                             member.save()
 
-                            self.stdout.write("Student with student number '{}' is no longer active, membership ended.".format(student_number))
+                            self.stdout.write(
+                                "Student with student number '{}' is no longer active, membership ended.".format(
+                                    student_number
+                                )
+                            )
                     else:
-                        reversion.set_comment('Student confirmed by CSa')
+                        reversion.set_comment("Student confirmed by CSa")
                         student.date_verified = date
-                        self.stdout.write("Student with student number '{}' is still active".format(student_number))
+                        self.stdout.write(
+                            "Student with student number '{}' is still active".format(
+                                student_number
+                            )
+                        )
                         student.save()
 
                     # Person is saved so the reversion revision is made

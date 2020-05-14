@@ -9,12 +9,12 @@ register = template.Library()
 
 @register.simple_tag(takes_context=True)
 def group_by_description(context, items):
-    filter = context.get('filter')
+    filter = context.get("filter")
 
     if filter is not None:
-        value = filter.data.get('date', None)
+        value = filter.data.get("date", None)
         date = None
-        for format in formats.get_format('DATE_INPUT_FORMATS'):
+        for format in formats.get_format("DATE_INPUT_FORMATS"):
             try:
                 date = datetime.datetime.strptime(force_str(value), format).date()
             except (ValueError, TypeError):
