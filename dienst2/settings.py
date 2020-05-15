@@ -32,6 +32,8 @@ HAYSTACK_SIGNAL_PROCESSOR = "haystack.signals.RealtimeSignalProcessor"
 SECRET_KEY = env("SECRET_KEY")
 SESSION_ENGINE = env("SESSION_ENGINE", default="django.contrib.sessions.backends.db")
 EMAIL_HOST = env("EMAIL_HOST", default="")
+LDAP_HOST = "ldaps://ank.chnet"
+LDAP_USER_DN = "uid={},ou=People,dc=ank,dc=chnet"
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name

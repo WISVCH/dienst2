@@ -12,6 +12,7 @@ from django.utils.translation import ugettext_lazy as _
 from dienst2.extras import CharNullField
 from ldb.querysets import EntityQuerySet, PersonQuerySet
 from .country_field import CountryField
+from .validators import validate_ldap_username
 
 
 def get_attributes(self, attrs):
@@ -215,7 +216,12 @@ class Person(Entity):
     mail_education = models.BooleanField(_("education mailing"), default=True)
 
     ldap_username = CharNullField(
-        _("LDAP username"), max_length=64, blank=True, null=True, unique=True
+        _("LDAP username"),
+        max_length=64,
+        blank=True,
+        null=True,
+        unique=True,
+        validators=[validate_ldap_username],
     )
 
     # External Accounts
