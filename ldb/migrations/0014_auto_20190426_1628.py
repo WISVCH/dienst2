@@ -8,24 +8,32 @@ from django.db.models import F
 
 
 def update_merit_members_without_from_date(apps, _schema_editor):
-    member = apps.get_model('ldb', 'Member')
-    member.objects.filter(date_from__isnull=True, merit_date_from__isnull=False, honorary_date_from__isnull=True)\
-        .update(date_from=F('merit_date_from'))
+    member = apps.get_model("ldb", "Member")
+    member.objects.filter(
+        date_from__isnull=True,
+        merit_date_from__isnull=False,
+        honorary_date_from__isnull=True,
+    ).update(date_from=F("merit_date_from"))
 
 
 def update_honorary_members_without_from_date(apps, _schema_editor):
-    member = apps.get_model('ldb', 'Member')
-    member.objects.filter(date_from__isnull=True, honorary_date_from__isnull=False)\
-        .update(date_from=F('honorary_date_from'))
+    member = apps.get_model("ldb", "Member")
+    member.objects.filter(
+        date_from__isnull=True, honorary_date_from__isnull=False
+    ).update(date_from=F("honorary_date_from"))
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('ldb', '0013_auto_20170908_2246'),
+        ("ldb", "0013_auto_20170908_2246"),
     ]
 
     operations = [
-        migrations.RunPython(update_merit_members_without_from_date, migrations.RunPython.noop),
-        migrations.RunPython(update_honorary_members_without_from_date, migrations.RunPython.noop),
+        migrations.RunPython(
+            update_merit_members_without_from_date, migrations.RunPython.noop
+        ),
+        migrations.RunPython(
+            update_honorary_members_without_from_date, migrations.RunPython.noop
+        ),
     ]

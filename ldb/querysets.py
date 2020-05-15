@@ -14,4 +14,5 @@ class PersonQuerySet(EntityQuerySet):
 
     def members(self):
         from ldb.models import MembershipStatus
+
         return self.filter(_membership_status__gte=MembershipStatus.REGULAR)

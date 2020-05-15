@@ -33,8 +33,8 @@ class LDBHelperMixin(object):
         person = self.create_person(**combine(person_kwargs))
 
         member_defaults = {
-            'person': person,
-            'date_from': self.last_week,
+            "person": person,
+            "date_from": self.last_week,
         }
 
         person.member = Member.objects.create(**combine(member_defaults, member_kwargs))
@@ -43,56 +43,63 @@ class LDBHelperMixin(object):
         return self.get_person(person.pk)
 
     def create_donating_member(self, person_kwargs=None, member_kwargs=None):
-        member_defaults = {
-            'donating_member': True,
-            'date_to': self.next_week
-        }
+        member_defaults = {"donating_member": True, "date_to": self.next_week}
 
-        return self.create_current_member(person_kwargs, combine(member_defaults, member_kwargs))
+        return self.create_current_member(
+            person_kwargs, combine(member_defaults, member_kwargs)
+        )
 
-    def create_alumnus_member(self, person_kwargs=None, member_kwargs=None, alumnus_kwargs=None):
+    def create_alumnus_member(
+        self, person_kwargs=None, member_kwargs=None, alumnus_kwargs=None
+    ):
         person = self.create_current_member(person_kwargs, member_kwargs)
 
-        alumnus_defaults = {
-            'person': person
-        }
-        person.alumnus = Alumnus.objects.create(**combine(alumnus_defaults, alumnus_kwargs))
+        alumnus_defaults = {"person": person}
+        person.alumnus = Alumnus.objects.create(
+            **combine(alumnus_defaults, alumnus_kwargs)
+        )
         person.save()
 
         return person
 
-    def create_regular_member(self, person_kwargs=None, member_kwargs=None, student_kwargs=None):
+    def create_regular_member(
+        self, person_kwargs=None, member_kwargs=None, student_kwargs=None
+    ):
         person = self.create_current_member(person_kwargs, member_kwargs)
 
         student_defaults = {
-            'person': person,
-            'enrolled': True,
+            "person": person,
+            "enrolled": True,
         }
 
-        person.student = Student.objects.create(**combine(student_defaults, student_kwargs))
+        person.student = Student.objects.create(
+            **combine(student_defaults, student_kwargs)
+        )
         person.save()
 
         return person
 
     def create_associate_member(self, person_kwargs=None, member_kwargs=None):
         member_defaults = {
-            'associate_member': True,
-            'date_to': self.next_week,
+            "associate_member": True,
+            "date_to": self.next_week,
         }
 
-        return self.create_current_member(person_kwargs, combine(member_defaults, member_kwargs))
+        return self.create_current_member(
+            person_kwargs, combine(member_defaults, member_kwargs)
+        )
 
     def create_merit_member(self, person_kwargs=None, member_kwargs=None):
-        member_defaults = {
-            'merit_date_from': self.yesterday
-        }
-        return self.create_current_member(person_kwargs, combine(member_defaults, member_kwargs))
+        member_defaults = {"merit_date_from": self.yesterday}
+        return self.create_current_member(
+            person_kwargs, combine(member_defaults, member_kwargs)
+        )
 
     def create_honorary_member(self, person_kwargs=None, member_kwargs=None):
-        member_defaults = {
-            'honorary_date_from': self.yesterday
-        }
-        return self.create_current_member(person_kwargs, combine(member_defaults, member_kwargs))
+        member_defaults = {"honorary_date_from": self.yesterday}
+        return self.create_current_member(
+            person_kwargs, combine(member_defaults, member_kwargs)
+        )
 
     def get_person(self, pk):
         return Person.objects.get(pk=pk)

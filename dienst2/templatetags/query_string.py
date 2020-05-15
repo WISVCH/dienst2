@@ -1,10 +1,12 @@
 # As found on https://djangosnippets.org/snippets/2413/
 import re
-from django.template import Library, Node, TemplateSyntaxError
+
 from django.http import QueryDict
+from django.template import Library, Node, TemplateSyntaxError
 from django.utils.encoding import smart_str
 
 register = Library()
+
 
 @register.tag
 def query_string(parser, token):
@@ -56,7 +58,7 @@ def query_string(parser, token):
     mods = []
     asvar = None
     bits = bits[1:]
-    if len(bits) >= 2 and bits[-2] == 'as':
+    if len(bits) >= 2 and bits[-2] == "as":
         asvar = bits[-1]
         bits = bits[:-2]
     if len(bits) >= 1:
@@ -72,38 +74,42 @@ def query_string(parser, token):
         mods.append((name, op, parser.compile_filter(value)))
     return QueryStringNode(qdict, mods, asvar)
 
+
 class QueryStringNode(Node):
     def __init__(self, qdict, mods, asvar):
         self.qdict = qdict
         self.mods = mods
         self.asvar = asvar
+
     def render(self, context):
-        mods = [(smart_str(k, 'ascii'), op, v.resolve(context))
-                for k, op, v in self.mods]
+        mods = [
+            (smart_str(k, "ascii"), op, v.resolve(context)) for k, op, v in self.mods
+        ]
         if self.qdict:
             qdict = self.qdict.resolve(context)
         else:
             qdict = None
         # Internally work only with QueryDict
         qdict = self._get_initial_query_dict(qdict)
-        #assert isinstance(qdict, QueryDict)
+        # assert isinstance(qdict, QueryDict)
         for k, op, v in mods:
             qdict.setlist(k, self._process_list(qdict.getlist(k), op, v))
         qstring = qdict.urlencode()
         if qstring:
-            qstring = '?' + qstring
+            qstring = "?" + qstring
         if self.asvar:
             context[self.asvar] = qstring
-            return ''
+            return ""
         else:
             return qstring
+
     def _get_initial_query_dict(self, qdict):
         if not qdict:
             qdict = QueryDict(None, mutable=True)
         elif isinstance(qdict, QueryDict):
             qdict = qdict.copy()
         elif isinstance(qdict, str):
-            if qdict.startswith('?'):
+            if qdict.startswith("?"):
                 qdict = qdict[1:]
             qdict = QueryDict(qdict, mutable=True)
         else:
@@ -120,16 +126,17 @@ class QueryStringNode(Node):
                     # membership works for numbers.
                     if isinstance(v, (list, tuple)):
                         for e in v:
-                            qdict.appendlist(k,str(e))
+                            qdict.appendlist(k, str(e))
                     else:
                         qdict.appendlist(k, str(v))
             except:
                 # Wrong data structure, qdict remains empty.
                 pass
         return qdict
+
     def _process_list(self, current_list, op, val):
         if not val:
-            if op == '=':
+            if op == "=":
                 return []
             else:
                 return current_list
@@ -137,16 +144,16 @@ class QueryStringNode(Node):
         if not isinstance(val, (list, tuple)):
             val = [val]
         val = [str(v) for v in val]
-       # Remove
-        if op == '-':
+        # Remove
+        if op == "-":
             for v in val:
                 while v in current_list:
                     current_list.remove(v)
         # Replace
-        elif op == '=':
+        elif op == "=":
             current_list = val
         # Add
-        elif op == '+':
+        elif op == "+":
             for v in val:
                 current_list.append(v)
         return current_list
