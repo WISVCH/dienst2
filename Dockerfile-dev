@@ -1,4 +1,4 @@
-FROM python:3.7-stretch
+FROM python:3.8
 
 WORKDIR /srv
 ENTRYPOINT ["/srv/docker-entrypoint-dev.sh"]
@@ -6,7 +6,7 @@ CMD ["dev"]
 EXPOSE 8000
 
 RUN export DEBIAN_FRONTEND="noninteractive" && \
-    curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
+    curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
     curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
     echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list && \
     apt-get update && \

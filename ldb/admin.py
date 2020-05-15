@@ -2,16 +2,15 @@ from __future__ import unicode_literals
 
 import datetime
 
-from django.contrib import admin
 from django import forms
+from django.contrib import admin
 from django.db.models import Q
 from django.utils.encoding import force_text
-
-from ldb.ImportExportVersionModelAdmin import ImportExportVersionModelAdmin
-from import_export import fields, resources, widgets
 from django.utils.translation import ugettext_lazy as _
+from import_export import resources, widgets
 from reversion_compare.admin import CompareVersionAdmin
 
+from ldb.ImportExportVersionModelAdmin import ImportExportVersionModelAdmin
 from ldb.models import *
 
 
@@ -139,7 +138,7 @@ class PersonResource(resources.ModelResource):
             obj.student.full_clean(exclude='person')
         except ValidationError as e:
             for key, value in e:
-                if key is not 'person':
+                if key != 'person':
                     errors["student__" + key] = ValidationError(force_text(value), code="invalid")
 
         # Member validation
@@ -150,7 +149,7 @@ class PersonResource(resources.ModelResource):
             obj.member.full_clean(exclude='person')
         except ValidationError as e:
             for key, value in e:
-                if key is not 'person':
+                if key != 'person':
                     errors["member__" + key] = ValidationError(force_text(value), code="invalid")
 
         if errors:
