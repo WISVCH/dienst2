@@ -260,7 +260,15 @@ class PersonAdmin(ImportExportVersionModelAdmin):
         (_("Phone"), {"fields": ["phone_fixed", "phone_mobile"]}),
         (
             _("Accounts"),
-            {"fields": ["ldap_username", "netid", "linkedin_id", "facebook_id"]},
+            {
+                "fields": [
+                    "ldap_username",
+                    "email_forward",
+                    "netid",
+                    "linkedin_id",
+                    "facebook_id",
+                ]
+            },
         ),
         (_("Other"), {"fields": ["gender", "birthdate", "deceased", "comment"]}),
         (

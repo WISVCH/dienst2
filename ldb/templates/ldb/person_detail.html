@@ -1,4 +1,5 @@
 {% extends 'ldb/base.html' %}
+{% load i18n %}
 {% load ldb_tags %}
 
 {% block title %}{{ person }}{% endblock %}
@@ -103,17 +104,32 @@
         {% if person.ldap_username or person.netid or person.facebook_id or person.linkedin_id %}
           <fieldset>
             <legend>Accounts</legend>
-            {% if person.ldap_username and user|has_group:'userman2' %}
-              {% stcontrol_format person 'ldap_username' '<a href="https://userman2.ch.tudelft.nl/users/{0}">{0}</a>' %}
-            {% else %}
-              {% stcontrol person 'ldap_username' %}
+            {% if person.ldap_username %}
+              <div class="form-group">
+                <label class="col-sm-4 control-label">LDAP-gebruikersnaam</label>
+                <div class="col-sm-8">
+                  <p class="form-control-static">
+                    {% if user|has_group:'userman2' %}
+                      <a href="https://userman2.ch.tudelft.nl/users/{{ person.ldap_username }}">{{ person.ldap_username }}</a>
+                    {% else %}
+                      {{ person.ldap_username }}
+                    {% endif %}
+                    {% if person.email_forward %}
+                      <br/><small>
+                      {% blocktrans trimmed with username=person.ldap_username email=person.email %}
+                        E-mail to {{ username }}@ch.tudelft.nl is forwarded to {{ email }}.
+                      {% endblocktrans %}</small>
+                    {% endif %}
+                  </p>
+                </div>
+              </div>
             {% endif %}
             {% stcontrol person 'netid' %}
             {% if person.facebook_id %}
               {% stcontrol_format person 'facebook_id' '<a target="_blank" href="https://www.facebook.com/{0}">{0}</a>' %}
             {% endif %}
             {% if person.linkedin_id %}
-              {% stcontrol_format person 'linkedin_id' '<a target="_blank" href="http://www.linkedin.com/profile/view?id={0}">{0}</a>' %}
+              {% stcontrol_format person 'linkedin_id' '<a target="_blank" href="https://www.linkedin.com/profile/view?id={0}">{0}</a>' %}
             {% endif %}
           </fieldset>
         {% endif %}
