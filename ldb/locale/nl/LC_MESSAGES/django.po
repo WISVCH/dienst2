@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-27 12:01+0200\n"
+"POT-Creation-Date: 2020-05-26 21:32+0200\n"
 "Last-Translator: Sven van Hal <svenh@ch.tudelft.nl>\n"
 "Language-Team: Secretarissen b'vo\n"
 "Language: nl\n"
@@ -948,6 +948,9 @@ msgstr "bedrijvenmailing"
 msgid "LDAP username"
 msgstr "LDAP-gebruikersnaam"
 
+msgid "forward CH e-mail to Dienst2 e-mail"
+msgstr "stuur CH e-mail door naar Dienst2 e-mail"
+
 msgid "NetID"
 msgstr "NetID"
 
@@ -956,6 +959,15 @@ msgstr "LinkedIn ID"
 
 msgid "Facebook ID"
 msgstr "Facebook ID"
+
+msgid "LDAP username must be set to enable forwarding."
+msgstr "LDAP-gebruikersnaam moet zijn ingesteld om door te kunnen sturen."
+
+msgid "E-mail must be set to enable forwarding."
+msgstr "E-mail moet ingesteld zijn voor doorsturen."
+
+msgid "E-mail cannot be forwarded to a CH e-mail address."
+msgstr "E-mail kan niet worden doorgestuurd naar een CH e-mailadres."
 
 msgid "member"
 msgstr "lid"
@@ -1181,6 +1193,11 @@ msgstr "Nee"
 
 msgid "Are you sure that you would like to delete this person?"
 msgstr "Weet je zeker dat je deze persoon wilt verwijderen?"
+
+#, python-format
+msgid "E-mail to %(username)s@ch.tudelft.nl is forwarded to %(email)s."
+msgstr ""
+"E-mail naar %(username)s@ch.tudelft.nl wordt doorgestuurd naar %(email)s."
 
 msgid "Your search yielded no results"
 msgstr "Je zoekopdracht heeft geen resultaten opgeleverd"
