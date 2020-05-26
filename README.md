@@ -33,7 +33,8 @@ Please beware that these files should not be edited by hand, except for the tran
 For an example of translations in a file, please check [this file](ldb/templates/ldb/person_confirm_delete.html).
 
 ### With docker
-If you run your development environment using docker, the generation of the translation files is done using the following command: `docker-compose run django python manage.py makemessages -l nl -i venv` at the root of the project.
+If you run your development environment using docker, the generation of the translation files is done using the following command:
+`docker-compose run django python manage.py makemessages -l nl -i venv --no-location` at the root of the project.
 In this case we are generating the Dutch (nl) translation files.
 
 To compile the messages run `docker-compose run django python manage.py compilemessages -l nl`
