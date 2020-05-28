@@ -9,7 +9,6 @@ from django.urls import reverse
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
-from dienst2.extras import CharNullField
 from ldb.querysets import EntityQuerySet, PersonQuerySet
 from .country_field import CountryField
 from .validators import validate_ldap_username
@@ -216,7 +215,7 @@ class Person(Entity):
     mail_education = models.BooleanField(_("education mailing"), default=True)
 
     # Internal Account
-    ldap_username = CharNullField(
+    ldap_username = models.CharField(
         _("LDAP username"),
         max_length=64,
         blank=True,
@@ -229,11 +228,13 @@ class Person(Entity):
     )
 
     # External Accounts
-    netid = CharNullField(_("NetID"), max_length=64, blank=True, null=True, unique=True)
-    linkedin_id = CharNullField(
+    netid = models.CharField(
+        _("NetID"), max_length=64, blank=True, null=True, unique=True
+    )
+    linkedin_id = models.CharField(
         _("LinkedIn ID"), max_length=64, blank=True, null=True, unique=True
     )
-    facebook_id = CharNullField(
+    facebook_id = models.CharField(
         _("Facebook ID"), max_length=64, blank=True, null=True, unique=True
     )
 
@@ -537,7 +538,7 @@ class Student(models.Model):
     enrolled = models.BooleanField(_("enrolled"), default=True)
     study = models.CharField(_("study"), max_length=50)
     first_year = models.IntegerField(_("first year"), blank=True, null=True)
-    student_number = CharNullField(
+    student_number = models.CharField(
         _("student number"), max_length=7, blank=True, null=True, unique=True
     )
 

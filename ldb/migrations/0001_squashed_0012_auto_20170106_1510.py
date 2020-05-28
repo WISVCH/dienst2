@@ -11,21 +11,6 @@ import ldb.models
 
 
 class Migration(migrations.Migration):
-    replaces = [
-        ("ldb", "0001_initial"),
-        ("ldb", "0002_nulls"),
-        ("ldb", "0003_uniqueness"),
-        ("ldb", "0004_auto_20150611_1109"),
-        ("ldb", "0005_index_upper"),
-        ("ldb", "0006_gratuated_to_enrolled"),
-        ("ldb", "0007_person_membership_status"),
-        ("ldb", "0008_person_mail_educational"),
-        ("ldb", "0009_organization_blank_name_prefix"),
-        ("ldb", "0010_auto_20160612_2323"),
-        ("ldb", "0011_auto_20160914_1529"),
-        ("ldb", "0012_auto_20170106_1510"),
-    ]
-
     initial = True
 
     dependencies = []
