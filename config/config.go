@@ -16,6 +16,8 @@ type Config struct {
 	RedirectUrl     string `mapstructure:"redirecturl"`
 	AllowedLdap     string `mapstructure:"allowedldap"`
 	Domain     		string `mapstructure:"domain"`
+	DienstToken 	string `mapstructure:"diensttoken"`
+	DienstApiUrl 	string `mapstructure:"dienstapiurl"`
 }
 
 func (c Config) DatabaseConnectionString() string {
