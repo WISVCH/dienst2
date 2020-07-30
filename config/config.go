@@ -15,6 +15,7 @@ type Config struct {
 	ClientSecret    string `mapstructure:"clientsecret"`
 	RedirectUrl     string `mapstructure:"redirecturl"`
 	AllowedLdap     string `mapstructure:"allowedldap"`
+	Domain     		string `mapstructure:"domain"`
 }
 
 func (c Config) DatabaseConnectionString() string {

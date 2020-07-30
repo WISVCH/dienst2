@@ -14,8 +14,8 @@ func registerPublicRoutes(router *gin.RouterGroup, i entities.HandlerInteractor)
 
 func registerAdminRoutes(router *gin.RouterGroup, i entities.HandlerInteractor) {
 	i.RegisterDefaultMiddleware(router)
+	router.Use(auth.ConnectMiddleware())
 	router.GET("/formlist", handlers.Formlist(i))
-	//router.Use(auth.ConnectMiddleware())
 }
 
 func registerApiRoutes(router *gin.RouterGroup, i entities.HandlerInteractor) {
@@ -25,6 +25,7 @@ func registerApiRoutes(router *gin.RouterGroup, i entities.HandlerInteractor) {
 
 func registerAuthRoutes(router *gin.RouterGroup, i entities.HandlerInteractor) {
 	i.RegisterDefaultMiddleware(router)
-	router.GET("/connect/callback", auth.CallbackController())
+	router.GET("/connect/callback", auth.CallbackController(i))
 	router.GET("/connect/login", auth.LoginController())
+	router.GET("/connect/logout", auth.LogOutController(i))
 }

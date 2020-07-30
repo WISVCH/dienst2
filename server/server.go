@@ -28,6 +28,7 @@ func Start(c config.Config) error {
 	handlerInteractor := entities.HandlerInteractor{
 		DB:                        db,
 		RegisterDefaultMiddleware: getDefaultMiddleware(),
+		ApplicationUrl: c.Domain,
 	}
 	auth.Connect(c.ConnectUrl, c.ConnectClientId, c.ClientSecret, c.RedirectUrl, c.AllowedLdap)
 	server := newServer(c.ServerPort, c.IsDevMode, handlerInteractor)

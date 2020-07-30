@@ -2,6 +2,8 @@ package auth
 
 import (
 	"context"
+	"fmt"
+	"github.com/WISVCH/member-registration/entities"
 	"github.com/coreos/go-oidc"
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
@@ -43,20 +45,22 @@ func Connect(URL, clientID, clientSecret, redirectURL, group string) {
 
 func ConnectMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		authHeader := c.GetHeader("authorization")
-		auth := strings.Split(authHeader, " ")
+		authHeader, err := c.Cookie("authorization")
+		if err == nil {
+			auth := strings.Split(authHeader, " ")
 
-		if len(auth) != 2 || auth[0] != "Bearer" {
-			log.Errorf("Wrong authorization header, was %s", authHeader)
-			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
-				"errorMessage": "Incorrect authorization header",
-			})
-			return
-		}
+			if len(auth) != 2 || auth[0] != "Bearer" {
+				log.Errorf("Wrong authorization header, was %s", authHeader)
+				c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
+					"errorMessage": "Incorrect authorization header",
+				})
+				return
+			}
 
-		if checkAuth(auth[1]) {
-			c.Next()
-			return
+			if checkAuth(auth[1]) {
+				c.Next()
+				return
+			}
 		}
 
 		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
@@ -67,12 +71,17 @@ func ConnectMiddleware() gin.HandlerFunc {
 
 func LoginController() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		// change to hash of the session or some other sort unique session identifiable data for the user to avoid csrf attacks
 		c.Redirect(http.StatusFound, connectConfig.AuthCodeURL("login"))
 	}
 }
 
-func CallbackController() gin.HandlerFunc {
+func LogOutController(i entities.HandlerInteractor) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		c.SetCookie("authorization", "", 0, "/", i.ApplicationUrl, false, true)
+	}
+}
+
+func CallbackController(i entities.HandlerInteractor) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		token, err := connectConfig.Exchange(context.TODO(), c.Query("code"))
 		if err != nil {
@@ -87,6 +96,7 @@ func CallbackController() gin.HandlerFunc {
 		}
 
 		if checkAuth(rawIDToken) {
+			c.SetCookie("authorization", fmt.Sprintf("Bearer %s", rawIDToken),60*60*24,"/", i.ApplicationUrl,false, true)
 			c.JSON(http.StatusOK, gin.H{
 				"token": rawIDToken,
 			})
