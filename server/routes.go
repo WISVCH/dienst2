@@ -17,7 +17,7 @@ func registerAdminRoutes(router *gin.RouterGroup, i entities.HandlerInteractor, 
 	i.RegisterDefaultMiddleware(router)
 	router.Use(auth.ConnectMiddleware())
 	router.GET("/formlist", handlers.Formlist(i))
-	router.POST("/submit/form/", handlers.SubmitForm(i, c))
+	router.GET("/submit/form", handlers.SubmitForm(i, c))
 }
 
 func registerApiRoutes(router *gin.RouterGroup, i entities.HandlerInteractor) {
