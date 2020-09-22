@@ -42,7 +42,7 @@ class Entity(models.Model):
 
     # Subscriptions
     machazine = models.BooleanField(_("MaCHazine"), default=True)
-    board_invites = models.BooleanField(_("board invites"), default=False)
+    board_invites = models.BooleanField(_("board invites"), default=False, help_text="Uitnodigingen ontvangen voor bestuursactiviteiten")
     constitution_card = models.BooleanField(_("constitution card"), default=False)
     christmas_card = models.BooleanField(_("Christmas card"), default=True)
     yearbook = models.BooleanField(_("yearbook"), default=False)
