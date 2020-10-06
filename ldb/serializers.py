@@ -29,25 +29,25 @@ class MemberSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Member
-        exclude = ("merit_history", "associate_member", "donating_member")
+        exclude = ("merit_history", "associate_member", "donating_member", "person")
 
 
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
-        fields = "__all__"
+        exclude = ["person"]
 
 
 class AlumnusSerializer(serializers.ModelSerializer):
     class Meta:
         model = Alumnus
-        fields = "__all__"
+        exclude = ["person"]
 
 
 class EmployeeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Employee
-        fields = "__all__"
+        exclude = ["person"]
 
 
 class CommitteeMembershipSerializer(serializers.ModelSerializer):
@@ -103,6 +103,22 @@ class PersonSerializer(EntitySerializer):
     class Meta:
         model = Person
         exclude = ("comment", "_membership_status")
+
+    def create(self, validated_data):
+        # create employee entry
+        employee_data = validated_data.pop("employee")
+        alumnus_data = validated_data.pop("alumnus")
+        member_data = validated_data.pop("member")
+        student_data = validated_data.pop("student")
+
+        person = Person.objects.create(**validated_data)
+
+        Employee.objects.create(person=person, **employee_data)
+        Alumnus.objects.create(person=person, **alumnus_data)
+        Member.objects.create(person=person, **member_data)
+        Student.objects.create(person=person, **student_data)
+
+        return person
 
 
 class OrganizationSerializer(EntitySerializer):
