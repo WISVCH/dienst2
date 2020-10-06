@@ -42,7 +42,7 @@ class Migration(migrations.Migration):
                     ),
                 ),
             ],
-            options={"verbose_name": "contact", "verbose_name_plural": "contacts",},
+            options={"verbose_name": "contact", "verbose_name_plural": "contacts"},
         ),
         migrations.CreateModel(
             name="Category",
@@ -66,7 +66,7 @@ class Migration(migrations.Migration):
                     models.BooleanField(default=False, verbose_name="counting"),
                 ),
             ],
-            options={"verbose_name": "category", "verbose_name_plural": "categories",},
+            options={"verbose_name": "category", "verbose_name_plural": "categories"},
         ),
         migrations.CreateModel(
             name="Item",

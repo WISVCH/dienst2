@@ -7,17 +7,17 @@ from ldb.tests.helpers import LDBHelperMixin
 
 class MembershipStatusTestCase(LDBHelperMixin, TestCase):
     def test_deceased(self):
-        person = self.create_current_member(person_kwargs={"deceased": True},)
+        person = self.create_current_member(person_kwargs={"deceased": True})
         member = self.get_member(person.pk)
         self.assertFalse(member.current_member, "deceased=True")
 
     def test_date_to_yesterday(self):
-        person = self.create_current_member(member_kwargs={"date_to": self.yesterday},)
+        person = self.create_current_member(member_kwargs={"date_to": self.yesterday})
         member = self.get_member(person.pk)
         self.assertFalse(member.current_member, "member.date_to=yesterday")
 
     def test_date_to_tomorrow(self):
-        person = self.create_current_member(member_kwargs={"date_to": self.tomorrow},)
+        person = self.create_current_member(member_kwargs={"date_to": self.tomorrow})
         member = self.get_member(person.pk)
         self.assertTrue(member.current_member, "member.date_to=tomorrow")
 
@@ -59,7 +59,7 @@ class MembershipStatusTestCase(LDBHelperMixin, TestCase):
         )
 
     def test_no_longer_student(self):
-        person = self.create_regular_member(student_kwargs={"enrolled": False},)
+        person = self.create_regular_member(student_kwargs={"enrolled": False})
         self.assertEqual(
             person.membership_status, MembershipStatus.NONE, "student.enrolled=False"
         )

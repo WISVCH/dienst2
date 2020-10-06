@@ -29,11 +29,7 @@ class MemberSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Member
-        exclude = (
-            "merit_history",
-            "associate_member",
-            "donating_member",
-        )
+        exclude = ("merit_history", "associate_member", "donating_member")
 
 
 class StudentSerializer(serializers.ModelSerializer):
