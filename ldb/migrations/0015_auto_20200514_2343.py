@@ -7,9 +7,7 @@ import ldb.validators
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ("ldb", "0014_auto_20190426_1628"),
-    ]
+    dependencies = [("ldb", "0014_auto_20190426_1628")]
 
     operations = [
         migrations.AlterField(
@@ -23,5 +21,5 @@ class Migration(migrations.Migration):
                 validators=[ldb.validators.validate_ldap_username],
                 verbose_name="LDAP username",
             ),
-        ),
+        )
     ]

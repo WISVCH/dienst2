@@ -127,9 +127,7 @@ class PersonEditView(SingleObjectMixin, TemplateView):
         kwargs = {}
 
         if self.request.method in ("POST", "PUT"):
-            kwargs.update(
-                {"data": self.request.POST, "files": self.request.FILES,}
-            )
+            kwargs.update({"data": self.request.POST, "files": self.request.FILES})
 
         if hasattr(self, "object"):
             kwargs.update({"instance": self.object})

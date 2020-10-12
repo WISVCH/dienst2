@@ -16,17 +16,11 @@ ALLOWED_HOSTS = "*"
 INTERNAL_IPS = env.list("INTERNAL_IPS", default="")
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
-DATABASES = {
-    "default": env.db(),
-}
+DATABASES = {"default": env.db()}
 
-CACHES = {
-    "default": env.cache(),
-}
+CACHES = {"default": env.cache()}
 
-HAYSTACK_CONNECTIONS = {
-    "default": env.search_url(),
-}
+HAYSTACK_CONNECTIONS = {"default": env.search_url()}
 HAYSTACK_SIGNAL_PROCESSOR = "haystack.signals.RealtimeSignalProcessor"
 
 SECRET_KEY = env("SECRET_KEY")
@@ -101,7 +95,7 @@ TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "APP_DIRS": True,
-        "DIRS": [os.path.join(os.path.dirname(__file__), "templates"),],
+        "DIRS": [os.path.join(os.path.dirname(__file__), "templates")],
         "OPTIONS": {
             "context_processors": [
                 "django.template.context_processors.debug",
@@ -110,7 +104,7 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
             ]
         },
-    },
+    }
 ]
 
 MIDDLEWARE = (
@@ -202,34 +196,24 @@ LOGGING = {
     "formatters": {
         "simple": {
             "format": "%(asctime)s %(levelname)s %(name)s.%(funcName)s:%(lineno)s %(message)s"
-        },
+        }
     },
-    "handlers": {
-        "console": {"class": "logging.StreamHandler", "formatter": "simple",},
-    },
+    "handlers": {"console": {"class": "logging.StreamHandler", "formatter": "simple"}},
     "loggers": {
-        "dienst2": {"handlers": ["console"], "level": "INFO", "propagate": True,},
-        "kas": {"handlers": ["console"], "level": "INFO", "propagate": True,},
-        "ldb": {"handlers": ["console"], "level": "INFO", "propagate": True,},
-        "post": {"handlers": ["console"], "level": "INFO", "propagate": True,},
-        "django": {"handlers": ["console"], "level": "INFO", "propagate": True,},
-        "django.request": {
-            "handlers": ["console"],
-            "level": "INFO",
-            "propagate": True,
-        },
+        "dienst2": {"handlers": ["console"], "level": "INFO", "propagate": True},
+        "kas": {"handlers": ["console"], "level": "INFO", "propagate": True},
+        "ldb": {"handlers": ["console"], "level": "INFO", "propagate": True},
+        "post": {"handlers": ["console"], "level": "INFO", "propagate": True},
+        "django": {"handlers": ["console"], "level": "INFO", "propagate": True},
+        "django.request": {"handlers": ["console"], "level": "INFO", "propagate": True},
         "django.security": {
             "handlers": ["console"],
             "level": "INFO",
             "propagate": True,
         },
-        "health-check": {"handlers": ["console"], "level": "INFO", "propagate": True,},
-        "health_check": {"handlers": ["console"], "level": "INFO", "propagate": True,},
-        "rest_framework": {
-            "handlers": ["console"],
-            "level": "INFO",
-            "propagate": True,
-        },
+        "health-check": {"handlers": ["console"], "level": "INFO", "propagate": True},
+        "health_check": {"handlers": ["console"], "level": "INFO", "propagate": True},
+        "rest_framework": {"handlers": ["console"], "level": "INFO", "propagate": True},
     },
 }
 

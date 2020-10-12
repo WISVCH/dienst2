@@ -2,9 +2,7 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-    dependencies = [
-        ("ldb", "0016_person_email_forward"),
-    ]
+    dependencies = [("ldb", "0016_person_email_forward")]
 
     operations = [
         migrations.RunSQL(

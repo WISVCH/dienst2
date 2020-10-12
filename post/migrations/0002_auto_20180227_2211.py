@@ -8,9 +8,7 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ("post", "0001_squashed_0005_auto_20160612_2323"),
-    ]
+    dependencies = [("post", "0001_squashed_0005_auto_20160612_2323")]
 
     operations = [
         migrations.AlterField(

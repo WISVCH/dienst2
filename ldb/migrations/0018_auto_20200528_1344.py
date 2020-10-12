@@ -6,9 +6,7 @@ import ldb.validators
 
 
 class Migration(migrations.Migration):
-    dependencies = [
-        ("ldb", "0017_email_forward_view"),
-    ]
+    dependencies = [("ldb", "0017_email_forward_view")]
 
     operations = [
         migrations.AlterField(
