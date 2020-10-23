@@ -7,9 +7,7 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ("ldb", "0001_squashed_0012_auto_20170106_1510"),
-    ]
+    dependencies = [("ldb", "0001_squashed_0012_auto_20170106_1510")]
 
     operations = [
         migrations.AddField(
@@ -27,6 +25,6 @@ class Migration(migrations.Migration):
             ),
         ),
         migrations.RenameField(
-            model_name="student", old_name="phone_parents", new_name="emergency_phone",
+            model_name="student", old_name="phone_parents", new_name="emergency_phone"
         ),
     ]

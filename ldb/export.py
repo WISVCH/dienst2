@@ -114,10 +114,7 @@ class Export(APIView):
     renderer_classes = (TemplateHTMLRenderer, CSVRenderer)
 
     def get(self, request):
-        data = {
-            "title": "Ledendatabase",
-            "ng_app": "ldb",
-        }
+        data = {"title": "Ledendatabase", "ng_app": "ldb"}
         return Response(data, template_name="ldb/export.html")
 
     # Fields

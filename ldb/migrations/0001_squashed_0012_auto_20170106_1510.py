@@ -34,7 +34,7 @@ class Migration(migrations.Migration):
                     models.TextField(blank=True, verbose_name="description"),
                 ),
             ],
-            options={"verbose_name": "committee", "verbose_name_plural": "committees",},
+            options={"verbose_name": "committee", "verbose_name_plural": "committees"},
         ),
         migrations.CreateModel(
             name="CommitteeMembership",
@@ -413,7 +413,7 @@ class Migration(migrations.Migration):
                 ),
                 ("comment", models.TextField(blank=True)),
             ],
-            options={"verbose_name": "entity", "verbose_name_plural": "entities",},
+            options={"verbose_name": "entity", "verbose_name_plural": "entities"},
         ),
         migrations.CreateModel(
             name="Modification",
@@ -567,7 +567,7 @@ class Migration(migrations.Migration):
                     ),
                 ),
             ],
-            options={"verbose_name": "person", "verbose_name_plural": "people",},
+            options={"verbose_name": "person", "verbose_name_plural": "people"},
             bases=("ldb.entity",),
         ),
         migrations.CreateModel(
@@ -640,7 +640,7 @@ class Migration(migrations.Migration):
                     ),
                 ),
             ],
-            options={"verbose_name": "alumnus", "verbose_name_plural": "alumni",},
+            options={"verbose_name": "alumnus", "verbose_name_plural": "alumni"},
         ),
         migrations.CreateModel(
             name="Employee",
@@ -665,7 +665,7 @@ class Migration(migrations.Migration):
                     models.CharField(max_length=5, verbose_name="phone internal"),
                 ),
             ],
-            options={"verbose_name": "employee", "verbose_name_plural": "employees",},
+            options={"verbose_name": "employee", "verbose_name_plural": "employees"},
         ),
         migrations.CreateModel(
             name="Member",
@@ -728,7 +728,7 @@ class Migration(migrations.Migration):
                     ),
                 ),
             ],
-            options={"verbose_name": "member", "verbose_name_plural": "members",},
+            options={"verbose_name": "member", "verbose_name_plural": "members"},
         ),
         migrations.CreateModel(
             name="Student",
@@ -781,7 +781,7 @@ class Migration(migrations.Migration):
                     ),
                 ),
             ],
-            options={"verbose_name": "student", "verbose_name_plural": "students",},
+            options={"verbose_name": "student", "verbose_name_plural": "students"},
         ),
         migrations.AddField(
             model_name="person",
@@ -843,17 +843,17 @@ class Migration(migrations.Migration):
             ),
         ),
         migrations.RunSQL(
-            sql="UPDATE ldb_person SET ldap_username = NULL WHERE ldap_username = '';",
+            sql="UPDATE ldb_person SET ldap_username = NULL WHERE ldap_username = '';"
         ),
         migrations.RunSQL(
-            sql="UPDATE ldb_person SET linkedin_id = NULL WHERE linkedin_id = '';",
+            sql="UPDATE ldb_person SET linkedin_id = NULL WHERE linkedin_id = '';"
         ),
-        migrations.RunSQL(sql="UPDATE ldb_person SET netid = NULL WHERE netid = '';",),
+        migrations.RunSQL(sql="UPDATE ldb_person SET netid = NULL WHERE netid = '';"),
         migrations.RunSQL(
-            sql="UPDATE ldb_person SET facebook_id = NULL WHERE facebook_id = '';",
+            sql="UPDATE ldb_person SET facebook_id = NULL WHERE facebook_id = '';"
         ),
         migrations.RunSQL(
-            sql="UPDATE ldb_student SET student_number = NULL WHERE student_number = '' OR student_number = '0';",
+            sql="UPDATE ldb_student SET student_number = NULL WHERE student_number = '' OR student_number = '0';"
         ),
         migrations.AlterField(
             model_name="person",
@@ -916,20 +916,20 @@ class Migration(migrations.Migration):
             ),
         ),
         migrations.RunSQL(
-            sql="CREATE INDEX ldb_person_ldap_username_upper ON ldb_person (UPPER(ldap_username));",
+            sql="CREATE INDEX ldb_person_ldap_username_upper ON ldb_person (UPPER(ldap_username));"
         ),
         migrations.RunSQL(
-            sql="CREATE INDEX ldb_person_netid_upper ON ldb_person (UPPER(netid));",
+            sql="CREATE INDEX ldb_person_netid_upper ON ldb_person (UPPER(netid));"
         ),
         migrations.RenameField(
-            model_name="student", old_name="graduated", new_name="enrolled",
+            model_name="student", old_name="graduated", new_name="enrolled"
         ),
         migrations.AlterField(
             model_name="student",
             name="enrolled",
             field=models.BooleanField(default=True, verbose_name="enrolled"),
         ),
-        migrations.RunSQL(sql="UPDATE ldb_student SET enrolled = NOT enrolled;",),
+        migrations.RunSQL(sql="UPDATE ldb_student SET enrolled = NOT enrolled;"),
         migrations.AddField(
             model_name="person",
             name="_membership_status",

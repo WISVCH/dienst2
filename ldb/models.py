@@ -178,10 +178,7 @@ class Person(Entity):
         verbose_name = _("person")
         verbose_name_plural = _("people")
 
-    GENDER_CHOICES = (
-        ("M", _("Male")),
-        ("F", _("Female")),
-    )
+    GENDER_CHOICES = (("M", _("Male")), ("F", _("Female")))
 
     # Name
     titles = models.CharField(_("titles"), max_length=20, blank=True)
@@ -224,7 +221,7 @@ class Person(Entity):
         validators=[validate_ldap_username],
     )
     email_forward = models.BooleanField(
-        _("forward CH e-mail to Dienst2 e-mail"), default=False,
+        _("forward CH e-mail to Dienst2 e-mail"), default=False
     )
 
     # External Accounts
@@ -553,10 +550,7 @@ class Student(models.Model):
         return "%s %s" % (self.student_number, str(self.person))
 
 
-CONTACT_METHOD_CHOICES = (
-    ("m", "Mail"),
-    ("e", "Email"),
-)
+CONTACT_METHOD_CHOICES = (("m", "Mail"), ("e", "Email"))
 
 
 @python_2_unicode_compatible

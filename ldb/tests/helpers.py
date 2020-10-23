@@ -32,10 +32,7 @@ class LDBHelperMixin(object):
     def create_current_member(self, person_kwargs=None, member_kwargs=None):
         person = self.create_person(**combine(person_kwargs))
 
-        member_defaults = {
-            "person": person,
-            "date_from": self.last_week,
-        }
+        member_defaults = {"person": person, "date_from": self.last_week}
 
         person.member = Member.objects.create(**combine(member_defaults, member_kwargs))
         person.save()
@@ -67,10 +64,7 @@ class LDBHelperMixin(object):
     ):
         person = self.create_current_member(person_kwargs, member_kwargs)
 
-        student_defaults = {
-            "person": person,
-            "enrolled": True,
-        }
+        student_defaults = {"person": person, "enrolled": True}
 
         person.student = Student.objects.create(
             **combine(student_defaults, student_kwargs)
@@ -80,10 +74,7 @@ class LDBHelperMixin(object):
         return person
 
     def create_associate_member(self, person_kwargs=None, member_kwargs=None):
-        member_defaults = {
-            "associate_member": True,
-            "date_to": self.next_week,
-        }
+        member_defaults = {"associate_member": True, "date_to": self.next_week}
 
         return self.create_current_member(
             person_kwargs, combine(member_defaults, member_kwargs)

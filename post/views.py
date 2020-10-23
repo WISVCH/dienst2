@@ -31,9 +31,7 @@ class ItemListView(FormMixin, FilterView):
 
     def get_filterset_kwargs(self, filterset_class):
         kwargs = super(ItemListView, self).get_filterset_kwargs(filterset_class)
-        kwargs.update(
-            {"prefix": "filter",}
-        )
+        kwargs.update({"prefix": "filter"})
 
         return kwargs
 

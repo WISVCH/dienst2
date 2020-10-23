@@ -5,9 +5,7 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ("ldb", "0015_auto_20200514_2343"),
-    ]
+    dependencies = [("ldb", "0015_auto_20200514_2343")]
 
     operations = [
         migrations.AddField(
@@ -16,5 +14,5 @@ class Migration(migrations.Migration):
             field=models.BooleanField(
                 default=False, verbose_name="forward CH e-mail to Dienst2 e-mail"
             ),
-        ),
+        )
     ]

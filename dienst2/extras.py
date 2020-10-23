@@ -34,11 +34,7 @@ class CharNullField(models.CharField):  # subclass the CharField
             return value
 
 
-SEARCH_FORMATS = {
-    "default": "*{}*",
-    "start": "{}*",
-    "exact": "{}",
-}
+SEARCH_FORMATS = {"default": "*{}*", "start": "{}*", "exact": "{}"}
 
 
 def convert_free_search(string, mod="default"):

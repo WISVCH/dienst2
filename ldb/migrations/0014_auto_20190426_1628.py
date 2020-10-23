@@ -25,9 +25,7 @@ def update_honorary_members_without_from_date(apps, _schema_editor):
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ("ldb", "0013_auto_20170908_2246"),
-    ]
+    dependencies = [("ldb", "0013_auto_20170908_2246")]
 
     operations = [
         migrations.RunPython(
