@@ -165,7 +165,9 @@ class PersonResource(resources.ModelResource):
         # Member validation
         obj.member.amount_paid = data["member__amount_paid"]
         obj.member.date_from = datetime.datetime.today()
-        obj.member.date_to = datetime.datetime.strptime(data["member__date_to"], "%m/%d/%Y")
+        obj.member.date_to = datetime.datetime.strptime(
+            data["member__date_to"], "%m/%d/%Y"
+        )
 
         try:
             obj.member.full_clean(exclude="person")
@@ -217,7 +219,7 @@ class PersonResource(resources.ModelResource):
             "student__emergency_phone",
             "student__emergency_name",
             "member__amount_paid",
-            "member__date_to"
+            "member__date_to",
         )
         skip_unchanged = True
 
