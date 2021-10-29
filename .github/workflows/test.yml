@@ -1,0 +1,14 @@
+name: Test
+on:
+  push:
+jobs:
+  runTests:
+    name: Run Django Tests
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
+    - name: Run Tests
+      run: docker-compose run django python manage.py test
