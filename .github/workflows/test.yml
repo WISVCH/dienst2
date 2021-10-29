@@ -5,10 +5,21 @@ jobs:
   runTests:
     name: Run Django Tests
     runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_USER=dienst2
+          POSTGRES_HOST_AUTH_METHOD=trust
+        ports:
+          - 5432:5432
     steps:
     - name: Checkout code
       uses: actions/checkout@v1
       with:
         fetch-depth: 1
+    - name: Create database
+      run: psql -c "CREATE DATABASE dienst2;" -U postgres  
     - name: Run Tests
       run: docker-compose run django python manage.py test
