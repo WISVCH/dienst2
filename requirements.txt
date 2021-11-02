@@ -19,7 +19,7 @@ tablib==0.13.0
 gunicorn
 markdown==3.0.1
 mozilla-django-oidc==1.2.0
-psycopg2-binary
+psycopg2-binary==2.8.6
 python-dateutil==2.7.5
 python-memcached==1.59
 python-mimeparse==1.6.0
