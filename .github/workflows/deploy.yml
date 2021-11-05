@@ -50,7 +50,7 @@ jobs:
       id: meta
       uses: docker/metadata-action@v3
       with:
-        image: |
+        images: |
           wisvch/dienst2
         tags: |
           type=ref, event=branch
