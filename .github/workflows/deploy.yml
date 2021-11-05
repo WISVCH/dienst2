@@ -46,14 +46,25 @@ jobs:
       run: python manage.py migrate
     - name: Run tests
       run: python manage.py test
+    - name: Docker meta
+      id: meta
+      uses: docker/metadata-action@v3
+      with:
+        image: |
+          wisvch/dienst2
+        tags: |
+          type=ref, event=branch
+          type=ref, event=pr
+          type=semver,pattern={{version}}
+          type=sha
+    - name: Login to Docker
+      uses: docker/login-action@v1
+      with: 
+        username: ${{ secrets.QUAY_USERNAME }}
+        password: ${{ secrets.QUAY_PASSWORD }}
     - name: Deploy to Quay
       uses: docker/build-push-action@v2
       with:
-        username: ${{ secrets.QUAY_USERNAME }}
-        password: ${{ secrets.QUAY_PASSWORD }}
-        registry: quay.io
-        repository: wisvch/dienst2
-        tag_with_ref: true
-        tag_with_sha: true
-        add_git_labels: true
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
         push: ${{ github.ref == 'refs/heads/master' }}
