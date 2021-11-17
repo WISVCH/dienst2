@@ -1,7 +1,6 @@
 from __future__ import unicode_literals
 
 import datetime
-import math
 
 from django import forms
 from django.contrib import admin
@@ -166,10 +165,6 @@ class PersonResource(resources.ModelResource):
         # Member validation
         obj.member.amount_paid = data["member__amount_paid"]
         obj.member.date_from = datetime.datetime.today()
-        obj.member.date_to = datetime.datetime.today().replace(
-            year=datetime.datetime.today().year
-            + math.ceil(data["member__amount_paid"] / 5)
-        )
 
         try:
             obj.member.full_clean(exclude="person")
