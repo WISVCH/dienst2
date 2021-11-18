@@ -17,7 +17,7 @@ COPY . /srv
 COPY --from=node /src/dienst2/static/lib /srv/dienst2/static/lib
 RUN export DEBIAN_FRONTEND="noninteractive" && \
     apt-get update && \
-    apt-get install -y --no-install-recommends libldap2-dev libsasl2-dev && \
+    apt-get install -y --no-install-recommends libldap-common libldap2-dev libsasl2-dev && \
     pip install --no-cache-dir -r requirements.txt && \
     apt-get purge -y libldap2-dev libsasl2-dev && \
     apt-get autoremove -y && \
