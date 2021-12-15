@@ -1,6 +1,5 @@
 name: "Code scanning"
 on:
-  push:
   pull_request:
   workflow_dispatch:
   schedule:
