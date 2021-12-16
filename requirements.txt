@@ -1,7 +1,7 @@
 ddtrace
 diff-match-patch==20181111
 django-bootstrap3==11.0.0
-django-debug-toolbar==1.11
+django-debug-toolbar==1.11.1
 django-enumfield==1.5
 django-environ==0.4.5
 django-filter==2.0.0
