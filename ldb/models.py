@@ -178,7 +178,12 @@ class Person(Entity):
         verbose_name = _("person")
         verbose_name_plural = _("people")
 
-    GENDER_CHOICES = (("M", _("Male")), ("F", _("Female")), ("NB", _("Non-binary")), ("O", _("Other")))
+    GENDER_CHOICES = (
+        ("M", _("Male")),
+        ("F", _("Female")),
+        ("NB", _("Non-binary")),
+        ("O", _("Other")),
+    )
 
     # Name
     titles = models.CharField(_("titles"), max_length=20, blank=True)
