@@ -46,9 +46,7 @@
                 {{ person.preposition }}
                 {{ person.surname }}{% if person.postfix_titles %}, {{ person.postfix_titles }}
                 {% endif %}
-                {% if person.gender %}
-                  {{ person.gender_symbol }}
-                {% endif %}
+                {{ person.gender }}
               </p>
             </div>
           </div>

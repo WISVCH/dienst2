@@ -312,15 +312,6 @@ class Person(Entity):
         )
 
     @property
-    def gender_symbol(self):
-        if self.gender == "M":
-            return "♂"
-        elif self.gender == "F":
-            return "♀"
-        else:
-            return
-
-    @property
     def age(self):
         born = self.birthdate
         today = date.today()
