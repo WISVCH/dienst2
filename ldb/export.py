@@ -324,16 +324,10 @@ class Export(APIView):
                         if doubles.get(obj["person__living_with"]):
                             other = doubles[obj["person__living_with"]]
 
-                            if obj.get("person__gender") == "M":
-                                obj["combined_name"] = "%s en %s" % (
-                                    getname(obj),
-                                    getname(other),
-                                )
-                            else:
-                                obj["combined_name"] = "%s en %s" % (
-                                    getname(other),
-                                    getname(obj),
-                                )
+                            obj["combined_name"] = "%s en %s" % (
+                                getname(obj),
+                                getname(other),
+                            )
 
                             others.append(obj)
                         else:
