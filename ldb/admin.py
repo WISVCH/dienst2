@@ -271,7 +271,10 @@ class PersonAdmin(ImportExportVersionModelAdmin):
                 ]
             },
         ),
-        (_("Other"), {"fields": ["gender", "pronouns", "birthdate", "deceased", "comment"]}),
+        (
+            _("Other"),
+            {"fields": ["gender", "pronouns", "birthdate", "deceased", "comment"]},
+        ),
         (
             _("Subscriptions"),
             {

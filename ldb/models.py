@@ -203,9 +203,7 @@ class Person(Entity):
         _("gender"), max_length=2, choices=GENDER_CHOICES, blank=True
     )
 
-    pronouns = models.CharField(
-        _("pronouns"), max_length=100, blank=True
-    )
+    pronouns = models.CharField(_("pronouns"), max_length=100, blank=True)
 
     birthdate = models.DateField(_("birthdate"), blank=True, null=True)
 
