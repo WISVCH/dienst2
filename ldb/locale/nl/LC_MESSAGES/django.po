@@ -928,6 +928,9 @@ msgstr "telefoon mobiel"
 msgid "gender"
 msgstr "geslacht"
 
+msgid "pronouns"
+msgstr "voornaamwoorden"
+
 msgid "birthdate"
 msgstr "geboortedatum"
 

@@ -52,6 +52,7 @@ class CSVRenderer(renderers.BaseRenderer):
             "person__postfix_titles",
             "person__phone_mobile",
             "person__gender",
+            "person__pronouns",
             "person__birthdate",
             "person__email_forward",
             "person__ldap_username",
@@ -140,6 +141,7 @@ class Export(APIView):
             "postfix_titles",
             "phone_mobile",
             "gender",
+            "pronouns",
             "birthdate",
             "email_forward",
             "ldap_username",
@@ -281,6 +283,7 @@ class Export(APIView):
                 "person__postfix_titles",
                 "person__living_with",
                 "person__gender",
+                "person__pronouns",
                 "id",
             )
 
@@ -324,16 +327,10 @@ class Export(APIView):
                         if doubles.get(obj["person__living_with"]):
                             other = doubles[obj["person__living_with"]]
 
-                            if obj.get("person__gender") == "M":
-                                obj["combined_name"] = "%s en %s" % (
-                                    getname(obj),
-                                    getname(other),
-                                )
-                            else:
-                                obj["combined_name"] = "%s en %s" % (
-                                    getname(other),
-                                    getname(obj),
-                                )
+                            obj["combined_name"] = "%s en %s" % (
+                                getname(obj),
+                                getname(other),
+                            )
 
                             others.append(obj)
                         else:

@@ -205,6 +205,7 @@ class PersonResource(resources.ModelResource):
             "email",
             "phone_mobile",
             "gender",
+            "pronouns",
             "birthdate",
             "student__yearbook_permission",
             "mail_announcements",
@@ -270,7 +271,10 @@ class PersonAdmin(ImportExportVersionModelAdmin):
                 ]
             },
         ),
-        (_("Other"), {"fields": ["gender", "birthdate", "deceased", "comment"]}),
+        (
+            _("Other"),
+            {"fields": ["gender", "pronouns", "birthdate", "deceased", "comment"]},
+        ),
         (
             _("Subscriptions"),
             {
