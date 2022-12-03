@@ -46,6 +46,7 @@
                 {{ person.preposition }}
                 {{ person.surname }}{% if person.postfix_titles %}, {{ person.postfix_titles }}
                 {% endif %}
+                {% if person.pronouns %} ({{ person.pronouns }}) {% endif %}
                 {{ person.gender }}
               </p>
             </div>

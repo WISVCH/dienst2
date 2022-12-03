@@ -52,6 +52,7 @@ class CSVRenderer(renderers.BaseRenderer):
             "person__postfix_titles",
             "person__phone_mobile",
             "person__gender",
+            "person__pronouns",
             "person__birthdate",
             "person__email_forward",
             "person__ldap_username",
@@ -140,6 +141,7 @@ class Export(APIView):
             "postfix_titles",
             "phone_mobile",
             "gender",
+            "pronouns",
             "birthdate",
             "email_forward",
             "ldap_username",
@@ -281,6 +283,7 @@ class Export(APIView):
                 "person__postfix_titles",
                 "person__living_with",
                 "person__gender",
+                "person__pronouns",
                 "id",
             )
 
