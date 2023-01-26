@@ -43,9 +43,7 @@ class ResultsView(TemplateView):
             return (
                 SearchQuerySet()
                 .models(Person, Organization)
-                .filter(
-                    SQ(text__icontains=q)
-                )
+                .filter(SQ(text__icontains=q))
             )
         return []
 
