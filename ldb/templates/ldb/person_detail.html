@@ -6,10 +6,10 @@
 
 {% block content %}
   <div id="entity_detail" class="form-horizontal form-condensed">
-    <h2 class="page-header">
+    <h2 class="pb-2 mt-4 mb-2 border-bottom">
       {% if person.facebook_id %}
         <a href="https://graph.facebook.com/{{ person.facebook_id }}/picture?type=large">
-          <img class="pull-left img-circle"
+          <img class="pull-left rounded-circle"
                src="https://graph.facebook.com/{{ person.facebook_id }}/picture?type=square"/>
         </a>
       {% endif %}
@@ -35,11 +35,11 @@
       <div class="col-md-6">
         <fieldset>
           <legend>Algemeen</legend>
-          <div class="form-group">
-            <label class="col-sm-4 control-label">Naam</label>
+          <div class="form-group row">
+            <label class="col-sm-4 col-form-label">Naam</label>
 
             <div class="col-sm-8">
-              <p class="form-control-static">
+              <p class="form-control-plaintext">
                 {{ person.titles }}
                 {{ person.initials }}
                 ({{ person.firstname }})
@@ -52,11 +52,11 @@
             </div>
           </div>
           {% if person.birthdate %}
-            <div class="form-group">
-              <label class="col-sm-4 control-label">Geboortedatum</label>
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">Geboortedatum</label>
 
               <div class="col-sm-8">
-                <p class="form-control-static">
+                <p class="form-control-plaintext">
                   {{ person.birthdate }}
                   {% if not person.deceased %}
                     ({{ person.age }})
@@ -65,19 +65,19 @@
               </div>
             </div>
           {% endif %}
-          <div class="form-group">
-            <label class="col-sm-4 control-label">Adres</label>
+          <div class="form-group row">
+            <label class="col-sm-4 col-form-label">Adres</label>
 
             <div class="col-sm-8">
-              <p class="form-control-static">{% include "ldb/entity_address.html" with entity=person %}</p>
+              <p class="form-control-plaintext">{% include "ldb/entity_address.html" with entity=person %}</p>
             </div>
           </div>
           {% if person.living_with %}
-            <div class="form-group">
-              <label class="col-sm-4 control-label">Woont samen met:</label>
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">Woont samen met:</label>
 
               <div class="col-sm-8">
-                <p class="form-control-static">
+                <p class="form-control-plaintext">
                   <a href="{{ person.living_with.get_absolute_url }}">
                     {{ person.living_with }}</a>
                 </p>
@@ -104,10 +104,10 @@
           <fieldset>
             <legend>Accounts</legend>
             {% if person.ldap_username %}
-              <div class="form-group">
-                <label class="col-sm-4 control-label">LDAP-gebruikersnaam</label>
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label">LDAP-gebruikersnaam</label>
                 <div class="col-sm-8">
-                  <p class="form-control-static">
+                  <p class="form-control-plaintext">
                     {% if user|has_group:'userman2' %}
                       <a href="https://userman2.ch.tudelft.nl/users/{{ person.ldap_username }}">{{ person.ldap_username }}</a>
                     {% else %}

@@ -4,7 +4,7 @@
 {% block title %}{% trans 'Committees' %}{% endblock %}
 
 {% block content %}
-  <h2 class="page-header">{% trans 'Committees' %}
+  <h2 class="pb-2 mt-4 mb-2 border-bottom">{% trans 'Committees' %}
     <div class="pull-right btn-group">
       {% if user.is_staff %}<a href="{% url 'admin:ldb_committee_changelist' %}" class="btn btn-success">
         <i class="fa fa-wrench"></i><span class="visible-lg-inline visible-md-inline"> Admin</span>
@@ -20,7 +20,7 @@
     </div>
     <div class="panel-body">
       <form class="form-inline">
-        {% bootstrap_form filter.form layout='inline' %}
+        {% bootstrap_form filter.form layout='inline' form_group_class="form-group mr-2" %}
         <button type="submit" class="btn btn-primary"><i class="fa fa-filter"></i> Filter</button>
       </form>
     </div>

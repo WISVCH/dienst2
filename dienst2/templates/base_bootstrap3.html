@@ -1,72 +1,65 @@
 <!DOCTYPE html>
 {% load bootstrap3 static %}
-<html{% if request.LANGUAGE_CODE %} lang="{{ request.LANGUAGE_CODE }}"{% endif %}>
-<head>
-<meta charset="utf-8">
-<!--[if IE]>
+<html{% if request.LANGUAGE_CODE %} lang="{{ request.LANGUAGE_CODE }}" {% endif %}>
+
+  <head>
+    <meta charset="utf-8">
+    <!--[if IE]>
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/><![endif]-->
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{% block title %}{{ title }}{% endblock %} &mdash; Dienst2</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{{ title }}{% endblock %} &mdash; Dienst2</title>
 
-<link rel="shortcut icon" type="image/vnd.microsoft.icon" href="{% static 'img/favicon.ico' %}" />
+    <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="{% static 'img/favicon.ico' %}" />
 
-<link rel="stylesheet" type="text/css" href="{% static 'lib/themestrap/dist/css/bootstrap.css' %}"/>
-<link rel="stylesheet" type="text/css" href="{% static 'lib/font-awesome/css/font-awesome.min.css' %}"/>
-<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
-{% block extra_css %}
-{% endblock %}
+    <link rel="stylesheet" type="text/css" href="{% static 'lib/themestrap/dist/css/bootstrap.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'lib/font-awesome/css/font-awesome.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+    {% block extra_css %}
+    {% endblock %}
 
-<script type="text/javascript" src="{% static 'lib/jquery/dist/jquery.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'lib/bootstrap/dist/js/bootstrap.min.js' %}"></script>
-{% block extra_js %}
-{% endblock %}
-</head>
+    <script type="text/javascript" src="{% static 'lib/jquery/dist/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'lib/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+    {% block extra_js %}
+    {% endblock %}
+  </head>
 
-<body>
-<nav class="navbar navbar-inverse navbar-static-top">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-              aria-expanded="false" aria-controls="navbar">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <a class="navbar-brand" href="{% url 'index' %}">Dienst2</a>
-    </div>
-    <div id="navbar" class="collapse navbar-collapse">
-      <ul class="nav navbar-nav">
-        {% block menu %}{% endblock %}
-      </ul>
-      {% if user.is_authenticated %}
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div id="navbar" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav mr-auto">
+          {% block menu %}{% endblock %}
+        </ul>
+        {% if user.is_authenticated %}
         <ul class="nav navbar-nav navbar-right">
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-               aria-expanded="false">
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+              aria-expanded="false">
               Dienstensysteem <small>- {{ request.user.username }}</small><span class="caret"></span>
             </a>
-            <ul class="dropdown-menu">
-              <li><a href="{% url 'ldb_index' %}"><i class="fa fa-fw fa-users"></i> Ledendatabase</a></li>
-              <li><a href="{% url 'post_index' %}"><i class="fa fa-fw fa-envelope"></i> Post</a></li>
-              <li>
-                <form method="post" action="{% url 'oidc_logout' %}" name="logout">
-                  {% csrf_token %}
-                </form>
-                <a href="" onclick="document.logout.submit(); return false;"><i class="fa fa-fw fa-sign-out"></i> Uitloggen</a>
-              </li>
-            </ul>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="{% url 'ldb_index' %}"><i class="fa fa-fw fa-users"></i> Ledendatabase</a>
+              <a class="dropdown-item" href="{% url 'post_index' %}"><i class="fa fa-fw fa-envelope"></i> Post</a>
+              <form method="post" action="{% url 'oidc_logout' %}" name="logout">
+                {% csrf_token %}
+              </form>
+              <a class="dropdown-item" href="" onclick="document.logout.submit(); return false;"><i
+                  class="fa fa-fw fa-sign-out"></i>
+                Uitloggen</a>
           </li>
         </ul>
-      {% endif %}
+        {% endif %}
+      </div>
+      <!--/.nav-collapse -->
+    </nav>
+
+    <div class="container mt-4">
+      {% block content %}{% endblock %}
     </div>
-    <!--/.nav-collapse -->
-  </div>
-</nav>
+  </body>
 
-<div class="container">
-  {% block content %}{% endblock %}
-</div>
-</body>
-
-</html>
+  </html>

@@ -70,12 +70,12 @@
 {% endblock %}
 
 {% block content %}
-  <h2 class="page-header">{% trans 'Search' %}</h2>
+  <h2 class="pb-2 mt-4 mb-2 border-bottom">{% trans 'Search' %}</h2>
   <div class="input-group">
     <input id="q" autocomplete="off" type="text" class="form-control" placeholder="{% trans 'Search' %}">
-    <span class="input-group-addon"><i class="fa fa-fw fa-search"></i></span>
+    <span class="input-group-append"><i class="fa fa-fw fa-search"></i></span>
   </div>
-  <p class="help-block">
+  <p class="form-text">
     Begin met typen om te zoeken.
     <i id="spinner" class="fa fa-fw fa-spinner fa-pulse"></i>
   </p>

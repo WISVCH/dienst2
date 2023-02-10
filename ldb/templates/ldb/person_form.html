@@ -6,9 +6,9 @@
 {% block content %}
   <div id="entity_form">
     {% if person %}
-      <h2 class="page-header">Bewerk {{ person }}</h2>
+      <h2 class="pb-2 mt-4 mb-2 border-bottom">Bewerk {{ person }}</h2>
     {% else %}
-      <h2 class="page-header">Persoon aanmaken</h2>
+      <h2 class="pb-2 mt-4 mb-2 border-bottom">Persoon aanmaken</h2>
     {% endif %}
 
     {% if form.errors %}
@@ -26,24 +26,24 @@
           <fieldset>
             <legend>Naam</legend>
             {% get_fieldset titles,initials,firstname,preposition,surname,postfix_titles as name_fields from form %}
-            {% bootstrap_form name_fields layout='horizontal' %}
+            {% bootstrap_form name_fields layout='horizontal' form_group_class="form-group row" %}
           </fieldset>
           <fieldset>
             <legend>Adres</legend>
             {% get_fieldset street_name,house_number,postcode,address_2,address_3,city,country,email,living_with as address_fields from form %}
-            {% bootstrap_form address_fields layout='horizontal' %}
+            {% bootstrap_form address_fields layout='horizontal' form_group_class="form-group row" %}
           </fieldset>
 
           <fieldset>
             <legend>Telefoon</legend>
             {% get_fieldset phone_fixed,phone_mobile as phone_fields from form %}
-            {% bootstrap_form phone_fields layout='horizontal' %}
+            {% bootstrap_form phone_fields layout='horizontal' form_group_class="form-group row" %}
           </fieldset>
 
           <fieldset>
             <legend>Overige</legend>
             {% get_fieldset gender,pronouns,birthdate,deceased,ldap_username,email_forward,comment,netid,facebook_id,linkedin_id as other_fields from form %}
-            {% bootstrap_form other_fields layout='horizontal' %}
+            {% bootstrap_form other_fields layout='horizontal' form_group_class="form-group row" %}
           </fieldset>
 
           <fieldset>
@@ -84,27 +84,27 @@
           <fieldset>
             <legend>Aanmeldingen</legend>
             {% get_fieldset machazine,board_invites,constitution_card,christmas_card,yearbook,mail_announcements,mail_company,mail_education as subscription_fields from form %}
-            {% bootstrap_form subscription_fields layout='horizontal' horizontal_label_class='col-md-4 visible-md-block visible-lg-block' %}
+            {% bootstrap_form subscription_fields layout='horizontal' horizontal_label_class='col-md-4 visible-md-block visible-lg-block' form_group_class="form-group row" %}
           </fieldset>
 
           <fieldset>
             <legend>Lidmaatschap</legend>
-            {% bootstrap_formset member_formset layout='horizontal' %}
+            {% bootstrap_formset member_formset layout='horizontal' form_group_class="form-group row" %}
           </fieldset>
 
           <fieldset>
             <legend>Student</legend>
-            {% bootstrap_formset student_formset layout='horizontal' %}
+            {% bootstrap_formset student_formset layout='horizontal' form_group_class="form-group row" %}
           </fieldset>
 
           <fieldset>
             <legend>Alumnus</legend>
-            {% bootstrap_formset alumnus_formset layout='horizontal' %}
+            {% bootstrap_formset alumnus_formset layout='horizontal' form_group_class="form-group row" %}
           </fieldset>
 
           <fieldset>
             <legend>Medewerker</legend>
-            {% bootstrap_formset employee_formset layout='horizontal' %}
+            {% bootstrap_formset employee_formset layout='horizontal' form_group_class="form-group row" %}
           </fieldset>
         </div>
       </div>
