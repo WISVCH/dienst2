@@ -1,22 +1,18 @@
-diff-match-patch==20181111
-    # via
-    #   -r requirements.in
-    #   django-import-export
-    #   django-reversion-compare
-distlib==0.3.6
-    # via virtualenv
-django==4.1.6
-    # via
-    #   -r requirements.in
-    #   django-bootstrap4
-    #   django-debug-toolbar
-    #   django-filter
-    #   django-haystack
-    #   django-health-check
-    #   django-import-export
-    #   django-reversion
-    #   djangorestframework
-    #   mozilla-django-oidc
+asgiref==3.6.0
+attrs==22.2.0
+beautifulsoup4==4.11.2
+black==23.1.0
+bytecode==0.14.0
+cattrs==22.2.0
+certifi==2022.12.7
+cffi==1.15.1
+charset-normalizer==3.0.1
+cryptography==39.0.1
+ddsketch==2.0.4
+ddtrace==1.7.4
+defusedxml==0.7.1
+diff-match-patch==20200713
+Django==4.1.6
 django-bootstrap4==22.3
     # via -r requirements.in
 django-debug-toolbar==3.8.1
@@ -74,6 +70,7 @@ odfpy==1.4.1
 openpyxl==3.1.0
     # via tablib
 packaging==23.0
+<<<<<<< HEAD
     # via
     #   build
     #   ddtrace
@@ -83,6 +80,9 @@ platformdirs==3.0.0
     # via virtualenv
 pre-commit==3.0.4
     # via -r requirements.in
+=======
+pre-commit==3.0.4
+>>>>>>> 4134b0e (Add pre-commit, black and flake8)
 protobuf==4.21.12
     # via
     #   ddsketch

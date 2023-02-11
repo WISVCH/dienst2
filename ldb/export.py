@@ -295,7 +295,7 @@ class Export(APIView):
                     name = obj.get("organization__name_prefix", "")
                     name += " "
                     name += obj.get("organization__name")
-                    name = re.sub(r"\s+", " ", name)
+                    name = re.sub(" +", " ", name)
                     return name.strip()
                 elif obj.get("person__surname"):
                     titles = obj.get("person__titles")
@@ -317,7 +317,7 @@ class Export(APIView):
                         obj.get("person__surname", ""),
                         obj.get("person__postfix_titles", ""),
                     )
-                    name = re.sub(r"\s+", " ", name)
+                    name = re.sub(" +", " ", name)
                     return name.strip()
                 else:
                     return ""
