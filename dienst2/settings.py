@@ -19,8 +19,6 @@ SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 DATABASES = {"default": env.db()}
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
-CACHES = {"default": env.cache()}
-
 HAYSTACK_CONNECTIONS = {"default": env.search_url()}
 HAYSTACK_SIGNAL_PROCESSOR = "haystack.signals.RealtimeSignalProcessor"
 
@@ -142,6 +140,7 @@ INSTALLED_APPS = (
     "django_filters",
     "django.contrib.admin",
     "django.contrib.admindocs",
+    "django_select2",
     "health_check",
     "health_check.db",
     "health_check.cache",

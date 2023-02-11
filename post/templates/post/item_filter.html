@@ -2,29 +2,6 @@
 {% load i18n static bootstrap4 query_string %}
 {% block title %}{% trans 'Post' %}{% endblock %}
 
-{% block extra_css %}
-  <link rel="stylesheet" type="text/css" href="{% static 'lib/select2/dist/css/select2.min.css' %}"/>
-  <link rel="stylesheet" type="text/css" href="{% static 'lib/select2-bootstrap-theme/dist/select2-bootstrap.min.css' %}"/>
-{% endblock %}
-
-{% block extra_js %}
-  <script type="text/javascript" src="{% static 'lib/select2/dist/js/select2.full.min.js' %}"></script>
-  <script type="text/javascript">
-    $(document).ready(function () {
-      $.fn.select2.defaults.set("theme", "bootstrap");
-      $.fn.select2.defaults.set("width", "100%");
-
-      $('#id_sender').select2({placeholder: $("label[for='id_sender']").text()});
-      $('#id_recipient').select2({placeholder: $("label[for='id_recipient']").text()});
-      $('#id_category').select2({placeholder: $("label[for='id_category']").text()});
-      $('#id_filter-sender').select2({placeholder: $("label[for='id_filter-sender']").text()});
-      $('#id_filter-recipient').select2({placeholder: $("label[for='id_filter-recipient']").text()});
-      $('#id_filter-category').select2({placeholder: $("label[for='id_filter-category']").text()});
-    })
-  </script>
-{% endblock %}
-
-
 {% block content %}
   <h2 class="pb-2 mt-4 mb-2 border-bottom">{% trans 'Post' %}</h2>
 
@@ -50,6 +27,8 @@
         </div>
 
       </form>
+      {{ form.media }}
+      {{ filter.form.media }}
     </div>
   </div>
 
