@@ -17,6 +17,7 @@ INTERNAL_IPS = env.list("INTERNAL_IPS", default="")
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 DATABASES = {"default": env.db()}
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 CACHES = env(
     "CACHES",
