@@ -6,9 +6,12 @@ from post.models import Item
 
 class ContactWidget(s2forms.ModelSelect2Widget):
     search_fields = ["name__icontains"]
+
+
 class CategoryWidget(s2forms.ModelSelect2Widget):
     search_fields = ["name__icontains"]
-    
+
+
 class ItemForm(forms.ModelForm):
     class Meta:
         model = Item
