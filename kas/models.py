@@ -8,6 +8,7 @@ from django.utils import timezone
 from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy as _
 
+
 class Transaction(models.Model):
     class Meta:
         verbose_name = _("transaction")
@@ -62,6 +63,8 @@ class Transaction(models.Model):
             + " "
             + timezone.localtime(self.date).strftime("%Y-%m-%d %H:%M")
         )
+
+
 class Closure(models.Model):
     class Meta:
         verbose_name = _("closure")
