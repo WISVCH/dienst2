@@ -8,11 +8,9 @@ from django.shortcuts import redirect
 from django.views.generic import DetailView, DeleteView, TemplateView, UpdateView
 from django.views.generic.detail import SingleObjectMixin
 from django_filters.views import FilterView
-from haystack.inputs import Raw
 from haystack.query import SQ
 from haystack.query import SearchQuerySet
 
-from dienst2.extras import convert_free_search
 from ldb.filters import CommitteeMembershipFilter
 from ldb.forms import (
     PersonForm,

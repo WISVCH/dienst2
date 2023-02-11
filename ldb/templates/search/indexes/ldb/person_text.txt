@@ -1,4 +1,4 @@
-{{ object.firstname }} {{ object.preposition }} {{ object.surname }} 
+{{ object.firstname }} {{ object.preposition }} {{ object.surname }}
 {{ object.netid }}
 
 {{ object.entity_ptr.street_name }} {{ object.entity_ptr.house_number }}

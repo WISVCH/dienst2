@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 
 from django.contrib import admin
 
-from kas.models import *
+from kas.models import Transaction, Closure
 
 
 @admin.register(Transaction)

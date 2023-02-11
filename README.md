@@ -27,7 +27,7 @@ Dienstensysteem v2
 
 ## Translation files
 
-We use django-admin `make-messages` for localisation. 
+We use django-admin `make-messages` for localisation.
 The translations are generated in `.po` files, such as [this django.po file](dienst2/locale/nl/LC_MESSAGES/django.po).
 Please beware that these files should not be edited by hand, except for the translations themselves.
 For an example of translations in a file, please check [this file](ldb/templates/ldb/person_confirm_delete.html).

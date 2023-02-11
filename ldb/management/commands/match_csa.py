@@ -68,7 +68,8 @@ class Command(BaseCommand):
                         ):
                             member.date_to = date
 
-                            message = "Membership revoked. Student is either unknown or no longer a student according to CSa."
+                            message = "Membership revoked. Student is either unknown or no \
+                                longer a student according to CSa."
                             reversion.set_comment(message)
 
                             member.save()

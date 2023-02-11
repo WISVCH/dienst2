@@ -116,8 +116,9 @@ class QueryStringNode(Node):
             # Accept any old dict or list of pairs.
             try:
                 pairs = qdict.items()
-            except:
+            except AttributeError:
                 pairs = qdict
+
             qdict = QueryDict(None, mutable=True)
             # Enter each pair into QueryDict object:
             try:
@@ -129,7 +130,7 @@ class QueryStringNode(Node):
                             qdict.appendlist(k, str(e))
                     else:
                         qdict.appendlist(k, str(v))
-            except:
+            except (ValueError, TypeError):
                 # Wrong data structure, qdict remains empty.
                 pass
         return qdict
