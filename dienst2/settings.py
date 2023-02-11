@@ -18,7 +18,10 @@ SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 DATABASES = {"default": env.db()}
 
-CACHES = {"default": env.cache()}
+CACHES = env(
+    "CACHES",
+    default={"default": {"BACKEND": "django.core.cache.backends.dummy.LocMemCache"}},
+)
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
 HAYSTACK_CONNECTIONS = {"default": env.search_url()}
