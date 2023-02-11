@@ -20,7 +20,7 @@ DATABASES = {"default": env.db()}
 
 CACHES = env(
     "CACHES",
-    default={"default": {"BACKEND": "django.core.cache.backends.dummy.LocMemCache"}},
+    default={"default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache"}},
 )
 
 HAYSTACK_CONNECTIONS = {"default": env.search_url()}
