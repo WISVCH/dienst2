@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 # http://djangosnippets.org/snippets/1476/
 # ISO 3166-1 country names and codes from http://opencountrycodes.appspot.com/python

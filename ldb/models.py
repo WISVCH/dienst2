@@ -6,7 +6,7 @@ from datetime import date
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import reverse
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from ldb.querysets import EntityQuerySet, PersonQuerySet
 from .country_field import CountryField
@@ -116,7 +116,6 @@ class Organization(Entity):
     class Meta:
         verbose_name = _("organization")
         verbose_name_plural = _("organizations")
-        manager_inheritance_from_future = True
 
     name_prefix = models.CharField(_("name prefix"), max_length=100, blank=True)
     name = models.CharField(_("name"), max_length=100)

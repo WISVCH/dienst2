@@ -17,6 +17,7 @@ INTERNAL_IPS = env.list("INTERNAL_IPS", default="")
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 DATABASES = {"default": env.db()}
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 CACHES = {"default": env.cache()}
 
@@ -44,10 +45,6 @@ SITE_ID = 1
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
 USE_I18N = True
-
-# If you set this to False, Django will not format dates, numbers and
-# calendars according to the current locale.
-USE_L10N = True
 
 # If you set this to False, Django will not use timezone-aware datetimes.
 USE_TZ = True
@@ -127,6 +124,7 @@ LOGIN_REDIRECT_URL = "/"
 WSGI_APPLICATION = "dienst2.wsgi.application"
 
 INSTALLED_APPS = (
+    "bootstrap4",
     "dienst2",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -149,7 +147,6 @@ INSTALLED_APPS = (
     "health_check.cache",
     "debug_toolbar",
     "ddtrace.contrib.django",
-    "bootstrap3",
     "ldb",
     "kas",
     "post",
@@ -217,7 +214,7 @@ LOGGING = {
     },
 }
 
-BOOTSTRAP3 = {
+BOOTSTRAP4 = {
     "horizontal_label_class": "col-md-4",
     "horizontal_field_class": "col-md-8",
 }
