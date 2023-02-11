@@ -25,6 +25,8 @@ urlpatterns = [
     path("post/", include("post.urls")),
     # Health check
     path("healthz", include("health_check.urls")),
+    # Select2
+    path("select2/", include("django_select2.urls")),
 ]
 
 if settings.DEBUG:

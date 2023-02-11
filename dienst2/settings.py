@@ -142,6 +142,7 @@ INSTALLED_APPS = (
     "django_filters",
     "django.contrib.admin",
     "django.contrib.admindocs",
+    "django_select2",
     "health_check",
     "health_check.db",
     "health_check.cache",
