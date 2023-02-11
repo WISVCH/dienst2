@@ -5,12 +5,9 @@ from functools import reduce
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils import timezone
-from django.utils.encoding import python_2_unicode_compatible
 from django.utils.text import capfirst
 from django.utils.translation import ugettext_lazy as _
 
-
-@python_2_unicode_compatible
 class Transaction(models.Model):
     class Meta:
         verbose_name = _("transaction")
@@ -65,9 +62,6 @@ class Transaction(models.Model):
             + " "
             + timezone.localtime(self.date).strftime("%Y-%m-%d %H:%M")
         )
-
-
-@python_2_unicode_compatible
 class Closure(models.Model):
     class Meta:
         verbose_name = _("closure")

@@ -1,13 +1,11 @@
 from __future__ import unicode_literals
 
 from django.db import models
-from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
 from post.querysets import ItemQuerySet
 
 
-@python_2_unicode_compatible
 class Category(models.Model):
     class Meta:
         verbose_name = _("category")
@@ -22,7 +20,6 @@ class Category(models.Model):
         return self.name
 
 
-@python_2_unicode_compatible
 class Contact(models.Model):
     class Meta:
         verbose_name = _("contact")
@@ -39,7 +36,6 @@ class Contact(models.Model):
         return self.name
 
 
-@python_2_unicode_compatible
 class Item(models.Model):
     class Meta:
         verbose_name = _("item")

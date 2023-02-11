@@ -6,7 +6,6 @@ from datetime import date
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import reverse
-from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
 from ldb.querysets import EntityQuerySet, PersonQuerySet
@@ -21,7 +20,6 @@ def get_attributes(self, attrs):
     return v
 
 
-@python_2_unicode_compatible
 class Entity(models.Model):
     class Meta:
         verbose_name = _("entity")
@@ -114,7 +112,6 @@ class Entity(models.Model):
         self.country = ""
 
 
-@python_2_unicode_compatible
 class Organization(Entity):
     class Meta:
         verbose_name = _("organization")
@@ -172,7 +169,6 @@ class MembershipStatusField(models.IntegerField):
         return name, path, args, kwargs
 
 
-@python_2_unicode_compatible
 class Person(Entity):
     class Meta:
         verbose_name = _("person")
@@ -411,7 +407,6 @@ class Person(Entity):
         ).strip()
 
 
-@python_2_unicode_compatible
 class Member(models.Model):
     class Meta:
         verbose_name = _("member")
@@ -523,7 +518,6 @@ class Member(models.Model):
             raise ValidationError("'Date to' is required for donating members")
 
 
-@python_2_unicode_compatible
 class Student(models.Model):
     class Meta:
         verbose_name = _("student")
@@ -552,7 +546,6 @@ class Student(models.Model):
 CONTACT_METHOD_CHOICES = (("m", "Mail"), ("e", "Email"))
 
 
-@python_2_unicode_compatible
 class Alumnus(models.Model):
     class Meta:
         verbose_name = _("alumnus")
@@ -581,7 +574,6 @@ class Alumnus(models.Model):
         return str(self.person)
 
 
-@python_2_unicode_compatible
 class Employee(models.Model):
     class Meta:
         verbose_name = _("employee")
@@ -598,7 +590,6 @@ class Employee(models.Model):
         return str(self.person)
 
 
-@python_2_unicode_compatible
 class Committee(models.Model):
     class Meta:
         verbose_name = _("committee")
@@ -613,7 +604,6 @@ class Committee(models.Model):
         return self.name
 
 
-@python_2_unicode_compatible
 class CommitteeMembership(models.Model):
     class Meta:
         verbose_name = _("committee membership")
@@ -634,7 +624,6 @@ class CommitteeMembership(models.Model):
         return "[%s] %s - %s" % (self.board, self.committee, self.person)
 
 
-@python_2_unicode_compatible
 class Modification(models.Model):
     class Meta:
         verbose_name = _("modification")
