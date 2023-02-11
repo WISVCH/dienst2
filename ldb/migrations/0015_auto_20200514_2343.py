@@ -6,7 +6,6 @@ import ldb.validators
 
 
 class Migration(migrations.Migration):
-
     dependencies = [("ldb", "0014_auto_20190426_1628")]
 
     operations = [
