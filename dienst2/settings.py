@@ -24,9 +24,6 @@ CACHES = env(
 )
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
-HAYSTACK_CONNECTIONS = {"default": env.search_url()}
-HAYSTACK_SIGNAL_PROCESSOR = "haystack.signals.RealtimeSignalProcessor"
-
 SECRET_KEY = env("SECRET_KEY")
 SESSION_ENGINE = env("SESSION_ENGINE", default="django.contrib.sessions.backends.db")
 EMAIL_HOST = env("EMAIL_HOST", default="")
@@ -138,7 +135,6 @@ INSTALLED_APPS = (
     "reversion",
     "reversion_compare",
     "mozilla_django_oidc",
-    "haystack",
     "import_export",
     "rest_framework",
     "rest_framework.authtoken",
