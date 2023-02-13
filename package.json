@@ -1,8 +1,10 @@
 {
   "dependencies": {
+    "@ttskch/select2-bootstrap4-theme": "^1.5.2",
     "bootstrap": "^4",
     "font-awesome": "^4.7.0",
     "jquery": "^1.12.4",
+    "select2": "^4.1.0-rc.0",
     "themestrap": "WISVCH/bootstrap-theme#gh-pages"
   }
 }

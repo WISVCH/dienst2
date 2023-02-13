@@ -23,7 +23,6 @@ django-health-check==3.17.0
 django-import-export==3.0.2
 django-reversion==5.0.4
 django-reversion-compare==0.15.0
-django-select2==8.1.0
 django_debug_toolbar==3.8.1
 djangorestframework==3.14.0
 drf-writable-nested==0.7.0

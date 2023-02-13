@@ -6,20 +6,10 @@ from django.db.models import Prefetch
 from django.utils import formats
 from django.utils.encoding import force_str
 
-from post.models import Category, Contact, Item
-from post.forms import ContactWidget, CategoryWidget
+from post.models import Item
 
 
 class ItemFilterSet(django_filters.FilterSet):
-    sender = django_filters.ModelChoiceFilter(
-        queryset=Contact.objects.all(), widget=ContactWidget
-    )
-    recipient = django_filters.ModelChoiceFilter(
-        queryset=Contact.objects.all(), widget=ContactWidget
-    )
-    category = django_filters.ModelChoiceFilter(
-        queryset=Category.objects.all(), widget=CategoryWidget
-    )
 
     class Meta:
         model = Item
