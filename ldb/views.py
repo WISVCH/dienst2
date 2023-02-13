@@ -2,17 +2,15 @@ from __future__ import unicode_literals
 
 from functools import reduce
 
-from django.db.models import Prefetch
+from django.db.models import Prefetch, Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.views.generic import DetailView, DeleteView, TemplateView, UpdateView
 from django.views.generic.detail import SingleObjectMixin
 from django_filters.views import FilterView
-from haystack.inputs import Raw
-from haystack.query import SQ
-from haystack.query import SearchQuerySet
 
-from dienst2.extras import convert_free_search
+from itertools import chain
+
 from ldb.filters import CommitteeMembershipFilter
 from ldb.forms import (
     PersonForm,
@@ -39,11 +37,29 @@ class ResultsView(TemplateView):
 
     def get_results(self):
         q = self.request.GET.get("q")
+        print(q)
         if q is not None:
-            return (
-                SearchQuerySet()
-                .models(Person, Organization)
-                .filter(SQ(text__icontains=q))
+            q = q.strip().split()
+
+            person_filters = Q()
+            organization_filters = Q()
+            for word in q:
+                person_filters &= (
+                    Q(firstname__icontains=word)
+                    | Q(preposition__icontains=word)
+                    | Q(surname__icontains=word)
+                    | Q(ldap_username__icontains=word)
+                    | Q(street_name__icontains=word)
+                )
+                organization_filters &= Q(name__icontains=word)
+
+            # Return all persons
+            return list(
+                chain(
+                    # Filter person on firstname, surname, email and address
+                    Person.objects.filter(person_filters),
+                    Organization.objects.filter(organization_filters),
+                )
             )
         return []
 
