@@ -2,6 +2,29 @@
 {% load i18n static bootstrap4 query_string %}
 {% block title %}{% trans 'Post' %}{% endblock %}
 
+{% block extra_css %}
+  <link rel="stylesheet" type="text/css" href="{% static 'lib/select2/dist/css/select2.min.css' %}"/>
+  <link rel="stylesheet" type="text/css" href="{% static 'lib/@ttskch/select2-bootstrap4-theme/dist/select2-bootstrap4.min.css' %}"/>
+{% endblock %}
+
+{% block extra_js %}
+  <script type="text/javascript" src="{% static 'lib/select2/dist/js/select2.full.min.js' %}"></script>
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $.fn.select2.defaults.set("theme", "bootstrap");
+      $.fn.select2.defaults.set("width", "100%");
+
+      const selectFields = ['id_sender', 'id_recipient', 'id_category', 'id_filter-sender', 'id_filter-recipient', 'id_filter-category'];
+      selectFields.forEach(function (field) {
+        $('#' + field).select2({
+          theme: 'bootstrap4',
+          placeholder: $("label[for='" + field + "']").text()
+        });
+      });
+    })
+  </script>
+{% endblock %}
+
 {% block content %}
   <h2 class="pb-2 mt-4 mb-2 border-bottom">{% trans 'Post' %}</h2>
 
@@ -90,15 +113,15 @@
 
   {% if is_paginated %}
     <nav>
-      <ul class="pager">
-        <li{% if not page_obj.has_next %} class="disabled"{% endif %}>
-          <a {% if page_obj.has_next %}
+      <ul class="pagination">
+        <li{% if not page_obj.has_next %} class="page-item disabled" {% else %} class="page-item" {% endif %}>
+          <a class="page-link" {% if page_obj.has_next %}
             href="{% query_string request.META.QUERY_STRING page=page_obj.next_page_number %}"{% endif %}>
             <span aria-hidden="true">&larr;</span> {% trans "Previous" %}
           </a>
         </li>
-        <li{% if not page_obj.has_previous %} class="disabled"{% endif %}>
-          <a {% if page_obj.has_previous %}
+        <li{% if not page_obj.has_previous %} class="page-item disabled" {% else %} class="page-item" {% endif %}>
+          <a class="page-link" {% if page_obj.has_previous %}
             href="{% query_string request.META.QUERY_STRING page=page_obj.previous_page_number %}"{% endif %}>
             {% trans "Next" %} <span aria-hidden="true">&rarr;</span>
           </a>

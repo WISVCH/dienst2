@@ -62,14 +62,14 @@
 
   {% if is_paginated %}
     <nav>
-      <ul class="pager">
-        <li{% if not page_obj.has_previous %} class="disabled"{% endif %}>
+      <ul class="pagination">
+        <li{% if not page_obj.has_previous %} class="page-item disabled" {% else %} class="page-item" {% endif %}>
           <a {% if page_obj.has_previous %}
             href="{% query_string request.META.QUERY_STRING page=page_obj.previous_page_number %}"{% endif %}>
             <span aria-hidden="true">&larr;</span> {% trans "Previous" %}
           </a>
         </li>
-        <li{% if not page_obj.has_next %} class="disabled"{% endif %}>
+        <li{% if not page_obj.has_next %} class="page-item disabled" {% else %} class="page-item" {% endif %}>
           <a {% if page_obj.has_next %}
             href="{% query_string request.META.QUERY_STRING page=page_obj.next_page_number %}"{% endif %}>
             {% trans "Next" %} <span aria-hidden="true">&rarr;</span>

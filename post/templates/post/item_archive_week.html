@@ -35,15 +35,15 @@
   </div>
 
     <nav>
-      <ul class="pager">
-        <li{% if not previous_week %} class="disabled"{% endif %}>
-          <a {% if previous_week %}
+      <ul class="pagination">
+        <li{% if not has_previous %} class="page-item disabled" {% else %} class="page-item" {% endif %}>
+          <a class="page-link" {% if previous_week %}
               href="{% url 'post_archive_week' previous_week|strftime:'%Y' previous_week|strftime:'%W' %}"{% endif %}>
             <span aria-hidden="true">&larr;</span> {% trans "Previous" %}
           </a>
         </li>
-        <li{% if not next_week %} class="disabled"{% endif %}>
-          <a {% if next_week %}
+        <li{% if not has_next %} class="page-item disabled" {% else %} class="page-item" {% endif %}>
+          <a class="page-link" {% if next_week %}
             href="{% url 'post_archive_week' next_week|strftime:'%Y' next_week|strftime:'%W' %}"{% endif %}>
             {% trans "Next" %} <span aria-hidden="true">&rarr;</span>
           </a>
