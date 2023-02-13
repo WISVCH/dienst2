@@ -236,7 +236,7 @@ class PersonResource(resources.ModelResource):
 class PersonAdmin(ImportExportVersionModelAdmin):
     list_display = ("__str__", "_membership_status")
 
-    resource_class = PersonResource
+    resource_classes = (PersonResource,)
 
     form = PersonAdminForm
     fieldsets = [

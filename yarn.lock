@@ -22,6 +22,11 @@ jquery@^1.12.4:
   resolved "https://registry.npmjs.org/jquery/-/jquery-1.12.4.tgz"
   integrity sha512-UEVp7PPK9xXYSk8xqXCJrkXnKZtlgWkd2GsAQbMRFK6S/ePU2JN5G2Zum8hIVjzR3CpdfSqdqAzId/xd4TJHeg==
 
+popper.js@^1.16.1:
+  version "1.16.1"
+  resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.16.1.tgz#2a223cb3dc7b6213d740e40372be40de43e65b1b"
+  integrity sha512-Wb4p1J4zyFTbM+u6WuO4XstYx4Ky9Cewe4DWrel7B0w6VVICvPwdOpotjzcf6eD8TsckVnIMNONQyPIUFOUbCQ==
+
 select2@^4.1.0-rc.0:
   version "4.1.0-rc.0"
   resolved "https://registry.npmjs.org/select2/-/select2-4.1.0-rc.0.tgz"
@@ -29,4 +34,4 @@ select2@^4.1.0-rc.0:
 
 themestrap@WISVCH/bootstrap-theme#gh-pages:
   version "0.3.1"
-  resolved "git+ssh://git@github.com/WISVCH/bootstrap-theme.git#be257732ba90d1ef32e025dd4fc3d75d5386e7cb"
+  resolved "https://codeload.github.com/WISVCH/bootstrap-theme/tar.gz/be257732ba90d1ef32e025dd4fc3d75d5386e7cb"
