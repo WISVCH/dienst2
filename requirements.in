@@ -26,3 +26,4 @@ whitenoise
 Whoosh
 python-ldap
 pre-commit
+pip-tools
