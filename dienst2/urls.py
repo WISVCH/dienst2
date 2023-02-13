@@ -24,7 +24,7 @@ urlpatterns = [
     # Post URLs
     path("post/", include("post.urls")),
     # Health check
-    path("healthz", include("health_check.urls"))
+    path("healthz", include("health_check.urls")),
 ]
 
 if settings.DEBUG:

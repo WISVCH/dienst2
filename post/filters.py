@@ -10,7 +10,6 @@ from post.models import Item
 
 
 class ItemFilterSet(django_filters.FilterSet):
-
     class Meta:
         model = Item
         fields = ("description", "sender", "recipient", "category")
