@@ -18,10 +18,7 @@ SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 DATABASES = {"default": env.db()}
 
-CACHES = env(
-    "CACHES",
-    default={"default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache"}},
-)
+CACHES = {"default": env.cache()}
 
 HAYSTACK_CONNECTIONS = {"default": env.search_url()}
 HAYSTACK_SIGNAL_PROCESSOR = "haystack.signals.RealtimeSignalProcessor"
