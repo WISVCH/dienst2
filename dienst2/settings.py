@@ -192,7 +192,8 @@ LOGGING = {
     "version": 1,
     "formatters": {
         "simple": {
-            "format": "%(asctime)s %(levelname)s %(name)s.%(funcName)s:%(lineno)s %(message)s"
+            "format": "%(asctime)s %(levelname)s %(name)s.\
+                %(funcName)s:%(lineno)s %(message)s"
         }
     },
     "handlers": {"console": {"class": "logging.StreamHandler", "formatter": "simple"}},

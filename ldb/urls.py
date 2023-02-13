@@ -22,7 +22,8 @@ router.register(r"organizations", viewsets.OrganizationsViewSet)
 
 urlpatterns = [
     path("api/v3/", include(router.urls)),
-    # url(r'^api/v3/api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    # url(r'^api/v3/api-auth/', include('rest_framework.urls',
+    # namespace='rest_framework'))
     path("index/", IndexView.as_view(), name="ldb_index"),
     path("people/search/", ResultsView.as_view(), name="ldb_people_search"),
     re_path(

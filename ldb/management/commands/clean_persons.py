@@ -57,7 +57,8 @@ class Command(BaseCommand):
             pass
         except ValidationError as e:
             stderr.write(
-                f"Validation error in {obj.__class__.__name__} {BASE_URL}{person.id}/ - {e}\n"
+                f"Validation error in {obj.__class__.__name__} \
+                    {BASE_URL}{person.id}/ - {e}\n"
             )
 
     def handle(self, *args, **options):

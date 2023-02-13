@@ -35,7 +35,8 @@ class Transaction(models.Model):
         if not closure:
             try:
                 if self.date:
-                    # Existing transaction, try to get the first closure after this transaction
+                    # Existing transaction, try to get the first
+                    # closure after this transaction
                     closure = Closure.objects.filter(date__gte=self.date).order_by(
                         "id"
                     )[0]
