@@ -57,7 +57,7 @@ class ResultsView(TemplateView):
                 chain(
                     # Filter person on firstname, surname, email and address
                     Person.objects.filter(person_filters)[:10],
-                    Organization.objects.filter(organization_filters)[:10]
+                    Organization.objects.filter(organization_filters)[:10],
                 )
             )
         return []
