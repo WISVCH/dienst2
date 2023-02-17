@@ -49,6 +49,7 @@ class ResultsView(TemplateView):
                     | Q(surname__icontains=word)
                     | Q(ldap_username__icontains=word)
                     | Q(street_name__icontains=word)
+                    | Q(email__icontains=word)
                 )
                 organization_filters &= Q(name__icontains=word)
 
