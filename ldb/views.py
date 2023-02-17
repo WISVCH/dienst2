@@ -37,7 +37,6 @@ class ResultsView(TemplateView):
 
     def get_results(self):
         q = self.request.GET.get("q")
-        print(q)
         if q is not None:
             q = q.strip().split()
 
@@ -57,8 +56,8 @@ class ResultsView(TemplateView):
             return list(
                 chain(
                     # Filter person on firstname, surname, email and address
-                    Person.objects.filter(person_filters),
-                    Organization.objects.filter(organization_filters),
+                    Person.objects.filter(person_filters)[:10],
+                    Organization.objects.filter(organization_filters)[:10]
                 )
             )
         return []
@@ -68,9 +67,9 @@ class ResultsView(TemplateView):
         results = self.get_results()
         context.update(
             {
-                "results": results[:10],
+                "results": results,
                 "count": len(results),
-                "remainder": len(results) - 10,
+                "remainder": len(results) - 20,
             }
         )
         return context

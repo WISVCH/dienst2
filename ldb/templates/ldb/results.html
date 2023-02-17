@@ -10,7 +10,7 @@
       <a href="{{ result.get_absolute_url }}" class="list-group-item">
         <h4 class="list-group-item-heading">
           {{ result }}
-          {% if result.content_type == "ldb.organization" %}
+          {% if result.name_short is not None %}
             <small>Organization</small>{% endif %}
           {% if result.ldap_username %}
             <small><span class="label label-default">{{ result.ldap_username }}</span></small>
