@@ -52,24 +52,21 @@ class ResultsView(TemplateView):
                 )
                 organization_filters &= Q(name__icontains=word)
 
-            # Return all persons
-            return list(
-                chain(
-                    # Filter person on firstname, surname, email and address
-                    Person.objects.filter(person_filters)[:10],
-                    Organization.objects.filter(organization_filters)[:10],
-                )
-            )
+            person_qs = Person.objects.filter(person_filters)
+            organization_qs = Organization.objects.filter(organization_filters)
+
+            count = person_qs.count() + organization_qs.count()
+            return list(chain(person_qs[:10], organization_qs[:10])), count
         return []
 
     def get_context_data(self, **kwargs):
         context = super(ResultsView, self).get_context_data(**kwargs)
-        results = self.get_results()
+        results, count = self.get_results()
         context.update(
             {
                 "results": results,
-                "count": len(results),
-                "remainder": len(results) - 20,
+                "count": count,
+                "remainder": count - 20,
             }
         )
         return context
