@@ -123,6 +123,7 @@
                 </div>
               </div>
             {% endif %}
+            {% stcontrol person 'google_username' %}
             {% stcontrol person 'netid' %}
             {% if person.facebook_id %}
               {% stcontrol_format person 'facebook_id' '<a target="_blank" href="https://www.facebook.com/{0}">{0}</a>' %}

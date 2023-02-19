@@ -228,6 +228,15 @@ class Person(Entity):
         unique=True,
         validators=[validate_ldap_username],
     )
+
+    google_username = models.CharField(
+        _("Google username"),
+        max_length=64,
+        blank=True,
+        null=True,
+        unique=True,
+    )
+
     email_forward = models.BooleanField(
         _("forward CH e-mail to Dienst2 e-mail"), default=False
     )

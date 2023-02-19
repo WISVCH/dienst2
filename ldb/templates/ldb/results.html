@@ -15,6 +15,9 @@
           {% if result.ldap_username %}
             <small><span class="label label-default">{{ result.ldap_username }}</span></small>
           {% endif %}
+          {% if result.google_username %}
+            <small><span class="label label-default">{{ result.google_username }} (Google)</span></small>
+          {% endif %}
         </h4>
         {% if result.entity_ptr.country %}
           <p>{{ result.entity_ptr }}</p>
