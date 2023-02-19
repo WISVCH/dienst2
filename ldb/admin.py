@@ -275,6 +275,7 @@ class PersonAdmin(ImportExportVersionModelAdmin):
             {
                 "fields": [
                     "ldap_username",
+                    "google_username",
                     "email_forward",
                     "netid",
                     "linkedin_id",

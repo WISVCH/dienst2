@@ -11,13 +11,16 @@ class PersonFilter(django_filters.FilterSet):
     ldap_username = django_filters.CharFilter(
         field_name="ldap_username", lookup_expr="iexact"
     )
+    google_username = django_filters.CharFilter(
+        field_name="google_username", lookup_expr="iexact"
+    )
     student__student_number = django_filters.CharFilter(
         field_name="student__student_number", label="Student number"
     )
 
     class Meta:
         model = Person
-        fields = ["ldap_username", "netid", "student__student_number"]
+        fields = ["ldap_username", "google_username", "netid", "student__student_number"]
 
 
 class PersonViewSet(viewsets.ModelViewSet):

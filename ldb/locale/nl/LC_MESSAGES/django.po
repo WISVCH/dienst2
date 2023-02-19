@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-26 21:32+0200\n"
+"POT-Creation-Date: 2023-02-19 19:06+0100\n"
 "Last-Translator: Sven van Hal <svenh@ch.tudelft.nl>\n"
 "Language-Team: Secretarissen b'vo\n"
 "Language: nl\n"
@@ -904,6 +904,9 @@ msgstr "Man"
 msgid "Female"
 msgstr "Vrouw"
 
+msgid "Non-binary"
+msgstr ""
+
 msgid "titles"
 msgstr "titels"
 
@@ -949,6 +952,11 @@ msgid "education mailing"
 msgstr "bedrijvenmailing"
 
 msgid "LDAP username"
+msgstr "LDAP-gebruikersnaam"
+
+#, fuzzy
+#| msgid "LDAP username"
+msgid "Google username"
 msgstr "LDAP-gebruikersnaam"
 
 msgid "forward CH e-mail to Dienst2 e-mail"

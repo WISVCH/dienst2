@@ -42,7 +42,7 @@
 
           <fieldset>
             <legend>Overige</legend>
-            {% get_fieldset gender,pronouns,birthdate,deceased,ldap_username,email_forward,comment,netid,facebook_id,linkedin_id as other_fields from form %}
+            {% get_fieldset gender,pronouns,birthdate,deceased,ldap_username,google_username,email_forward,comment,netid,facebook_id,linkedin_id as other_fields from form %}
             {% bootstrap_form other_fields layout='horizontal' form_group_class="form-group row" %}
           </fieldset>
 
