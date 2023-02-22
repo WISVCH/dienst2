@@ -905,7 +905,7 @@ msgid "Female"
 msgstr "Vrouw"
 
 msgid "Non-binary"
-msgstr ""
+msgstr "Non-binair"
 
 msgid "titles"
 msgstr "titels"
@@ -957,7 +957,7 @@ msgstr "LDAP-gebruikersnaam"
 #, fuzzy
 #| msgid "LDAP username"
 msgid "Google username"
-msgstr "LDAP-gebruikersnaam"
+msgstr "Google gebruikersnaam"
 
 msgid "forward CH e-mail to Dienst2 e-mail"
 msgstr "stuur CH e-mail door naar Dienst2 e-mail"
