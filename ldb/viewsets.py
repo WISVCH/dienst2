@@ -20,7 +20,12 @@ class PersonFilter(django_filters.FilterSet):
 
     class Meta:
         model = Person
-        fields = ["ldap_username", "google_username", "netid", "student__student_number"]
+        fields = [
+            "ldap_username",
+            "google_username",
+            "netid",
+            "student__student_number",
+        ]
 
 
 class PersonViewSet(viewsets.ModelViewSet):

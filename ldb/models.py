@@ -9,8 +9,6 @@ from django.urls import reverse
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
-from functools import partial
-
 from ldb.querysets import EntityQuerySet, PersonQuerySet
 from .country_field import CountryField
 from .validators import validate_ldap_username, validate_google_username
@@ -232,11 +230,7 @@ class Person(Entity):
     )
 
     google_username = models.CharField(
-        _("Google username"),
-        max_length=64,
-        blank=True,
-        null=True,
-        unique=True
+        _("Google username"), max_length=64, blank=True, null=True, unique=True
     )
 
     email_forward = models.BooleanField(
@@ -372,7 +366,7 @@ class Person(Entity):
         super(Person, self).save(**kwargs)
 
         validate_google_username(self.google_username, self)
-        
+
         if self.pk is not None:
             old = self._original_living_with_id
             if old != self.living_with_id and old:

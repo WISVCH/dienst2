@@ -14,6 +14,7 @@ def validate_ldap_username(username):
             "User %(username)s does not exist", params={"username": username}
         )
 
+
 def validate_google_username(username: str, person):
     from ldb.models import Person
 
@@ -26,7 +27,7 @@ def validate_google_username(username: str, person):
             "Username %(username)s is not a valid Google username, please use the part before the @",
             params={"username": username},
         )
-    
+
     # Check if another person has the same username
     if Person.objects.filter(google_username=username).exclude(pk=person.pk).exists():
         raise ValidationError(
@@ -40,5 +41,5 @@ def validate_google_username(username: str, person):
             "Google Username %(username)s does not match the LDAP username %(ldap_username)s",
             params={"username": username, "ldap_username": person.ldap_username},
         )
-    
+
     # TODO: Implement Directory API to check if the username exists in Google Workspace
