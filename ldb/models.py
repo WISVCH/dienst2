@@ -11,7 +11,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from ldb.querysets import EntityQuerySet, PersonQuerySet
 from .country_field import CountryField
-from .validators import validate_ldap_username
+from .validators import validate_ldap_username, validate_google_username
 
 
 def get_attributes(self, attrs):
@@ -228,6 +228,11 @@ class Person(Entity):
         unique=True,
         validators=[validate_ldap_username],
     )
+
+    google_username = models.CharField(
+        _("Google username"), max_length=64, blank=True, null=True, unique=True
+    )
+
     email_forward = models.BooleanField(
         _("forward CH e-mail to Dienst2 e-mail"), default=False
     )
@@ -359,6 +364,9 @@ class Person(Entity):
         self._membership_status = self.membership_status
 
         super(Person, self).save(**kwargs)
+
+        validate_google_username(self.google_username, self)
+
         if self.pk is not None:
             old = self._original_living_with_id
             if old != self.living_with_id and old:
