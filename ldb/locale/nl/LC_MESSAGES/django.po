@@ -23,8 +23,6 @@ msgstr ""
 msgid "Base"
 msgstr "Basis"
 
-#, fuzzy
-#| msgid "emergency name"
 msgid "Emergency"
 msgstr "contactpersoon noodgeval"
 
@@ -946,16 +944,12 @@ msgstr "algemene mailing"
 msgid "company mailing"
 msgstr "bedrijvenmailing"
 
-#, fuzzy
-#| msgid "company mailing"
 msgid "education mailing"
 msgstr "bedrijvenmailing"
 
 msgid "LDAP username"
 msgstr "LDAP-gebruikersnaam"
 
-#, fuzzy
-#| msgid "LDAP username"
 msgid "Google username"
 msgstr "Google gebruikersnaam"
 
@@ -1149,8 +1143,6 @@ msgstr "Persoon toevoegen"
 msgid "Add organization"
 msgstr "Organisatie toevoegen"
 
-#, fuzzy
-#| msgid "committees"
 msgid "Committees"
 msgstr "commissies"
 
@@ -1163,18 +1155,12 @@ msgstr ""
 msgid "Search results"
 msgstr "Zoekresultaten"
 
-#, fuzzy
-#| msgid "board"
 msgid "Board"
 msgstr "bestuur"
 
-#, fuzzy
-#| msgid "committee"
 msgid "Committee"
 msgstr "commissie"
 
-#, fuzzy
-#| msgid "position"
 msgid "Position"
 msgstr "functie"
 
