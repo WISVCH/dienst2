@@ -1,3 +1,0 @@
-{{ object.entity_ptr.email }}
-{{ object.entity_ptr.phone_fixed }}
-{{ object.phone_mobile }}
