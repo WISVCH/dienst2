@@ -1,4 +1,5 @@
-# Dienst2 [![Build Status](https://travis-ci.org/WISVCH/dienst2.svg?branch=master)](https://travis-ci.org/WISVCH/dienst2) [![Requirements Status](https://requires.io/github/WISVCH/dienst2/requirements.svg?branch=master)](https://requires.io/github/WISVCH/dienst2/requirements/?branch=master)
+# Dienst2
+
 W.I.S.V. 'Christiaan Huygens'
 Dienstensysteem v2
 
@@ -10,7 +11,7 @@ Dienstensysteem v2
 
 ### Without Docker
 
-1. Install PostgreSQL (e.g. [Postgres.app for OS X](http://postgresapp.com), make sure to add it to `$PATH`
+1. Install PostgreSQL (e.g. [Postgres.app for macOS](https://postgresapp.com), make sure to add it to `$PATH`
 2. Install [PyCharm Professional](https://www.jetbrains.com/pycharm/) ([free for students](https://www.jetbrains.com/student/))
 3. Open project
 4. [Create virtual environment](https://www.jetbrains.com/pycharm/help/creating-virtual-environment.html)
@@ -33,6 +34,7 @@ Please beware that these files should not be edited by hand, except for the tran
 For an example of translations in a file, please check [this file](ldb/templates/ldb/person_confirm_delete.html).
 
 ### With docker
+
 If you run your development environment using docker, the generation of the translation files is done using the following command:
 `docker-compose run django python manage.py makemessages -l nl -i venv --no-location` at the root of the project.
 In this case we are generating the Dutch (nl) translation files.
@@ -41,7 +43,7 @@ To compile the messages run `docker-compose run django python manage.py compilem
 
 ## Production deployment
 
-Keel automatically deploys the `master` branch to the CH Kubernetes cluster.
+The `master` branch should be automatically deployed to the CH Kubernetes cluster through GitHub Actions and Flux.
 
 ## API
 
