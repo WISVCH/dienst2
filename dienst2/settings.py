@@ -169,13 +169,6 @@ IMPORT_EXPORT_USE_TRANSACTIONS = True
 
 AUTHENTICATION_BACKENDS = ("dienst2.auth.CHConnect",)
 
-DATADOG_TRACE = {
-    "DEFAULT_SERVICE": "dienst2",
-    "DEFAULT_DATABASE_PREFIX": "dienst2",
-    "DISTRIBUTED_TRACING": True,
-    "TAGS": {"env": "production"},
-}
-
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework.authentication.TokenAuthentication",
