@@ -3,15 +3,29 @@
 W.I.S.V. 'Christiaan Huygens'
 Dienstensysteem v2
 
-## Development installation
+## Development
 
-### With Docker
+### Using GitHub Codespaces or VS Code
 
-1. Build and run the development Docker image using [Docker Compose](https://docs.docker.com/compose/install/): `docker-compose up` and go to http://localhost:8000
+This repository has [Development Containers][devcontainers] configuration files, making it easy to use [GitHub Codespaces][codespaces] to develop remotely or [Visual Studio Code Dev Containers][vscode] to develop locally. Simply open this repository using one of these editors and use the 'Run' menu to start the Dienst2 application server.
+
+[devcontainers]: https://containers.dev
+[codespaces]:    https://docs.github.com/en/codespaces
+[vscode]:        https://code.visualstudio.com/docs/devcontainers/containers
+
+
+For Visual Studio Code:
+1. Run 'Dev Containers: Open Folder in Container' from the Command Palette (Ctrl+Shift+P) to open the repository in a container.
+2. Wait for the container to install.
+3. Start the server by running 'Run: Start Debugging' from the menu (F5).
+
+### Using Docker
+
+Build and run the development Docker image using [Docker Compose](https://docs.docker.com/compose/install/): `docker-compose up` and go to http://localhost:8000
 
 ### Without Docker
 
-1. Install PostgreSQL (e.g. [Postgres.app for macOS](https://postgresapp.com), make sure to add it to `$PATH`
+1. Install PostgreSQL (e.g. [Postgres.app for macOS](https://postgresapp.com), make sure to add it to `$PATH`)
 2. Install [PyCharm Professional](https://www.jetbrains.com/pycharm/) ([free for students](https://www.jetbrains.com/student/))
 3. Open project
 4. [Create virtual environment](https://www.jetbrains.com/pycharm/help/creating-virtual-environment.html)
@@ -28,12 +42,12 @@ Dienstensysteem v2
 
 ## Translation files
 
-We use django-admin `make-messages` for localisation. 
+We use django-admin `make-messages` for localisation.
 The translations are generated in `.po` files, such as [this django.po file](dienst2/locale/nl/LC_MESSAGES/django.po).
 Please beware that these files should not be edited by hand, except for the translations themselves.
 For an example of translations in a file, please check [this file](ldb/templates/ldb/person_confirm_delete.html).
 
-### With docker
+### With Docker
 
 If you run your development environment using docker, the generation of the translation files is done using the following command:
 `docker-compose run django python manage.py makemessages -l nl -i venv --no-location` at the root of the project.
