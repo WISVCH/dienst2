@@ -147,7 +147,6 @@ INSTALLED_APPS = (
     "debug_toolbar",
     "ddtrace.contrib.django",
     "ldb",
-    "kas",
     "post",
 )
 
@@ -191,7 +190,6 @@ LOGGING = {
     "handlers": {"console": {"class": "logging.StreamHandler", "formatter": "simple"}},
     "loggers": {
         "dienst2": {"handlers": ["console"], "level": "INFO", "propagate": True},
-        "kas": {"handlers": ["console"], "level": "INFO", "propagate": True},
         "ldb": {"handlers": ["console"], "level": "INFO", "propagate": True},
         "post": {"handlers": ["console"], "level": "INFO", "propagate": True},
         "django": {"handlers": ["console"], "level": "INFO", "propagate": True},
