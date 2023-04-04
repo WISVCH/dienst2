@@ -67,6 +67,12 @@ Dienst2 requires a Google Service account to access Group and Member data via th
 
 The scopes can be defined in Google Admin Console -> Security -> API controls -> Domain-wide delegation.
 
+After creating the service account, a JSON key file should be downloaded and stored in `/google-service-account.json` on the server. 
+
+It is also required to set the subject of the service account as an environment variable `GOOGLE_SERVICE_ACCOUNT_DELEGATED_USER`. Service accounts are used to represent non-human entities, but some APIs require a human user to be impersonated. 
+
+**I do not know to what value this should be set in production, but for development, every email address of someone from "beheer" should work.**
+
 ## API
 
 The API is available at `/ldb/api/v3/`. Authentication is done using a valid session (for in-browser testing) or a token (send an `Authorization: Token <token>` header).
