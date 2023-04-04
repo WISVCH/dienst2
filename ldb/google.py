@@ -7,7 +7,7 @@ import environ
 env = environ.Env()
 
 
-def getGoogleService(scopes=[]):
+def get_google_service(scopes=[]):
     """Returns a Google Directory API service object"""
     # Load the service account from the project root
     service_account_filepath = "google-service-account.json"
@@ -17,7 +17,7 @@ def getGoogleService(scopes=[]):
 
 
 
-def getGroupsByUserKey(userKey, domains=["wisv.ch", "ch.tudelft.nl"]) -> list:
+def get_groups_by_user_key(userKey, domains=["wisv.ch", "ch.tudelft.nl"]) -> list:
     """
     Returns all Google Groups that a member is a DIRECT member of
 
@@ -32,7 +32,7 @@ def getGroupsByUserKey(userKey, domains=["wisv.ch", "ch.tudelft.nl"]) -> list:
     # User memberKey
     # https://developers.google.com/admin-sdk/directory/v1/reference/members/list
 
-    service = getGoogleService(
+    service = get_google_service(
         [
             "https://www.googleapis.com/auth/admin.directory.group.readonly",
             "https://www.googleapis.com/auth/admin.directory.group.member.readonly",
@@ -48,9 +48,9 @@ def getGroupsByUserKey(userKey, domains=["wisv.ch", "ch.tudelft.nl"]) -> list:
 
     return groups
 
-# def getGoogleGroups(domains=["wisv.ch", "ch.tudelft.nl"]):
+# def get_google_groups(domains=["wisv.ch", "ch.tudelft.nl"]):
 #     """Returns all Google Groups"""
-#     service = getGoogleService(
+#     service = get_google_service(
 #         [
 #             "https://www.googleapis.com/auth/admin.directory.group.readonly",
 #             "https://www.googleapis.com/auth/admin.directory.group.member.readonly",
@@ -64,9 +64,9 @@ def getGroupsByUserKey(userKey, domains=["wisv.ch", "ch.tudelft.nl"]) -> list:
 #             groups += data["groups"]
 #     return groups
 
-# def addMemberToGoogleGroup(email, group_name, role="MEMBER", logfile=None):
+# def add_member_to_google_group(email, group_name, role="MEMBER", logfile=None):
 #     """Adds a member to a Google Group"""
-#     service = getGoogleService(["https://www.googleapis.com/auth/admin.directory.group.member"])
+#     service = get_google_service(["https://www.googleapis.com/auth/admin.directory.group.member"])
 #     member = {"email": email, "role": role}
 
 #     try:
@@ -82,4 +82,4 @@ def getGroupsByUserKey(userKey, domains=["wisv.ch", "ch.tudelft.nl"]) -> list:
 
 
 if __name__ == "__main__":
-    print(getGroupsByUserKey("joepj@ch.tudelft.nl"))
+    print(get_groups_by_user_key("joepj@ch.tudelft.nl"))
