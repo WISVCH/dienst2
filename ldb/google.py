@@ -10,10 +10,13 @@ def get_google_service(scopes=[]):
     """Returns a Google Directory API service object"""
     # Load the service account from the project root
     service_account_filepath = "google-service-account.json"
-    credentials = service_account.Credentials.from_service_account_file(service_account_filepath, scopes=scopes)
-    delegated_credentials = credentials.with_subject(env.str("GOOGLE_SERVICE_ACCOUNT_DELEGATED_USER"))
+    credentials = service_account.Credentials.from_service_account_file(
+        service_account_filepath, scopes=scopes
+    )
+    delegated_credentials = credentials.with_subject(
+        env.str("GOOGLE_SERVICE_ACCOUNT_DELEGATED_USER")
+    )
     return build("admin", "directory_v1", credentials=delegated_credentials)
-
 
 
 def get_groups_by_user_key(userKey, domains=["wisv.ch", "ch.tudelft.nl"]) -> list:
@@ -24,7 +27,7 @@ def get_groups_by_user_key(userKey, domains=["wisv.ch", "ch.tudelft.nl"]) -> lis
     :param domains: Domains to search for groups. Ensure that these are set to prevent group name attacks by using other domains.
 
     :return: List of group email addresses
-    
+
     (https://developers.google.com/admin-sdk/directory/reference/rest/v1/groups/list)
     """
 
@@ -38,7 +41,7 @@ def get_groups_by_user_key(userKey, domains=["wisv.ch", "ch.tudelft.nl"]) -> lis
         ]
     )
 
-    groups : list = []
+    groups: list = []
     for domain in domains:
         data = service.groups().list(userKey=userKey, domain=domain).execute()
         if "groups" in data:
