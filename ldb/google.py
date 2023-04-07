@@ -20,12 +20,15 @@ def get_google_service(scopes=[]):
     return build("admin", "directory_v1", credentials=delegated_credentials)
 
 
-def get_groups_by_user_key(userKey, domains=["wisv.ch", "ch.tudelft.nl"]) -> list:
+def get_groups_by_user_key(
+    userKey, domains=["wisv.ch", "ch.tudelft.nl"], indirect=False
+) -> list:
     """
     Returns all Google Groups that a member is a DIRECT member of
 
     :param userKey: Email or immutable ID of the user if only those groups are to be listed, the given user is a member of. If it's an ID, it should match with the ID of the user object.
     :param domains: Domains to search for groups. Ensure that these are set to prevent group name attacks by using other domains.
+    :param indirect: Whether to include indirect groups
 
     :return: List of group email addresses
 
@@ -48,6 +51,10 @@ def get_groups_by_user_key(userKey, domains=["wisv.ch", "ch.tudelft.nl"]) -> lis
         if "groups" in data:
             for group in data["groups"]:
                 groups.append(group["email"])
+
+    if indirect:
+        indirect_groups = get_indirect_groups(groups)
+        groups.extend(indirect_groups)
 
     return groups
 
