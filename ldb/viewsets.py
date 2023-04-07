@@ -52,25 +52,27 @@ class PersonViewSet(viewsets.ModelViewSet):
 
         google_groups = []
 
-         # Check if the person has a valid membership status
+        # Check if the person has a valid membership status
         if person.valid_membership_status is False:
             return Response(google_groups)
-        
+
         # Check if the person has a google username
         if person.google_username is None:
             return Response(google_groups)
 
         # Retrieve the groups from the Directory API
         try:
-            google_groups =  get_groups_by_user_key(person.google_username + "@ch.tudelft.nl")
+            google_groups = get_groups_by_user_key(
+                person.google_username + "@ch.tudelft.nl"
+            )
         except HttpError as e:
             if e.resp.status == 404:
                 return Response(google_groups)
             else:
                 raise e
-            
+
             return Response([])
-            
+
         return Response(google_groups)
 
 
