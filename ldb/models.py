@@ -8,10 +8,8 @@ from django.db import models
 from django.urls import reverse
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
-from googleapiclient.errors import HttpError
 
 from ldb.querysets import EntityQuerySet, PersonQuerySet
-from ldb.google import get_groups_by_user_key
 from .country_field import CountryField
 from .validators import validate_ldap_username, validate_google_username
 
@@ -405,26 +403,6 @@ class Person(Entity):
             return self.student.student_number
         else:
             return None
-
-    def get_google_groups(self):
-        # Check if the person has a valid membership status
-        if self.valid_membership_status is False:
-            return []
-        
-        # Check if the person has a google username
-        if self.google_username is None:
-            return []
-        
-        # Retrieve the groups from the Directory API
-        try:
-            return get_groups_by_user_key(self.google_username + "@ch.tudelft.nl")
-        except HttpError as e:
-            if e.resp.status == 404:
-                return []
-            else:
-                raise e
-
-
 
     def get_absolute_url(self):
         return reverse("ldb_people_detail", args=[str(self.id)])

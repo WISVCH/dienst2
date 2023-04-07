@@ -120,6 +120,11 @@ class PersonSerializer(EntitySerializer):
 
         return person
 
+class PersonGoogleGroupsSerializer(serializers.Serializer):
+    google_groups = serializers.SerializerMethodField()
+
+    def get_google_groups(self, obj):
+        return obj.get_google_groups()
 
 class OrganizationSerializer(EntitySerializer):
     id = ReadOnlyField()
