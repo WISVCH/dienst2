@@ -46,39 +46,3 @@ def get_groups_by_user_key(userKey, domains=["wisv.ch", "ch.tudelft.nl"]) -> lis
                 groups.append(group["email"])
 
     return groups
-
-# def get_google_groups(domains=["wisv.ch", "ch.tudelft.nl"]):
-#     """Returns all Google Groups"""
-#     service = get_google_service(
-#         [
-#             "https://www.googleapis.com/auth/admin.directory.group.readonly",
-#             "https://www.googleapis.com/auth/admin.directory.group.member.readonly",
-#         ]
-#     )
-
-#     groups = []
-#     for domain in domains:
-#         data = service.groups().list(domain=domain).execute()
-#         if "groups" in data:
-#             groups += data["groups"]
-#     return groups
-
-# def add_member_to_google_group(email, group_name, role="MEMBER", logfile=None):
-#     """Adds a member to a Google Group"""
-#     service = get_google_service(["https://www.googleapis.com/auth/admin.directory.group.member"])
-#     member = {"email": email, "role": role}
-
-#     try:
-#         service.members().insert(groupKey=group_name, body=member).execute()
-#     except HttpError as e:
-#         if e.resp.status == 409:
-#             print("- ERROR: Member {} already exists in group {}".format(email, group_name), file=logfile)
-#         elif e.resp.status == 412:
-#             print("- ERROR: Member {} cannot be added to group {} because it does not meet the required group permissions".format(email, group_name), file=logfile)
-#         else:
-#             print("- ERROR: Failed to add member {} to group {}".format(email, group_name), file=logfile)
-#             raise e
-
-
-if __name__ == "__main__":
-    print(get_groups_by_user_key("joepj@ch.tudelft.nl"))
