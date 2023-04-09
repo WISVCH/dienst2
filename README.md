@@ -59,6 +59,20 @@ To compile the messages run `docker-compose run django python manage.py compilem
 
 The `master` branch should be automatically deployed to the CH Kubernetes cluster through GitHub Actions and Flux.
 
+## Google Serivce Account
+Dienst2 requires a Google Service account to access Group and Member data via the directory API. A Google Serivce Account can be created in the [Google Cloud Console](https://console.cloud.google.com/apis/credentials). The service account should be a "Domain-wide Delegation" account with the following scopes:
+
+- https://www.googleapis.com/auth/admin.directory.group.readonly
+- https://www.googleapis.com/auth/admin.directory.group.member.readonly
+
+The scopes can be defined in Google Admin Console -> Security -> API controls -> Domain-wide delegation.
+
+After creating the service account, a JSON key file should be downloaded and stored in `/google-service-account.json` on the server. 
+
+It is also required to set the subject of the service account as an environment variable `GOOGLE_SERVICE_ACCOUNT_DELEGATED_USER`. Service accounts are used to represent non-human entities, but some APIs require a human user to be impersonated. 
+
+**I do not know to what value this should be set in production, but for development, every email address of someone from "beheer" should work.**
+
 ## API
 
 The API is available at `/ldb/api/v3/`. Authentication is done using a valid session (for in-browser testing) or a token (send an `Authorization: Token <token>` header).
