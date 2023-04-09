@@ -20,9 +20,7 @@ def get_google_service(scopes=[]):
     return build("admin", "directory_v1", credentials=delegated_credentials)
 
 
-def get_groups_by_user_key(
-    userKey, domains=["ch.tudelft.nl"], indirect=False
-) -> list:
+def get_groups_by_user_key(userKey, domains=["ch.tudelft.nl"], indirect=False) -> list:
     """
     Returns all Google Groups that a member is a DIRECT member of
 
