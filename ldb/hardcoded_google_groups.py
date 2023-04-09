@@ -4,6 +4,7 @@ import datetime
 TODO: This file contains hardcoded Google Groups that are not retrieved from Google. This is because Dienst2 currently is not able to cache the Google Groups. This is a temporary solution to continue with the cloud migration. Please implement cachin ASAP.
 """
 
+
 def get_book_year() -> int:
     # Get the current book year. The year starts at the 1st of September
     now = datetime.datetime.now()
