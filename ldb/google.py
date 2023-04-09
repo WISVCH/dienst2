@@ -77,15 +77,3 @@ def get_parent_group(group: str):
     if "parent" in data:
         return data["parent"]
     return None
-
-
-if __name__ == "__main__":
-    groups = get_groups_by_user_key("joepj@ch.tudelft.nl")
-
-    groups.append("choco_2022@ch.tudelft.nl")
-
-    print("Direct groups:")
-    print(groups)
-
-    print("Indirect groups:")
-    print(get_indirect_groups(groups))
