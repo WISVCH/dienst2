@@ -1,6 +1,6 @@
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
-from hardcoded_google_groups import get_indirect_groups
+from ldb.hardcoded_google_groups import get_indirect_groups
 
 import environ
 
@@ -77,14 +77,3 @@ def get_parent_group(group: str):
     if "parent" in data:
         return data["parent"]
     return None
-
-if __name__ == "__main__":
-    groups = get_groups_by_user_key("joepj@ch.tudelft.nl")
-
-    groups.append("choco_2022@ch.tudelft.nl")
-
-    print("Direct groups:")
-    print(groups)
-
-    print("Indirect groups:")
-    print(get_indirect_groups(groups))
