@@ -20,9 +20,7 @@ def get_google_service(scopes=[]):
     return build("admin", "directory_v1", credentials=delegated_credentials)
 
 
-def get_groups_by_user_key(
-    userKey, domains=["wisv.ch", "ch.tudelft.nl"], indirect=False
-) -> list:
+def get_groups_by_user_key(userKey, domains=["ch.tudelft.nl"], indirect=False) -> list:
     """
     Returns all Google Groups that a member is a DIRECT member of
 
@@ -56,7 +54,20 @@ def get_groups_by_user_key(
         indirect_groups = get_indirect_groups(groups)
         groups.extend(indirect_groups)
 
-    return groups
+    # Replace "@ch.tudelft.nl" from the group names
+    # 1. Replace "-commissie@ch.tudelft.nl" with ""
+    # 2. Replace "-group@ch.tudelft.nl" with ""
+    # 3. Replace "@ch.tudelft.nl" with ""
+
+    return_groups = []
+    for group in groups:
+        group = group.replace("-commissie@ch.tudelft.nl", "")
+        group = group.replace("-group@ch.tudelft.nl", "")
+        group = group.replace("@ch.tudelft.nl", "")
+
+        return_groups.append(group)
+
+    return return_groups
 
 
 def get_parent_group(group: str):
