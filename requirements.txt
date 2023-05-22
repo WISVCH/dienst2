@@ -23,7 +23,7 @@ psycopg2-binary==2.8.6
 python-dateutil==2.7.5
 python-mimeparse==1.6.0
 pytz
-requests==2.23.0
+requests==2.31.0
 setproctitle
 simplejson==3.16.0
 six==1.12.0
