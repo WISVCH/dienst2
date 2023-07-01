@@ -48,51 +48,30 @@ class Command(BaseCommand):
             help="Perform save on models",
         )
 
+    def clean_object(self, obj, options, person: Person, objectClass=Person):
+        try:
+            obj.full_clean()
+            if options["save"]:
+                obj.save()
+        except objectClass.DoesNotExist:
+            pass
+        except ValidationError as e:
+            stderr.write(
+                f"Validation error in {obj.__class__.__name__} \
+                    {BASE_URL}{person.id}/ - {e}\n"
+            )
+            
     def handle(self, *args, **options):
         persons = Person.objects.all().order_by("id")
         for person in persons:
             if options["clean-persons"]:
-                try:
-                    person.full_clean()
-                    if options["save"]:
-                        person.save()
-                except ValidationError as e:
-                    stderr.write(
-                        f"Validation error in Person {BASE_URL}{person.id}/ - {e}\n"
-                    )
+                self.clean_object(person, options, person)
 
             if options["clean-members"]:
-                try:
-                    person.member.full_clean()
-                    if options["save"]:
-                        person.member.save()
-                except Member.DoesNotExist:
-                    pass
-                except ValidationError as e:
-                    stderr.write(
-                        f"Validation error in Member {BASE_URL}{person.id}/ - {e}\n"
-                    )
+                self.clean_object(person.member, options, person, Member)
 
             if options["clean-students"]:
-                try:
-                    person.student.full_clean()
-                    if options["save"]:
-                        person.student.save()
-                except Student.DoesNotExist:
-                    pass
-                except ValidationError as e:
-                    stderr.write(
-                        f"Validation error in Student {BASE_URL}{person.id}/ - {e}\n"
-                    )
+                self.clean_object(person.student, options, person, Student)
 
             if options["clean-alumni"]:
-                try:
-                    person.alumnus.full_clean()
-                    if options["save"]:
-                        person.alumnus.save()
-                except Alumnus.DoesNotExist:
-                    pass
-                except ValidationError as e:
-                    stderr.write(
-                        f"Validation error in Alumnus {BASE_URL}{person.id}/ - {e}\n"
-                    )
+                self.clean_object(person.alumnus, options, person, Alumnus)
