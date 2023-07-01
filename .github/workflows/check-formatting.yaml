@@ -17,3 +17,13 @@ jobs:
             black --version &&
             black --check .
             "
+      - name: Check linting with flake8
+        uses: docker://python:3.8
+        with:
+          entrypoint: /bin/bash
+          args: >
+            -c "
+            pip install -q flake8 &&
+            flake8 --version &&
+            flake8 .
+            "
