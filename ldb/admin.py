@@ -11,7 +11,18 @@ from import_export import resources, widgets
 from reversion_compare.admin import CompareVersionAdmin
 
 from ldb.ImportExportVersionModelAdmin import ImportExportVersionModelAdmin
-from ldb.models import *
+from ldb.models import (
+    Alumnus,
+    Committee,
+    CommitteeMembership,
+    Employee,
+    Member,
+    Modification,
+    Organization,
+    Person,
+    Student,
+    ValidationError,
+)
 
 
 class CommitteeMembershipInline(admin.TabularInline):

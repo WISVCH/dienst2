@@ -19,7 +19,7 @@ def query_string(parser, token):
         modifier is <name><op><value> where op in {=, +, -}
 
     Parameters:
-        - base_querystring: literal query string, e.g. 
+        - base_querystring: literal query string, e.g.
                             '?tag=python&tag=django&year=2011',
                             or context variable bound to either
                             - a literal query string,

@@ -329,7 +329,7 @@ class Person(Entity):
         born = self.birthdate
         today = date.today()
         # raised when birth date is February 29 and the current year is not a leap year
-        try:  
+        try:
             birthday = born.replace(year=today.year)
         except ValueError:
             birthday = born.replace(year=today.year, day=born.day - 1)
