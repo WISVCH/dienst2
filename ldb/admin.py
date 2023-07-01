@@ -300,7 +300,8 @@ class PersonAdmin(ImportExportVersionModelAdmin):
         EmployeeInline,
     ]
 
-    # Make sure we save inlines before saving Person - http://stackoverflow.com/a/29231611/2354734
+    # Make sure we save inlines before saving Person:
+    # http://stackoverflow.com/a/29231611/2354734
     def save_model(self, request, obj, form, change):
         if not obj.pk:  # call super method if object has no primary key
             super(PersonAdmin, self).save_model(request, obj, form, change)

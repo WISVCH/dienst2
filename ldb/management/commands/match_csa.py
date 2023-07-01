@@ -18,7 +18,10 @@ class Command(BaseCommand):
             "--yes-value",
             dest="yes-value",
             default="ja",
-            help="Define which value is in the document when the CSa says the person is still a student",
+            help=(
+                "Define which value is in the document when the CSa says the person is"
+                " still a student"
+            ),
         )
         parser.add_argument(
             "--date",
@@ -43,9 +46,8 @@ class Command(BaseCommand):
                         student = Student.objects.get(student_number=student_number)
                     except Student.DoesNotExist:
                         self.stderr.write(
-                            "Failed to find student with student number '{}' in database".format(
-                                student_number
-                            )
+                            "Failed to find student with student number '{}' in"
+                            " database".format(student_number)
                         )
                         continue
 
@@ -68,15 +70,17 @@ class Command(BaseCommand):
                         ):
                             member.date_to = date
 
-                            message = "Membership revoked. Student is either unknown or no longer a student according to CSa."
+                            message = (
+                                "Membership revoked. Student is either unknown or no"
+                                " longer a student according to CSa."
+                            )
                             reversion.set_comment(message)
 
                             member.save()
 
                             self.stdout.write(
-                                "Student with student number '{}' is no longer active, membership ended.".format(
-                                    student_number
-                                )
+                                "Student with student number '{}' is no longer active,"
+                                " membership ended.".format(student_number)
                             )
                     else:
                         reversion.set_comment("Student confirmed by CSa")

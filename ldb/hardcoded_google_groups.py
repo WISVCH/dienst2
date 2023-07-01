@@ -1,7 +1,10 @@
 import datetime
 
 """
-TODO: This file contains hardcoded Google Groups that are not retrieved from Google. This is because Dienst2 currently is not able to cache the Google Groups. This is a temporary solution to continue with the cloud migration. Please implement cachin ASAP.
+TODO: This file contains hardcoded Google Groups that are not retrieved from Google. 
+This is because Dienst2 currently is not able to cache the Google Groups.
+This is a temporary solution to continue with the cloud migration. 
+Please implement cachin ASAP.
 """
 
 
@@ -18,7 +21,8 @@ def get_book_year() -> int:
 def get_board_year() -> int:
     """
     Return the current board year.
-    Under the assumption that the board year starts at the 1st of September and that from now on only complete years are made.
+    Under the assumption that the board year starts at the 1st of September and that
+    from now on only complete years are made.
     """
     return get_book_year() - 1956
 
@@ -62,7 +66,8 @@ def get_parent_committee_group(group: str) -> str:
     :param group: The group to get the parent committee group of
     :return: The parent committee group
 
-    This function assigns for example choco_2022@ch.tudelft.nl to choco@ch.tudelft.nl in the year 2022-2023.
+    This function assigns for example choco_2022@ch.tudelft.nl to choco@ch.tudelft.nl
+    in the year 2022-2023.
     """
 
     # Split the group name on the underscore and the @

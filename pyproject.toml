@@ -11,6 +11,8 @@ dependencies = ["django"]
 dev = ["pytest", "black", "flake8"]
 
 [tool.black]
+line-length = 88
+preview=true
 py36 = true
 include = '\.pyi?$'
 exclude = '''

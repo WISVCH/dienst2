@@ -182,24 +182,46 @@ LOGGING = {
     "version": 1,
     "formatters": {
         "simple": {
-            "format": "%(asctime)s %(levelname)s %(name)s.%(funcName)s:%(lineno)s %(message)s"
+            "format": (
+                "%(asctime)s %(levelname)s %(name)s.%(funcName)s:%(lineno)s %(message)s"
+            )
         }
     },
     "handlers": {"console": {"class": "logging.StreamHandler", "formatter": "simple"}},
     "loggers": {
-        "dienst2": {"handlers": ["console"], "level": "INFO", "propagate": True},
+        "dienst2": {
+            "handlers": ["console"],
+            "level": "INFO",
+            "propagate": True,
+        },
         "ldb": {"handlers": ["console"], "level": "INFO", "propagate": True},
         "post": {"handlers": ["console"], "level": "INFO", "propagate": True},
         "django": {"handlers": ["console"], "level": "INFO", "propagate": True},
-        "django.request": {"handlers": ["console"], "level": "INFO", "propagate": True},
+        "django.request": {
+            "handlers": ["console"],
+            "level": "INFO",
+            "propagate": True,
+        },
         "django.security": {
             "handlers": ["console"],
             "level": "INFO",
             "propagate": True,
         },
-        "health-check": {"handlers": ["console"], "level": "INFO", "propagate": True},
-        "health_check": {"handlers": ["console"], "level": "INFO", "propagate": True},
-        "rest_framework": {"handlers": ["console"], "level": "INFO", "propagate": True},
+        "health-check": {
+            "handlers": ["console"],
+            "level": "INFO",
+            "propagate": True,
+        },
+        "health_check": {
+            "handlers": ["console"],
+            "level": "INFO",
+            "propagate": True,
+        },
+        "rest_framework": {
+            "handlers": ["console"],
+            "level": "INFO",
+            "propagate": True,
+        },
     },
 }
 
