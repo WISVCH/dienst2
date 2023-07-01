@@ -1,9 +1,9 @@
 import datetime
 
 """
-TODO: This file contains hardcoded Google Groups that are not retrieved from Google. 
+TODO: This file contains hardcoded Google Groups that are not retrieved from Google.
 This is because Dienst2 currently is not able to cache the Google Groups.
-This is a temporary solution to continue with the cloud migration. 
+This is a temporary solution to continue with the cloud migration.
 Please implement cachin ASAP.
 """
 

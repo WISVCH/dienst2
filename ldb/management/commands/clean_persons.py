@@ -60,7 +60,7 @@ class Command(BaseCommand):
                 f"Validation error in {obj.__class__.__name__} \
                     {BASE_URL}{person.id}/ - {e}\n"
             )
-            
+
     def handle(self, *args, **options):
         persons = Person.objects.all().order_by("id")
         for person in persons:

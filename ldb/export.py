@@ -13,6 +13,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from six import iteritems
 
+from ldb.models import Entity
+
 
 class CSVRenderer(renderers.BaseRenderer):
     media_type = "text/csv"
@@ -205,7 +207,7 @@ class Export(APIView):
 
         querysets = {}
         for k, v in iteritems(requested_querysets):
-            if v == True:
+            if v is True:
                 querysets[k] = v
         requested_querysets = querysets
 
@@ -293,7 +295,7 @@ class Export(APIView):
                     name = obj.get("organization__name_prefix", "")
                     name += " "
                     name += obj.get("organization__name")
-                    name = re.sub("\s+", " ", name)
+                    name = re.sub(" +", " ", name)
                     return name.strip()
                 elif obj.get("person__surname"):
                     titles = obj.get("person__titles")
@@ -315,7 +317,7 @@ class Export(APIView):
                         obj.get("person__surname", ""),
                         obj.get("person__postfix_titles", ""),
                     )
-                    name = re.sub("\s+", " ", name)
+                    name = re.sub(" +", " ", name)
                     return name.strip()
                 else:
                     return ""
