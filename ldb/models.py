@@ -40,10 +40,6 @@ class Entity(models.Model):
 
     # Subscriptions
     machazine = models.BooleanField(_("MaCHazine"), default=True)
-    board_invites = models.BooleanField(_("board invites"), default=False)
-    constitution_card = models.BooleanField(_("constitution card"), default=False)
-    christmas_card = models.BooleanField(_("Christmas card"), default=True)
-    yearbook = models.BooleanField(_("yearbook"), default=False)
 
     # Other
     comment = models.TextField(blank=True)
@@ -75,10 +71,6 @@ class Entity(models.Model):
             self,
             [
                 "machazine",
-                "board_invites",
-                "constitution_card",
-                "christmas_card",
-                "yearbook",
             ],
         )
 
@@ -311,9 +303,6 @@ class Person(Entity):
             self,
             [
                 "machazine",
-                "constitution_card",
-                "christmas_card",
-                "board_invites",
                 "mail_announcements",
                 "mail_company",
                 "mail_education",
@@ -542,8 +531,6 @@ class Student(models.Model):
 
     emergency_name = models.CharField(_("emergency name"), max_length=48, blank=True)
     emergency_phone = models.CharField(_("emergency phone"), max_length=16, blank=True)
-
-    yearbook_permission = models.BooleanField(_("yearbook permission"), default=True)
 
     date_verified = models.DateField(_("date verified"), blank=True, null=True)
 

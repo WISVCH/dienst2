@@ -24,7 +24,7 @@ class StudentInline(admin.StackedInline):
     fieldsets = [
         (_("Base"), {"fields": ["study", "first_year", "student_number", "enrolled"]}),
         (_("Emergency"), {"fields": ["emergency_name", "emergency_phone"]}),
-        (_("Permissions"), {"fields": ["yearbook_permission"]}),
+        (_("Permissions"), {"fields": []}),
         (_("Other"), {"fields": ["date_verified"]}),
     ]
 
@@ -146,7 +146,6 @@ class PersonResource(resources.ModelResource):
                 errors[field.attribute] = ValidationError(force_text(e), code="invalid")
 
         # Student validation
-        obj.student.yearbook_permission = bool(data["student__yearbook_permission"])
         obj.student.first_year = data["student__first_year"]
         obj.student.study = str(data["student__study"])
         obj.student.student_number = str(data["student__student_number"])
@@ -207,7 +206,6 @@ class PersonResource(resources.ModelResource):
             "gender",
             "pronouns",
             "birthdate",
-            "student__yearbook_permission",
             "mail_announcements",
             "mail_company",
             "mail_education",
@@ -281,10 +279,6 @@ class PersonAdmin(ImportExportVersionModelAdmin):
             {
                 "fields": [
                     "machazine",
-                    "board_invites",
-                    "constitution_card",
-                    "christmas_card",
-                    "yearbook",
                     "mail_announcements",
                     "mail_company",
                     "mail_education",
@@ -337,10 +331,6 @@ class OrganizationAdmin(CompareVersionAdmin):
             {
                 "fields": [
                     "machazine",
-                    "constitution_card",
-                    "yearbook",
-                    "christmas_card",
-                    "board_invites",
                 ]
             },
         ),

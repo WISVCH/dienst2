@@ -175,10 +175,6 @@
         <fieldset>
           <legend>Aanmeldingen</legend>
           {% stcontrol_janee person 'machazine' %}
-          {% stcontrol_janee person 'constitution_card' %}
-          {% stcontrol_janee person 'christmas_card' %}
-          {% stcontrol_janee person 'board_invites' %}
-          {% stcontrol_janee person 'yearbook' %}
           {% stcontrol_janee person 'mail_announcements' %}
           {% stcontrol_janee person 'mail_company' %}
           {% stcontrol_janee person 'mail_education' %}
@@ -194,7 +190,6 @@
             {% stcontrol person.student 'first_year' %}
             {% stcontrol person.student 'student_number' %}
             {% stcontrol_janee person.student 'enrolled' %}
-            {% stcontrol_janee person.student 'yearbook_permission' %}
             {% stcontrol person.student 'date_verified' %}
           </fieldset>
         {% endif %}
