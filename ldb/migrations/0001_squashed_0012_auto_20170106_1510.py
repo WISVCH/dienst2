@@ -393,6 +393,24 @@ class Migration(migrations.Migration):
                     "machazine",
                     models.BooleanField(default=True, verbose_name="MaCHazine"),
                 ),
+                (
+                    "board_invites",
+                    models.BooleanField(default=False, verbose_name="board invites"),
+                ),
+                (
+                    "constitution_card",
+                    models.BooleanField(
+                        default=False, verbose_name="constitution card"
+                    ),
+                ),
+                (
+                    "christmas_card",
+                    models.BooleanField(default=True, verbose_name="Christmas card"),
+                ),
+                (
+                    "yearbook",
+                    models.BooleanField(default=False, verbose_name="yearbook"),
+                ),
                 ("comment", models.TextField(blank=True)),
             ],
             options={"verbose_name": "entity", "verbose_name_plural": "entities"},
