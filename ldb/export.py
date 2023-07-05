@@ -219,15 +219,11 @@ class Export(APIView):
         "entity": [
             "country",
             "machazine",
-            "board_invites",
-            "constitution_card",
-            "christmas_card",
-            "yearbook",
         ],
         "organization": [],
         "person": ["mail_announcements", "mail_company", "mail_education"],
         "person__member": ["associate_member", "donating_member", "merit_invitations"],
-        "person__student": ["first_year", "enrolled", "yearbook_permission"],
+        "person__student": ["first_year", "enrolled"],
         "person__alumnus": [],
         "person__employee": [],
     }

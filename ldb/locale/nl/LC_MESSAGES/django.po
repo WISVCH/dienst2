@@ -839,18 +839,6 @@ msgstr "telefoon vast"
 msgid "MaCHazine"
 msgstr "MaCHazine"
 
-msgid "board invites"
-msgstr "uitnodigingen bestuur"
-
-msgid "constitution card"
-msgstr "constitutiekaartje"
-
-msgid "Christmas card"
-msgstr "Kerstkaartje"
-
-msgid "yearbook"
-msgstr "jaarboek"
-
 msgid "organization"
 msgstr "organisatie"
 
@@ -1033,9 +1021,6 @@ msgstr "contactpersoon noodgeval"
 
 msgid "emergency phone"
 msgstr "telefoonnummer noodgeval"
-
-msgid "yearbook permission"
-msgstr "toestemming jaarboek"
 
 msgid "date verified"
 msgstr "datum bevestigd"
