@@ -72,7 +72,7 @@ class EntitySerializer(
         fields = "__all__"
 
     def save(self):
-        if not "revision_comment" in self.validated_data:
+        if "revision_comment" not in self.validated_data:
             raise ParseError("revision_comment not set")
         action = self.context["view"].action
         api_user = self.context["request"].user.username
