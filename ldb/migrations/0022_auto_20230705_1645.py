@@ -4,30 +4,29 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('ldb', '0021_person_google_username'),
+        ("ldb", "0021_person_google_username"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='entity',
-            name='board_invites',
+            model_name="entity",
+            name="board_invites",
         ),
         migrations.RemoveField(
-            model_name='entity',
-            name='christmas_card',
+            model_name="entity",
+            name="christmas_card",
         ),
         migrations.RemoveField(
-            model_name='entity',
-            name='constitution_card',
+            model_name="entity",
+            name="constitution_card",
         ),
         migrations.RemoveField(
-            model_name='entity',
-            name='yearbook',
+            model_name="entity",
+            name="yearbook",
         ),
         migrations.RemoveField(
-            model_name='student',
-            name='yearbook_permission',
+            model_name="student",
+            name="yearbook_permission",
         ),
     ]
