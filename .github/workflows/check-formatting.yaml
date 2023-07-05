@@ -5,25 +5,10 @@ jobs:
     name: Check formatting
     runs-on: ubuntu-latest
     steps:
+      
       - name: Check out code
         uses: actions/checkout@v1
-      - name: Check formatting using Black
-        uses: docker://python:3.8
+      - name: Check formatting using pre-commit
+        uses: pre-commit/action@v3.0.0
         with:
-          entrypoint: /bin/bash
-          args: >
-            -c "
-            pip install -q black &&
-            black --version &&
-            black --check .
-            "
-      - name: Check linting with flake8
-        uses: docker://python:3.8
-        with:
-          entrypoint: /bin/bash
-          args: >
-            -c "
-            pip install -q flake8 &&
-            flake8 --version &&
-            flake8 .
-            "
+          extra_args: flake8 --all-files
