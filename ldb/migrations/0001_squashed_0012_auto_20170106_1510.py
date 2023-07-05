@@ -853,7 +853,10 @@ class Migration(migrations.Migration):
             sql="UPDATE ldb_person SET facebook_id = NULL WHERE facebook_id = '';"
         ),
         migrations.RunSQL(
-            sql="UPDATE ldb_student SET student_number = NULL WHERE student_number = '' OR student_number = '0';"
+            sql=(
+                "UPDATE ldb_student SET student_number = NULL WHERE student_number = ''"
+                " OR student_number = '0';"
+            )
         ),
         migrations.AlterField(
             model_name="person",
@@ -916,7 +919,10 @@ class Migration(migrations.Migration):
             ),
         ),
         migrations.RunSQL(
-            sql="CREATE INDEX ldb_person_ldap_username_upper ON ldb_person (UPPER(ldap_username));"
+            sql=(
+                "CREATE INDEX ldb_person_ldap_username_upper ON ldb_person"
+                " (UPPER(ldap_username));"
+            )
         ),
         migrations.RunSQL(
             sql="CREATE INDEX ldb_person_netid_upper ON ldb_person (UPPER(netid));"

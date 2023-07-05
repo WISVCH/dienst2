@@ -313,7 +313,8 @@ class Person(Entity):
     def age(self):
         born = self.birthdate
         today = date.today()
-        try:  # raised when birth date is February 29 and the current year is not a leap year
+        # raised when birth date is February 29 and the current year is not a leap year
+        try:
             birthday = born.replace(year=today.year)
         except ValueError:
             birthday = born.replace(year=today.year, day=born.day - 1)
@@ -498,14 +499,14 @@ class Member(models.Model):
 
         if self.merit_date_from is not None and self.date_from is None:
             raise ValidationError(
-                "Cannot have a 'merit from date' without a 'date from'. (Merit member must be a "
-                "regular member too)"
+                "Cannot have a 'merit from date' without a 'date from'. (Merit member"
+                " must be a regular member too)"
             )
 
         if self.honorary_date_from is not None and self.date_from is None:
             raise ValidationError(
-                "Cannot have a 'honorary from date' without a 'date from'. (Honorary member must be a"
-                " regular member too)"
+                "Cannot have a 'honorary from date' without a 'date from'. (Honorary"
+                " member must be a regular member too)"
             )
 
         if self.date_to is None and self.associate_member:

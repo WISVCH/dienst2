@@ -30,13 +30,14 @@ Build and run the development Docker image using [Docker Compose](https://docs.d
 3. Open project
 4. [Create virtual environment](https://www.jetbrains.com/pycharm/help/creating-virtual-environment.html)
 5. [Install dependencies in virtual environment](https://www.jetbrains.com/pycharm/help/resolving-unsatisfied-dependencies.html)
-   * If e.g. psycopg2 won't install, activate virtualenv (`source bin/activate`) and then manually install dependencies (`pip install -r requirements.txt`)
+   * If e.g. psycopg2 won't install, activate virtualenv (`source bin/activate`) and then manually install dependencies (`pip install -r requirements.txt`) and install the dev dependenceies (`pip install -r requirements-dev.txt`)
    * If psycopg2 fails during server start, maybe [this](http://stackoverflow.com/questions/28515972/problems-using-psycopg2-on-mac-os-yosemite) solution will work for you.
 6. Install dependencies using Yarn (`yarn install`; first install [Node.js][nodejs] and [Yarn][yarn] if you haven't already)
-7. Create PostgreSQL database (`createdb dienst2`; `createuser dienst2`)
-8. Edit the `dienst2/local.py` file to set up your database
-9. Initialise database [using manage.py](https://www.jetbrains.com/pycharm/help/running-tasks-of-manage-py-utility.html) (`./manage.py migrate`)
-10. Start server (`./manage.py runserver`) and go to http://localhost:8000
+7. Run pre-commit install (`pre-commit install`)
+8. Create PostgreSQL database (`createdb dienst2`; `createuser dienst2`)
+9. Edit the `dienst2/local.py` file to set up your database
+10. Initialise database [using manage.py](https://www.jetbrains.com/pycharm/help/running-tasks-of-manage-py-utility.html) (`./manage.py migrate`)
+11. Start server (`./manage.py runserver`) and go to http://localhost:8000
 
 **Note: please do not use (a copy of) the production database for local development.**
 
@@ -67,9 +68,9 @@ Dienst2 requires a Google Service account to access Group and Member data via th
 
 The scopes can be defined in Google Admin Console -> Security -> API controls -> Domain-wide delegation.
 
-After creating the service account, a JSON key file should be downloaded and stored in `/google-service-account.json` on the server. 
+After creating the service account, a JSON key file should be downloaded and stored in `/google-service-account.json` on the server.
 
-It is also required to set the subject of the service account as an environment variable `GOOGLE_SERVICE_ACCOUNT_DELEGATED_USER`. Service accounts are used to represent non-human entities, but some APIs require a human user to be impersonated. 
+It is also required to set the subject of the service account as an environment variable `GOOGLE_SERVICE_ACCOUNT_DELEGATED_USER`. Service accounts are used to represent non-human entities, but some APIs require a human user to be impersonated.
 
 **I do not know to what value this should be set in production, but for development, every email address of someone from "beheer" should work.**
 

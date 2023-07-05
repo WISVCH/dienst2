@@ -24,8 +24,11 @@ def get_groups_by_user_key(userKey, domains=["ch.tudelft.nl"], indirect=False) -
     """
     Returns all Google Groups that a member is a DIRECT member of
 
-    :param userKey: Email or immutable ID of the user if only those groups are to be listed, the given user is a member of. If it's an ID, it should match with the ID of the user object.
-    :param domains: Domains to search for groups. Ensure that these are set to prevent group name attacks by using other domains.
+    :param userKey: Email or immutable ID of the user if only those groups are
+    to be listed, the given user is a member of. If it's an ID, it should match
+    with the ID of the user object.
+    :param domains: Domains to search for groups. Ensure that these are set to
+    prevent group name attacks by using other domains.
     :param indirect: Whether to include indirect groups
 
     :return: List of group email addresses
