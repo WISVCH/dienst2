@@ -5,7 +5,6 @@ jobs:
     name: Check formatting
     runs-on: ubuntu-latest
     steps:
-      
       - name: Check out code
         uses: actions/checkout@v1
       - name: Check formatting using pre-commit
