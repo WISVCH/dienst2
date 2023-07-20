@@ -12,7 +12,7 @@ DEBUG = env.bool("DEBUG", default=False)
 ADMINS = getaddresses([env("DJANGO_ADMINS", default="")])
 MANAGERS = ADMINS
 
-ALLOWED_HOSTS = "*"
+ALLOWED_HOSTS = ["*"]
 INTERNAL_IPS = env.list("INTERNAL_IPS", default="")
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 

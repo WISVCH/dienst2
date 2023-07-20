@@ -17,8 +17,7 @@
 
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": {
-		"pip": "pip install --user -r requirements.txt",
-		"pip2": "pip install --user -r requirements-dev.txt",
+		"poetry": "poetry install",
 		"yarn": "yarn install",
 		"pre-commit": "pre-commit install"
 	},

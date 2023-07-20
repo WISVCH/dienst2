@@ -25,3 +25,24 @@ exclude = '''
     | tests/data
 )/
 '''
+
+[tool.poetry]
+name = "dienst2"
+version = "0.1.0"
+description = ""
+authors = ["Joep de Jong"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+django = ">=4.2,<5.0"
+django-environ = "^0.10.0"
+whitenoise = "^6.5.0"
+django-reversion = "^5.0.4"
+django-reversion-compare = "^0.16.2"
+pre-commit = "^3.3.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
