@@ -2,8 +2,6 @@
 
 from django.db import migrations, models
 
-import ldb.validators
-
 
 class Migration(migrations.Migration):
     dependencies = [("ldb", "0017_email_forward_view")]
@@ -28,7 +26,6 @@ class Migration(migrations.Migration):
                 max_length=64,
                 null=True,
                 unique=True,
-                validators=[ldb.validators.validate_ldap_username],
                 verbose_name="LDAP username",
             ),
         ),
