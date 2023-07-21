@@ -37,7 +37,7 @@ jobs:
     - name: Install prerequisites
       run: |
         sudo apt-get install libpq-dev
-        sudo apt-get install libsasl2-dev libldap2-dev libssl-dev
+        sudo apt-get install libssl-dev
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip

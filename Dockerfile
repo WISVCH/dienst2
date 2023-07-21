@@ -17,10 +17,8 @@ COPY . /srv
 COPY --from=node /src/dienst2/static/lib /srv/dienst2/static/lib
 RUN export DEBIAN_FRONTEND="noninteractive" && \
     apt-get update && \
-    apt-get install -y --no-install-recommends libldap-common libldap2-dev libsasl2-dev && \
     pip install poetry && \
     poetry install --no-root --no-dev && \
-    apt-get purge -y libldap2-dev libsasl2-dev && \
     apt-get autoremove -y && \
     rm -rf /tmp/* /var/lib/apt/lists/*
 RUN set -a && . ./ci.env && ./manage.py collectstatic --noinput

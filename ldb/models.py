@@ -10,7 +10,7 @@ from django.utils.translation import gettext_lazy as _
 
 from ldb.querysets import EntityQuerySet, PersonQuerySet
 from .country_field import CountryField
-from .validators import validate_ldap_username, validate_google_username
+from .validators import validate_google_username
 
 
 def get_attributes(self, attrs):
@@ -213,7 +213,7 @@ class Person(Entity):
         blank=True,
         null=True,
         unique=True,
-        validators=[validate_ldap_username],
+        disabled=True,
     )
 
     google_username = models.CharField(

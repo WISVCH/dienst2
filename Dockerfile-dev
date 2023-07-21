@@ -10,7 +10,7 @@ RUN export DEBIAN_FRONTEND="noninteractive" && \
     curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
     echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list && \
     apt-get update && \
-    apt-get install -y --no-install-recommends nodejs yarn netcat-openbsd gettext libldap2-dev libsasl2-dev
+    apt-get install -y --no-install-recommends nodejs yarn netcat-openbsd gettext
 
 WORKDIR /srv
 ENTRYPOINT ["/srv/docker-entrypoint-dev.sh"]
