@@ -73,7 +73,7 @@ class ResultsView(TemplateView):
         return context
 
     def get(self, request, *args, **kwargs):
-        if request.is_ajax():
+        if request.META.get("HTTP_X_REQUESTED_WITH") == "XMLHttpRequest":
             return super(ResultsView, self).get(request, *args, **kwargs)
         else:
             return redirect("ldb_index")
