@@ -208,12 +208,7 @@ class Person(Entity):
 
     # Internal Account
     ldap_username = models.CharField(
-        _("LDAP username"),
-        max_length=64,
-        blank=True,
-        null=True,
-        unique=True,
-        disabled=True,
+        _("LDAP username"), max_length=64, blank=True, null=True, unique=True
     )
 
     google_username = models.CharField(

@@ -21,7 +21,7 @@ RUN export DEBIAN_FRONTEND="noninteractive" && \
     poetry install --no-root --no-dev && \
     apt-get autoremove -y && \
     rm -rf /tmp/* /var/lib/apt/lists/*
-RUN set -a && . ./ci.env && ./manage.py collectstatic --noinput
+RUN set -a && . ./ci.env && poetry run python manage.py collectstatic --noinput
 
 RUN groupadd -r dienst2 --gid=999 && useradd --no-log-init -r -g dienst2 --uid=999 dienst2
 USER 999

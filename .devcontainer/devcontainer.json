@@ -20,9 +20,7 @@
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": {
 		"yarn": "yarn install",
-		"pre-commit": "pre-commit install"
-	},
-	"postAttachCommand": {
+		"pre-commit": "pre-commit install",
 		"poetry": "poetry install"
 	},
 

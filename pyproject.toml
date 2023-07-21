@@ -50,9 +50,6 @@ psycopg2-binary = "^2.9.6"
 google-api-python-client = "^2.94.0"
 google-auth-oauthlib = "^1.0.0"
 drf-writable-nested = "^0.7.0"
-
-
-[tool.poetry.group.dev.dependencies]
 django-debug-toolbar = "^4.1.0"
 
 [build-system]

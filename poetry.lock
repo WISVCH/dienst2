@@ -864,20 +864,6 @@ files = [
 diagrams = ["jinja2", "railroad-diagrams"]
 
 [[package]]
-name = "python-ldap"
-version = "3.4.3"
-description = "Python modules for implementing LDAP clients"
-optional = false
-python-versions = ">=3.6"
-files = [
-    {file = "python-ldap-3.4.3.tar.gz", hash = "sha256:ab26c519a0ef2a443a2a10391fa3c5cb52d7871323399db949ebfaa9f25ee2a0"},
-]
-
-[package.dependencies]
-pyasn1 = ">=0.3.7"
-pyasn1_modules = ">=0.1.5"
-
-[[package]]
 name = "pytz"
 version = "2023.3"
 description = "World timezone definitions, modern and historical"
@@ -1155,4 +1141,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "807b1eb2804178a8b2dc5019887746cb1ed606fc4da8a7bae4ffdd0e3c5664ab"
+content-hash = "0f1cd1bbd38572c5314292e264e4455eeed08326cf457f989328a943e06c1236"
