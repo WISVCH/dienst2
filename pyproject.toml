@@ -40,9 +40,25 @@ django-environ = "^0.10.0"
 whitenoise = "^6.5.0"
 django-reversion = "^5.0.4"
 django-reversion-compare = "^0.16.2"
-pre-commit = "^3.3.3"
+mozilla-django-oidc = "^3.0.0"
+django-import-export = "^3.2.0"
+djangorestframework = "^3.14.0"
+django-filter = "^23.2"
+django-health-check = "^3.17.0"
+django-bootstrap3 = "^23.4"
+psycopg2-binary = "^2.9.6"
+python-ldap = "^3.4.3"
+google-api-python-client = "^2.94.0"
+google-auth-oauthlib = "^1.0.0"
+drf-writable-nested = "^0.7.0"
 
+
+[tool.poetry.group.dev.dependencies]
+django-debug-toolbar = "^4.1.0"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[virtualenvs]
+create = false

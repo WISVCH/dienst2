@@ -108,7 +108,6 @@ class Organization(Entity):
     class Meta:
         verbose_name = _("organization")
         verbose_name_plural = _("organizations")
-        manager_inheritance_from_future = True
 
     name_prefix = models.CharField(_("name prefix"), max_length=100, blank=True)
     name = models.CharField(_("name"), max_length=100)

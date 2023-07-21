@@ -5,11 +5,8 @@
             "name": "Python: Django",
             "type": "python",
             "request": "launch",
-            "program": "poetry",
+            "program": "${workspaceFolder}/manage.py",
             "args": [
-                "run",
-                "python",
-                "manage.py",
                 "runserver"
             ],
             "django": true,

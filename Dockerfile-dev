@@ -1,10 +1,5 @@
 FROM python:3.11
 
-WORKDIR /srv
-ENTRYPOINT ["/srv/docker-entrypoint-dev.sh"]
-CMD ["dev"]
-EXPOSE 8000
-
 # CH CA certificate for LDAPS connections
 ADD https://ch.tudelft.nl/certs/wisvch.crt /usr/local/share/ca-certificates/wisvch.crt
 RUN chmod 0644 /usr/local/share/ca-certificates/wisvch.crt && \
@@ -17,8 +12,7 @@ RUN export DEBIAN_FRONTEND="noninteractive" && \
     apt-get update && \
     apt-get install -y --no-install-recommends nodejs yarn netcat-openbsd gettext libldap2-dev libsasl2-dev
 
-# Install Poetry
-RUN pip install --upgrade pip
-RUN pip install -U pip setuptools
-RUN pip install poetry
-RUN pre-commit install
+WORKDIR /srv
+ENTRYPOINT ["/srv/docker-entrypoint-dev.sh"]
+CMD ["dev"]
+EXPOSE 8000

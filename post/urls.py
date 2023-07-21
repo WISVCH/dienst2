@@ -1,14 +1,14 @@
 from __future__ import unicode_literals
 
-from django.conf.urls import url
+from django.urls import re_path
 
 from post.views import ItemListView, ItemCreateView, ItemWeekArchiveView, AVListView
 
 urlpatterns = [
-    url(r"^$", ItemListView.as_view(), name="post_index"),
-    url(r"^create/$", ItemCreateView.as_view(), name="post_create"),
-    url(r"^av/$", AVListView.as_view(), name="post_av"),
-    url(
+    re_path(r"^$", ItemListView.as_view(), name="post_index"),
+    re_path(r"^create/$", ItemCreateView.as_view(), name="post_create"),
+    re_path(r"^av/$", AVListView.as_view(), name="post_av"),
+    re_path(
         r"^(?P<year>[0-9]{4})/week/(?P<week>[0-9]+)/$",
         ItemWeekArchiveView.as_view(),
         name="post_archive_week",
