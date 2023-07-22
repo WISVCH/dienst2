@@ -4,7 +4,7 @@
         {
             "type": "shell",
             "label": "migrate",
-            "command": "set -a && . ${workspaceFolder}/dev.env && python ${workspaceFolder}/manage.py migrate",
+            "command": "set -a && . ${workspaceFolder}/dev.env && python manage.py migrate",
         }
     ]
 }
