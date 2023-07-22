@@ -10,17 +10,17 @@ bootstrap@^3.4.1:
 font-awesome@^4.7.0:
   version "4.7.0"
   resolved "https://registry.yarnpkg.com/font-awesome/-/font-awesome-4.7.0.tgz#8fa8cf0411a1a31afd07b06d2902bb9fc815a133"
-  integrity sha1-j6jPBBGhoxr9B7BtKQK7n8gVoTM=
+  integrity sha512-U6kGnykA/6bFmg1M/oT9EkFeIYv7JlX3bozwQJWiiLz6L0w3F5vBVPxHlwyX/vtNq1ckcpRKOB9f2Qal/VtFpg==
 
 jquery@^1.12.4:
   version "1.12.4"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-1.12.4.tgz#01e1dfba290fe73deba77ceeacb0f9ba2fec9e0c"
-  integrity sha1-AeHfuikP5z3rp3zurLD5ui/sngw=
+  integrity sha512-UEVp7PPK9xXYSk8xqXCJrkXnKZtlgWkd2GsAQbMRFK6S/ePU2JN5G2Zum8hIVjzR3CpdfSqdqAzId/xd4TJHeg==
 
 select2-bootstrap-theme@^0.1.0-beta.10:
   version "0.1.0-beta.10"
   resolved "https://registry.yarnpkg.com/select2-bootstrap-theme/-/select2-bootstrap-theme-0.1.0-beta.10.tgz#b9426ecfc03bf4a235e76a132377574310469ac0"
-  integrity sha1-uUJuz8A79KI152oTI3dXQxBGmsA=
+  integrity sha512-gc9Y9yNjkGRqeFmI/pAKyL4maMKH9VKAn62E+uF/hxz8FTmfuKH0sDEGhFhk3f8Jp+emtsDdK1c1nb6S51BV0Q==
 
 select2@^4.0.5:
   version "4.0.13"
@@ -28,5 +28,5 @@ select2@^4.0.5:
   integrity sha512-1JeB87s6oN/TDxQQYCvS5EFoQyvV6eYMZZ0AeA4tdFDYWN3BAGZ8npr17UBFddU0lgAt3H0yjX3X6/ekOj1yjw==
 
 themestrap@WISVCH/bootstrap-theme#gh-pages:
-  version "0.3.0"
-  resolved "https://codeload.github.com/WISVCH/bootstrap-theme/tar.gz/21cc92a37f3efeae03c2e4464260d61033c0deb1"
+  version "0.3.1"
+  resolved "https://codeload.github.com/WISVCH/bootstrap-theme/tar.gz/be257732ba90d1ef32e025dd4fc3d75d5386e7cb"
