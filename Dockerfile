@@ -18,10 +18,12 @@ COPY --from=node /src/dienst2/static/lib /srv/dienst2/static/lib
 RUN export DEBIAN_FRONTEND="noninteractive" && \
     apt-get update && \
     pip install poetry && \
-    poetry install --no-root --no-dev && \
     apt-get autoremove -y && \
     rm -rf /tmp/* /var/lib/apt/lists/*
-RUN set -a && . ./ci.env && poetry run python manage.py collectstatic --noinput
+
+RUN poetry config virtualenvs.create false
+RUN poetry install --no-root --no-dev
+RUN set -a && . ./ci.env && python manage.py collectstatic --noinput
 
 RUN groupadd -r dienst2 --gid=999 && useradd --no-log-init -r -g dienst2 --uid=999 dienst2
 USER 999
