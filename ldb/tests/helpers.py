@@ -16,7 +16,7 @@ def combine(defaults=None, update_value=None):
     return combined
 
 
-class LDBHelperMixin(object):
+class LDBHelperMixin:
     def setUp(self):
         self.now = timezone.now()
         self.last_week = (self.now - timedelta(weeks=1)).date()

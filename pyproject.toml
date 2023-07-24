@@ -51,6 +51,8 @@ google-auth-oauthlib = "^1.0.0"
 drf-writable-nested = "^0.7.0"
 django-debug-toolbar = "^4.1.0"
 psycopg = {extras = ["binary"], version = "^3.1.9"}
+pyupgrade = "^3.9.0"
+django-upgrade = "^1.14.0"
 
 [build-system]
 requires = ["poetry-core"]

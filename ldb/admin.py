@@ -1,5 +1,3 @@
-from __future__ import unicode_literals
-
 import datetime
 
 from django import forms
@@ -87,7 +85,7 @@ class PersonAdminForm(forms.ModelForm):
         fields = "__all__"
 
     def __init__(self, *args, **kwds):
-        super(PersonAdminForm, self).__init__(*args, **kwds)
+        super().__init__(*args, **kwds)
         self.fields["living_with"].queryset = Person.objects.order_by(
             "surname", "firstname"
         )
@@ -309,7 +307,7 @@ class PersonAdmin(ImportExportVersionModelAdmin):
     # http://stackoverflow.com/a/29231611/2354734
     def save_model(self, request, obj, form, change):
         if not obj.pk:  # call super method if object has no primary key
-            super(PersonAdmin, self).save_model(request, obj, form, change)
+            super().save_model(request, obj, form, change)
         else:
             pass  # don't actually save the parent instance
 

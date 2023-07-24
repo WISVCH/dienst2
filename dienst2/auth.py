@@ -10,8 +10,8 @@ logger = logging.getLogger(__name__)
 
 class CHConnect(OIDCAuthenticationBackend):
     def verify_claims(self, claims):
-        verified = super(CHConnect, self).verify_claims(claims)
-        username = "%s (%s)" % (claims.get("sub"), claims.get("ldap_username"))
+        verified = super().verify_claims(claims)
+        username = "{} ({})".format(claims.get("sub"), claims.get("ldap_username"))
         if not verified:
             logger.warning("Could not verify claims for %s", username)
         ldap_groups = claims.get("ldap_groups", [])
@@ -33,7 +33,7 @@ class CHConnect(OIDCAuthenticationBackend):
         return claims.get("ldap_username")
 
     def create_user(self, claims):
-        user = super(CHConnect, self).create_user(claims)
+        user = super().create_user(claims)
 
         username = self.get_username(claims)
         if not username:

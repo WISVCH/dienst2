@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 from datetime import date
 
 from django.core.exceptions import ValidationError
@@ -86,7 +83,7 @@ class Entity(models.Model):
             raise ValidationError("Country is required if address is entered.")
 
     def __str__(self):
-        return "%s %s, %s %s, %s" % (
+        return "{} {}, {} {}, {}".format(
             self.street_name,
             self.house_number,
             self.postcode,
@@ -121,7 +118,7 @@ class Organization(Entity):
         return str(self.name)
 
 
-class MembershipStatus(object):
+class MembershipStatus:
     NONE = 0
     DONATING = 10
     ALUMNUS = 20
@@ -149,10 +146,10 @@ class MembershipStatusField(models.IntegerField):
     def __init__(self, enum, *args, **kwargs):
         self.enum = enum
         kwargs["choices"] = self.enum.choices()
-        super(MembershipStatusField, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def deconstruct(self):
-        name, path, args, kwargs = super(MembershipStatusField, self).deconstruct()
+        name, path, args, kwargs = super().deconstruct()
         if self.enum is not None:
             kwargs["enum"] = self.enum
         if "choices" in kwargs:
@@ -242,7 +239,7 @@ class Person(Entity):
     objects = PersonQuerySet.as_manager()
 
     def __init__(self, *args, **kwargs):
-        super(Person, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self._original_living_with_id = self.living_with_id
 
     @property
@@ -343,7 +340,7 @@ class Person(Entity):
     def save(self, **kwargs):
         self._membership_status = self.membership_status
 
-        super(Person, self).save(**kwargs)
+        super().save(**kwargs)
 
         validate_google_username(self.google_username, self)
 
@@ -530,7 +527,7 @@ class Student(models.Model):
     date_verified = models.DateField(_("date verified"), blank=True, null=True)
 
     def __str__(self):
-        return "%s %s" % (self.student_number, str(self.person))
+        return "{} {}".format(self.student_number, str(self.person))
 
 
 CONTACT_METHOD_CHOICES = (("m", "Mail"), ("e", "Email"))
@@ -611,7 +608,7 @@ class CommitteeMembership(models.Model):
     ras_months = models.IntegerField(_("RAS months"), blank=True, null=True)
 
     def __str__(self):
-        return "[%s] %s - %s" % (self.board, self.committee, self.person)
+        return "[{}] {} - {}".format(self.board, self.committee, self.person)
 
 
 class Modification(models.Model):
@@ -625,4 +622,4 @@ class Modification(models.Model):
     modification = models.TextField(_("modification"), blank=True)
 
     def __str__(self):
-        return "Edit [%s] %s" % (self.date, self.person.__str__())
+        return "Edit [{}] {}".format(self.date, self.person.__str__())

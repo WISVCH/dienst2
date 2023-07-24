@@ -11,7 +11,6 @@ from rest_framework import renderers, status
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from six import iteritems
 
 from ldb.models import Entity
 
@@ -84,7 +83,7 @@ class CSVRenderer(renderers.BaseRenderer):
         return raw_data.getvalue()
 
 
-class ExportObject(object):
+class ExportObject:
     def __init__(self, initial=None):
         self.__dict__["_data"] = {}
 
@@ -109,7 +108,7 @@ def flatten(infile):
             output += fields
         else:
             for field in fields:
-                output.append("%s__%s" % (obj, field))
+                output.append("{}__{}".format(obj, field))
     return output
 
 
@@ -173,7 +172,7 @@ class Export(APIView):
         requested_fields = query.get("fields", [])
 
         fields = {}
-        for k, v in iteritems(requested_fields):
+        for k, v in requested_fields.items():
             if v:
                 fields[k] = v
         requested_fields = fields
@@ -206,7 +205,7 @@ class Export(APIView):
         requested_querysets = query.get("queryset", [])
 
         querysets = {}
-        for k, v in iteritems(requested_querysets):
+        for k, v in requested_querysets.items():
             if v is True:
                 querysets[k] = v
         requested_querysets = querysets
@@ -296,7 +295,7 @@ class Export(APIView):
                 elif obj.get("person__surname"):
                     titles = obj.get("person__titles")
                     if titles:
-                        firstname = "%s %s" % (
+                        firstname = "{} {}".format(
                             titles,
                             obj.get(
                                 "person__initials", obj.get("person__firstname", "")
@@ -307,7 +306,7 @@ class Export(APIView):
                             "person__firstname", obj.get("person__initials", "")
                         )
 
-                    name = "%s %s %s %s" % (
+                    name = "{} {} {} {}".format(
                         firstname,
                         obj.get("person__preposition", ""),
                         obj.get("person__surname", ""),
@@ -326,7 +325,7 @@ class Export(APIView):
                         if doubles.get(obj["person__living_with"]):
                             other = doubles[obj["person__living_with"]]
 
-                            obj["combined_name"] = "%s en %s" % (
+                            obj["combined_name"] = "{} en {}".format(
                                 getname(obj),
                                 getname(other),
                             )
@@ -341,13 +340,17 @@ class Export(APIView):
 
             def format(obj):
                 converted_obj = {}
-                converted_obj["streetnumber"] = "%s %s" % (
+                converted_obj["streetnumber"] = "{} {}".format(
                     obj.get("street_name"),
                     obj.get("house_number"),
                 )
                 postcode = obj.get("postcode").replace(" ", "")
-                converted_obj["postcodecity"] = "%s %s" % (postcode, obj.get("city"))
-                converted_obj["kixcode"] = "%s%s" % (postcode, obj.get("house_number"))
+                converted_obj["postcodecity"] = "{} {}".format(
+                    postcode, obj.get("city")
+                )
+                converted_obj["kixcode"] = "{}{}".format(
+                    postcode, obj.get("house_number")
+                )
                 converted_obj["name"] = obj.get("combined_name", getname(obj))
                 return ExportObject(converted_obj)
 

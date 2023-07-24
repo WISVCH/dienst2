@@ -1,6 +1,4 @@
-from __future__ import unicode_literals
-
-from django.urls import include, path, re_path
+from django.urls import include, path
 from rest_framework import routers
 
 from ldb import viewsets, export
@@ -24,27 +22,25 @@ urlpatterns = [
     path("api/v3/", include(router.urls)),
     path("index/", IndexView.as_view(), name="ldb_index"),
     path("people/search/", ResultsView.as_view(), name="ldb_people_search"),
-    re_path(
-        r"^people/(?P<pk>\d+)/$", PersonDetailView.as_view(), name="ldb_people_detail"
-    ),
-    re_path(
-        r"^people/(?P<pk>\d+)/delete/$",
+    path("people/<int:pk>/", PersonDetailView.as_view(), name="ldb_people_detail"),
+    path(
+        "people/<int:pk>/delete/",
         PersonDeleteView.as_view(),
         name="ldb_people_delete",
     ),
-    re_path(r"^people/(?P<pk>\d+)/edit/$", PersonEditView.as_view()),
+    path("people/<int:pk>/edit/", PersonEditView.as_view()),
     path("people/create/", PersonEditView.as_view(), name="ldb_people_create"),
-    re_path(
-        r"^organizations/(?P<pk>\d+)/$",
+    path(
+        "organizations/<int:pk>/",
         OrganizationDetailView.as_view(),
         name="ldb_organizations_detail",
     ),
-    re_path(
-        r"^organizations/(?P<pk>\d+)/delete/$",
+    path(
+        "organizations/<int:pk>/delete/",
         OrganizationDeleteView.as_view(),
         name="ldb_organizations_delete",
     ),
-    re_path(r"^organizations/(?P<pk>\d+)/edit/$", OrganizationEditView.as_view()),
+    path("organizations/<int:pk>/edit/", OrganizationEditView.as_view()),
     path(
         "organizations/create/",
         OrganizationEditView.as_view(),
