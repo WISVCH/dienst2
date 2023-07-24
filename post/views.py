@@ -1,5 +1,3 @@
-from __future__ import unicode_literals
-
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, WeekArchiveView
 from django.views.generic.edit import FormMixin
@@ -18,19 +16,19 @@ class ItemListView(FormMixin, FilterView):
 
     def get_queryset(self):
         return (
-            super(ItemListView, self)
+            super()
             .get_queryset()
             .order_by("-date")
             .select_related("sender", "recipient", "category")
         )
 
     def get_context_data(self, **kwargs):
-        context = super(ItemListView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context.update({"form": self.get_form()})
         return context
 
     def get_filterset_kwargs(self, filterset_class):
-        kwargs = super(ItemListView, self).get_filterset_kwargs(filterset_class)
+        kwargs = super().get_filterset_kwargs(filterset_class)
         kwargs.update({"prefix": "filter"})
 
         return kwargs
@@ -51,11 +49,7 @@ class ItemWeekArchiveView(WeekArchiveView):
     week_format = "%W"
 
     def get_queryset(self):
-        return (
-            super(ItemWeekArchiveView, self)
-            .get_queryset()
-            .select_related("sender", "recipient", "category")
-        )
+        return super().get_queryset().select_related("sender", "recipient", "category")
 
 
 class AVListView(FilterView):

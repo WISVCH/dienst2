@@ -2,7 +2,6 @@
 
 import dienst2.extras
 from django.db import migrations
-import ldb.validators
 
 
 class Migration(migrations.Migration):
@@ -17,7 +16,6 @@ class Migration(migrations.Migration):
                 max_length=64,
                 null=True,
                 unique=True,
-                validators=[ldb.validators.validate_ldap_username],
                 verbose_name="LDAP username",
             ),
         )

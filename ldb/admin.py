@@ -1,11 +1,9 @@
-from __future__ import unicode_literals
-
 import datetime
 
 from django import forms
 from django.contrib import admin
 from django.db.models import Q
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 from django.utils.translation import gettext_lazy as _
 from import_export import resources, widgets
 from reversion_compare.admin import CompareVersionAdmin
@@ -87,7 +85,7 @@ class PersonAdminForm(forms.ModelForm):
         fields = "__all__"
 
     def __init__(self, *args, **kwds):
-        super(PersonAdminForm, self).__init__(*args, **kwds)
+        super().__init__(*args, **kwds)
         self.fields["living_with"].queryset = Person.objects.order_by(
             "surname", "firstname"
         )
@@ -154,7 +152,7 @@ class PersonResource(resources.ModelResource):
             try:
                 self.import_field(field, obj, data)
             except ValueError as e:
-                errors[field.attribute] = ValidationError(force_text(e), code="invalid")
+                errors[field.attribute] = ValidationError(force_str(e), code="invalid")
 
         # Student validation
         obj.student.first_year = data["student__first_year"]
@@ -169,7 +167,7 @@ class PersonResource(resources.ModelResource):
             for key, value in e:
                 if key != "person":
                     errors["student__" + key] = ValidationError(
-                        force_text(value), code="invalid"
+                        force_str(value), code="invalid"
                     )
 
         # Member validation
@@ -182,7 +180,7 @@ class PersonResource(resources.ModelResource):
             for key, value in e:
                 if key != "person":
                     errors["member__" + key] = ValidationError(
-                        force_text(value), code="invalid"
+                        force_str(value), code="invalid"
                     )
 
         if errors:
@@ -309,7 +307,7 @@ class PersonAdmin(ImportExportVersionModelAdmin):
     # http://stackoverflow.com/a/29231611/2354734
     def save_model(self, request, obj, form, change):
         if not obj.pk:  # call super method if object has no primary key
-            super(PersonAdmin, self).save_model(request, obj, form, change)
+            super().save_model(request, obj, form, change)
         else:
             pass  # don't actually save the parent instance
 

@@ -1,8 +1,5 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 from django.db import models
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext_lazy as _
 
 # http://djangosnippets.org/snippets/1476/
 # ISO 3166-1 country names and codes from http://opencountrycodes.appspot.com/python
@@ -266,7 +263,7 @@ class CountryField(models.CharField):
         kwargs.setdefault("max_length", 2)
         kwargs.setdefault("choices", COUNTRIES)
 
-        super(CountryField, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def get_internal_type(self):
         return "CharField"

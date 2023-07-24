@@ -1,5 +1,3 @@
-from __future__ import unicode_literals
-
 from functools import reduce
 
 from django.db.models import Prefetch, Q
@@ -27,7 +25,7 @@ class IndexView(TemplateView):
     template_name = "ldb/index.html"
 
     def get_context_data(self, **kwargs):
-        context = super(IndexView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context["title"] = "Ledenadministratie"
         return context
 
@@ -61,7 +59,7 @@ class ResultsView(TemplateView):
         return []
 
     def get_context_data(self, **kwargs):
-        context = super(ResultsView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         results, count = self.get_results()
         context.update(
             {
@@ -73,8 +71,8 @@ class ResultsView(TemplateView):
         return context
 
     def get(self, request, *args, **kwargs):
-        if request.is_ajax():
-            return super(ResultsView, self).get(request, *args, **kwargs)
+        if request.headers.get("x-requested-with") == "XMLHttpRequest":
+            return super().get(request, *args, **kwargs)
         else:
             return redirect("ldb_index")
 
@@ -96,7 +94,7 @@ class OrganizationEditView(UpdateView):
 
     def get_object(self, **kwargs):
         try:
-            return super(OrganizationEditView, self).get_object(**kwargs)
+            return super().get_object(**kwargs)
         except AttributeError:
             return None
 
@@ -106,7 +104,7 @@ class PersonDetailView(DetailView):
     model = Person
 
     def get_queryset(self):
-        qs = super(PersonDetailView, self).get_queryset()
+        qs = super().get_queryset()
         qs = qs.select_related("member", "student", "alumnus", "employee")
         qs = qs.prefetch_related(
             Prefetch(
@@ -191,7 +189,7 @@ class PersonEditView(SingleObjectMixin, TemplateView):
 
     def get_object(self, **kwargs):
         try:
-            return super(PersonEditView, self).get_object(**kwargs)
+            return super().get_object(**kwargs)
         except AttributeError:
             return None
 

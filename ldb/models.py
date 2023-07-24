@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 from datetime import date
 
 from django.core.exceptions import ValidationError
@@ -10,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 
 from ldb.querysets import EntityQuerySet, PersonQuerySet
 from .country_field import CountryField
-from .validators import validate_ldap_username, validate_google_username
+from .validators import validate_google_username
 
 
 def get_attributes(self, attrs):
@@ -86,7 +83,7 @@ class Entity(models.Model):
             raise ValidationError("Country is required if address is entered.")
 
     def __str__(self):
-        return "%s %s, %s %s, %s" % (
+        return "{} {}, {} {}, {}".format(
             self.street_name,
             self.house_number,
             self.postcode,
@@ -108,7 +105,6 @@ class Organization(Entity):
     class Meta:
         verbose_name = _("organization")
         verbose_name_plural = _("organizations")
-        manager_inheritance_from_future = True
 
     name_prefix = models.CharField(_("name prefix"), max_length=100, blank=True)
     name = models.CharField(_("name"), max_length=100)
@@ -122,7 +118,7 @@ class Organization(Entity):
         return str(self.name)
 
 
-class MembershipStatus(object):
+class MembershipStatus:
     NONE = 0
     DONATING = 10
     ALUMNUS = 20
@@ -150,10 +146,10 @@ class MembershipStatusField(models.IntegerField):
     def __init__(self, enum, *args, **kwargs):
         self.enum = enum
         kwargs["choices"] = self.enum.choices()
-        super(MembershipStatusField, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def deconstruct(self):
-        name, path, args, kwargs = super(MembershipStatusField, self).deconstruct()
+        name, path, args, kwargs = super().deconstruct()
         if self.enum is not None:
             kwargs["enum"] = self.enum
         if "choices" in kwargs:
@@ -209,12 +205,7 @@ class Person(Entity):
 
     # Internal Account
     ldap_username = models.CharField(
-        _("LDAP username"),
-        max_length=64,
-        blank=True,
-        null=True,
-        unique=True,
-        validators=[validate_ldap_username],
+        _("LDAP username"), max_length=64, blank=True, null=True, unique=True
     )
 
     google_username = models.CharField(
@@ -248,7 +239,7 @@ class Person(Entity):
     objects = PersonQuerySet.as_manager()
 
     def __init__(self, *args, **kwargs):
-        super(Person, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self._original_living_with_id = self.living_with_id
 
     @property
@@ -349,7 +340,7 @@ class Person(Entity):
     def save(self, **kwargs):
         self._membership_status = self.membership_status
 
-        super(Person, self).save(**kwargs)
+        super().save(**kwargs)
 
         validate_google_username(self.google_username, self)
 
@@ -536,7 +527,7 @@ class Student(models.Model):
     date_verified = models.DateField(_("date verified"), blank=True, null=True)
 
     def __str__(self):
-        return "%s %s" % (self.student_number, str(self.person))
+        return "{} {}".format(self.student_number, str(self.person))
 
 
 CONTACT_METHOD_CHOICES = (("m", "Mail"), ("e", "Email"))
@@ -617,7 +608,7 @@ class CommitteeMembership(models.Model):
     ras_months = models.IntegerField(_("RAS months"), blank=True, null=True)
 
     def __str__(self):
-        return "[%s] %s - %s" % (self.board, self.committee, self.person)
+        return "[{}] {} - {}".format(self.board, self.committee, self.person)
 
 
 class Modification(models.Model):
@@ -631,4 +622,4 @@ class Modification(models.Model):
     modification = models.TextField(_("modification"), blank=True)
 
     def __str__(self):
-        return "Edit [%s] %s" % (self.date, self.person.__str__())
+        return "Edit [{}] {}".format(self.date, self.person.__str__())

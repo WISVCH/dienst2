@@ -1,9 +1,4 @@
-FROM python:3.8
-
-WORKDIR /srv
-ENTRYPOINT ["/srv/docker-entrypoint-dev.sh"]
-CMD ["dev"]
-EXPOSE 8000
+FROM python:3.11
 
 # CH CA certificate for LDAPS connections
 ADD https://ch.tudelft.nl/certs/wisvch.crt /usr/local/share/ca-certificates/wisvch.crt
@@ -15,11 +10,9 @@ RUN export DEBIAN_FRONTEND="noninteractive" && \
     curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
     echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list && \
     apt-get update && \
-    apt-get install -y --no-install-recommends nodejs yarn netcat-openbsd gettext libldap2-dev libsasl2-dev
+    apt-get install -y --no-install-recommends nodejs yarn netcat-openbsd gettext
 
-COPY requirements.txt /srv/
-COPY requirements-dev.txt /srv/
-RUN pip install --upgrade pip && \
-    pip install -r requirements.txt \
-    pip install -r requirements-dev.txt \
-    pre-commit install
+WORKDIR /srv
+ENTRYPOINT ["/srv/docker-entrypoint-dev.sh"]
+CMD ["dev"]
+EXPOSE 8000

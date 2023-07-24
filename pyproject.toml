@@ -25,3 +25,38 @@ exclude = '''
     | tests/data
 )/
 '''
+
+[tool.poetry]
+name = "dienst2"
+version = "0.1.0"
+description = ""
+authors = ["Joep de Jong"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+django = ">=4.2,<5.0"
+django-environ = "^0.10.0"
+whitenoise = "^6.5.0"
+django-reversion = "^5.0.4"
+django-reversion-compare = "^0.16.2"
+mozilla-django-oidc = "^3.0.0"
+django-import-export = "^3.2.0"
+djangorestframework = "^3.14.0"
+django-filter = "^23.2"
+django-health-check = "^3.17.0"
+django-bootstrap3 = "^23.4"
+google-api-python-client = "^2.94.0"
+google-auth-oauthlib = "^1.0.0"
+drf-writable-nested = "^0.7.0"
+django-debug-toolbar = "^4.1.0"
+psycopg = {extras = ["binary"], version = "^3.1.9"}
+pyupgrade = "^3.9.0"
+django-upgrade = "^1.14.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[virtualenvs]
+create = false

@@ -80,7 +80,7 @@ class EntitySerializer(
         del self.validated_data["revision_comment"]
         with reversion.create_revision():
             reversion.set_comment(revision_comment)
-            ret = super(EntitySerializer, self).save()
+            ret = super().save()
         logger.info(
             "%s through API: %s %d (%s)", api_user, action, ret.pk, revision_comment
         )
