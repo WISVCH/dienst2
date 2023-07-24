@@ -30,8 +30,6 @@ Build and run the development Docker image using [Docker Compose](https://docs.d
 3. Open project
 4. [Create virtual environment](https://www.jetbrains.com/pycharm/help/creating-virtual-environment.html)
 5. [Install dependencies in virtual environment](https://www.jetbrains.com/pycharm/help/resolving-unsatisfied-dependencies.html)
-   * If e.g. psycopg2 won't install, activate virtualenv (`source bin/activate`) and then manually install dependencies (`poetry install`)
-   * If psycopg2 fails during server start, maybe [this](http://stackoverflow.com/questions/28515972/problems-using-psycopg2-on-mac-os-yosemite) solution will work for you.
 6. Install dependencies using Yarn (`yarn install`; first install [Node.js][nodejs] and [Yarn][yarn] if you haven't already)
 7. Run pre-commit install (`pre-commit install`)
 8. Create PostgreSQL database (`createdb dienst2`; `createuser dienst2`)
