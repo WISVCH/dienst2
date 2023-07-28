@@ -221,3 +221,5 @@ BOOTSTRAP3 = {
     "horizontal_label_class": "col-md-4",
     "horizontal_field_class": "col-md-8",
 }
+
+DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
