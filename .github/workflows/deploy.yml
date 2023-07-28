@@ -13,8 +13,6 @@ jobs:
         DATABASE_URL: postgres://postgres@127.0.0.1/dienst2?atomic_requests=True
         CACHE_URL: dummycache://
         SEARCH_URL: simple://
-        OIDC_RP_CLIENT_ID: changeme
-        OIDC_RP_CLIENT_SECRET: changeme
 
     services:
       postgres:

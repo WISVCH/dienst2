@@ -49,12 +49,6 @@
             <ul class="dropdown-menu">
               <li><a href="{% url 'ldb_index' %}"><i class="fa fa-fw fa-users"></i> Ledendatabase</a></li>
               <li><a href="{% url 'post_index' %}"><i class="fa fa-fw fa-envelope"></i> Post</a></li>
-              <li>
-                <form method="post" action="{% url 'oidc_logout' %}" name="logout">
-                  {% csrf_token %}
-                </form>
-                <a href="" onclick="document.logout.submit(); return false;"><i class="fa fa-fw fa-sign-out"></i> Uitloggen</a>
-              </li>
             </ul>
           </li>
         </ul>

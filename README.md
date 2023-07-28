@@ -84,3 +84,15 @@ To create an API token:
 
 [nodejs]: https://nodejs.org/ "Node.js"
 [yarn]:   https://yarnpkg.com/lang/en/docs/install "Yarn"
+
+
+## IAP
+Testing the IAP in a local environment is not straightforward. 3 headers are required for the IAP. Headers for development can be retrieved from the following page: https://wisvch.ew.r.appspot.com/resource.
+
+```sh
+x-goog-authenticated-user-email=securetoken.google.com/wisvch:[USERNAME]@ch.tudelft.nl
+x-goog-authenticated-user-id=securetoken.google.com/wisvch:[SUB]
+x-goog-iap-jwt-assertion=[JWT]
+```
+
+The page https://wisvch.ew.r.appspot.com/resource uses `GOOGLE_IAP_AUDIENCE=/projects/966138216790/apps/wisvch` audience.

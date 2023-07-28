@@ -1,77 +1,171 @@
+"""
+This module provides a Django authentication backend that can be used to
+
+authenticate users using Google Cloud Identity-Aware Proxy (IAP).
+
+Code adapted from
+https://github.com/potatolondon/djangae/blob/master/djangae/contrib/googleauth/backends/iap.py
+"""
+
 import logging
 
+from django.conf import settings
+from django.contrib.auth import get_user_model
+from django.contrib.auth.backends import BaseBackend
 from django.contrib.auth.models import Group
-from mozilla_django_oidc.auth import OIDCAuthenticationBackend
 
-from dienst2 import settings
+from django.core.exceptions import (
+    ImproperlyConfigured,
+    SuspiciousOperation,
+)
+from google.auth.transport import requests
+from google.oauth2 import id_token
 
 logger = logging.getLogger(__name__)
 
+_GOOG_AUTHENTICATED_USER_EMAIL_HEADER = "HTTP_X_GOOG_AUTHENTICATED_USER_EMAIL"
+_GOOG_AUTHENTICATED_USER_ID_HEADER = "HTTP_X_GOOG_AUTHENTICATED_USER_ID"
+_GOOG_JWT_ASSERTION_HEADER = "HTTP_X_GOOG_IAP_JWT_ASSERTION"
 
-class CHConnect(OIDCAuthenticationBackend):
-    def verify_claims(self, claims):
-        verified = super().verify_claims(claims)
-        username = "{} ({})".format(claims.get("sub"), claims.get("ldap_username"))
-        if not verified:
-            logger.warning("Could not verify claims for %s", username)
-        ldap_groups = claims.get("ldap_groups", [])
-        has_access = settings.OIDC_LDAP_ACCESS_GROUP in ldap_groups
-        if not has_access:
-            logger.warning("%s does not have access (%s)", username, ldap_groups)
-        if verified and has_access:
-            logger.info("%s successfully logged in", username)
-        return verified and has_access
+User = get_user_model()
 
-    def filter_users_by_claims(self, claims):
-        username = self.get_username(claims)
-        if not username:
-            return self.UserModel.objects.none()
-        return self.UserModel.objects.filter(username=username)
 
-    def get_username(self, claims):
-        # We use ldap_username instead of sub for backwards compatibility
-        return claims.get("ldap_username")
+class IAPBackend(BaseBackend):
+    @classmethod
+    def can_authenticate(cls, request):
+        return (
+            _GOOG_AUTHENTICATED_USER_EMAIL_HEADER in request.META
+            and _GOOG_AUTHENTICATED_USER_EMAIL_HEADER in request.META
+            and _GOOG_JWT_ASSERTION_HEADER in request.META
+        )
 
-    def create_user(self, claims):
-        user = super().create_user(claims)
+    def authenticate(self, request, **kwargs):
+        error_partial = "An attacker might have tried to bypass IAP."
+        user_id = request.META.get(_GOOG_AUTHENTICATED_USER_ID_HEADER)
+        user_email = request.META.get(_GOOG_AUTHENTICATED_USER_EMAIL_HEADER)
 
-        username = self.get_username(claims)
-        if not username:
-            return self.UserModel.objects.none()
+        # User not logged in to IAP
+        if not user_id or not user_email:
+            return
 
-        self.set_attributes(user, claims)
+        # All IDs provided should be namespaced
+        if ":" not in user_id or ":" not in user_email:
+            return
 
-        return user
+        # Google tokens are namespaced with "auth.google.com:"
+        _, user_id = user_id.split(":", 1)
+        _, email = user_email.split(":", 1)
 
-    def update_user(self, user, claims):
-        self.set_attributes(user, claims)
+        try:
+            audience = settings.GOOGLE_IAP_AUDIENCE
+        except AttributeError:
+            raise ImproperlyConfigured(
+                "You must specify a 'GOOGLE_IAP_AUDIENCE' in settings when using"
+                " IAPBackend"
+            )
+        iap_jwt = request.META.get(_GOOG_JWT_ASSERTION_HEADER)
 
-        user.save()
+        try:
+            signed_user_id, signed_user_email, claims = _validate_iap_jwt(
+                iap_jwt, audience
+            )
+            _, signed_user_id = signed_user_id.split(":", 1)
+        except ValueError as e:
+            raise SuspiciousOperation(
+                "**ERROR: JWT validation error {}**\n{}".format(e, error_partial)
+            )
 
-        return user
+        assert signed_user_id == user_id, (
+            f"IAP signed user id does not match {_GOOG_AUTHENTICATED_USER_ID_HEADER}. ",
+            error_partial,
+        )
+        assert signed_user_email == user_email, (
+            (
+                "IAP signed user email does not match"
+                f" {_GOOG_AUTHENTICATED_USER_EMAIL_HEADER}. "
+            ),
+            error_partial,
+        )
 
-    def set_attributes(self, user, claims):
-        ldap_groups = claims.get("ldap_groups", [])
+        # Verify claims
+        if not claims or not verify_claims(claims):
+            print(claims)
+            raise SuspiciousOperation(
+                "**ERROR: User does not have required claims.**\n{}".format(
+                    error_partial
+                )
+            )
 
-        user.first_name = claims.get("given_name", "")
-        user.last_name = claims.get("family_name", "")
-        user.email = claims.get("email", "")
+        username = email.split("@", 1)[0]
 
-        user.is_active = True
-        is_admin = settings.OIDC_LDAP_ADMIN_GROUP in ldap_groups
-        user.is_staff = is_admin
-        user.is_superuser = is_admin
-
-        user.set_unusable_password()
-
+        google_groups = claims["gcip"]["groups"].split(",")
+        is_admin = settings.IAP_ADMIN_GROUP in google_groups
         groups = []
-        if settings.OIDC_LDAP_USERMAN2_GROUP in ldap_groups:
+        if settings.IAP_USERMAN2_GROUP in google_groups:
             staff_group, created = Group.objects.get_or_create(name="userman2")
             if created:
                 staff_group.save()
             groups.append(staff_group)
-        user.groups.set(groups)
+
+        # Find a user by their Google Username.
+        user = User.objects.filter(username__iexact=username).first()
+
+        if user:
+            user.is_staff = is_admin
+            user.is_superuser = is_admin
+            user.groups.set(groups)
+
+            # If the user doesn't currently have a password, it could
+            # mean that this backend has just been enabled on existing
+            # data that uses some other authentication system (e.g. the
+            # App Engine Users API) - for safety we make sure that an
+            # unusable password is set.
+            if not user.password:
+                user.set_unusable_password()
+
+            # Note we don't update the username, as that may have
+            # been overridden by something post-creation
+            user.save()
+        else:
+            user = User.objects.create_user(
+                username=username,
+                email=email,
+                is_active=True,
+                is_staff=is_admin,
+                is_superuser=is_admin,
+            )
+
+            user.groups.set(groups)
+        return user
 
 
-def provider_logout(request):
-    return "https://connect.ch.tudelft.nl/endsession"
+def _validate_iap_jwt(iap_jwt, expected_audience):
+    """Validate an IAP JWT.
+
+    Args:
+      iap_jwt: The contents of the X-Goog-IAP-JWT-Assertion header.
+      expected_audience: The Signed Header JWT audience. See
+          https://cloud.google.com/iap/docs/signed-headers-howto
+          for details on how to get this value.
+
+    Returns:
+      (user_id, user_email).
+    """
+
+    decoded_jwt = id_token.verify_token(
+        iap_jwt,
+        requests.Request(),
+        audience=expected_audience,
+        certs_url="https://www.gstatic.com/iap/verify/public_key",
+    )
+    return (decoded_jwt["sub"], decoded_jwt["email"], decoded_jwt)
+
+
+def verify_claims(claims):
+    google_groups = claims["gcip"]["groups"].split(",")
+    username = "{} ({})".format(claims["email"], claims["sub"])
+    has_access = settings.IAP_ACCESS_GROUP in google_groups
+    if not has_access:
+        logger.warning("%s does not have access (%s)", username, google_groups)
+        return False
+    return True

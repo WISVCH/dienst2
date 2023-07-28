@@ -134,7 +134,6 @@ INSTALLED_APPS = (
     "django.contrib.staticfiles",
     "reversion",
     "reversion_compare",
-    "mozilla_django_oidc",
     "import_export",
     "rest_framework",
     "rest_framework.authtoken",
@@ -150,23 +149,15 @@ INSTALLED_APPS = (
     "post",
 )
 
-OIDC_RP_CLIENT_ID = env("OIDC_RP_CLIENT_ID")
-OIDC_RP_CLIENT_SECRET = env("OIDC_RP_CLIENT_SECRET")
-OIDC_RP_SCOPES = "openid profile ldap email"
-OIDC_RP_SIGN_ALGO = "RS256"
-OIDC_OP_AUTHORIZATION_ENDPOINT = "https://connect.ch.tudelft.nl/authorize"
-OIDC_OP_TOKEN_ENDPOINT = "https://connect.ch.tudelft.nl/token"
-OIDC_OP_USER_ENDPOINT = "https://connect.ch.tudelft.nl/userinfo"
-OIDC_OP_JWKS_ENDPOINT = "https://connect.ch.tudelft.nl/jwk"
-OIDC_OP_LOGOUT_URL_METHOD = "dienst2.auth.provider_logout"
-OIDC_LDAP_ACCESS_GROUP = env("OIDC_LDAP_ACCESS_GROUP", default="dienst2")
-OIDC_LDAP_ADMIN_GROUP = env("OIDC_LDAP_ADMIN_GROUP", default="dienst2-admin")
-OIDC_LDAP_USERMAN2_GROUP = env("OIDC_LDAP_USERMAN2_GROUP", default="staff")
+GOOGLE_IAP_AUDIENCE = env("GOOGLE_IAP_AUDIENCE")
+IAP_ACCESS_GROUP = env("IAP_ACCESS_GROUP", default="staff")
+IAP_ADMIN_GROUP = env("IAP_ADMIN_GROUP", default="beheer")
+IAP_USERMAN2_GROUP = env("IAP_USERMAN2_GROUP", default="staff")
 LOGIN_REDIRECT_URL_FAILURE = "/forbidden"
 
 IMPORT_EXPORT_USE_TRANSACTIONS = True
 
-AUTHENTICATION_BACKENDS = ("dienst2.auth.CHConnect",)
+AUTHENTICATION_BACKENDS = ("dienst2.auth.IAPBackend",)
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
