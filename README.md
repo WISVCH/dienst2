@@ -95,4 +95,6 @@ x-goog-authenticated-user-id=securetoken.google.com/wisvch:[SUB]
 x-goog-iap-jwt-assertion=[JWT]
 ```
 
+You can set the headers using `Postman` or using this [Chrome Plugin](https://chrome.google.com/webstore/detail/modheader-modify-http-hea/idgpnmonknjnojddfkpgkljpfnnfcklj)
+
 The page https://wisvch.ew.r.appspot.com/resource uses `GOOGLE_IAP_AUDIENCE=/projects/966138216790/apps/wisvch` audience.
