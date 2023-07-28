@@ -11,9 +11,9 @@ class ApiV3TestCase(LDBHelperMixin, APITestCase):
     def setUp(self):
         self.user = User.objects.create()
 
-        self.LDAP_USERNAME = "ldap"
+        self.GOOGLE_USERNAME = "ldap"
 
-        self.create_person(ldap_username=self.LDAP_USERNAME)
+        self.create_person(google_username=self.GOOGLE_USERNAME)
         self.create_person()
         self.create_person()
 
@@ -38,7 +38,7 @@ class ApiV3TestCase(LDBHelperMixin, APITestCase):
     def test_person_filter_exists(self):
         self.client.force_login(self.user)
         url = reverse("person-list")
-        response = self.client.get(url, {"ldap_username": self.LDAP_USERNAME})
+        response = self.client.get(url, {"google_username": self.GOOGLE_USERNAME})
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data["results"]), 1)
@@ -46,7 +46,7 @@ class ApiV3TestCase(LDBHelperMixin, APITestCase):
     def test_person_filter_not_exists(self):
         self.client.force_login(self.user)
         url = reverse("person-list")
-        response = self.client.get(url, {"ldap_username": "does not exist"})
+        response = self.client.get(url, {"google_username": "does not exist"})
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data["results"]), 0)
