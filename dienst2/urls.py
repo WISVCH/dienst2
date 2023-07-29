@@ -16,8 +16,7 @@ urlpatterns = [
     path("admin/doc/", include("django.contrib.admindocs.urls")),
     # The Admin site:
     path("admin/", admin.site.urls),
-    # OIDC
-    path("oidc/", include("mozilla_django_oidc.urls")),
+    # Forbidden
     path("forbidden", TemplateView.as_view(template_name="403.html"), name="forbidden"),
     # LDB URLs
     path("ldb/", include("ldb.urls")),
