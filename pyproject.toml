@@ -54,6 +54,7 @@ pyupgrade = "^3.9.0"
 django-upgrade = "^1.14.0"
 google-auth = "^2.22.0"
 python-jose = {extras = ["cryptography"], version = "^3.3.0"}
+gunicorn = "^21.2.0"
 
 [build-system]
 requires = ["poetry-core"]
