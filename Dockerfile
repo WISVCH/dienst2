@@ -14,7 +14,7 @@ RUN chmod 0644 /usr/local/share/ca-certificates/wisvch.crt && \
 RUN mkdir -p /srv
 WORKDIR /srv
 COPY . /srv
-COPY --from=node /src/dienst2/static/lib /srv/dienst2/static/
+COPY --from=node /src/dienst2/static/lib /srv/dienst2/static/lib
 RUN export DEBIAN_FRONTEND="noninteractive" && \
     apt-get update && \
     pip install poetry && \
