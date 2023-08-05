@@ -172,6 +172,7 @@ REST_FRAMEWORK = {
 
 LOGGING = {
     "version": 1,
+    "disable_existing_loggers": False,
     "formatters": {
         "simple": {
             "format": (
