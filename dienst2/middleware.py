@@ -48,7 +48,7 @@ class RequireLoginMiddleware(MiddlewareMixin):
         if request.user.is_authenticated:
             if not IAPBackend.can_authenticate(request):
                 logout(request)
-        elif settings.DEBUG:
+        elif settings.DANGEROUSLY_ALLOW_AUTOLOGIN:
             # DEBUG: Automatically log in as admin
             # Create admin user if it doesn't exist
             if not User.objects.filter(username="admin").exists():

@@ -8,6 +8,7 @@ env = environ.Env()
 # Django settings for dienst2 project.
 
 DEBUG = env.bool("DEBUG", default=False)
+DANGEROUSLY_ALLOW_AUTOLOGIN = env.bool("DANGEROUSLY_ALLOW_AUTOLOGIN", default=False)
 
 ADMINS = getaddresses([env("DJANGO_ADMINS", default="")])
 MANAGERS = ADMINS
