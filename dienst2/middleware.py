@@ -7,10 +7,12 @@ from django.contrib.auth import (
     login,
     logout,
 )
+from django.contrib.auth.models import User
 from django.shortcuts import redirect
 from django.urls import resolve, reverse
 from django.utils.deprecation import MiddlewareMixin
 
+from dienst2 import settings
 from dienst2.auth import IAPBackend
 
 
@@ -46,6 +48,22 @@ class RequireLoginMiddleware(MiddlewareMixin):
         if request.user.is_authenticated:
             if not IAPBackend.can_authenticate(request):
                 logout(request)
+        elif settings.DANGEROUSLY_ALLOW_AUTOLOGIN:
+            # DEBUG: Automatically log in as admin
+            # Create admin user if it doesn't exist
+            if not User.objects.filter(username="admin").exists():
+                user = User.objects.create(
+                    username="admin",
+                    is_active=True,
+                    is_staff=True,
+                    is_superuser=True,
+                    is_admin=True,
+                )
+
+            else:
+                user = User.objects.get(username="admin")
+            login(request, user)
+            return
 
         else:
             backends = get_backends()
