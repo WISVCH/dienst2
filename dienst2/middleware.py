@@ -7,6 +7,7 @@ from django.contrib.auth import (
     login,
     logout,
 )
+from django.contrib.auth.models import User
 from django.shortcuts import redirect
 from django.urls import resolve, reverse
 from django.utils.deprecation import MiddlewareMixin
@@ -49,11 +50,9 @@ class RequireLoginMiddleware(MiddlewareMixin):
                 logout(request)
         elif settings.DEBUG:
             # DEBUG: Automatically log in as admin
-            from django.contrib.auth.models import User
-
             # Create admin user if it doesn't exist
             if not User.objects.filter(username="admin").exists():
-                self.user = User.objects.create(
+                user = User.objects.create(
                     username="admin",
                     is_active=True,
                     is_staff=True,
@@ -61,10 +60,8 @@ class RequireLoginMiddleware(MiddlewareMixin):
                     is_admin=True,
                 )
 
-            # Log in as admin
-            user = User.objects.get(username="admin")
-            user.is_admin = True
-            user.save()
+            else:
+                user = User.objects.get(username="admin")
             login(request, user)
             return
 
