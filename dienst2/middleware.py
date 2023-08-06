@@ -11,6 +11,7 @@ from django.shortcuts import redirect
 from django.urls import resolve, reverse
 from django.utils.deprecation import MiddlewareMixin
 
+from dienst2 import settings
 from dienst2.auth import IAPBackend
 
 
@@ -46,6 +47,26 @@ class RequireLoginMiddleware(MiddlewareMixin):
         if request.user.is_authenticated:
             if not IAPBackend.can_authenticate(request):
                 logout(request)
+        elif settings.DEBUG:
+            # DEBUG: Automatically log in as admin
+            from django.contrib.auth.models import User
+
+            # Create admin user if it doesn't exist
+            if not User.objects.filter(username="admin").exists():
+                self.user = User.objects.create(
+                    username="admin",
+                    is_active=True,
+                    is_staff=True,
+                    is_superuser=True,
+                    is_admin=True,
+                )
+
+            # Log in as admin
+            user = User.objects.get(username="admin")
+            user.is_admin = True
+            user.save()
+            login(request, user)
+            return
 
         else:
             backends = get_backends()
