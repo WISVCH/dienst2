@@ -51,17 +51,11 @@ class RequireLoginMiddleware(MiddlewareMixin):
         elif settings.DANGEROUSLY_ALLOW_AUTOLOGIN:
             # DEBUG: Automatically log in as admin
             # Create admin user if it doesn't exist
-            if not User.objects.filter(username="admin").exists():
-                user = User.objects.create(
-                    username="admin",
-                    is_active=True,
-                    is_staff=True,
-                    is_superuser=True,
-                    is_admin=True,
-                )
-
-            else:
+            try:
                 user = User.objects.get(username="admin")
+            except User.DoesNotExist:
+                user = User.objects.create_superuser("admin", is_staff=True)
+
             login(request, user)
             return
 
