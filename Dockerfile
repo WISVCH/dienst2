@@ -6,11 +6,6 @@ RUN yarn install --flat
 
 FROM python:3.11
 
-# CH CA certificate for PostgreSQL TLS and LDAPS connections
-ADD https://ch.tudelft.nl/certs/wisvch.crt /usr/local/share/ca-certificates/wisvch.crt
-RUN chmod 0644 /usr/local/share/ca-certificates/wisvch.crt && \
-    update-ca-certificates
-
 RUN mkdir -p /srv
 WORKDIR /srv
 COPY . /srv
