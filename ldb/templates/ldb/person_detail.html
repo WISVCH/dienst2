@@ -108,11 +108,7 @@
                 <label class="col-sm-4 control-label">LDAP-gebruikersnaam</label>
                 <div class="col-sm-8">
                   <p class="form-control-static">
-                    {% if user|has_group:'userman2' %}
-                      <a href="https://userman2.ch.tudelft.nl/users/{{ person.ldap_username }}">{{ person.ldap_username }}</a>
-                    {% else %}
-                      {{ person.ldap_username }}
-                    {% endif %}
+                    {{ person.ldap_username }}
                     {% if person.email_forward %}
                       <br/><small>
                       {% blocktrans trimmed with username=person.ldap_username email=person.email %}

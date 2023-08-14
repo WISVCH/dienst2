@@ -12,7 +12,6 @@ import logging
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.backends import BaseBackend
-from django.contrib.auth.models import Group
 
 from django.core.exceptions import (
     ImproperlyConfigured,
@@ -100,12 +99,6 @@ class IAPBackend(BaseBackend):
 
         google_groups = claims["gcip"]["groups"].split(",")
         is_admin = settings.IAP_ADMIN_GROUP in google_groups
-        groups = []
-        if settings.IAP_USERMAN2_GROUP in google_groups:
-            staff_group, created = Group.objects.get_or_create(name="userman2")
-            if created:
-                staff_group.save()
-            groups.append(staff_group)
 
         # Find a user by their Google Username.
         user = User.objects.filter(username__iexact=username).first()
@@ -113,7 +106,6 @@ class IAPBackend(BaseBackend):
         if user:
             user.is_staff = is_admin
             user.is_superuser = is_admin
-            user.groups.set(groups)
 
             # If the user doesn't currently have a password, it could
             # mean that this backend has just been enabled on existing
@@ -135,7 +127,6 @@ class IAPBackend(BaseBackend):
                 is_superuser=is_admin,
             )
 
-            user.groups.set(groups)
         return user
 
 
