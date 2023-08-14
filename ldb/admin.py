@@ -133,7 +133,7 @@ class PersonResource(resources.ModelResource):
         else:
             return self.init_instance(row), True
 
-    def import_obj(self, obj, data, dry_run):
+    def import_obj(self, obj, data, dry_run, **kwargs):
         """
         Traverses every field in this Resource and calls
         :meth:`~import_export.resources.Resource.import_field`. If
