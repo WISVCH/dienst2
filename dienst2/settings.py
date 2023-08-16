@@ -13,7 +13,7 @@ DANGEROUSLY_ALLOW_AUTOLOGIN = env.bool("DANGEROUSLY_ALLOW_AUTOLOGIN", default=Fa
 ADMINS = getaddresses([env("DJANGO_ADMINS", default="")])
 MANAGERS = ADMINS
 
-ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default="*").split(",")
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default="*")
 INTERNAL_IPS = env.list("INTERNAL_IPS", default="")
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
