@@ -19,3 +19,27 @@
 .committees {
   font-size: 12px;
 }
+
+.navbar {
+  background-color: #1e274a;
+}
+
+#navbar {
+  background-color: #1e274a;
+}
+
+.fa-5x {
+  color: #1e274a;
+}
+
+.fa-5x:hover {
+  color: #394576;
+}
+
+a {
+  color: #1e274a;
+}
+
+a:hover {
+  color: #394576;
+}
