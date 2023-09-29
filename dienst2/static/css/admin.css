@@ -15,10 +15,13 @@ td.original p {
   padding-top: 0 !important;
 }
 
-.module, .inline-group {
+.module,
+.inline-group {
   border-color: #0b3365 !important;
 }
 
-.module h2, .module caption, .inline-group h2 {
+.module h2,
+.module caption,
+.inline-group h2 {
   background: #0e4385;
 }
