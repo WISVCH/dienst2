@@ -212,10 +212,6 @@ class Person(Entity):
         _("Google username"), max_length=64, blank=True, null=True, unique=True
     )
 
-    email_forward = models.BooleanField(
-        _("forward CH e-mail to Dienst2 e-mail"), default=False
-    )
-
     # External Accounts
     netid = models.CharField(
         _("NetID"), max_length=64, blank=True, null=True, unique=True
@@ -313,29 +309,6 @@ class Person(Entity):
             return today.year - born.year - 1
         else:
             return today.year - born.year
-
-    def clean(self):
-        if self.email_forward:
-            if self.ldap_username is None:
-                raise ValidationError(
-                    {
-                        "email_forward": _(
-                            "LDAP username must be set to enable forwarding."
-                        )
-                    }
-                )
-            if self.email == "":
-                raise ValidationError(
-                    {"email_forward": _("E-mail must be set to enable forwarding.")}
-                )
-            if self.email.endswith("ch.tudelft.nl"):
-                raise ValidationError(
-                    {
-                        "email_forward": _(
-                            "E-mail cannot be forwarded to a CH e-mail address."
-                        )
-                    }
-                )
 
     def save(self, **kwargs):
         self._membership_status = self.membership_status
