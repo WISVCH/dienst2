@@ -109,12 +109,6 @@
                 <div class="col-sm-8">
                   <p class="form-control-static">
                     {{ person.ldap_username }}
-                    {% if person.email_forward %}
-                      <br/><small>
-                      {% blocktrans trimmed with username=person.ldap_username email=person.email %}
-                        E-mail to {{ username }}@ch.tudelft.nl is forwarded to {{ email }}.
-                      {% endblocktrans %}</small>
-                    {% endif %}
                   </p>
                 </div>
               </div>
