@@ -218,7 +218,12 @@ class Export(APIView):
             "machazine",
         ],
         "organization": [],
-        "person": ["mail_announcements", "mail_company", "mail_education"],
+        "person": [
+            "mail_announcements",
+            "mail_company",
+            "mail_education",
+            "committee_memberships__board",
+        ],
         "person__member": ["associate_member", "donating_member", "merit_invitations"],
         "person__student": ["first_year", "enrolled"],
         "person__alumnus": [],
