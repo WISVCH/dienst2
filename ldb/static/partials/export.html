@@ -216,6 +216,18 @@ input[type=checkbox], input[type=radio] {
           </div>
         </div>
       </fieldset>
+
+      <fieldset ng-show="export.queryset.members || export.queryset.merit || export.queryset.honorary || export.queryset.alumni || export.queryset.students || export.queryset.employees">
+        <legend>Commissies</legend>
+        <div class="form-group">
+          <div class="control-label">Commissie in:</div>
+          <div class="controls">
+                <input type="number" ng-model="export.filters.person__committee_memberships__board" placeholder="Bestuur">
+            <span class="help-block">Heeft een commissie gedaan in dit bestuursjaar.</span>
+          </div>
+        </div>
+      </fieldset>
+
     </div>
   </div>
 </div>
