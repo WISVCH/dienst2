@@ -15,6 +15,9 @@ MANAGERS = ADMINS
 
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["*"])
 INTERNAL_IPS = env.list("INTERNAL_IPS", default="")
+CSRF_TRUSTED_ORIGINS = env.list(
+    "CSRF_TRUSTED_ORIGINS", default=["https://dienst2.ch.tudelft.nl"]
+)
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 DATABASES = {"default": env.db()}
