@@ -61,8 +61,7 @@ The `master` branch should be automatically deployed to the CH Kubernetes cluste
 ## Google Serivce Account
 Dienst2 requires a Google Service account to access Group and Member data via the directory API. A Google Serivce Account can be created in the [Google Cloud Console](https://console.cloud.google.com/apis/credentials). The service account should be a "Domain-wide Delegation" account with the following scopes:
 
-- https://www.googleapis.com/auth/admin.directory.group.readonly
-- https://www.googleapis.com/auth/admin.directory.group.member.readonly
+- https://www.googleapis.com/auth/cloud-identity.groups.readonly
 
 The scopes can be defined in Google Admin Console -> Security -> API controls -> Domain-wide delegation.
 

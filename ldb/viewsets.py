@@ -63,7 +63,7 @@ class PersonViewSet(viewsets.ModelViewSet):
         # Retrieve the groups from the Directory API
         try:
             google_groups = get_groups_by_user_key(
-                person.google_username + "@ch.tudelft.nl", indirect=True
+                person.google_username + "@ch.tudelft.nl"
             )
         except HttpError as e:
             if e.resp.status == 404:

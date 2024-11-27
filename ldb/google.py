@@ -1,6 +1,7 @@
+from urllib.parse import urlencode
+
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
-from ldb.hardcoded_google_groups import get_indirect_groups
 
 import environ
 
@@ -17,19 +18,55 @@ def get_google_service(scopes=[]):
     delegated_credentials = credentials.with_subject(
         env.str("GOOGLE_SERVICE_ACCOUNT_DELEGATED_USER")
     )
-    return build("admin", "directory_v1", credentials=delegated_credentials)
+    return build("cloudidentity", "v1", credentials=delegated_credentials)
 
 
-def get_groups_by_user_key(userKey, domains=["ch.tudelft.nl"], indirect=False) -> list:
+# Source: https://cloud.google.com/identity/docs/how-to/
+# query-memberships#searching_for_all_group_memberships_of_a_member
+def search_transitive_groups(service, member, page_size):
+    groups = []
+    next_page_token = ""
+    while True:
+        query_params = urlencode(
+            {
+                "query": (
+                    "member_key_id == '{}' &&"
+                    " 'cloudidentity.googleapis.com/groups.discussion_forum' in labels"
+                    .format(member)
+                ),
+                "page_size": page_size,
+                "page_token": next_page_token,
+            }
+        )
+        request = (
+            service.groups().memberships().searchTransitiveGroups(parent="groups/-")
+        )
+        request.uri += "&" + query_params
+        response = request.execute()
+
+        if "memberships" in response:
+            groups += response["memberships"]
+
+        if "nextPageToken" in response:
+            next_page_token = response["nextPageToken"]
+        else:
+            next_page_token = ""
+
+        if len(next_page_token) == 0:
+            break
+
+    return groups
+
+
+def get_groups_by_user_key(userKey) -> list:
     """
-    Returns all Google Groups that a member is a DIRECT member of
+    Returns all Google Groups that a member is a direct or indirectmember of
 
     :param userKey: Email or immutable ID of the user if only those groups are
     to be listed, the given user is a member of. If it's an ID, it should match
     with the ID of the user object.
     :param domains: Domains to search for groups. Ensure that these are set to
     prevent group name attacks by using other domains.
-    :param indirect: Whether to include indirect groups
 
     :return: List of group email addresses
 
@@ -41,21 +78,16 @@ def get_groups_by_user_key(userKey, domains=["ch.tudelft.nl"], indirect=False) -
 
     service = get_google_service(
         [
-            "https://www.googleapis.com/auth/admin.directory.group.readonly",
-            "https://www.googleapis.com/auth/admin.directory.group.member.readonly",
+            "https://www.googleapis.com/auth/cloud-identity.groups.readonly",
         ]
     )
 
     groups: list = []
-    for domain in domains:
-        data = service.groups().list(userKey=userKey, domain=domain).execute()
-        if "groups" in data:
-            for group in data["groups"]:
-                groups.append(group["email"])
 
-    if indirect:
-        indirect_groups = get_indirect_groups(groups)
-        groups.extend(indirect_groups)
+    transitive_groups = search_transitive_groups(service, userKey, 50)
+    for group in transitive_groups:
+        print("group:", group)
+        groups.append(group["groupKey"]["id"])
 
     # Replace "@ch.tudelft.nl" from the group names
     # 1. Replace "-commissie@ch.tudelft.nl" with ""
