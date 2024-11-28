@@ -86,7 +86,6 @@ def get_groups_by_user_key(userKey) -> list:
 
     transitive_groups = search_transitive_groups(service, userKey, 50)
     for group in transitive_groups:
-        print("group:", group)
         groups.append(group["groupKey"]["id"])
 
     # Replace "@ch.tudelft.nl" from the group names
