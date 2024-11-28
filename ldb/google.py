@@ -32,7 +32,7 @@ def search_transitive_groups(service, member, page_size):
                 "query": (
                     "member_key_id == '{}' &&"
                     " 'cloudidentity.googleapis.com/groups.discussion_forum' in labels"
-                    .format(member)
+                    " && parent == 'customers/C03nrg5fp'".format(member)
                 ),
                 "page_size": page_size,
                 "page_token": next_page_token,
