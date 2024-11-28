@@ -32,7 +32,7 @@ def search_transitive_groups(service, member, page_size):
                 "query": (
                     "member_key_id == '{}' &&"
                     " 'cloudidentity.googleapis.com/groups.discussion_forum' in labels"
-                    .format(member)
+                    " && parent == 'customers/C03nrg5fp'".format(member)
                 ),
                 "page_size": page_size,
                 "page_token": next_page_token,
@@ -86,7 +86,6 @@ def get_groups_by_user_key(userKey) -> list:
 
     transitive_groups = search_transitive_groups(service, userKey, 50)
     for group in transitive_groups:
-        print("group:", group)
         groups.append(group["groupKey"]["id"])
 
     # Replace "@ch.tudelft.nl" from the group names
