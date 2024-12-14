@@ -55,7 +55,7 @@ class ResultsView(TemplateView):
             organization_qs = Organization.objects.filter(organization_filters)
 
             count = person_qs.count() + organization_qs.count()
-            return list(chain(person_qs[:10], organization_qs[:10])), count
+            return list(chain(person_qs[:30], organization_qs[:30])), count
         return []
 
     def get_context_data(self, **kwargs):
@@ -65,7 +65,7 @@ class ResultsView(TemplateView):
             {
                 "results": results,
                 "count": count,
-                "remainder": count - 20,
+                "remainder": count - 60,
             }
         )
         return context
