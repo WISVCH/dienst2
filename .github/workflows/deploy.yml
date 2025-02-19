@@ -42,9 +42,9 @@ jobs:
     - name: Install dependencies using Poetry
       run: poetry install
     - name: Run migrations
-      run: python manage.py migrate
+      run: poetry run ./manage.py migrate
     - name: Run tests
-      run: python manage.py test
+      run: poetry run ./manage.py test
     - name: Login to GitHub Container Registry
       uses: docker/login-action@v2
       with:

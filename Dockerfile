@@ -17,7 +17,7 @@ RUN export DEBIAN_FRONTEND="noninteractive" && \
     rm -rf /tmp/* /var/lib/apt/lists/*
 
 RUN poetry config virtualenvs.create false
-RUN poetry install --no-root --no-dev
+RUN poetry install --no-root
 RUN set -a && . ./ci.env && python manage.py collectstatic --noinput --no-post-process
 
 RUN groupadd -r dienst2 --gid=999 && useradd --no-log-init -r -g dienst2 --uid=999 dienst2

@@ -1,8 +1,3 @@
-dependencies = ["django"]
-
-[project.optional-dependencies]
-dev = ["pytest", "black", "flake8"]
-
 [tool.black]
 line-length = 88
 preview=true
@@ -27,11 +22,7 @@ exclude = '''
 '''
 
 [tool.poetry]
-name = "dienst2"
-version = "0.1.0"
-description = ""
-authors = ["Joep de Jong"]
-readme = "README.md"
+package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.11"
@@ -56,9 +47,14 @@ google-auth = "^2.22.0"
 python-jose = {extras = ["cryptography"], version = "^3.3.0"}
 gunicorn = "^22.0.0"
 
+[tool.poetry.group.dev]
+optional = true
+
+[tool.poetry.group.dev.dependencies]
+pytest = "*"
+black = "*"
+flake8 = "*"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
-
-[virtualenvs]
-create = false
