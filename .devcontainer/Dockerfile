@@ -10,4 +10,4 @@ ENV PYTHONUNBUFFERED 1
 
 RUN pip3 install poetry
 RUN poetry config virtualenvs.create false
-RUN poetry install
+RUN poetry install --with dev
