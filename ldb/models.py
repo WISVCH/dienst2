@@ -24,7 +24,7 @@ class Entity(models.Model):
 
     # Address
     street_name = models.CharField(_("street name"), max_length=75, blank=True)
-    house_number = models.CharField(_("house number"), max_length=7, blank=True)
+    house_number = models.CharField(_("house number"), max_length=10, blank=True)
     address_2 = models.CharField(_("address row 2"), max_length=75, blank=True)
     address_3 = models.CharField(_("address row 3"), max_length=75, blank=True)
     postcode = models.CharField(_("postcode"), max_length=10, blank=True)
