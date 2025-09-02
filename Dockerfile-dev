@@ -1,14 +1,25 @@
+FROM node AS node
+
+WORKDIR /src
+COPY . /src
+RUN yarn install --flat
+
 FROM python:3.11
 
-
-RUN export DEBIAN_FRONTEND="noninteractive" && \
-    curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
-    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
-    echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list && \
-    apt-get update && \
-    apt-get install -y --no-install-recommends nodejs yarn netcat-openbsd gettext
-
+RUN mkdir -p /srv
 WORKDIR /srv
+COPY . /srv
+COPY --from=node /src/dienst2/static/lib /srv/dienst2/static/lib
+RUN export DEBIAN_FRONTEND="noninteractive" && \
+    apt-get update && \
+    pip install poetry && \
+    apt-get autoremove -y && \
+    rm -rf /tmp/* /var/lib/apt/lists/*
+
+RUN poetry config virtualenvs.create false
+RUN poetry install --no-root
+RUN set -a && . ./dev.env && python manage.py collectstatic --noinput --no-post-process
+
 ENTRYPOINT ["/srv/docker-entrypoint-dev.sh"]
 CMD ["dev"]
 EXPOSE 8000
