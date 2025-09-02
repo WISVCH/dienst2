@@ -6,13 +6,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('ldb', '0024_remove_person_email_forward'),
+        ("ldb", "0024_remove_person_email_forward"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='entity',
-            name='house_number',
-            field=models.CharField(blank=True, max_length=10, verbose_name='house number'),
+            model_name="entity",
+            name="house_number",
+            field=models.CharField(
+                blank=True, max_length=10, verbose_name="house number"
+            ),
         ),
     ]
