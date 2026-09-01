@@ -11,13 +11,13 @@ RUN mkdir -p /srv
 WORKDIR /srv
 COPY . /srv
 COPY --from=node /src/dienst2/static/lib /srv/dienst2/static/lib
-RUN export DEBIAN_FRONTEND="noninteractive" && \
-    apt-get update && \
-    pip install "poetry==2.2.1" && \
-    apt-get autoremove -y && \
-    rm -rf /tmp/* /var/lib/apt/lists/*
+RUN pip install "poetry==2.2.1"
 
-RUN poetry config virtualenvs.create false
+# Keep project dependencies out of Poetry's own environment. /opt/venv is not
+# hidden by Docker Compose's /srv bind mount.
+RUN python -m venv /opt/venv
+ENV VIRTUAL_ENV=/opt/venv
+ENV PATH="/opt/venv/bin:${PATH}"
 RUN poetry install --no-root
 RUN set -a && . ./dev.env && python manage.py collectstatic --noinput --no-post-process
 
