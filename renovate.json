@@ -2,5 +2,20 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "local>WISVCH/renovate-config"
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)(Dockerfile|Dockerfile-dev)$/",
+        "/^\\.github/workflows/deploy\\.yml$/"
+      ],
+      "matchStrings": [
+        "pip install [\\\"']?poetry==(?<currentValue>[^\\s\\\"']+)"
+      ],
+      "depNameTemplate": "poetry",
+      "datasourceTemplate": "pypi",
+      "versioningTemplate": "pep440"
+    }
   ]
 }
