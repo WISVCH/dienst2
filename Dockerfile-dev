@@ -5,7 +5,7 @@ COPY . /src
 RUN corepack enable
 RUN yarn install --flat
 
-FROM python:3.11
+FROM python:3.14
 
 RUN mkdir -p /srv
 WORKDIR /srv

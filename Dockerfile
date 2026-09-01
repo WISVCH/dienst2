@@ -12,7 +12,7 @@ RUN --mount=type=cache,target=/usr/local/share/.cache/yarn \
     yarn install --frozen-lockfile --flat
 
 
-FROM python:3.11 AS dependencies
+FROM python:3.14 AS dependencies
 
 WORKDIR /srv
 
@@ -30,7 +30,7 @@ RUN --mount=type=cache,target=/root/.cache/pypoetry \
     poetry install --only main --no-root
 
 
-FROM python:3.11 AS runtime
+FROM python:3.14 AS runtime
 
 WORKDIR /srv
 
