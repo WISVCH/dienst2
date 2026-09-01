@@ -1,7 +1,8 @@
-FROM node AS node
+FROM node:22-bookworm AS node
 
 WORKDIR /src
 COPY . .
+RUN corepack enable
 RUN yarn install --flat
 
 FROM python:3.11
