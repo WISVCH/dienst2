@@ -13,7 +13,7 @@ COPY . /srv
 COPY --from=node /src/dienst2/static/lib /srv/dienst2/static/lib
 RUN export DEBIAN_FRONTEND="noninteractive" && \
     apt-get update && \
-    pip install poetry && \
+    pip install "poetry==2.2.1" && \
     apt-get autoremove -y && \
     rm -rf /tmp/* /var/lib/apt/lists/*
 
