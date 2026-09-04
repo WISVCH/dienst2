@@ -310,12 +310,18 @@ class Person(Entity):
         else:
             return today.year - born.year
 
+    def clean(self):
+        super().clean()
+        try:
+            validate_google_username(self.google_username, self)
+        except ValidationError as error:
+            raise ValidationError({"google_username": error}) from error
+
     def save(self, **kwargs):
         self._membership_status = self.membership_status
+        validate_google_username(self.google_username, self)
 
         super().save(**kwargs)
-
-        validate_google_username(self.google_username, self)
 
         if self.pk is not None:
             old = self._original_living_with_id
