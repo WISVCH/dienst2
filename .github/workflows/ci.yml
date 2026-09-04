@@ -21,6 +21,10 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v7
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.14"
       - name: Check formatting using pre-commit
         uses: pre-commit/action@v3.0.1
 
@@ -54,11 +58,11 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
-          python-version: "3.11"
+          python-version: "3.14"
       - name: Install Poetry
         run: python -m pip install poetry==2.2.1
       - name: Install dependencies
-        run: poetry install
+        run: poetry install --with dev
       - name: Check Django configuration
         run: poetry run python manage.py check
       - name: Check migrations

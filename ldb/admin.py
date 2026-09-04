@@ -92,7 +92,7 @@ class PersonAdminForm(forms.ModelForm):
 
 
 class PersonResource(resources.ModelResource):
-    def before_import(self, dataset, using_transactions, dry_run, **kwargs):
+    def before_import(self, dataset, **kwargs):
         if "id" not in dataset.headers:
             dataset.lpush_col([None for row in range(len(dataset))], header="id")
 
@@ -133,7 +133,7 @@ class PersonResource(resources.ModelResource):
         else:
             return self.init_instance(row), True
 
-    def import_obj(self, obj, data, dry_run, **kwargs):
+    def import_instance(self, instance, row, **kwargs):
         """
         Traverses every field in this Resource and calls
         :meth:`~import_export.resources.Resource.import_field`. If
@@ -150,19 +150,19 @@ class PersonResource(resources.ModelResource):
             if isinstance(field.widget, widgets.ManyToManyWidget):
                 continue
             try:
-                self.import_field(field, obj, data)
+                self.import_field(field, instance, row, **kwargs)
             except ValueError as e:
                 errors[field.attribute] = ValidationError(force_str(e), code="invalid")
 
         # Student validation
-        obj.student.first_year = data["student__first_year"]
-        obj.student.study = str(data["student__study"])
-        obj.student.student_number = str(data["student__student_number"])
-        obj.student.emergency_phone = str(data["student__emergency_phone"])
-        obj.student.emergency_name = str(data["student__emergency_name"])
+        instance.student.first_year = row["student__first_year"]
+        instance.student.study = str(row["student__study"])
+        instance.student.student_number = str(row["student__student_number"])
+        instance.student.emergency_phone = str(row["student__emergency_phone"])
+        instance.student.emergency_name = str(row["student__emergency_name"])
 
         try:
-            obj.student.full_clean(exclude="person")
+            instance.student.full_clean(exclude="person")
         except ValidationError as e:
             for key, value in e:
                 if key != "person":
@@ -171,11 +171,11 @@ class PersonResource(resources.ModelResource):
                     )
 
         # Member validation
-        obj.member.amount_paid = data["member__amount_paid"]
-        obj.member.date_from = datetime.datetime.today()
+        instance.member.amount_paid = row["member__amount_paid"]
+        instance.member.date_from = datetime.datetime.today()
 
         try:
-            obj.member.full_clean(exclude="person")
+            instance.member.full_clean(exclude="person")
         except ValidationError as e:
             for key, value in e:
                 if key != "person":
@@ -186,7 +186,7 @@ class PersonResource(resources.ModelResource):
         if errors:
             raise ValidationError(errors)
 
-    def after_save_instance(self, instance, using_transactions, dry_run):
+    def after_save_instance(self, instance, row, **kwargs):
         # Saving student
         instance.student.person_id = instance.id
         instance.student.save()
@@ -232,7 +232,7 @@ class PersonResource(resources.ModelResource):
 class PersonAdmin(ImportExportVersionModelAdmin):
     list_display = ("__str__", "_membership_status")
 
-    resource_class = PersonResource
+    resource_classes = [PersonResource]
 
     form = PersonAdminForm
     fieldsets = [

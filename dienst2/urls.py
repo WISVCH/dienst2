@@ -3,6 +3,7 @@ from django.contrib import admin
 from django.urls import include, path
 from django.views.defaults import page_not_found, server_error
 from django.views.generic.base import TemplateView
+from health_check.views import HealthCheckView
 
 from dienst2 import settings
 from dienst2.views import DashboardView
@@ -23,7 +24,11 @@ urlpatterns = [
     # Post URLs
     path("post/", include("post.urls")),
     # Health check
-    path("healthz", include("health_check.urls")),
+    path(
+        "healthz",
+        HealthCheckView.as_view(checks=["health_check.Database", "health_check.Cache"]),
+        name="health_check",
+    ),
 ]
 
 if settings.DEBUG:

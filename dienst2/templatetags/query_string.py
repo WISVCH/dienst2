@@ -130,7 +130,7 @@ class QueryStringNode(Node):
                             qdict.appendlist(k, str(e))
                     else:
                         qdict.appendlist(k, str(v))
-            except (ValueError, TypeError):
+            except ValueError, TypeError:
                 # Wrong data structure, qdict remains empty.
                 pass
         return qdict

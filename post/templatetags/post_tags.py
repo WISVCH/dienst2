@@ -17,7 +17,7 @@ def group_by_description(context, items):
         for format in formats.get_format("DATE_INPUT_FORMATS"):
             try:
                 date = datetime.datetime.strptime(force_str(value), format).date()
-            except (ValueError, TypeError):
+            except ValueError, TypeError:
                 continue
         if date is not None:
             items = items.filter(date__gte=date)
