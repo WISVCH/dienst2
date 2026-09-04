@@ -1,9 +1,12 @@
 # syntax=docker/dockerfile:1
 
-FROM node:22-bookworm AS frontend
+FROM node:24-bookworm AS frontend
 
 WORKDIR /src
-RUN corepack enable
+# Node 24 still provides Corepack's Yarn shims; Node 25+ does not. Remove the
+# shims so the same explicitly pinned Yarn installation works on both.
+RUN rm -f /usr/local/bin/yarn /usr/local/bin/yarnpkg \
+ && npm install --global yarn@1.22.22
 
 # Install frontend dependencies before application code so this layer is reused
 # unless the dependency manifest changes.
