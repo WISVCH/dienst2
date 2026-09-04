@@ -118,7 +118,6 @@ MIDDLEWARE = (
     "django.contrib.messages.middleware.MessageMiddleware",
     "dienst2.middleware.RequireLoginMiddleware",
     "reversion.middleware.RevisionMiddleware",
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
 )
 
 ROOT_URLCONF = "dienst2.urls"
@@ -147,11 +146,14 @@ INSTALLED_APPS = (
     "health_check",
     "health_check.db",
     "health_check.cache",
-    "debug_toolbar",
     "bootstrap3",
     "ldb",
     "post",
 )
+
+if DEBUG:
+    INSTALLED_APPS += ("debug_toolbar",)
+    MIDDLEWARE += ("debug_toolbar.middleware.DebugToolbarMiddleware",)
 
 GOOGLE_IAP_AUDIENCE = env("GOOGLE_IAP_AUDIENCE")
 IAP_ACCESS_GROUP = env("IAP_ACCESS_GROUP", default="staff")

@@ -21,7 +21,7 @@ RUN pip install "poetry==2.2.1"
 RUN python -m venv /opt/venv
 ENV VIRTUAL_ENV=/opt/venv
 ENV PATH="/opt/venv/bin:${PATH}"
-RUN poetry install --no-root
+RUN poetry install --with dev --no-root
 RUN set -a && . ./dev.env && python manage.py collectstatic --noinput --no-post-process
 
 ENTRYPOINT ["/srv/docker-entrypoint-dev.sh"]
