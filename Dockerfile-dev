@@ -14,7 +14,7 @@ RUN mkdir -p /srv
 WORKDIR /srv
 COPY . /srv
 COPY --from=node /src/dienst2/static/lib /srv/dienst2/static/lib
-RUN pip install "poetry==2.2.1"
+RUN pip install "poetry==2.4.2"
 
 # Keep project dependencies out of Poetry's own environment. /opt/venv is not
 # hidden by Docker Compose's /srv bind mount.
