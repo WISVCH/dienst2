@@ -37,11 +37,9 @@ django-filter = "^26.1"
 django-health-check = "^4.5.1"
 django-bootstrap3 = "^26.2"
 google-api-python-client = "^2.200.0"
-google-auth-oauthlib = "^1.0.0"
 drf-writable-nested = "^0.7.0"
 psycopg = {extras = ["binary"], version = "^3.3.5"}
-google-auth = "^2.22.0"
-python-jose = {extras = ["cryptography"], version = "^3.3.0"}
+google-auth = "^2.57.1"
 gunicorn = "^23.0.0"
 
 [tool.poetry.group.dev]
