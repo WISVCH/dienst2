@@ -144,8 +144,6 @@ INSTALLED_APPS = (
     "django.contrib.admin",
     "django.contrib.admindocs",
     "health_check",
-    "health_check.db",
-    "health_check.cache",
     "bootstrap3",
     "ldb",
     "post",

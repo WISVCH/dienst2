@@ -471,22 +471,28 @@ drf = ["djangorestframework"]
 
 [[package]]
 name = "django-health-check"
-version = "3.18.3"
-description = "Run checks on services like databases, queue servers, celery processes, etc."
+version = "4.5.1"
+description = "Monitor the health of your Django app and its connected services."
 optional = false
-python-versions = ">=3.8"
+python-versions = ">=3.10"
 groups = ["main"]
 files = [
-    {file = "django_health_check-3.18.3-py2.py3-none-any.whl", hash = "sha256:f5f58762b80bdf7b12fad724761993d6e83540f97e2c95c42978f187e452fa07"},
-    {file = "django_health_check-3.18.3.tar.gz", hash = "sha256:18b75daca4551c69a43f804f9e41e23f5f5fb9efd06cf6a313b3d5031bb87bd0"},
+    {file = "django_health_check-4.5.1-py3-none-any.whl", hash = "sha256:82a6329c0f1589143bd0767e16b7ceae6cadd0889c42f25d4ea63b5289cb1390"},
+    {file = "django_health_check-4.5.1.tar.gz", hash = "sha256:759c0bdad4c135d5e4cb43b0b98612e8d1cbd81c3ed1ce6698298ff0740bac44"},
 ]
 
 [package.dependencies]
-django = ">=2.2"
+Django = ">=5.2"
+dnspython = ">=2.0.0"
 
 [package.extras]
-docs = ["sphinx"]
-test = ["boto3", "celery", "django-storages", "pytest", "pytest-cov", "pytest-django", "redis"]
+atlassian = ["httpx (>=0.27.0)"]
+celery = ["celery (>=5.0.0)"]
+kafka = ["confluent-kafka (>=2.0.0)"]
+psutil = ["psutil (>=7.2.0)"]
+rabbitmq = ["aio-pika (>=9.0.0)"]
+redis = ["redis (>=4.2.0)"]
+rss = ["feedparser (>=6.0.0)", "httpx (>=0.27.0)"]
 
 [[package]]
 name = "django-import-export"
@@ -586,6 +592,27 @@ files = [
 
 [package.dependencies]
 django = ">=5.2"
+
+[[package]]
+name = "dnspython"
+version = "2.8.0"
+description = "DNS toolkit"
+optional = false
+python-versions = ">=3.10"
+groups = ["main"]
+files = [
+    {file = "dnspython-2.8.0-py3-none-any.whl", hash = "sha256:01d9bbc4a2d76bf0db7c1f729812ded6d912bd318d3b1cf81d30c0f845dbf3af"},
+    {file = "dnspython-2.8.0.tar.gz", hash = "sha256:181d3c6996452cb1189c4046c61599b84a5a86e099562ffde77d26984ff26d0f"},
+]
+
+[package.extras]
+dev = ["black (>=25.1.0)", "coverage (>=7.0)", "flake8 (>=7)", "hypercorn (>=0.17.0)", "mypy (>=1.17)", "pylint (>=3)", "pytest (>=8.4)", "pytest-cov (>=6.2.0)", "quart-trio (>=0.12.0)", "sphinx (>=8.2.0)", "sphinx-rtd-theme (>=3.0.0)", "twine (>=6.1.0)", "wheel (>=0.45.0)"]
+dnssec = ["cryptography (>=45)"]
+doh = ["h2 (>=4.2.0)", "httpcore (>=1.0.0)", "httpx (>=0.28.0)"]
+doq = ["aioquic (>=1.2.0)"]
+idna = ["idna (>=3.10)"]
+trio = ["trio (>=0.30)"]
+wmi = ["wmi (>=1.5.1) ; platform_system == \"Windows\""]
 
 [[package]]
 name = "drf-writable-nested"
@@ -1771,4 +1798,4 @@ files = [
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.14"
-content-hash = "2a0ad3d3b918689ad2b99367cd46beec55dee624826b6fc341303cc214e21664"
+content-hash = "a04e75638c65c7dacd0ec189910a455c08e8c79270b0cbba36180b853cd3d8c5"
