@@ -59,5 +59,5 @@ RUN set -a && . ./ci.env && set +a \
 USER dienst2
 
 ENTRYPOINT ["/srv/docker-entrypoint.sh"]
-CMD ["gunicorn"]
+CMD ["gunicorn", "--no-control-socket"]
 EXPOSE 8000
