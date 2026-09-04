@@ -405,18 +405,18 @@ bcrypt = ["bcrypt"]
 
 [[package]]
 name = "django-bootstrap3"
-version = "23.6"
+version = "26.2"
 description = "Bootstrap 3 for Django"
 optional = false
-python-versions = ">=3.8"
+python-versions = ">=3.10"
 groups = ["main"]
 files = [
-    {file = "django-bootstrap3-23.6.tar.gz", hash = "sha256:f8563b2641bcad3a8626beda979ff697c8375002cbf906fbd49f4be97b0f8a54"},
-    {file = "django_bootstrap3-23.6-py3-none-any.whl", hash = "sha256:ba1334104c390ca9dc5b985a8d8ec45fab2c6401e4abb8d3a47d3b225614c3d9"},
+    {file = "django_bootstrap3-26.2-py3-none-any.whl", hash = "sha256:7b86df95f2c10d2d94f0e1d327b7b32c4f3a4022d20804180f396e165f9aab4e"},
+    {file = "django_bootstrap3-26.2.tar.gz", hash = "sha256:e9be75b7bbf63c14a4c5955cf77546eb1d36eb80c135943ae094aa4d5b2f7d4e"},
 ]
 
 [package.dependencies]
-Django = ">=3.2"
+django = ">=5.2"
 
 [[package]]
 name = "django-debug-toolbar"
@@ -1771,4 +1771,4 @@ files = [
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.14"
-content-hash = "1c1437858b9511f21fa10eb4a9b8a430f634fe2d23a2335cf605e4bc34f2ccf8"
+content-hash = "b36e90d7deac297d412da2ed2064a31c30918353ddfb2f8b32cb16c0d3951306"
