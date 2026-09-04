@@ -32,7 +32,7 @@ class AVFilterSet(django_filters.FilterSet):
         for format in formats.get_format("DATE_INPUT_FORMATS"):
             try:
                 date = self.strptime(value, format)
-            except (ValueError, TypeError):
+            except ValueError, TypeError:
                 continue
 
         if date is None:

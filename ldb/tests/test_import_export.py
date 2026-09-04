@@ -25,7 +25,9 @@ class PersonResourceTestCase(LDBHelperMixin, TestCase):
             },
         )
         resource = PersonResource()
-        exported_dataset = resource.export(person.__class__.objects.filter(pk=person.pk))
+        exported_dataset = resource.export(
+            person.__class__.objects.filter(pk=person.pk)
+        )
         row = list(exported_dataset[0])
 
         row[exported_dataset.headers.index("email")] = "new@example.org"
@@ -58,7 +60,9 @@ class PersonResourceTestCase(LDBHelperMixin, TestCase):
             },
         )
         resource = PersonResource()
-        exported_dataset = resource.export(person.__class__.objects.filter(pk=person.pk))
+        exported_dataset = resource.export(
+            person.__class__.objects.filter(pk=person.pk)
+        )
         row = list(exported_dataset[0])
 
         row[exported_dataset.headers.index("id")] = 999999
@@ -71,4 +75,6 @@ class PersonResourceTestCase(LDBHelperMixin, TestCase):
         result = resource.import_data(dataset, dry_run=False)
 
         self.assertTrue(result.has_validation_errors())
-        self.assertFalse(person.__class__.objects.filter(netid="invalid-person").exists())
+        self.assertFalse(
+            person.__class__.objects.filter(netid="invalid-person").exists()
+        )
