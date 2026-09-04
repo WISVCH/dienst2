@@ -700,21 +700,21 @@ grpcio-gcp = ["grpcio-gcp (>=0.2.2,<1.0.dev0)"]
 
 [[package]]
 name = "google-api-python-client"
-version = "2.161.0"
+version = "2.200.0"
 description = "Google API Client Library for Python"
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.10"
 groups = ["main"]
 files = [
-    {file = "google_api_python_client-2.161.0-py2.py3-none-any.whl", hash = "sha256:9476a5a4f200bae368140453df40f9cda36be53fa7d0e9a9aac4cdb859a26448"},
-    {file = "google_api_python_client-2.161.0.tar.gz", hash = "sha256:324c0cce73e9ea0a0d2afd5937e01b7c2d6a4d7e2579cdb6c384f9699d6c9f37"},
+    {file = "google_api_python_client-2.200.0-py3-none-any.whl", hash = "sha256:c0c2c4072a110b7fcc30ac151744d4410cddaba99c53cb4e815463308952b638"},
+    {file = "google_api_python_client-2.200.0.tar.gz", hash = "sha256:82aa18b851328ea04867fd51c5a0c8da2e1b86ec45ce08487e902e7726d4ee50"},
 ]
 
 [package.dependencies]
-google-api-core = ">=1.31.5,<2.0.dev0 || >2.3.0,<3.0.0.dev0"
-google-auth = ">=1.32.0,<2.24.0 || >2.24.0,<2.25.0 || >2.25.0,<3.0.0.dev0"
+google-api-core = ">=1.31.5,<2.0.dev0 || >2.3.0,<3.0.0"
+google-auth = ">=1.32.0,<2.24.0 || >2.24.0,<2.25.0 || >2.25.0,<3.0.0"
 google-auth-httplib2 = ">=0.2.0,<1.0.0"
-httplib2 = ">=0.19.0,<1.dev0"
+httplib2 = ">=0.19.0,<1.0.0"
 uritemplate = ">=3.0.1,<5"
 
 [[package]]
@@ -1798,4 +1798,4 @@ files = [
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.14"
-content-hash = "a04e75638c65c7dacd0ec189910a455c08e8c79270b0cbba36180b853cd3d8c5"
+content-hash = "de6f0031fe3072aad0efa3aa3e705f4a4da41bfc13b623be0c656973f66857ad"
