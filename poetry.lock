@@ -515,14 +515,14 @@ yaml = ["tablib[yaml]"]
 
 [[package]]
 name = "django-reversion"
-version = "5.1.0"
+version = "6.3.0"
 description = "An extension to the Django web framework that provides version control for model instances."
 optional = false
-python-versions = ">=3.8"
+python-versions = ">=3.9"
 groups = ["main"]
 files = [
-    {file = "django_reversion-5.1.0-py3-none-any.whl", hash = "sha256:084d4f117d9e2b4e8dfdfaad83ebb34410a03eed6071c96089e6811fdea82ad3"},
-    {file = "django_reversion-5.1.0.tar.gz", hash = "sha256:3309821e5b6fceedcce6b6975f1a9c7fab6ae7c7d0e1276a90e345946fa0dcb8"},
+    {file = "django_reversion-6.3.0-py3-none-any.whl", hash = "sha256:6abf59fc70e0d5efd68e03d478c20b994ca72d4ec89e8fed99533e6b87acc8d1"},
+    {file = "django_reversion-6.3.0.tar.gz", hash = "sha256:0aa54eb334694f522fd234743978c614d45aa785edc70a6177267cdaaf06f967"},
 ]
 
 [package.dependencies]
@@ -530,26 +530,21 @@ django = ">=4.2"
 
 [[package]]
 name = "django-reversion-compare"
-version = "0.16.2"
+version = "0.20.0"
 description = "Add compare view to django-reversion for comparing two versions of a reversion model."
 optional = false
-python-versions = "<4,>=3.9"
+python-versions = ">=3.12"
 groups = ["main"]
 files = [
-    {file = "django-reversion-compare-0.16.2.tar.gz", hash = "sha256:9d7d096534f5d0e49d7419a8a29b4517580e6a7855529e594d10bfb373f980ab"},
-    {file = "django_reversion_compare-0.16.2-py3-none-any.whl", hash = "sha256:5629f226fc73bd7b95de47b2e21e2eba2fa39f004ba0fee6d460e96676c0dc9b"},
+    {file = "django_reversion_compare-0.20.0-py3-none-any.whl", hash = "sha256:61fed25809472dcbbd784e691b92982fd2a06ee6527e2cbc88304c38a7cc1585"},
+    {file = "django_reversion_compare-0.20.0.tar.gz", hash = "sha256:5a5500d0de8bc1daf4276d5959e49f1a432f84099f30e7935fe336ddd0b5704d"},
 ]
 
 [package.dependencies]
 diff-match-patch = "*"
 django = "*"
 django-reversion = "*"
-
-[package.extras]
-dev = ["EditorConfig", "autopep8", "bx-django-utils", "codespell", "colorlog", "coverage", "darker[color,flynt,isort]", "django-countries", "django-debug-toolbar", "django-override-storage", "flake8", "gunicorn", "manage-django-project (>=0.4.0)", "model-bakery", "mypy", "pip-tools", "pyflakes", "pyupgrade", "requests-mock", "safety", "tblib", "tomli", "tox", "twine", "typing-extensions (>=3.10)"]
-django32 = ["django (>=3.2,<3.3)"]
-django41 = ["django (>=4.1,<4.2)"]
-django42 = ["django (>=4.2,<4.3)"]
+rich = "*"
 
 [[package]]
 name = "django-upgrade"
@@ -812,6 +807,30 @@ files = [
 ]
 
 [[package]]
+name = "markdown-it-py"
+version = "4.2.0"
+description = "Python port of markdown-it. Markdown parsing, done right!"
+optional = false
+python-versions = ">=3.10"
+groups = ["main"]
+files = [
+    {file = "markdown_it_py-4.2.0-py3-none-any.whl", hash = "sha256:9f7ebbcd14fe59494226453aed97c1070d83f8d24b6fc3a3bcf9a38092641c4a"},
+    {file = "markdown_it_py-4.2.0.tar.gz", hash = "sha256:04a21681d6fbb623de53f6f364d352309d4094dd4194040a10fd51833e418d49"},
+]
+
+[package.dependencies]
+mdurl = ">=0.1,<1.0"
+
+[package.extras]
+benchmarking = ["psutil", "pytest", "pytest-benchmark"]
+compare = ["commonmark (>=0.9,<1.0)", "markdown (>=3.4,<4.0)", "markdown-it-pyrs", "mistletoe (>=1.0,<2.0)", "mistune (>=3.0,<4.0)", "panflute (>=2.3,<3.0)"]
+linkify = ["linkify-it-py (>=1,<3)"]
+plugins = ["mdit-py-plugins (>=0.5.0)"]
+profiling = ["gprof2dot"]
+rtd = ["ipykernel", "jupyter_sphinx", "mdit-py-plugins (>=0.5.0)", "myst-parser", "pyyaml", "sphinx", "sphinx-book-theme (>=1.0,<2.0)", "sphinx-copybutton", "sphinx-design"]
+testing = ["coverage", "pytest", "pytest-cov", "pytest-regressions", "pytest-timeout", "requests"]
+
+[[package]]
 name = "mccabe"
 version = "0.7.0"
 description = "McCabe checker, plugin for flake8"
@@ -821,6 +840,18 @@ groups = ["dev"]
 files = [
     {file = "mccabe-0.7.0-py2.py3-none-any.whl", hash = "sha256:6c2d30ab6be0e4a46919781807b4f0d834ebdd6c6e3dca0bda5a15f863427b6e"},
     {file = "mccabe-0.7.0.tar.gz", hash = "sha256:348e0240c33b60bbdf4e523192ef919f28cb2c3d7d5c7794f74009290f236325"},
+]
+
+[[package]]
+name = "mdurl"
+version = "0.1.2"
+description = "Markdown URL utilities"
+optional = false
+python-versions = ">=3.7"
+groups = ["main"]
+files = [
+    {file = "mdurl-0.1.2-py3-none-any.whl", hash = "sha256:84008a41e51615a49fc9966191ff91509e3c40b939176e643fd50a5c2196b8f8"},
+    {file = "mdurl-0.1.2.tar.gz", hash = "sha256:bb413d29f5eea38f31dd4754dd7377d4465116fb207585f97bf925588687c1ba"},
 ]
 
 [[package]]
@@ -1284,7 +1315,7 @@ version = "2.21.0"
 description = "Pygments is a syntax highlighting package written in Python."
 optional = false
 python-versions = ">=3.9"
-groups = ["dev"]
+groups = ["main", "dev"]
 files = [
     {file = "pygments-2.21.0-py3-none-any.whl", hash = "sha256:2363c69b61c4a97c838da3b130dcd6468f4848992b21a82f2a63ec34377137d9"},
     {file = "pygments-2.21.0.tar.gz", hash = "sha256:610ca751c9bc2492b38eb9a38a7fbc93edbbb2d7182edaf34e66ae493dee5c8c"},
@@ -1501,6 +1532,25 @@ socks = ["PySocks (>=1.5.6,!=1.5.7)"]
 use-chardet-on-py3 = ["chardet (>=3.0.2,<6)"]
 
 [[package]]
+name = "rich"
+version = "15.0.0"
+description = "Render rich text, tables, progress bars, syntax highlighting, markdown and more to the terminal"
+optional = false
+python-versions = ">=3.9.0"
+groups = ["main"]
+files = [
+    {file = "rich-15.0.0-py3-none-any.whl", hash = "sha256:33bd4ef74232fb73fe9279a257718407f169c09b78a87ad3d296f548e27de0bb"},
+    {file = "rich-15.0.0.tar.gz", hash = "sha256:edd07a4824c6b40189fb7ac9bc4c52536e9780fbbfbddf6f1e2502c31b068c36"},
+]
+
+[package.dependencies]
+markdown-it-py = ">=2.2.0"
+pygments = ">=2.13.0,<3.0.0"
+
+[package.extras]
+jupyter = ["ipywidgets (>=7.5.1,<9)"]
+
+[[package]]
 name = "six"
 version = "1.17.0"
 description = "Python 2 and 3 compatibility utilities"
@@ -1675,4 +1725,4 @@ files = [
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.14"
-content-hash = "444c00b5b482038cc067be5ad3c0af16abf0c7b798eb982320c5103cb8a31911"
+content-hash = "cba448c0574fa5573a175588717139ec60ee6c1e0e6c7155d11c943b10d121c6"
