@@ -59,3 +59,44 @@ class ApiV3TestCase(LDBHelperMixin, APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data["results"]), 0)
+
+    def test_person_update(self):
+        self.login_with_token()
+        person = self.create_person(initials="J.", firstname="Jane", surname="Doe")
+
+        response = self.client.patch(
+            reverse("person-detail", args=[person.pk]),
+            {
+                "initials": person.initials,
+                "firstname": person.firstname,
+                "surname": person.surname,
+                "pronouns": "they/them",
+                "email": "jane.doe@example.com",
+                "phone_mobile": "+31612345678",
+                "street_name": "Mekelweg",
+                "house_number": "4",
+                "postcode": "2628 CD",
+                "city": "Delft",
+                "country": "NL",
+                "machazine": False,
+                "mail_announcements": False,
+                "mail_company": True,
+                "mail_education": True,
+                "revision_comment": "Updated by Jane Doe via the website.",
+            },
+            format="multipart",
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data["email"], "jane.doe@example.com")
+        self.assertEqual(response.data["phone_mobile"], "+31612345678")
+        self.assertEqual(response.data["city"], "Delft")
+        self.assertFalse(response.data["machazine"])
+        self.assertFalse(response.data["mail_announcements"])
+        self.assertTrue(response.data["mail_company"])
+        self.assertTrue(response.data["mail_education"])
+
+        person.refresh_from_db()
+        self.assertEqual(person.pronouns, "they/them")
+        self.assertEqual(person.street_name, "Mekelweg")
+        self.assertEqual(person.country, "NL")
