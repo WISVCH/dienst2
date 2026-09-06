@@ -24,7 +24,7 @@ ENV POETRY_VIRTUALENVS_IN_PROJECT=true \
     POETRY_NO_ANSI=1
 
 RUN --mount=type=cache,target=/root/.cache/pip \
-    pip install "poetry==2.4.2"
+    pip install "poetry==2.4.3"
 
 # Install production dependencies before application code so this layer is
 # reused unless pyproject.toml or poetry.lock changes.
