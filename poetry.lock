@@ -578,14 +578,14 @@ drf = ["djangorestframework"]
 
 [[package]]
 name = "django-health-check"
-version = "4.6.1"
+version = "4.7.0"
 description = "Monitor the health of your Django app and its connected services."
 optional = false
 python-versions = ">=3.10"
 groups = ["main"]
 files = [
-    {file = "django_health_check-4.6.1-py3-none-any.whl", hash = "sha256:1e3641e7d09975052cc9c081d572660269d3becb4b690cdf1b5302aeda5e4302"},
-    {file = "django_health_check-4.6.1.tar.gz", hash = "sha256:53b17a142d52179561593493351f6b6c20343b23a669ac632e53bb7a4dcfca51"},
+    {file = "django_health_check-4.7.0-py3-none-any.whl", hash = "sha256:e1a1b8d777e623a8e1d451c48980e20427be22ab1d122440159f7ac959275769"},
+    {file = "django_health_check-4.7.0.tar.gz", hash = "sha256:ade252f15dcb14cd28f0566aa032fd5dd20ea3bda647eab6d50e4e670a98fe32"},
 ]
 
 [package.dependencies]
@@ -595,11 +595,13 @@ dnspython = ">=2.0.0"
 [package.extras]
 atlassian = ["httpx (>=0.27.0)"]
 celery = ["celery (>=5.0.0)"]
+crontask = ["django-crontask[redis] (>=2.0.0)", "redis (>=5.0.1)"]
 kafka = ["confluent-kafka (>=2.0.0)"]
 psutil = ["psutil (>=7.2.0)"]
 rabbitmq = ["aio-pika (>=9.0.0)"]
-redis = ["redis (>=4.2.0)"]
+redis = ["redis (>=5.0.1)"]
 rss = ["feedparser (>=6.0.0)", "httpx (>=0.27.0)"]
+threadmill = ["threadmill[redis] (>=0.7.3)"]
 
 [[package]]
 name = "django-import-export"
