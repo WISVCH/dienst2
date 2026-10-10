@@ -651,14 +651,14 @@ django = ">=4.2"
 
 [[package]]
 name = "django-reversion-compare"
-version = "0.20.0"
+version = "0.21.1"
 description = "Add compare view to django-reversion for comparing two versions of a reversion model."
 optional = false
 python-versions = ">=3.12"
 groups = ["main"]
 files = [
-    {file = "django_reversion_compare-0.20.0-py3-none-any.whl", hash = "sha256:61fed25809472dcbbd784e691b92982fd2a06ee6527e2cbc88304c38a7cc1585"},
-    {file = "django_reversion_compare-0.20.0.tar.gz", hash = "sha256:5a5500d0de8bc1daf4276d5959e49f1a432f84099f30e7935fe336ddd0b5704d"},
+    {file = "django_reversion_compare-0.21.1-py3-none-any.whl", hash = "sha256:de8a75f9df7ab7e0ded5ab27c1f23681961fd773a7f10ca8a8237b521bc69a32"},
+    {file = "django_reversion_compare-0.21.1.tar.gz", hash = "sha256:73974dd2122ff53ccb79c77095567c3b25138c64934aef0856aa8505b966f7a8"},
 ]
 
 [package.dependencies]
@@ -1897,4 +1897,4 @@ files = [
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.14"
-content-hash = "cba448c0574fa5573a175588717139ec60ee6c1e0e6c7155d11c943b10d121c6"
+content-hash = "f38a0ff24aa360c5b89b002a356f30d8d0e9b6db9fbda6f87643b1c9c38bbbdb"
