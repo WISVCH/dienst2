@@ -578,14 +578,14 @@ drf = ["djangorestframework"]
 
 [[package]]
 name = "django-health-check"
-version = "4.8.0"
+version = "4.10.0"
 description = "Monitor the health of your Django app and its connected services."
 optional = false
-python-versions = ">=3.10"
+python-versions = ">=3.14"
 groups = ["main"]
 files = [
-    {file = "django_health_check-4.8.0-py3-none-any.whl", hash = "sha256:d377aba46a029c8eac5ce6170cce5b67a8ecd70180b1212c9eb302f22691da7a"},
-    {file = "django_health_check-4.8.0.tar.gz", hash = "sha256:3f7e8fd0e85ebb2a62bdaf96bd0e990f93b4c6bbaca68778df79b2cf1810884b"},
+    {file = "django_health_check-4.10.0-py3-none-any.whl", hash = "sha256:2cd841b2cf9eab706b8146ed098afda1312c778895db008c7e9d68e0343a9966"},
+    {file = "django_health_check-4.10.0.tar.gz", hash = "sha256:ade209858e5fe4154e252ad5b37c1c57cf5e0752f2fb1366eaf47cdf995fefb1"},
 ]
 
 [package.dependencies]
