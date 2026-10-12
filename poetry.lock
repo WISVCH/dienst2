@@ -512,14 +512,14 @@ bcrypt = ["bcrypt"]
 
 [[package]]
 name = "django-bootstrap3"
-version = "26.2"
+version = "26.3"
 description = "Bootstrap 3 for Django"
 optional = false
-python-versions = ">=3.10"
+python-versions = ">=3.11"
 groups = ["main"]
 files = [
-    {file = "django_bootstrap3-26.2-py3-none-any.whl", hash = "sha256:7b86df95f2c10d2d94f0e1d327b7b32c4f3a4022d20804180f396e165f9aab4e"},
-    {file = "django_bootstrap3-26.2.tar.gz", hash = "sha256:e9be75b7bbf63c14a4c5955cf77546eb1d36eb80c135943ae094aa4d5b2f7d4e"},
+    {file = "django_bootstrap3-26.3-py3-none-any.whl", hash = "sha256:3420be4c2a13c0673b7153353684349d3229114f4379c2eb6c5358300d59405f"},
+    {file = "django_bootstrap3-26.3.tar.gz", hash = "sha256:9fdd8b4fa027c6f4d6d296cd2d9e8b429ebb6bd5cef654bbe9d29ad3e3f7394b"},
 ]
 
 [package.dependencies]
