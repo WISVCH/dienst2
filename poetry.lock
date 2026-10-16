@@ -636,14 +636,14 @@ yaml = ["tablib[yaml]"]
 
 [[package]]
 name = "django-reversion"
-version = "6.3.0"
+version = "6.4.0"
 description = "An extension to the Django web framework that provides version control for model instances."
 optional = false
 python-versions = ">=3.9"
 groups = ["main"]
 files = [
-    {file = "django_reversion-6.3.0-py3-none-any.whl", hash = "sha256:6abf59fc70e0d5efd68e03d478c20b994ca72d4ec89e8fed99533e6b87acc8d1"},
-    {file = "django_reversion-6.3.0.tar.gz", hash = "sha256:0aa54eb334694f522fd234743978c614d45aa785edc70a6177267cdaaf06f967"},
+    {file = "django_reversion-6.4.0-py3-none-any.whl", hash = "sha256:641a6630eedbdda7c6ebcc90881370ff6439bca1f12c8afe97af251fd7f67492"},
+    {file = "django_reversion-6.4.0.tar.gz", hash = "sha256:fce089d8bab8d64b4ec41e9db758ce552ba06a008e42a1c9e4eb2f5faaa01cbc"},
 ]
 
 [package.dependencies]
