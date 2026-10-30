@@ -1,4 +1,4 @@
-FROM node:24-bookworm AS node
+FROM node:26-bookworm AS node
 
 WORKDIR /src
 # Node 24 still provides Corepack's Yarn shims; Node 25+ does not. Remove the
