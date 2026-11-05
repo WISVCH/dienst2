@@ -28,5 +28,6 @@ select2@^4.1.0:
   integrity sha512-i9KalWOP4/LRRGc8+rj2krNm0ZqP14cV+j1TRCEBSsOhCPkKH8rYZ2MCRXcgvqIqN+llqGci0hj9aVkCMvL0+g==
 
 themestrap@WISVCH/bootstrap-theme#gh-pages:
-  version "0.3.0"
-  resolved "https://codeload.github.com/WISVCH/bootstrap-theme/tar.gz/21cc92a37f3efeae03c2e4464260d61033c0deb1"
+  version "0.3.1"
+  uid be257732ba90d1ef32e025dd4fc3d75d5386e7cb
+  resolved "https://codeload.github.com/WISVCH/bootstrap-theme/tar.gz/be257732ba90d1ef32e025dd4fc3d75d5386e7cb"
