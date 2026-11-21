@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM node:24-bookworm AS frontend
+FROM node:26-bookworm@sha256:b7087bc4d973034b30854b378ba107f9fab622b47514cb7e2592e41b8bab8d49 AS frontend
 
 WORKDIR /src
 # Node 24 still provides Corepack's Yarn shims; Node 25+ does not. Remove the
