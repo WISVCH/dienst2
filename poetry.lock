@@ -805,14 +805,14 @@ uritemplate = ">=3.0.1,<5"
 
 [[package]]
 name = "google-auth"
-version = "2.63.0"
+version = "2.63.1"
 description = "Google Authentication Library"
 optional = false
 python-versions = ">=3.10"
 groups = ["main"]
 files = [
-    {file = "google_auth-2.63.0-py3-none-any.whl", hash = "sha256:cbc065325f67511946d1a66672e4f47e71ed162ef1abd2bb8404ceec407c86ba"},
-    {file = "google_auth-2.63.0.tar.gz", hash = "sha256:f198b99dd49e81f96f54abce2c03d4dd28fb7e3c77702eb6ae1c5bf25435054c"},
+    {file = "google_auth-2.63.1-py3-none-any.whl", hash = "sha256:3c977ca57114a302c2589f3a24be7ca1b6862d30da7619f4230a78809f58a0e9"},
+    {file = "google_auth-2.63.1.tar.gz", hash = "sha256:f69f387dba9abe536fec87483a749485f2ef0c81bfa79f609d9873e57054a1a5"},
 ]
 
 [package.dependencies]
