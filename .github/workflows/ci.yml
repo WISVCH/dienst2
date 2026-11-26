@@ -39,7 +39,7 @@ jobs:
       GOOGLE_IAP_AUDIENCE: /projects/966138216790/apps/wisvch
     services:
       postgres:
-        image: postgres:15.20
+        image: postgres:15.20@sha256:868b5ee219026c0f34c99d696d4494ccb3705cf1a18bed1e0b9de64d9c011ccd
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres

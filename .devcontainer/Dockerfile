@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/devcontainers/python:3-3.11
+FROM mcr.microsoft.com/devcontainers/python:3-3.11@sha256:cbd8462c5f978ee054c1ef2f3493033c2efbe56c7b51a7ed32439d76b19b3636
 
 COPY pyproject.toml /
 ENV PYTHONPATH=${PYTHONPATH}:${PWD}

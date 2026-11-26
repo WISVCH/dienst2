@@ -22,7 +22,7 @@ services:
     env_file: ../dev.env
 
   postgres:
-    image: postgres:15.20
+    image: postgres:15.20@sha256:868b5ee219026c0f34c99d696d4494ccb3705cf1a18bed1e0b9de64d9c011ccd
     restart: unless-stopped
     volumes:
       - postgres-data:/var/lib/postgresql/data
