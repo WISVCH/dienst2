@@ -1,6 +1,6 @@
-# syntax=docker/dockerfile:1
+# syntax=docker/dockerfile:1@sha256:572cebbc2b15e6f84c077742952674889cb63cd5e9b80abdffcbe587b6f19183
 
-FROM node:24-bookworm AS frontend
+FROM node:24-bookworm@sha256:49f7adaf9f1574bc45c20ea317139b39a59d7e758d0e93745e112fd85cb42623 AS frontend
 
 WORKDIR /src
 # Node 24 still provides Corepack's Yarn shims; Node 25+ does not. Remove the
@@ -15,7 +15,7 @@ RUN --mount=type=cache,target=/usr/local/share/.cache/yarn \
     yarn install --frozen-lockfile --flat
 
 
-FROM python:3.15 AS dependencies
+FROM python:3.15@sha256:e4bc83a3314d078d651f06c8440e9a03ba892ee2f6577437f174abd8731fb343 AS dependencies
 
 WORKDIR /srv
 
@@ -33,7 +33,7 @@ RUN --mount=type=cache,target=/root/.cache/pypoetry \
     poetry install --only main --no-root
 
 
-FROM python:3.15 AS runtime
+FROM python:3.15@sha256:e4bc83a3314d078d651f06c8440e9a03ba892ee2f6577437f174abd8731fb343 AS runtime
 
 WORKDIR /srv
 

@@ -1,4 +1,4 @@
-FROM node:24-bookworm AS node
+FROM node:24-bookworm@sha256:49f7adaf9f1574bc45c20ea317139b39a59d7e758d0e93745e112fd85cb42623 AS node
 
 WORKDIR /src
 # Node 24 still provides Corepack's Yarn shims; Node 25+ does not. Remove the
@@ -8,7 +8,7 @@ RUN rm -f /usr/local/bin/yarn /usr/local/bin/yarnpkg \
 COPY . /src
 RUN yarn install --frozen-lockfile --flat
 
-FROM python:3.15
+FROM python:3.15@sha256:e4bc83a3314d078d651f06c8440e9a03ba892ee2f6577437f174abd8731fb343
 
 RUN mkdir -p /srv
 WORKDIR /srv
